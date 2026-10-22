@@ -591,13 +591,28 @@ function currentBBox() {
   return THAILAND;
 }
 
-function fitBBox(bbox, {instant = false} = {}) {
+/** Outline vertices of the open district or unit (thinned to ≤ 400), so a pitched fit frames the shape, not its bounding box. */
+function currentOutline() {
+  const m = M(), lvl = level();
+  if (lvl !== 'district' && lvl !== 'unit') return null;
+  const g = province() ? provinceGeoNow(province().code) : null;
+  const f = !g ? null : lvl === 'unit' ? g.units.get(m.units[state.sel.unit].key) : g.districts.get(m.districts[state.sel.district].code);
+  if (!f?.geometry) return null;
+  const pts = [];
+  const walk = v => { if (typeof v[0] === 'number') pts.push([v[0], v[1]]); else v.forEach(walk); };
+  walk(f.geometry.coordinates);
+  const step = Math.max(1, Math.ceil(pts.length / 400));
+  return pts.filter((_, i) => i % step === 0);
+}
+
+function fitBBox(bbox, {instant = false, points = null} = {}) {
   if (!state.loaded || !bbox) return;
   const wide = bbox[2] - bbox[0] > 0.3 || bbox[3] - bbox[1] > 0.3;
   const preset = wide || mobilePortrait() ? 'plan' : cameraPreset();
   const pitched = preset !== 'plan';
   const b = new maplibregl.LngLatBounds([bbox[0], bbox[1]], [bbox[2], bbox[3]]);
-  fitPitched(state.map, b, {preset, padding: pitched ? pitchedPadding() : cameraPadding(), maxZoom: 16, minZoom: 4, animate: animate() && !instant, shift: mobilePortrait() ? -0.08 : null});
+  fitPitched(state.map, b, {preset, padding: pitched ? pitchedPadding() : cameraPadding(), maxZoom: 16, minZoom: 4, animate: animate() && !instant,
+    shift: mobilePortrait() ? -0.08 : null, points: pitched && points?.length ? points : null});
 }
 
 function fitCurrent({instant = false} = {}) {
@@ -612,7 +627,7 @@ function fitCurrent({instant = false} = {}) {
     return;
   }
   if (level() === 'unit' && !provinceGeoNow(province().code)) state.pendingFit = true;
-  fitBBox(currentBBox(), {instant});
+  fitBBox(currentBBox(), {instant, points: currentOutline()});
 }
 
 /** Area features for the three choropleth layers at the current selection. */

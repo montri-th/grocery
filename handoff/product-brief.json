@@ -482,7 +482,7 @@
     },
     "fitting": {
       "function": "fitPitched(map, bounds, {preset, padding, maxZoom 16, minZoom 4, shift})",
-      "areas": "app.js#fitBBox on the bbox of the current area (unit bbox from its geometry file, else the district's); waits for the province geometry before fitting a unit",
+      "areas": "app.js#fitBBox on the bbox of the current area (unit bbox from its geometry file, else the district's); a pitched fit tests the outline vertices of the open district or unit (app.js#currentOutline, ≤ 400 points) when its geometry is loaded, else the bbox corners; waits for the province geometry before fitting a unit",
       "points": "framePoint(zoom 16) for a store or venue, offset upward on mobile portrait",
       "padding": "pitched: toolbar to the chart tray; plan: toolbar to the Aha card or legend"
     },

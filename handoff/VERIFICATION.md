@@ -52,9 +52,24 @@ The container cannot reach unpkg.com or tiles.openfreemap.org. The harness serve
 
 Fixed during this pass: a unit straddling a district border showed fewer stores in its district's comparison (label) than in its own panel (เมืองพัทยา 362 vs 364; คลองบางครุ drawn as a measured zero with 5 stores) — units now show their full production count everywhere, while district shares count only the district's own stores (`hierarchy.js#comparisonRows`, `inArea`; tests added).
 
-## Live checks (Chrome, real tiles)
+## Live checks (Chrome on macOS, real tiles)
 
-Recorded after the GitHub Pages run of the release commit — see the section below once published.
+Chrome on macOS, viewport 1710×822 CSS px (DPR 2), OpenFreeMap tiles (`planet/20261018_080001_pt`), the owner's theme preference `auto` (dark system theme) restored after the light-theme check.
+
+**9242f23 (first publish; Pages run 39767642418 “pages build and deployment”, success 2026-10-22 11:03:45 UTC = 18:03 ICT).** `index.html` served byte-identical (sha256 `62f4e23d…3484`).
+
+| Check | Result |
+|---|---|
+| First paint (`live-01-country-aha-dark-9242f23.jpg`) | Aha 29.80% / 12.85% → “30% ของสาขาอยู่ใน 3 จังหวัดนี้ · ซึ่งมีคนแค่ 13% ของประเทศ”, 8,228 / 27,607; auto focus BKK · CBI · SPK; 77 province fills rendered (BKK fill `#213E70`); dark paper basemap with Thai labels; plan z4.43; pictograms ready |
+| ชลบุรี via the Aha name (`live-02`) | “79% ของสาขาในชลบุรีอยู่ใน 3 อำเภอนี้ · 63%”; district fills and outlines from the per-province geometry |
+| อำเภอบางละมุง (`live-03`) | “78% … อยู่ใน 2 อปท. นี้ · 61%”, 463 / 592; labels เมืองพัทยา 364, ทม.หนองปรือ 101 |
+| เมืองพัทยา via the ranking (`live-04`) | label 364 = panel 364 (= API); model preset pitch 60 / FOV 14; “มากกว่าค่าเฉลี่ยอำเภอบางละมุง 2.2 เท่า (36.3 เทียบ 16.7)” |
+| z15.6 in Pattaya (`live-05`) | 51 pins, 39 logos (status “51 สาขาในจอ · โลโก้ 39/250”); 42 city-massing features drawn quiet |
+| Store via pin (`live-06`) | Villa Market Pattaya: ซูเปอร์มาร์เก็ต, “อยู่ในรายการสาขาของแบรนด์”, address loaded from `data/detail/20.json`, ตำบลหนองปรือ, source CityMETER Grocery (ข้อมูลเดิม) นำเข้า 12 พ.ค. 2567, uuid, links tile ต้นทาง / ดูใน CityMETER, popup on the map |
+| เขตวัฒนา (`live-07`) | “38% … อยู่ใน 3 ย่านนี้ · 16%”, 64 / 168; city preset pitch 56. **Found:** the pitched fit used the bounding-box corners, so the long diagonal district sat small in the lower half → fixed in the next commit (fit on the outline vertices, as Luxury Brands does) |
+| อโศก-เหนือ (`live-08` dark, `live-09` light) | model preset z15.3; 483 rounded focus buildings + 181 quiet city buildings from real tiles; 22 pins, 12 logos; “76.6 เทียบ 21.2 ต่อ 1 หมื่นคน · 3.6 เท่า”; light paper basemap after the theme switch, same data HEX |
+| Per-capita + chart tray (`live-10`, light) | legend “จังหวัด · สาขาต่อประชากร 10,000 คน” 1.0–2.3 … 4.6–11.3; ranking ภูเก็ต 11.3 · ชลบุรี 10.7 · กรุงเทพมหานคร 9.8 · สมุทรปราการ 8.4 · นนทบุรี 8.1 |
+| Not verified live | mobile width (checked in the harness only; the owner's Chrome window was not resized), Safari, keyboard tour, AC02/AC03/AC05 fault paths |
 
 ## Live byte attestation
 
