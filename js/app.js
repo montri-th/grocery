@@ -38,8 +38,9 @@
  */
 import {buildModel, filterRows, hasPoint, unitName, districtNoun, unitNoun, perCapita, brandCount, withNoun} from './model.js?v=20261022-j1';
 import {NO_SELECTION, normalizeSelection, levelOf, parentSelection, areaRows, childrenOf, summarizeChildren, rankChildren, buildAha, levelNouns, areaKey, CHILD_LEVEL} from './hierarchy.js';
-import {buildClasses, classify, formatMetric, METRICS} from './scales.js';
-import {renderInsightChart} from './charts.js';
+import {buildScale, classify, formatMetric, METRICS} from './scales.js?v=20261022-v3';
+import {rampHTML} from './ramp-legend.js?v=20261022-v3';
+import {renderInsightChart} from './charts.js?v=20261022-v3';
 import {loadMapLibrary} from './vendors.js';
 import {installStorePins, LOGO_MIN_ZOOM, MAX_PINS} from './pins.js';
 import {installStoresLayer, STORE_LAYERS} from './stores-layer.js';
@@ -47,7 +48,7 @@ import {installAreaLayers, installAreaLabels, FILL_MAX_ZOOM, LABEL_MAX_ZOOM, bbo
 import {configureBrandLogos, brandLogoMarkup} from './brand-logos.js';
 import {configureVenueLogos} from './venue-logos.js';
 import {typeMix, brandMix, buildUnitProfile, buildVenueProfile, buildStoreDetail} from './profile-model.js';
-import {renderOverview, renderUnit, renderVenue, renderStore, renderFilterChips, link, esc, num} from './panel.js?v=20261022-v2';
+import {renderOverview, renderUnit, renderVenue, renderStore, renderFilterChips, link, esc, num} from './panel.js?v=20261022-v3';
 import {buildMapStyle, basemapPalette, TILEJSON_URL, MASSING_BEFORE} from './map-style.js';
 import {installMassing, outerRings} from './massing.js?v=20261022-j1';
 import {presetFor, applyPreset, fitPitched, framePoint} from './camera.js';
@@ -318,12 +319,12 @@ function areaSummary(sel = state.sel) {
     areaName: lvl === 'country' ? 'ประเทศไทย' : lvl === 'district' ? districtLabel(area) : lvl === 'unit' ? unitLabel(area) : area.name};
 }
 
-/** Children of the compared area with class colours and focus flags (map, labels, panel ranking). */
+/** Children of the compared area with their 41-sample colours and focus flags (map, labels, panel ranking). */
 function comparisonModel() {
   const m = M(), cmpSel = compareSelection();
   const summary = summarizeChildren(m, state.filtered, cmpSel);
   const value = c => (state.metric === 'capita' ? c.perCapita : c.count);
-  const classes = buildClasses(summary.map(value), {metric: state.metric});
+  const classes = buildScale(summary.map(value), {metric: state.metric});
   const childLevel = CHILD_LEVEL[levelOf(cmpSel)];
   // A venue or store sits inside one unit: that unit is the area in focus on the map.
   const focusIds = new Set(state.focus.level === childLevel ? state.focus.ids : (childLevel === 'unit' && state.sel.unit >= 0 ? [state.sel.unit] : []));
@@ -601,10 +602,10 @@ function renderLegend() {
   $('legend-title').textContent = `${noun} · ${METRICS[state.metric].legend}`;
   if (!c || !c.classes.classes.length) steps.innerHTML = `<span class="hint">${esc(withNoun('ไม่มี', noun))}ที่มีสาขาในตัวกรองนี้</span>`;
   else {
-    steps.innerHTML = c.classes.classes.map(k => `<span class="legend-step"><i style="background:${k.fill}" aria-hidden="true"></i>${esc(k.label)}</span>`).join('') +
+    steps.innerHTML = rampHTML(c.classes, {unit: state.metric === 'capita' ? 'สาขาต่อ 1 หมื่นคน' : 'สาขา', what: noun}) +
       (c.classes.zeroCount ? `<span class="legend-step" title="${noun}ที่ไม่พบสาขาในตัวกรองนี้"><i class="legend-zero" aria-hidden="true"></i>0</span>` : '') +
       (c.classes.noDataCount ? `<span class="legend-step" title="${noun}ที่ไม่มีข้อมูลประชากร จึงไม่คิดสาขาต่อคน"><i class="legend-nodata" aria-hidden="true"></i>ไม่มีข้อมูล</span>` : '');
-    $('legend-areas').title = `${METRICS[state.metric].legend} · ${c.classes.classCount} ระดับควอนไทล์ของ${noun}ที่เทียบกัน · สีเดียวกันทั้งสองธีม`;
+    $('legend-areas').title = `${METRICS[state.metric].legend} · ไล่สี 41 ขั้นของ LDS ตามลำดับค่าของ${noun}ที่เทียบกัน (${c.classes.classCount} ขั้นมี${noun}) · สีเดียวกันทั้งสองธีม`;
   }
   for (const b of document.querySelectorAll('#legend-metric [data-value]')) b.setAttribute('aria-pressed', String(b.dataset.value === state.metric));
   document.querySelector('.map-panel').classList.toggle('is-3d', state.view3d);

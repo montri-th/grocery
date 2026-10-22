@@ -3,8 +3,8 @@
  *
  * Three GeoJSON sources (provinces always; districts and units of the open
  * province, loaded on drill-down) share one rule set:
- *  - the comparison set of the current level is filled with its class colour
- *    (scales.js; count or per-capita), the rest of the map stays quiet:
+ *  - the comparison set of the current level is filled with its LDS sample
+ *    (scales.js rank-41: all 41 samples; count or per-capita), the rest of the map stays quiet:
  *      country  → provinces filled              (fill below zoom 9)
  *      province → its districts filled          (fill below zoom 12)
  *      district → its units filled              (fill below zoom 14.5)
@@ -21,7 +21,7 @@
  * quiet, outlined, selected, zero), so the 77 province polygons are never
  * re-tiled for a click.
  *
- * EVID-05 states: measured · measured_zero (lowest fill + zero outline) ·
+ * EVID-05 states: measured · measured_zero (sample 0 + zero outline) ·
  * no_data (neutral fill, per-capita without population) · out_of_scope (not drawn).
  * Every area of an open layer has an invisible hit layer, so a click anywhere
  * inside a quiet area still drills into it.

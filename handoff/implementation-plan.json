@@ -1,9 +1,9 @@
 {
   "$schema": "./handoff.schema.json",
-  "schemaVersion": "1.0.0",
+  "schemaVersion": "1.1.0",
   "documentType": "implementation-plan",
   "productId": "citymeter-grocery",
-  "productVersion": "0.1.0",
+  "productVersion": "0.2.0",
   "updatedOn": "2026-10-22",
   "brief": "product-brief.json",
   "statement": "product-statement.json",
@@ -18,7 +18,9 @@
       "test": "npm test",
       "handoffManifest": "npm run handoff:manifest",
       "handoffBundle": "npm run handoff:bundle",
-      "verifyLive": "npm run verify:live"
+      "verifyLive": "npm run verify:live",
+      "qaCore": "python scripts/qa/core_qa.py (QA_ROOT, QA_VENDOR, QA_OUT; see scripts/qa/README.md)",
+      "qaVenue": "python scripts/qa/venue_qa.py"
     },
     "libraries": {
       "maplibre": "5.6.2"
@@ -54,7 +56,7 @@
     "modules": [
       {
         "path": "js/app.js",
-        "role": "orchestration: selection {province, district, unit}, filters, row scopes (filtered/scopeRows/rows), focus modes, Aha, panel modes + back stack, URL state, legend, chart tray, table, map lifecycle (stores → areas → massing), camera calls"
+        "role": "orchestration: selection {province, district, unit}, filters, row scopes (filtered/scopeRows/rows), focus modes, Aha, panel modes + back stack, URL state (+ cam), legend (41-sample ramp), chart tray, table, map lifecycle (stores → buildings as data → massing → venue x-ray → areas), camera calls, venue level (displayedBuildings, currentVenueHosts, updateVenueScene, frameVenue, onBuildingSelect, toggleTwoPoint, syncEyeToggle)"
       },
       {
         "path": "js/launch.js",
@@ -70,7 +72,7 @@
       },
       {
         "path": "js/scales.js",
-        "role": "LDS count and density.capita (41-sample LUTs, five-class tables), buildClasses (quantile on display-rounded values), classify, formatMetric, inkFor, contrastRatio"
+        "role": "LDS count + density.capita 41-sample LUTs; STEPS = 41, METHOD = rank-41; sampleIndexes, buildScale (every colour scale on all 41 samples by display-rounded rank; lowest → 0, highest → 40, ties share), classify (EVID-05 states, sample, ink, plate), displayValue, formatMetric, inkFor, contrastRatio; classColors only for the cue tokens"
       },
       {
         "path": "js/area-layers.js",
@@ -163,6 +165,36 @@
       {
         "path": "scripts/build-handoff.mjs, scripts/verify-live.mjs",
         "role": "manifest + bundle from git ls-files bytes; live byte attestation against GitHub Pages"
+      },
+      {
+        "path": "js/ramp-legend.js",
+        "role": "rampHTML(model, {unit, what}): the 41-sample legend — 41 discrete exact-HEX swatches in LUT order (no CSS gradient), marks under the samples in use, min · median · max ticks, role=img text alternative; used by the map legend and the matrix legend",
+        "since": "0.2.0"
+      },
+      {
+        "path": "js/spatial-store.js, js/spatial-layer.js",
+        "role": "(ChatGPT 037ff18, extended in 0.2) per-province point containment and named-venue reference geometry; buildings drawn as data in joined-buildings (plan / 3D / outline), click hands over storeKeys + venueIndexes",
+        "since": "0.2.0"
+      },
+      {
+        "path": "js/venue-level.js",
+        "role": "pure venue-level functions: venueOf, isVenueLevel, referenceIds, areaVenueBuildings, tagVenueFeatures, buildingKinds, venueHostFeatures, displayHeight, venueTargets, xrayFeatures, venueFramePoints, buildingClickTarget",
+        "since": "0.2.0"
+      },
+      {
+        "path": "js/venue-xray.js (+ js/vendor/earcut.js 3.2.4, ISC)",
+        "role": "custom 3D layer ported from Luxury Brands 0.5: draws the venue solid over the 3D pass (scissored depth clear), own triangle hit test, click opens the venue",
+        "since": "0.2.0"
+      },
+      {
+        "path": "scripts/qa/ (harness.py, core_qa.py, venue_qa.py)",
+        "role": "rendered Playwright harness with vendored MapLibre 5.6.2 and stub TileJSON (empty tiles); JSON state log + screenshots per scenario incl. ramp / chartRamp / venue camera state",
+        "since": "0.2.0"
+      },
+      {
+        "path": "scripts/reconcile-venue-names.py, scripts/build-venue-references.py, scripts/build-reference-spatial-joins.mjs, scripts/combine-spatial-sources.py, scripts/build-microsoft-spatial.mjs, scripts/fetch-microsoft-buildings.py",
+        "role": "(ChatGPT 037ff18) store → venue by qualified alias, named-venue reference geometry, point containment by source priority (native → verified reference → Microsoft gap fill); no network in the combine step",
+        "since": "0.2.0"
       }
     ]
   },
@@ -203,7 +235,7 @@
     ],
     "areaQuery": "province=<production abbreviation | 2-digit code>; district=<4-digit code>; unit=<DOLA code | Locale uuid>; a lower level implies the upper ones",
     "metricQuery": "metric=capita (stores per 10,000 residents); default count",
-    "cameraQuery": "view3d=0 forces the plan preset",
+    "cameraQuery": "view3d=0 forces the plan preset; cam=model turns the two-point eye view (มุมสถาปนิก) off at venue level — absent = eye on by default there",
     "panelQuery": "store=<key8> opens store mode (selection = its first unit, else its district); place=<GV id> opens venue mode; unit=<key> opens unit mode",
     "chartQuery": "view=ranking | mix | brands",
     "chartActions": [
@@ -282,7 +314,7 @@
     },
     {
       "id": "P03",
-      "title": "Metrics count / density.capita with quantile classes on display-rounded values",
+      "title": "Metrics count / density.capita on display-rounded values (0.1: quantile 5 classes; the scale is replaced by P16 in 0.2)",
       "dependsOn": [
         "P02"
       ],
@@ -296,7 +328,7 @@
         "tests/scales.test.js",
         "tests/fixtures/lds-0.9.7-scales.json"
       ],
-      "status": "done"
+      "status": "done (scale superseded by P16)"
     },
     {
       "id": "P04",
@@ -437,7 +469,7 @@
         "docs/BUILD_CARD.md",
         "handoff/"
       ],
-      "status": "done"
+      "status": "done (schema 1.0.0; superseded by 1.1.0 in P15)"
     },
     {
       "id": "P11",
@@ -475,7 +507,182 @@
         "scripts/verify-live.mjs",
         "handoff/VERIFICATION.md"
       ],
-      "status": "see VERIFICATION.md and RELEASE_RECEIPT.json"
+      "status": "done for 0.1; 0.2 release in VERIFICATION.md and RELEASE_RECEIPT.json"
+    },
+    {
+      "id": "J01",
+      "title": "Store → venue by branch name with a source-point contradiction check (ChatGPT 037ff18)",
+      "dependsOn": [
+        "P01"
+      ],
+      "acceptanceCriteria": [
+        "AC25"
+      ],
+      "files": [
+        "scripts/reconcile-venue-names.py",
+        "data/venue-joins.json",
+        "tests/venue-matching.test.js",
+        "tests/venue-join-invariants.test.js",
+        "tests/fixtures/venue-join-baseline.json",
+        "tests/fixtures/venue-name-matching.json"
+      ],
+      "status": "data prepared: 3,625 links (+141 / −9 / 1 reassignment), 3,542 identities incl. 105 new",
+      "owner": "ChatGPT (commit 037ff18)"
+    },
+    {
+      "id": "J02",
+      "title": "Reference geometry by accepted venue identity",
+      "dependsOn": [
+        "J01"
+      ],
+      "acceptanceCriteria": [
+        "AC26"
+      ],
+      "files": [
+        "scripts/build-venue-references.py",
+        "data/venue-reference-buildings.json",
+        "tests/venue-reference-buildings.test.js",
+        "tests/fixtures/venue-reference-source-hashes.json"
+      ],
+      "status": "data prepared: 29 venues / 76 features / 44 linked branches; not point containment",
+      "owner": "ChatGPT (commit 037ff18)"
+    },
+    {
+      "id": "J03",
+      "title": "Point-in-footprint join across sources (native → verified reference → Microsoft gap fill)",
+      "dependsOn": [
+        "P01"
+      ],
+      "acceptanceCriteria": [
+        "AC26"
+      ],
+      "files": [
+        "scripts/build-reference-spatial-joins.mjs",
+        "scripts/combine-spatial-sources.py",
+        "scripts/build-microsoft-spatial.mjs",
+        "scripts/fetch-microsoft-buildings.py",
+        "data/spatial/",
+        "data/spatial-joins.json",
+        "data/building-sources.json",
+        "tests/spatial-source-priority.test.js",
+        "tests/spatial-geometry.test.js",
+        "tests/building-sources.test.js"
+      ],
+      "status": "data prepared: 806 point_inside, 9,328 boundary_candidate, 17,473 no_building, 0 unavailable; every one of 27,607 rows has a status",
+      "owner": "ChatGPT (commit 037ff18)"
+    },
+    {
+      "id": "J04",
+      "title": "Rendered QA, release and live attestation of the extended joins",
+      "dependsOn": [
+        "J01",
+        "J02",
+        "J03"
+      ],
+      "acceptanceCriteria": [
+        "AC12",
+        "AC26",
+        "AC32"
+      ],
+      "files": [
+        "scripts/qa/",
+        "handoff/VERIFICATION.md",
+        "scripts/verify-live.mjs"
+      ],
+      "status": "done (released with 0.2)"
+    },
+    {
+      "id": "P13",
+      "title": "Venue level: fifth crumb, venue buildings at district/unit level (click → venue), venue focus, unit panel lists venues first",
+      "dependsOn": [
+        "J02",
+        "J03",
+        "P06"
+      ],
+      "acceptanceCriteria": [
+        "AC27",
+        "AC28",
+        "AC32"
+      ],
+      "files": [
+        "js/venue-level.js",
+        "js/app.js",
+        "js/spatial-layer.js",
+        "js/panel.js",
+        "index.html",
+        "tests/venue-level.test.js",
+        "tests/spatial-context.test.js"
+      ],
+      "status": "done (0.2)"
+    },
+    {
+      "id": "P14",
+      "title": "Two-point view (eye, มุมสถาปนิก) at venue level: toggle + ?cam=model, frameVenue, SCENE.eye, venue x-ray, draw order and click priority",
+      "dependsOn": [
+        "P13"
+      ],
+      "acceptanceCriteria": [
+        "AC29",
+        "AC30",
+        "AC31"
+      ],
+      "files": [
+        "js/app.js",
+        "js/camera.js",
+        "js/massing.js",
+        "js/venue-xray.js",
+        "js/vendor/earcut.js",
+        "js/navigation.js",
+        "styles.css",
+        "tests/venue-level.test.js",
+        "tests/venue-xray.test.js",
+        "tests/spatial-fit-intent.test.js",
+        "tests/url-state.test.js"
+      ],
+      "status": "done (0.2)"
+    },
+    {
+      "id": "P15",
+      "title": "Handoff 0.2: statement / brief / plan / verification (MD + JSON, schema 1.1.0), agent task cards, QA harness in the repo",
+      "dependsOn": [
+        "P13",
+        "P14",
+        "P16"
+      ],
+      "acceptanceCriteria": [
+        "AC12"
+      ],
+      "files": [
+        "AGENTS.md",
+        "handoff/",
+        "PRODUCT_STATEMENT.md",
+        "design-intent.json",
+        "scripts/qa/",
+        "scripts/build-handoff.mjs"
+      ],
+      "status": "done (0.2)"
+    },
+    {
+      "id": "P16",
+      "title": "Every colour scale on all 41 LDS samples (owner rule 2026-10-22): buildScale rank-41 replaces the five-class quantile; 41-swatch legend on the map and under the matrices; matrix numbers on a backplate where neither ink reaches 4.5:1",
+      "dependsOn": [
+        "P03",
+        "P07"
+      ],
+      "acceptanceCriteria": [
+        "AC14",
+        "AC33"
+      ],
+      "files": [
+        "js/scales.js",
+        "js/ramp-legend.js",
+        "js/app.js",
+        "js/charts.js",
+        "styles.css",
+        "tests/scales.test.js",
+        "scripts/qa/core_qa.py"
+      ],
+      "status": "done (0.2)"
     }
   ],
   "acceptanceCriteria": [
@@ -560,7 +767,7 @@
     {
       "id": "AC14",
       "scenario": "Choropleth",
-      "expected": "Classes match the legend and the ranking; quantile on rounded values; zero outline; no-data neutral; fills off at zoom 9 / 12 / 14.5; same HEX on both themes",
+      "expected": "Colours match the legend and the ranking; all 41 LDS samples by rank on rounded values (AC33); zero outline; no-data neutral; fills off at zoom 9 / 12 / 14.5; same HEX on both themes",
       "verificationType": "unit + browser"
     },
     {
@@ -622,17 +829,74 @@
       "scenario": "Store detail",
       "expected": "Address/subdistrict/uuid/tile load on open; failure says โหลดที่อยู่ไม่สำเร็จ; source + date + coordinate limit; links to the locator, source, source tile and CityMETER",
       "verificationType": "browser"
+    },
+    {
+      "id": "AC25",
+      "scenario": "Venue name and source point",
+      "expected": "Name from a qualified alias in the same province; the venue point is a representative point, not a footprint; a newly added market must lie within 300 m and other host kinds within 750 m to avoid contradictions — never a nearest-store search",
+      "verificationType": "unit"
+    },
+    {
+      "id": "AC26",
+      "scenario": "Reference buildings and point containment",
+      "expected": "Named reference geometry is shown with its own label; a name join never changes point_inside; the 10 m edge rule is not a coordinate accuracy; the 17,473 no_building rows are not proof that no building exists; no coordinate moves; a missing height is never shown as 3 m",
+      "verificationType": "unit + browser"
+    },
+    {
+      "id": "AC27",
+      "scenario": "Venue level in the breadcrumb",
+      "expected": "Opening a venue (panel list, map building, crumb, ?place=) ends the crumbs at the venue; a store whose branch name names a venue ends its trail there; the venue crumb returns to venue level; document.title matches the crumbs",
+      "verificationType": "unit + browser"
+    },
+    {
+      "id": "AC28",
+      "scenario": "Venue buildings at area level",
+      "expected": "District/unit level draws only the accepted reference geometry of the venues in focus, labelled อาคารของสถานที่; a click opens the venue; a venue without a reference draws nothing; the unit panel lists venues before store types",
+      "verificationType": "unit + browser"
+    },
+    {
+      "id": "AC29",
+      "scenario": "Two-point view",
+      "expected": "Venue level in 3D defaults to pitch 75 / FOV 24 / bearing 28; the toggle switches to model and writes cam=model (and back); the toggle is disabled outside venue level and in 2D; the horizon stays outside the frame; footprints, roofs and the store points are in frame",
+      "verificationType": "unit + browser + live"
+    },
+    {
+      "id": "AC30",
+      "scenario": "The venue stays visible and clickable",
+      "expected": "The x-ray draws over every pan, tilt and zoom from zoom 13; a click on any part of the solid from a store opens the venue; order massing → buildings as data → x-ray; the eye scene makes occluding buildings see-through (checked on real tiles)",
+      "verificationType": "unit + browser + live"
+    },
+    {
+      "id": "AC31",
+      "scenario": "Venue level on mobile",
+      "expected": "Sheet open = plan with the venue in the strip above; sheet closed = eye with the venue in the upper part of the screen; no horizontal overflow at 390 px; the มุมสถาปนิก button is reachable in the scrolling toolbar",
+      "verificationType": "browser"
+    },
+    {
+      "id": "AC32",
+      "scenario": "Building evidence labels",
+      "expected": "Legend and panel separate อาคารของสถานที่ from อาคารตามพิกัดสาขา; no copy implies tenancy or opening; a missing height is never shown as a number",
+      "verificationType": "browser"
+    },
+    {
+      "id": "AC33",
+      "scenario": "41-sample LDS colour scales",
+      "expected": "Map, legend, rankings and matrices use only the 41 LUT HEX (no five-class set, no gradient); lowest shown value = sample 0, highest = sample 40, equal shown values share a sample; the legend shows 41 swatches in LUT order, marks the samples in use and ticks min · median · max; at country level count uses 41 samples and density.capita 31; matrix numbers on count samples 27–29 sit on a backplate",
+      "verificationType": "unit + browser"
     }
   ],
   "developerWorkflow": [
     "Read AGENTS.md, then handoff/README.md, PRODUCT_STATEMENT.md and the paired human/machine briefs",
-    "Run npm test before changes; keep the selection model, the three row scopes, the focus modes and the panel action contract",
-    "Change one bounded task at a time; preserve invariant IDs INV01–INV23",
-    "Never assign a store to an area yourself — membership comes from production (rebuild with scripts/build-data.py)",
+    "Run npm test before changes (150 tests on the shipped data); keep the selection model, the three row scopes, the focus modes and the panel action contract",
+    "Change one bounded task at a time (pick an agentTaskCards entry); preserve invariant IDs INV01–INV30",
+    "Every colour scale uses all 41 LDS samples through js/scales.js#buildScale and js/ramp-legend.js — never a class projection, a CSS gradient or an interpolated colour (owner rule 2026-10-22)",
+    "Never assign a store to an area yourself — membership comes from production (rebuild with scripts/build-data.py); never move a coordinate, guess a building or infer tenancy",
     "Never estimate a missing population; never show missing as zero",
+    "Tests that slice js/app.js source (spatial-fit-intent, spatial-context, url-state, venue-level) cut between function names and section comments: keep those markers or update the test stand-ins",
     "Add or adjust tests in tests/ for every behaviour change; tests run on the shipped data",
-    "Check the browser at 390 and 1280 px in light and dark; use the stub-tile harness when the CDN or tiles are blocked, then confirm on the live site",
-    "Bump ?v= in index.html and package.json version for a release; regenerate the manifest on the pushed commit; run npm run verify:live before claiming a release",
+    "Check the browser at 390 and 1280 px in light and dark; use scripts/qa/ (vendored MapLibre + stub tiles) when the CDN or tiles are blocked, then confirm on the live site",
+    "Draw order and click priority are contracts: massing tiers → buildings as data → venue x-ray; stores → buildings → x-ray → areas",
+    "Bump ?v= in index.html (and in the import of every changed module) and package.json version for a release; regenerate the manifest on the pushed commit; run npm run verify:live before claiming a release",
     "Report changed files, checks actually run and what remains unverified"
   ],
   "backlog": [
@@ -719,6 +983,393 @@
       "title": "Check the rights of the Big C mark from Wikimedia Commons (PD-textlogo vs CC BY-SA 4.0) before any use outside the demo",
       "ownerRole": "owner / legal",
       "status": "open question"
+    },
+    {
+      "id": "N15",
+      "title": "Split building data into a light display index + provenance loaded later (G08): per-row status, buildingId, candidate count (Bangkok ≈ 0.2 MB) and only the buildings used; ≥ 80% less loaded when a store opens",
+      "ownerRole": "frontend + data",
+      "status": "engineering backlog",
+      "parityGap": "G08"
+    },
+    {
+      "id": "N16",
+      "title": "Lighter first screen (G09): rows per province or columnar; country Aha from a prebuilt summary with identical numbers; first screen < 400 KB gzip",
+      "ownerRole": "frontend developer",
+      "status": "engineering backlog",
+      "parityGap": "G09"
+    },
+    {
+      "id": "N17",
+      "title": "Dark-theme focus outline (G10): an LDS role (--map-selected-stroke or a focus token) on focused areas; the 41 sample HEX never change; contrast checked on screen in both themes",
+      "ownerRole": "frontend + design system",
+      "status": "engineering backlog",
+      "parityGap": "G10"
+    },
+    {
+      "id": "N18",
+      "title": "More venue reference geometry (G11): exact-id crosswalk (CityMETER building parts / OSM) starting with SC-… shopping centres; never a nearest building; receipt + test",
+      "ownerRole": "data owner",
+      "status": "data backlog",
+      "parityGap": "G11"
+    },
+    {
+      "id": "N19",
+      "title": "Venue facts from the catalog (G12): type, GLA when the catalog has it, CityMETER link, as in the Luxury venue panel",
+      "ownerRole": "frontend + data",
+      "status": "engineering backlog",
+      "parityGap": "G12"
+    },
+    {
+      "id": "N20",
+      "title": "E2E in CI including venue level (G13, after N01): run scripts/qa/core_qa.py + venue_qa.py automatically; a workflow in the repo needs the owner’s permission first",
+      "ownerRole": "frontend developer",
+      "status": "engineering backlog (needs owner permission for a workflow)",
+      "parityGap": "G13"
+    },
+    {
+      "id": "N21",
+      "title": "Import map with the release cache tag on every module (G14): no stale module after a deploy; verify:live still passes",
+      "ownerRole": "frontend developer",
+      "status": "engineering backlog",
+      "parityGap": "G14"
+    },
+    {
+      "id": "N22",
+      "title": "Move selection / camera / venue-level orchestration out of js/app.js into modules; replace source-slicing tests with imports; same behaviour (both harness scripts pass)",
+      "ownerRole": "frontend developer",
+      "status": "engineering backlog"
+    },
+    {
+      "id": "N23",
+      "title": "Real-device checks: 390 px on the live site, Safari/iOS, keyboard on the live site, file: entry (AC02), fault injection (AC03, AC05)",
+      "ownerRole": "QA",
+      "status": "QA backlog"
+    }
+  ],
+  "parityAudit": {
+    "comparedOn": "2026-10-22",
+    "against": "CityMETER Luxury Brands 0.5 (montri-th/luxurybrands, handoff commit 0ed2b9d)",
+    "method": "code of both repos + both live sites on real tiles (Chrome on macOS: desktop 1280×800 via a scaled same-origin iframe, narrow 606×717)",
+    "items": [
+      {
+        "id": "G01",
+        "area": "venue camera",
+        "luxury": "eye (pitch 75 / FOV 24) by default + มุมสถาปนิก toggle + ?cam=model",
+        "groceryBefore": "model (pitch 60 / FOV 14) on desktop; plan on narrow screens",
+        "status": "fixed in 0.2",
+        "task": "P14"
+      },
+      {
+        "id": "G02",
+        "area": "venue always visible",
+        "luxury": "x-ray over the 3D pass + own hit test",
+        "groceryBefore": "buildings after massing but no x-ray: nearer buildings could hide the venue",
+        "status": "fixed in 0.2",
+        "task": "P14"
+      },
+      {
+        "id": "G03",
+        "area": "venue scene",
+        "luxury": "SCENE.eye: quiet surroundings, see-through occluders",
+        "groceryBefore": "normal scene",
+        "status": "fixed in 0.2",
+        "task": "P14"
+      },
+      {
+        "id": "G04",
+        "area": "venue as a map level",
+        "luxury": "area level draws the venue buildings in focus; click enters the venue",
+        "groceryBefore": "no venue buildings at unit level; a building click opened a store",
+        "status": "fixed in 0.2",
+        "task": "P13"
+      },
+      {
+        "id": "G05",
+        "area": "area panel",
+        "luxury": "venue tile in the neighbourhood panel",
+        "groceryBefore": "venue list at the end of the panel",
+        "status": "partly fixed in 0.2: venues listed first (no extra tile to keep the 2×2 grid)",
+        "task": "P13"
+      },
+      {
+        "id": "G06",
+        "area": "building label",
+        "luxury": "อาคารของสถานที่",
+        "groceryBefore": "one label for two kinds of evidence",
+        "status": "fixed in 0.2: separate labels",
+        "task": "P13"
+      },
+      {
+        "id": "G07",
+        "area": "venue level on mobile",
+        "luxury": "eye when the sheet is closed",
+        "groceryBefore": "plan at every level",
+        "status": "fixed in 0.2",
+        "task": "P14"
+      },
+      {
+        "id": "G08",
+        "area": "building data weight",
+        "luxury": "one small building GeoJSON",
+        "groceryBefore": "data/spatial/10.json 9.8 MB (1.29 MB gzip) on the first store/venue; 58% per-row provenance; 226 of 2,307 buildings used",
+        "status": "backlog",
+        "task": "N15"
+      },
+      {
+        "id": "G09",
+        "area": "first-screen weight",
+        "luxury": "small data",
+        "groceryBefore": "core ≈ 1.2 MB gzip before the Aha",
+        "status": "backlog",
+        "task": "N16"
+      },
+      {
+        "id": "G10",
+        "area": "dark theme at country level",
+        "luxury": "bright selection outline on focused areas",
+        "groceryBefore": "darkest sample #213E70 on #11191D is hard to see; focus outline #7C8A84",
+        "status": "backlog",
+        "task": "N17"
+      },
+      {
+        "id": "G11",
+        "area": "venue geometry coverage",
+        "luxury": "every shopping centre in the set has buildings",
+        "groceryBefore": "29 of 3,542 venues have reference geometry",
+        "status": "backlog",
+        "task": "N18"
+      },
+      {
+        "id": "G12",
+        "area": "venue facts in the panel",
+        "luxury": "ICSC type, GLA, CityMETER link",
+        "groceryBefore": "name, type, store count, building facts",
+        "status": "backlog",
+        "task": "N19"
+      },
+      {
+        "id": "G13",
+        "area": "automated browser tests",
+        "luxury": "harness outside the repo",
+        "groceryBefore": "harness outside the repo; no CI",
+        "status": "partly fixed in 0.2: scripts/qa/ in the repo; CI = N20",
+        "task": "N20"
+      },
+      {
+        "id": "G14",
+        "area": "module cache",
+        "luxury": "—",
+        "groceryBefore": "modules imported without ?v= may stay cached ~10 min after a deploy",
+        "status": "backlog (0.2 tags every changed module and its importers)",
+        "task": "N21"
+      },
+      {
+        "id": "G15",
+        "area": "documents",
+        "luxury": "statement / brief / plan / verification agree",
+        "groceryBefore": "037ff18 updated some: brief JSON said eye unused; plan JSON lacked J01–J04 / AC25–AC26",
+        "status": "fixed in 0.2",
+        "task": "P15"
+      },
+      {
+        "id": "G16",
+        "area": "colour scale",
+        "luxury": "count equal-interval, 5 classes",
+        "groceryBefore": "quantile, 5 classes",
+        "status": "Grocery fixed in 0.2 (all 41 samples, owner rule); Luxury Brands 0.5 still uses 5 classes — outside this repo, change when the owner asks",
+        "task": "P16"
+      }
+    ]
+  },
+  "vibeCoding": {
+    "startIn10Minutes": [
+      "Read AGENTS.md, then handoff/README.md",
+      "npm test must pass 150/150 before any change (Node ≥ 20, no npm install)",
+      "npm start, then open: / (country Aha) · /?province=BKK&district=1007&unit=8d8ed740-cd31-4b6a-859f-096f1f3d0b0e (สยาม: venue buildings) · /?place=GV-eb55a15be512058d (Siam Paragon: eye + x-ray) · /?place=GV-26efea421326c00d (centralwOrld) · /?place=GV-15636684fbc51542 (point building) · /?place=GV-7794cd0558ec8748 (no building)",
+      "Take one card from agentTaskCards; change only its files; add the tests it names",
+      "Before push: npm test · scripts/qa/ without page errors · bump ?v= and version; after push: wait for Pages → npm run handoff:manifest → npm run verify:live must pass every file"
+    ],
+    "promptTemplate": "คุณทำงานใน repository montri-th/grocery (CityMETER · Grocery 0.2 — static ES modules, ไม่มี build step)\n1. อ่าน AGENTS.md, handoff/README.md, handoff/product-brief.json และการ์ด <ID> ใน handoff/implementation-plan.json → agentTaskCards\n2. รัน npm test ก่อนแก้ (ต้องผ่านทั้งหมด) แก้เฉพาะไฟล์ในการ์ด เพิ่ม/ปรับ test ใน tests/ ตามการ์ด\n3. คง invariant INV01–INV30 และสัญญาใน product-brief.json; ห้ามย้ายพิกัด ห้ามเดาอาคารหรือประชากร ห้ามเปลี่ยน HEX ของ LDS; ทุกสเกลสีใช้ครบ 41 ขั้นของ LDS ผ่าน js/scales.js#buildScale + js/ramp-legend.js (ไม่ใช้ชุด 5 ระดับ ไม่ใช้ gradient)\n4. ถ้าแตะ js/app.js: คงชื่อฟังก์ชัน/หัวข้อที่ test ตัด source (spatial-fit-intent, spatial-context, url-state, venue-level) หรือแก้ stand-in ใน test ให้ตรง\n5. ตรวจหน้าจอที่ 1280 px และ 390 px สองธีม (scripts/qa/ เมื่อเข้า tile ไม่ได้) แล้วยืนยันบนเว็บจริงหลัง deploy\n6. รายงาน: ไฟล์ที่แก้, test ที่รันจริงและผล, สิ่งที่ยังไม่ได้ตรวจ — ห้ามเขียนว่า verified/published ถ้ายังไม่เห็นบนเว็บจริง",
+    "devHook": "window.__citymeter — state, map, xray, update, fitCurrent, frameVenue, toggleTwoPoint, selectArea, selectStore, selectVenue, applyPreset, fitPitched, buildMapStyle (console only, not an API)"
+  },
+  "agentTaskCards": [
+    {
+      "id": "T-N15",
+      "backlogId": "N15",
+      "goal": "Light building index + provenance later",
+      "files": [
+        "scripts/combine-spatial-sources.py",
+        "js/spatial-store.js",
+        "data/spatial/"
+      ],
+      "doneWhen": "Opening a Bangkok store loads ≤ 20% of today’s bytes; store facts unchanged",
+      "tests": [
+        "tests/spatial-ui.test.js",
+        "tests/spatial-source-priority.test.js",
+        "new: index size budget"
+      ],
+      "keep": [
+        "INV28",
+        "evidence labels",
+        "point_inside counts 806 / 9,328 / 17,473"
+      ]
+    },
+    {
+      "id": "T-N16",
+      "backlogId": "N16",
+      "goal": "Lighter first screen",
+      "files": [
+        "scripts/build-data.py",
+        "js/model.js",
+        "js/app.js#init"
+      ],
+      "doneWhen": "core < 400 KB gzip; Aha 30% / 13% unchanged",
+      "tests": [
+        "tests/data.test.js",
+        "tests/hierarchy.test.js"
+      ],
+      "keep": [
+        "production counts",
+        "fixture 8,228 / 27,607"
+      ]
+    },
+    {
+      "id": "T-N17",
+      "backlogId": "N17",
+      "goal": "Dark-theme focus outline",
+      "files": [
+        "js/area-layers.js",
+        "assets/theme.css (roles only)"
+      ],
+      "doneWhen": "Focused provinces clearly visible in both themes; the 41 sample HEX unchanged",
+      "tests": [
+        "tests/map-style.test.js",
+        "tests/scales.test.js"
+      ],
+      "keep": [
+        "INV30",
+        "same analytical HEX on both themes"
+      ]
+    },
+    {
+      "id": "T-N18",
+      "backlogId": "N18",
+      "goal": "More venue geometry",
+      "files": [
+        "scripts/build-venue-references.py",
+        "data/venue-reference-buildings.json"
+      ],
+      "doneWhen": "New venues get geometry from an exact id with a receipt; no nearest building",
+      "tests": [
+        "tests/venue-reference-buildings.test.js"
+      ],
+      "keep": [
+        "INV24",
+        "INV28"
+      ]
+    },
+    {
+      "id": "T-N19",
+      "backlogId": "N19",
+      "goal": "Venue facts from the catalog",
+      "files": [
+        "js/profile-model.js",
+        "js/panel.js#renderVenue"
+      ],
+      "doneWhen": "SC-… venues show type / GLA / link; missing = not shown",
+      "tests": [
+        "tests/profile-model.test.js"
+      ],
+      "keep": [
+        "missing is never zero"
+      ]
+    },
+    {
+      "id": "T-N20",
+      "backlogId": "N20",
+      "goal": "E2E in CI",
+      "files": [
+        "scripts/qa/*",
+        "workflow only with the owner’s permission"
+      ],
+      "doneWhen": "Automatic run fails on a page error or a state that breaks the contract",
+      "tests": [
+        "scripts/qa/core_qa.py",
+        "scripts/qa/venue_qa.py"
+      ],
+      "keep": [
+        "no workflow without permission"
+      ]
+    },
+    {
+      "id": "T-N21",
+      "backlogId": "N21",
+      "goal": "Import map + cache tag",
+      "files": [
+        "index.html",
+        "js/*.js imports"
+      ],
+      "doneWhen": "No stale module after a deploy; verify:live passes",
+      "tests": [
+        "tests/verify-live.test.js"
+      ],
+      "keep": [
+        "file: entry (AC02)"
+      ]
+    },
+    {
+      "id": "T-N22",
+      "backlogId": "N22",
+      "goal": "Move logic out of app.js",
+      "files": [
+        "js/app.js → new modules",
+        "tests/*"
+      ],
+      "doneWhen": "Source-slicing tests become imports; both harness scripts pass",
+      "tests": [
+        "tests/spatial-fit-intent.test.js",
+        "tests/spatial-context.test.js",
+        "tests/url-state.test.js",
+        "tests/venue-level.test.js"
+      ],
+      "keep": [
+        "draw order",
+        "click priority",
+        "URL state"
+      ]
+    },
+    {
+      "id": "T-N02",
+      "backlogId": "N02",
+      "goal": "Area labels as a symbol layer",
+      "files": [
+        "js/area-layers.js"
+      ],
+      "doneWhen": "Name + value + clickable + quiet; never over pins",
+      "tests": [
+        "tests/map-style.test.js"
+      ],
+      "keep": [
+        "quiet context"
+      ]
+    },
+    {
+      "id": "T-N04",
+      "backlogId": "N04",
+      "goal": "Chain-by-chain comparison in an area",
+      "files": [
+        "js/chart-model.js",
+        "js/charts.js",
+        "js/panel.js"
+      ],
+      "doneWhen": "Each chain’s share + chains not yet present; brands never summed across areas",
+      "tests": [
+        "tests/chart-model.test.js"
+      ],
+      "keep": [
+        "INV30 (41 samples in any new colour scale)",
+        "same filtered rows"
+      ]
     }
   ]
 }

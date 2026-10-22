@@ -1,6 +1,31 @@
-# Verification record — Grocery baseline and join update (2026-10-22)
+# Verification record — Grocery 0.2, join update and 0.1 baseline (2026-10-22)
 
 Dataset snapshot: 2026-10-22 (what CityMETER production shows). Levels are reported separately: data reconciliation, unit tests, machine contracts, LDS checks, rendered harness, live browser checks and live byte attestation. None of them is a blanket LDS, accessibility or market-completeness certificate.
+
+## Release 0.2 — venue level, two-point view, 41-sample colour scales (owner, 22 Oct 2026, second round)
+
+Commits: `46b4bb5` venue level + two-point view · the commit after it: colour scales on all 41 LDS samples + 0.2 handoff (schema 1.1.0, task cards, `scripts/qa/`). Each line names what it ran on; the release receipt binds the final commit.
+
+| Level | Result |
+|---|---|
+| Unit | `npm test` — **150/150** passed (Node 22.22.0) on the 0.2 tree; 0 failed, 0 skipped |
+| Machine contracts | `product-statement.json`, `product-brief.json`, `implementation-plan.json` valid against `handoff.schema.json` **1.1.0** (ajv 8.17.1, draft 2020-12). Negative checks: the schema rejects `metricContract.method = quantile` / `steps = 5` and a plan without `agentTaskCards` |
+| LDS | package `verify.mjs` — PASS 9,769 / 9,769 (65 package-level warnings, not caused by this artifact); `check-artifact.mjs index.html` — FAIL only for the same 24 basemap-only literals as 0.1 (127 unique colours, identical literal set) + the scripts-need-rendered-review warning |
+| Rendered harness | `scripts/qa/core_qa.py` (33 views, 10 console sections) and `venue_qa.py` (14 views, 7 console sections), Chromium + vendored MapLibre 5.6.2 + stub tiles — **0 page errors** |
+| Live browser | Chrome on macOS, real tiles: venue level on `46b4bb5` below; colour scales — recorded after their deploy |
+| Live bytes | `npm run verify:live` on the final commit — `RELEASE_RECEIPT.json` |
+
+### Colour scales on all 41 LDS samples (owner rule “Color scale ขอให้ใช้ 41 scales ตาม LDS เสมอ”)
+
+- **Unit** (`tests/scales.test.js`, 8 tests): both LUTs equal the LDS 0.9.7 fixture sample by sample; `rank-41` on the real 77 provinces — lowest shown value sample 0, highest 40, ascending values never take a lighter sample, closed intervals never overlap, every province sits in the sample its colour says, count uses all 41 samples and per-capita 31 (ties at one decimal), at most 7 provinces share a sample, order-independent; ties share their mean position (1,1,1,3,5,9 → 0/20/30/40); one distinct value → 40; zero = sample 0 + zero outline, unknown = no data; ink on all 41 samples is the better foundation ink and exactly count 27–29 / density.capita 31–35 take a backplate; the legend emits 41 swatches in LUT order with exact HEX, no gradient, marks only the samples in use and ticks 39 · 230 · 5,310 at country level; the machine brief declares the same `rank-41` / 41 / scale versions as the code.
+- **Harness** (state per screenshot: `ramp`, `compare`, `chartRamp`): every view with a choropleth shows 41 swatches and every area fill is an exact LUT sample (`allFillsExact`). Country count 41 samples in use (ticks 39 · 230 · 5,310); country per-capita 31 (1.0 · 2.9 · 11.3); Bangkok districts 39 (20 · 95 · 211); ชลบุรี districts 11 (1 · 70 · 592); store-type matrix of ชลบุรี 18 samples with 2 numbers on a backplate, brand matrix 24 / 4, Bangkok store types (dark) 17 / 4. 390×844 light and dark: legend title + switch on the first row, the ramp on the second, no overlap with the compact Aha card, no horizontal overflow.
+- **Found and fixed in this pass:** the first legend layout let its flex row shrink the ramp to its min-content width (≈ 0 px) — seen in the screenshots, not in the state log; the area legend is now a two-row grid (`#legend-areas`). Re-checked at 1280 and 390 px in both themes: ramp 320 px (desktop) / 271–320 px (390 px), swatches 7.8 / 6.6 px, ticks never overlap.
+
+### Venue level and two-point view
+
+- **Harness** (`venue_qa.py`; stub tiles draw no massing, so occluders stay 0 here): unit สยาม lists “สถานที่ตามชื่อสาขา 4 แห่ง” first and draws 8 venue buildings (legend อาคารของสถานที่, the มุมสถาปนิก toggle disabled outside venue level); Siam Paragon from the list → crumbs end at Siam Paragon, `eye` pitch 75 / FOV 24 / z17.58, x-ray 795 vertices; toggle off → `cam=model`, pitch 60 / FOV 14, on again → `eye`; a store in Siam Paragon keeps `eye`, a click on the x-ray solid (340, 264) opens the venue; 2D → pitch 0, x-ray off; centralwOrld 16 buildings, z16.59, x-ray 2,949; Central Ramindra 1 point building (legend อาคารตามพิกัดสาขา), x-ray 363; สามเสน (สถานีรถไฟ) no building, `eye` on the store point at z16; dark crumb ย่าน returns to the unit with the venue buildings still drawn; 390×844 light/dark: sheet open = plan (pitch 0, z15.72), sheet closed = `eye` z16. No horizontal overflow anywhere.
+- **Live on `46b4bb5`** (Chrome on macOS, OpenFreeMap tiles; desktop 1280×800 through a scaled same-origin frame, narrow 606×717): Siam Paragon `eye` pitch 75 / FOV 24 / z17.58, x-ray 795 vertices, 7 see-through occluders from real tiles, crumbs end at Siam Paragon (dark); unit สยาม draws Paragon blue with the venue list first, a building click opens the venue in `eye`; centralwOrld (light) z16.59, x-ray 2,949, 12 occluders; store `6823e48d` → x-ray click → venue; Central Ramindra point building with “อาคารตามพิกัดสาขา”, x-ray 363; 606 px: sheet open = plan, sheet closed = `eye` z16 with 11 occluders; no console errors; the owner's theme preference restored to `auto`.
+- **Not verified:** a phone at 390 px on the live site (the Chrome window could not be narrowed below 606 px), Safari/iOS, the keyboard tour on the live site.
 
 ## Data reconciliation (build)
 
@@ -33,7 +58,7 @@ The expanded prepared join artifacts are recorded in `data/build-receipt.json �
 | Geometry and provenance | Original Polygon/MultiPolygon geometry and holes retained; chosen candidate IDs resolve; exact file hashes and provider provenance checked; no nearest assignment or point movement |
 | Heights and rights | Source/model estimates stay estimates. Microsoft missing/-1 height stays null; 3 m is display-only. CDLA Permissive 2.0 agreement accompanies Microsoft data; OSM/3D-GloBFP/Open Buildings credits and license roles stay separate. |
 
-Current full local suite: `node --test tests/*.test.js` — **129/129 passed**, 0 failed, 0 skipped. This includes combined-source priority/failure checks, candidate/source and all-row invariants, geometry holes/boundaries, native affine geometry metadata, provider/height facts, source agreements, privacy scan, cold-selection camera/URL and detail-context regressions, and the existing model/map tests. The 10 m guard is a geometric review threshold, not validated coordinate accuracy or an error radius. No match establishes tenancy, true shopfront, floor or operating status.
+Full local suite at the join update (`037ff18`): `node --test tests/*.test.js` — **129/129 passed**, 0 failed, 0 skipped. This includes combined-source priority/failure checks, candidate/source and all-row invariants, geometry holes/boundaries, native affine geometry metadata, provider/height facts, source agreements, privacy scan, cold-selection camera/URL and detail-context regressions, and the existing model/map tests. The 10 m guard is a geometric review threshold, not validated coordinate accuracy or an error radius. No match establishes tenancy, true shopfront, floor or operating status.
 
 Cold-selection and URL regression checks: `node --test tests/url-state.test.js tests/spatial-fit-intent.test.js` — **9/9 passed**. The harness executes the actual production selection, async completion, map-install and URL-restore functions with network/render stand-ins. A cold selection fits the full building once when geometry is ready; data ready before the map is used in its single initial fit. Direct gestures cancel a pending fit, while programmatic camera animation does not; stale payloads, pins, absent geometry and closed detail do not cause late camera jumps. A direct Megabangna URL restores province `11` → district `1103` → unit `04110302` and the complete breadcrumb, including with invalid or stale area parameters. Filtered venue links use the same point-first member rule as clicking a venue. These checks preserve source coordinates and administrative memberships; they are local regression evidence, not a new live browser or release attestation.
 
@@ -54,16 +79,16 @@ Historical release 0.1: `npm test` — **65/65 passed** (Node 22) on that releas
 - **charts** (`chart-model.test.js`): shares sum to 100% at country level; Bangkok first by count, Phuket by per-capita; population shares omitted when incomplete; border units keep their full count in ranking and matrix while their share counts only the district's stores; matrix rows sum to their area
 - **profile-model**, **breadcrumb**, **map-style** (stores layer, area layers, pictogram contract ↔ manifest), **pins**, **brand-logos**, **venue-logos** (registry validation, sha256 of every file), **massing**, **geometry**, **mvt**
 
-## Machine contracts
+## Machine contracts — historical release 0.1
 
 `product-statement.json`, `product-brief.json` and `implementation-plan.json` validate against `handoff.schema.json` **1.0.0** (ajv 2020-12, 2026-10-22). The generated `handoff-manifest.json` is checked by the same schema at bundle time.
 
-## LDS checks
+## LDS checks — historical release 0.1
 
 - Package integrity: `verify.mjs` on the pinned LDS 0.9.7 package (`v0.9.7-owner.1`, release.json sha256 `0a936393…8516`, normative `d3085cbc…2d96`) — **PASS 9,769 / 9,769**, 65 package-level B-HUE warnings (not caused by this artifact).
 - Artifact: `check-artifact.mjs index.html` (index + fonts.css, theme.css, styles.css, navigation.css, logos.css, grocery.css; 127 unique colours) — status FAIL for **24 basemap-only literal HEX values in `assets/theme.css`** (declared once per theme as `--basemap-*`, never data colours — the same accepted exception as Luxury Brands), plus the standard warning that scripts need rendered review. No other ungoverned colour, no prohibited alias. This static check is not a contrast, layout or accessibility certificate.
 
-## Rendered harness (Playwright, Chromium, container)
+## Rendered harness (Playwright, Chromium, container) — historical release 0.1
 
 The container cannot reach unpkg.com or tiles.openfreemap.org. The harness serves the repository on 127.0.0.1, fulfils the pinned MapLibre 5.6.2 JS/CSS from the npm package and answers the TileJSON with a stub whose tiles are empty, so the basemap is blank paper; data layers (areas, dots, pins, labels), panel, charts, table and camera are the real code paths. Screenshots are taken after `map.loaded()` and `areTilesLoaded()` (software WebGL needs ~2–4 s to tile the 77 province polygons). Log: `evidence/harness-0.1.log`, state per screenshot: `evidence/harness-0.1.json`.
 
@@ -77,7 +102,7 @@ The container cannot reach unpkg.com or tiles.openfreemap.org. The harness serve
 
 Fixed during this pass: a unit straddling a district border showed fewer stores in its district's comparison (label) than in its own panel (เมืองพัทยา 362 vs 364; คลองบางครุ drawn as a measured zero with 5 stores) — units now show their full production count everywhere, while district shares count only the district's own stores (`hierarchy.js#comparisonRows`, `inArea`; tests added). After the first publish, pitched districts and units are framed on their outline vertices (`app.js#currentOutline`): the harness re-run on 40563f9 frames เขตวัฒนา at z13.02 instead of z12.62 at 1280×800, with all other figures above unchanged and no page errors.
 
-## Live checks (Chrome on macOS, real tiles)
+## Live checks (Chrome on macOS, real tiles) — historical release 0.1
 
 Chrome on macOS, viewport 1710×822 CSS px (DPR 2), OpenFreeMap tiles (`planet/20261018_080001_pt`), the owner's theme preference `auto` (dark system theme) restored after the light-theme check.
 
@@ -112,4 +137,4 @@ Live byte attestation on 40563f9: `npm run verify:live` — **367 ok, 0 failed**
 
 ## Evidence files in the bundle
 
-`evidence/` holds the harness screenshots (`d-light-*`, `d-dark-*`, `m-light-*`, `m-dark-*`, `a11y-*`), `harness-0.1.json/.log`, the LDS outputs (`lds-verify.json`, `lds-check-index.txt`), live screenshots (`live-*`) and the live attestation. Harness screenshots show a blank basemap; the real-tile look is in the live screenshots.
+`evidence/` of the 0.2 bundle holds the 0.2 harness logs and screenshots (`harness-core.json`, `harness-venue.json`, `legend-qa.json`; core `d-*` / `m-*` / `a11y-*`, venue `v-*`, legend close-ups `legend-*`), the LDS outputs (`lds-verify.json`, `lds-check-index.txt`), the live screenshots of 0.2 (`live-0.2-*`) and the live attestation of the final commit. Harness screenshots show a blank basemap and no massing; the real-tile look is in the live screenshots. The 0.1 evidence stays in the 0.1 bundle.

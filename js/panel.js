@@ -16,7 +16,7 @@
 import {safeURL, withNoun} from './model.js';
 import {brandLogoMarkup, getBrandLogo} from './brand-logos.js';
 import {venueLogoMarkup, getVenueLogo} from './venue-logos.js';
-import {formatMetric} from './scales.js';
+import {formatMetric} from './scales.js?v=20261022-v3';
 
 const NUMBER = new Intl.NumberFormat('th-TH', {maximumFractionDigits: 0});
 const DEC1 = new Intl.NumberFormat('th-TH', {minimumFractionDigits: 1, maximumFractionDigits: 1});

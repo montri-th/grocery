@@ -34,7 +34,7 @@ const entries = files.map(path => {
   return {path, bytes: buffer.length, sha256: sha256(buffer)};
 });
 const manifest = {
-  schemaVersion: '1.0.0',
+  schemaVersion: '1.1.0',
   documentType: 'handoff-manifest',
   productId: 'citymeter-grocery',
   productVersion: pkg.version,

@@ -1,9 +1,9 @@
 {
   "$schema": "./handoff.schema.json",
-  "schemaVersion": "1.0.0",
+  "schemaVersion": "1.1.0",
   "documentType": "product-brief",
   "productId": "citymeter-grocery",
-  "productVersion": "0.1.0",
+  "productVersion": "0.2.0",
   "updatedOn": "2026-10-22",
   "datasetCheckedOn": "2026-10-22",
   "language": "th-TH",
@@ -13,7 +13,20 @@
   "derivedFrom": {
     "product": "CityMETER · Luxury Brands 0.5.0",
     "repository": "https://github.com/montri-th/luxurybrands",
-    "ownerInstruction": "2026-10-22: do the same for CityMETER: Grocery and publish at github.com/montri-th/grocery, using the Grocery research sheet"
+    "ownerInstruction": "2026-10-22: do the same for CityMETER: Grocery and publish at github.com/montri-th/grocery, using the Grocery research sheet",
+    "changesFromLuxuryBrands": [
+      "analytical neighborhood cores → production administrative hierarchy (js/hierarchy.js); no area, boundary or id is invented",
+      "first Aha: share of distinct brands in 3 neighborhoods → share of stores in the top-k children vs their share of residents, at every level",
+      "choropleth: count equal-interval (5 classes) → count or density.capita on all 41 LDS samples by rank (rank-41, release 0.2; 0.1 used quantile 5 classes) with an on-map metric switch",
+      "pins: every row a WebGL dot (js/stores-layer.js); HTML pins with logos only from zoom 14 inside the focus",
+      "host buildings, venue x-ray and the eye preset removed (no venue is a confirmed host of a store); city massing kept, rounded focus massing only for compact local units",
+      "province frames: OpenGISData-Thailand (9) → production boundaries of all 77 provinces; districts and units loaded per province",
+      "charts: ranking/mix/compare → paired stores-vs-people ranking (or per-capita), store-type matrix, brand matrix",
+      "status: one honest status for every row (อยู่ในรายการสาขาของแบรนด์); no closure taxonomy in this dataset",
+      "pictogram subset re-cut with 9 glyphs (npm material-symbols 0.27.0)",
+      "venue logos: 128 files for 2,547 venue names (mostly shared operator banners, role caption shown)"
+    ],
+    "ownerInstructionRelease02": "2026-10-22 (second round): compare with Luxury Brands, show venue as another breadcrumb level and the 2-point perspective in the same form as Luxury Brands; hand off brief + plan + handoff, human and machine readable, ready for vibe coding"
   },
   "productStatement": {
     "human": "../PRODUCT_STATEMENT.md",
@@ -55,21 +68,43 @@
       "topic": "logo files",
       "choice": "download both folders the sheet references (brand and venue logos)",
       "meaning": "17 brand files and 128 venue files, each verified by sha256 against the sheet before use"
+    },
+    {
+      "date": "2026-10-22",
+      "topic": "store–venue–building joins (ChatGPT, commit 037ff18)",
+      "choice": "use the delivered joins unchanged",
+      "meaning": "branch name → venue 3,625 rows / 3,542 identities (105 new from the CityMETER catalog); named-venue reference geometry 29 venues / 76 features; plotted point → footprint 806 point_inside / 9,328 boundary_candidate / 17,473 no_building; none of them is tenancy"
+    },
+    {
+      "date": "2026-10-22",
+      "topic": "venue level and two-point view (release 0.2)",
+      "choice": "venue as another level of the breadcrumb, and the 2-point perspective in the same form as Luxury Brands",
+      "meaning": "สถานที่ is the fifth level on the map and in the crumbs; at venue level the eye preset (มุมสถาปนิก) is the default, the venue's buildings are drawn by the x-ray (always visible, clickable), the surroundings go quiet and see-through"
+    },
+    {
+      "date": "2026-10-22",
+      "topic": "colour scale (release 0.2)",
+      "choice": "Color scale ขอให้ใช้ 41 scales ตาม LDS เสมอ",
+      "meaning": "every colour scale — map, legend, rankings, matrices — uses all 41 exact LDS samples (method rank-41); the five-class projections are no longer a scale; standing rule for later work (AGENTS.md)",
+      "rejected": [
+        "quantile 5 classes (0.1)",
+        "linear 41-sample ramp (70 of 77 provinces in samples 0–4)",
+        "CSS gradient between samples"
+      ]
     }
   ],
   "changesSince": {
-    "from": "Luxury Brands 0.5.0 (architecture)",
+    "from": "0.1.0 (+ ChatGPT join commit 037ff18)",
     "items": [
-      "analytical neighborhood cores → production administrative hierarchy (js/hierarchy.js); no area, boundary or id is invented",
-      "first Aha: share of distinct brands in 3 neighborhoods → share of stores in the top-k children vs their share of residents, at every level",
-      "choropleth: count equal-interval → count or density.capita quantile classes with an on-map metric switch",
-      "pins: every row a WebGL dot (js/stores-layer.js); HTML pins with logos only from zoom 14 inside the focus",
-      "host buildings, venue x-ray and the eye preset removed (no venue is a confirmed host of a store); city massing kept, rounded focus massing only for compact local units",
-      "province frames: OpenGISData-Thailand (9) → production boundaries of all 77 provinces; districts and units loaded per province",
-      "charts: ranking/mix/compare → paired stores-vs-people ranking (or per-capita), store-type matrix, brand matrix",
-      "status: one honest status for every row (อยู่ในรายการสาขาของแบรนด์); no closure taxonomy in this dataset",
-      "pictogram subset re-cut with 9 glyphs (npm material-symbols 0.27.0)",
-      "venue logos: 128 files for 2,547 venue names (mostly shared operator banners, role caption shown)"
+      "venue level: สถานที่ is the fifth crumb and a map level — district/unit level draws the accepted reference buildings of the venues in focus (อาคารของสถานที่), clickable into the venue (js/venue-level.js#areaVenueBuildings, app.js#displayedBuildings)",
+      "two-point view: camera preset eye (มุมสถาปนิก, pitch 75 / FOV 24) is the default at venue level; toolbar toggle #toggle-eye; ?cam=model opts out (app.js#cameraPreset, #toggleTwoPoint, #syncEyeToggle)",
+      "frameVenue fits footprints, roofs (display heights) and the venue's store points; zoom out at most one level beyond the footprint fit; mobile: plan while the sheet is open, eye after it closes",
+      "venue x-ray ported from Luxury Brands 0.5 (js/venue-xray.js + earcut 3.2.4): scissored depth clear, own triangle hit test, click opens the venue",
+      "massing SCENE.eye at venue level: city 0.16, focus 0.62, see-through occluders; draw order massing → buildings as data → x-ray",
+      "only the venue's own buildings are blue at venue level (reference, else the footprints its points fall inside); building clicks: venue building → venue, point building → store",
+      "legend separates อาคารของสถานที่ (name reference) and อาคารตามพิกัดสาขา (plotted point); unit panel lists สถานที่ตามชื่อสาขา first",
+      "store–venue–building joins by ChatGPT (commit 037ff18) used unchanged: data/venue-joins.json, data/venue-reference-buildings.json, data/spatial/<province>.json, js/spatial-store.js, js/spatial-layer.js",
+      "colour scales on all 41 LDS samples (owner rule 2026-10-22): js/scales.js#buildScale (rank-41 replaces the five-class quantile buildClasses), js/ramp-legend.js (41-swatch legend with min · median · max ticks and marks under the samples in use) in the map legend and the matrix legend; matrix numbers on a neutral backplate where neither ink reaches 4.5:1"
     ]
   },
   "hierarchyContract": {
@@ -98,15 +133,24 @@
         "children": null,
         "count": 8621,
         "kinds": "7,774 local administrations (DOLA code; prefix ทน./ทม./ทต./อบต./เมืองพัทยา) + 847 Bangkok Locales (uuid)"
+      },
+      {
+        "level": "venue",
+        "name": "สถานที่",
+        "children": null,
+        "count": 3542,
+        "kinds": "3,437 research registry venues (GV-…) + 105 CityMETER catalog venues (SC-…); malls, markets, hospitals, campuses, offices, stations, fuel-station hosts",
+        "membership": "a branch name or address names the venue (data/venue-joins.json: 3,625 linked rows); never point-in-polygon, never tenancy",
+        "map": "อาคารของสถานที่ when an accepted venue_reference exists (29 venues), else the footprints the venue's points fall inside (point_inside) at venue level"
       }
     ],
-    "selection": "{province, district, unit} as indexes (-1 = none); a unit implies its district and province (normalizeSelection)",
+    "selection": "{province, district, unit} as indexes (-1 = none); a unit implies its district and province (normalizeSelection); the venue level is a panel mode (venue) — its crumbs use the unit/district of its first member with a point (same rule as ?place=)",
     "keys": {
       "province": "production abbreviation (BKK, CBI …); the 2-digit code also resolves",
       "district": "4-digit district code (1039, 2004 …)",
       "unit": "DOLA code (04200103 …) or Locale uuid",
       "store": "first 8 hex characters of the source uuid (unique, asserted by build-data.py)",
-      "venue": "GV-… id from the sheet tab 07_VENUES"
+      "venue": "GV-… id (research registry, sheet 07_VENUES) or SC-<uuid> (CityMETER shopping-center catalog)"
     },
     "membership": {
       "district": "source subdistrict membership (sheet district_code, from the SUBDISTRICT tile the row came in) — sums equal the API for 927 of 928 districts",
@@ -270,7 +314,10 @@
     ]
   },
   "metricContract": {
-    "module": "js/scales.js (COUNT_SCALE, CAPITA_SCALE, SCALES, METRICS, buildClasses, classify, displayValue, formatMetric, inkFor, contrastRatio)",
+    "module": "js/scales.js (COUNT_SCALE, CAPITA_SCALE, SCALES, METRICS, STEPS, METHOD, sampleIndexes, buildScale, classify, displayValue, formatMetric, inkFor, contrastRatio) + js/ramp-legend.js (rampHTML)",
+    "ownerRule": "Color scale ขอให้ใช้ 41 scales ตาม LDS เสมอ (2026-10-22): every colour scale uses all 41 samples; never a 3/5/7/9-class projection, a CSS gradient or an interpolated colour",
+    "method": "rank-41",
+    "steps": 41,
     "metrics": {
       "count": {
         "label": "จำนวนสาขา",
@@ -300,11 +347,21 @@
         "url": "?metric=capita"
       }
     },
-    "classification": "quantile, up to 5 classes over the compared children, on display-rounded values (integers / one decimal, ‘<0.1’ below 0.1) so the number and its colour always agree; ties reduce the class count; the top class runs to the maximum",
-    "lut": "41 exact LDS samples per family; class HEX from the LDS five-class tables (assets/theme.css --scale-count-*, --scale-capita-*), identical on both themes",
+    "classification": "rank-41 over the compared values: values are rounded to their display precision (integers / one decimal, ‘<0.1’ held at 0.1) so the number and its colour always agree; each distinct shown value takes its mid-rank (ties share the mean position); sample = round(40 × (rank − rankLowest) / (rankHighest − rankLowest)); lowest → 0, highest → 40, a single distinct value → 40; each used sample holds a closed interval of shown values; outliers are not clamped (sample 40 holds the maximum)",
+    "whyRank": "Bangkok holds 5,310 of 27,607 branches: a linear ramp over the 77 provinces would put 70 of them in samples 0–4 and use 11 samples; rank-41 uses all 41 samples (count) and 31 (per-capita, many ties at one decimal)",
+    "lut": "41 exact LDS samples per family, consumed unchanged on both themes; the five-class tokens in assets/theme.css (--scale-count-*, --scale-capita-*) are exact samples 0/10/20/30/40 for single-colour cues only",
+    "legend": {
+      "module": "js/ramp-legend.js#rampHTML(model, {unit, what})",
+      "swatches": "41 discrete <i> in LUT order with the exact HEX (no CSS gradient)",
+      "inUse": "a short mark under every sample that holds at least one compared value",
+      "ticks": "lowest, median and highest shown values at their samples (median shown when it differs from both ends and sits in samples 8–32)",
+      "textAlternative": "role=img aria-label ‘ไล่สี 41 ขั้นของ LDS ตามลำดับค่า: น้อยสุด … · ค่ากลาง … · มากสุด … <unit>’",
+      "states": "zero and no-data swatches follow the ramp only when such areas exist"
+    },
+    "ink": "text on a sample takes the foundation ink with the higher contrast (#182327 / #FFFFFF); where neither reaches 4.5:1 — count samples 27–29, density.capita 31–35 — the number sits on a neutral backplate (`plate`); the sample is never recoloured",
     "evidenceStates": {
-      "measured": "class fill",
-      "measured_zero": "lowest class fill + zero outline (#7D877F)",
+      "measured": "the value's sample (0–40)",
+      "measured_zero": "sample 0 + zero outline (#7D877F)",
       "no_data": "neutral #D5DAD6, legend ‘ไม่มีข้อมูล’ (capita without population)",
       "out_of_scope": "not drawn"
     },
@@ -318,27 +375,27 @@
     "principle": "Show detail only for the focused part; keep everything else visible but quiet (carried over from Luxury Brands, owner instruction 2026-10-22)",
     "states": {
       "countryAuto": {
-        "focus": "top-3 provinces: class fill, ink-chip labels with the value; store dots fade in at zoom 7–8 in their type colour",
+        "focus": "top-3 provinces: their 41-sample fill, ink-chip labels with the value; store dots fade in at zoom 7–8 in their type colour",
         "quiet": "other provinces outline-only with quiet labels; their rows are small grey dots"
       },
       "all": {
-        "focus": "every child filled by class (?areas=all); every dot in its type colour",
+        "focus": "every child filled by its sample (?areas=all); every dot in its type colour",
         "quiet": "none"
       },
       "provinceOrDistrict": {
-        "focus": "top-k children of the level: class fill (district < zoom 12, unit < zoom 14.5), labels, coloured dots, HTML pins from zoom 14",
+        "focus": "top-k children of the level: 41-sample fill (district < zoom 12, unit < zoom 14.5), labels, coloured dots, HTML pins from zoom 14",
         "quiet": "other children outline-only; other provinces outline-only; rows outside the focus grey"
       },
       "unit": {
-        "focus": "the unit's selected outline, its members' dots and pins; rounded focus massing in 3D when its bbox is < 0.08°",
+        "focus": "the unit's selected outline, its members' dots and pins; the reference buildings of the venues they name in blue (อาคารของสถานที่, click → venue); rounded focus massing in 3D when its bbox is < 0.08°",
         "quiet": "sibling units outline-only, quiet labels"
       },
       "venue": {
-        "focus": "only the rows whose name or address names the venue",
-        "quiet": "every other row is a grey dot"
+        "focus": "only the venue's rows; only its buildings blue, drawn by the x-ray (always visible, clickable); eye camera by default",
+        "quiet": "every other row is a grey dot; other venues' buildings are quiet massing; in the eye view the massing goes very quiet and occluders see-through"
       },
       "store": {
-        "focus": "selected ring on the dot / pin, desktop popup with the brand logo",
+        "focus": "selected ring on the dot / pin, desktop popup with the brand logo; a store in a venue is the venue level (venue buildings + eye); otherwise the footprint its point falls inside (if any) with the model camera",
         "quiet": "inherits the focus of the store's unit"
       }
     },
@@ -448,12 +505,13 @@
       "visibility": "3D only"
     },
     "focusTier": {
-      "when": "only when a local unit whose bbox is smaller than 0.08° is open (the decoder is capped at nine z14 tiles)",
+      "when": "a compact open unit (bbox < 0.08°) and/or the boxes around the buildings drawn as data (district/unit venue buildings, venue/store selection)",
       "source": "the same tile URLs MapLibre loads (TileJSON template), decoded by js/mvt.js; buildings overlapping the unit, offset outward and corner-rounded (js/geometry.js), lifted 0.35 m",
       "colour": "--basemap-massing-focus"
     },
-    "hostTier": "none — no venue is a confirmed host of a store in this dataset",
-    "provenance": "heights and footprints are OSM via OpenFreeMap (defaults when untagged); context only, never a dataset claim"
+    "hostTier": "the buildings drawn as data (joined-buildings) are the hosts: tile buildings overlapping them are dropped from the focus tier and hidden in the city tier; host boxes (+0.0012°) come first in the tile plan, then a compact unit (nine z14 tiles at most)",
+    "provenance": "heights and footprints are OSM via OpenFreeMap (defaults when untagged); context only, never a dataset claim",
+    "scene": "SCENE.eye at venue level in the eye view: city 0.16, focus 0.62, occluders 0.14 — focus-tier buildings between the camera and the venue (screen-space test, recomputed on moveend and new tiles) become see-through; default scene elsewhere"
   },
   "cameraContract": {
     "module": "js/camera.js (CAMERA, presetFor, applyPreset, fitPitched, framePoint) — unchanged from Luxury Brands",
@@ -474,19 +532,25 @@
         "pitch": 60,
         "bearing": 28,
         "fov": 14,
-        "when": "unit, store and venue in 3D (near-axonometric, verticals upright)"
+        "when": "a unit, a store outside every venue, and the venue level with ?cam=model (near-axonometric, verticals upright)"
       },
       "eye": {
-        "status": "kept in the module, not used; selected buildings use the model preset"
+        "pitch": 75,
+        "bearing": 28,
+        "fov": 24,
+        "when": "venue level only (a venue panel, or a store whose branch name names a venue), on by default; ?cam=model → model; toggle disabled elsewhere and in 2D; mobile portrait: plan while the sheet is open, eye after it closes",
+        "status": "used since 0.2 (มุมสถาปนิก, two-point perspective)"
       }
     },
     "fitting": {
       "function": "fitPitched(map, bounds, {preset, padding, maxZoom 16, minZoom 4, shift})",
       "areas": "app.js#fitBBox on the bbox of the current area (unit bbox from its geometry file, else the district's); a pitched fit tests the outline vertices of the open district or unit (app.js#currentOutline, ≤ 400 points) when its geometry is loaded, else the bbox corners; waits for the province geometry before fitting a unit",
       "points": "framePoint(zoom 16) for a store or venue, offset upward on mobile portrait",
-      "padding": "pitched: toolbar to the chart tray; plan: toolbar to the Aha card or legend"
+      "padding": "pitched: toolbar to the chart tray; plan: toolbar to the Aha card or legend",
+      "venue": "app.js#frameVenue: footprint + roof vertices (display height; js/venue-level.js#venueFramePoints) + the venue's store points inside the padded viewport (top ≥ 12% in eye); first fit without roofs (apply:false), then with roofs at minZoom = footprint zoom − 1 (≥ 14.5), maxZoom 17.6; no buildings → framePoint(zoom 16) on the store points; plan/2D or open mobile sheet → area fit"
     },
-    "constraint": "keep any 3D preset at pitch ≤ 90 − fov/2 − 3° (MapLibre 5.6.2 fill-extrusion horizon defect, found live in Luxury Brands 2026-10-22)"
+    "constraint": "keep any 3D preset at pitch ≤ 90 − fov/2 − 3° (MapLibre 5.6.2 fill-extrusion horizon defect, found live in Luxury Brands 2026-10-22)",
+    "toggle": "#toggle-eye (มุมสถาปนิก): aria-pressed = state.twoPoint; disabled unless venue level in 3D; URL cam=model when off"
   },
   "breadcrumbContract": {
     "module": "js/breadcrumb.js (buildBreadcrumb, renderBreadcrumb, breadcrumbText)",
@@ -513,7 +577,9 @@
     "rules": [
       "a store is never a crumb — the panel heading names it; its trail ends at its first unit (or its district when it has none) and its venue",
       "four or more levels fold the upper ones behind “…” on narrow screens; the last two stay visible",
-      "document.title = breadcrumbText(crumbs) · Grocery · CityMETER (a store prefixes brand and name)"
+      "document.title = breadcrumbText(crumbs) · Grocery · CityMETER (a store prefixes brand and name)",
+      "a store whose branch name names a venue ends its trail at that venue; the venue crumb (crumb-venue) opens the venue level",
+      "the venue level carries its own focus and camera (venueLevelContract)"
     ]
   },
   "panel": {
@@ -530,6 +596,7 @@
       "select-venue",
       "filter-brand",
       "filter-type",
+      "retry-spatial",
       "back",
       "explore-top",
       "clear-focus",
@@ -551,7 +618,8 @@
       "store": "js/profile-model.js#buildStoreDetail (+ describeStatus, describeGeometry); address/subdistrict/uuid/tile from data/detail/<code>.json on demand"
     },
     "renderer": "js/panel.js (pure HTML strings, delegated data-action clicks); breadcrumb first in .panel-top",
-    "copy": "สาขา = one source row; แบรนด์ = distinct brands; ประชากร = registered residents; ต่อ 1 หมื่นคน; สถานที่ตามชื่อสาขา; status ‘อยู่ในรายการสาขาของแบรนด์’"
+    "copy": "สาขา = one source row; แบรนด์ = distinct brands; ประชากร = registered residents; ต่อ 1 หมื่นคน; สถานที่ตามชื่อสาขา; status ‘อยู่ในรายการสาขาของแบรนด์’",
+    "unitOrder": "สถานที่ตามชื่อสาขา (next level) → ประเภทร้าน → แบรนด์ → ขอบเขตพื้นที่"
   },
   "data": {
     "observationGrain": "one source row of a chain as shown by CityMETER production; never merged, moved or clustered",
@@ -570,8 +638,8 @@
       "units": 8621,
       "localAdministrations": 7774,
       "bangkokLocales": 847,
-      "venues": 3437,
-      "rowsWithVenue": 3493,
+      "venues": 3542,
+      "rowsWithVenue": 3625,
       "rowsInTwoUnits": 15,
       "rowsOutsideUnits": 19,
       "rowsWithoutAddress": 178,
@@ -585,14 +653,20 @@
         "HYPERMARKET": 377,
         "WHOLESALE": 194,
         "PHARMACY": 150
-      }
+      },
+      "venueReferences": 29,
+      "venueReferenceFeatures": 76,
+      "pointInside": 806,
+      "boundaryCandidate": 9328,
+      "noBuilding": 17473
     },
     "reconciliation": "units 8,621/8,621 equal the API; districts 927/928 (ko Pha-ngan 8405: API 57, 56 points); provinces 76/77 (Surat Thani 84: API 515, 514 points); population totals equal at country, province and district level",
     "statusPolicy": "every row is not_revalidated → ‘อยู่ในรายการสาขาของแบรนด์’; 4 rows named ‘ออนไลน์’ are flagged, never removed; no closure is invented",
     "coordinatePolicy": "decoded from the public z10 vector tile (extent 4096, ≈ 9.55 m grid), stored to 5 decimals; source-specific limits (legacy Lotus's positions, manual Tops/Makro/GO points) in sources[].limitation",
     "estimates": "sale area / visits per day in the sheet are production defaults per store type, kept in meta.estimates and never shown as store facts",
     "brandLogos": "data/brand-logos.json + assets/brand-logos.svg (17 brands, sprite revision f97946f1a792)",
-    "venueLogos": "data/venue-logos.json (128 assets, status complete) + assets/venue-logos/; venue → logo/role in data/grocery.json venues[]"
+    "venueLogos": "data/venue-logos.json (128 assets, status complete) + assets/venue-logos/; venue → logo/role in data/grocery.json venues[]",
+    "joins": "data/venue-joins.json (name joins), data/venue-reference-buildings.json (29 venues / 76 features), data/spatial/<province>.json + data/spatial-joins.json (point → footprint, lazy per province), data/building-sources.json (providers, licences)"
   },
   "visualSystem": {
     "release": "LDS 0.9.7",
@@ -600,7 +674,7 @@
     "revision": "standalone-0.9.7-r1",
     "colorSetId": "color-srgb-10",
     "normativeSha256": "d3085cbc0a50195f1cbf0c77b1d77c0d19b84364daf2948eb367348d65432d96",
-    "appliedTokens": "assets/theme.css (foundation pairs, semantic states, map roles, data states, series 1–10 v8, count and density.capita classes + ink, basemap-only tokens)",
+    "appliedTokens": "assets/theme.css (foundation pairs, semantic states, map roles, data states, series 1–10 v8, count and density.capita cue tokens (exact samples 0/10/20/30/40) + ink, basemap-only tokens)",
     "analyticalScales": [
       {
         "family": "count",
@@ -660,6 +734,7 @@
         "กรุงเทพฯ",
         "พื้นที่",
         "3D",
+        "มุมสถาปนิก",
         "วิธีใช้",
         "ข้อมูล (mobile)"
       ]
@@ -705,7 +780,7 @@
     },
     {
       "id": "INV10",
-      "rule": "Classes are computed on display-rounded values; the legend states the metric and its denominator; measured_zero ≠ no_data ≠ out_of_scope"
+      "rule": "Colours are computed on display-rounded values; the legend states the metric and its denominator; measured_zero ≠ no_data ≠ out_of_scope"
     },
     {
       "id": "INV11",
@@ -737,7 +812,7 @@
     },
     {
       "id": "INV18",
-      "rule": "Matrix cells are equal in size; only the number and its class carry meaning"
+      "rule": "Matrix cells are equal in size; only the number and its sample carry meaning"
     },
     {
       "id": "INV19",
@@ -758,6 +833,34 @@
     {
       "id": "INV23",
       "rule": "The core panel, Aha, charts and table work without the map; every optional resource (map library, tiles, boundaries, store details, logos) fails soft with a retry or a quiet fallback"
+    },
+    {
+      "id": "INV24",
+      "rule": "สถานที่ is the fifth level: at district/unit level only accepted venue_reference buildings of the venues in focus are drawn; a venue without a reference draws nothing — never a nearest building"
+    },
+    {
+      "id": "INV25",
+      "rule": "At venue level only that venue's buildings are blue (its reference, else the footprints its own points fall inside); other venues' buildings stay quiet massing"
+    },
+    {
+      "id": "INV26",
+      "rule": "The two-point eye preset is a venue-level camera only and the default there; ?cam=model opts out; every 3D preset keeps the horizon outside the frame (pitch ≤ 90 − fov/2 − 3°)"
+    },
+    {
+      "id": "INV27",
+      "rule": "Draw order is depth order: massing tiers before the buildings drawn as data, the venue x-ray last; click priority stores → buildings → x-ray → areas"
+    },
+    {
+      "id": "INV28",
+      "rule": "A drawn building is evidence about a branch name or a plotted point; it never establishes tenancy, floor, height or opening status and never moves a coordinate"
+    },
+    {
+      "id": "INV29",
+      "rule": "The venue solid stays visible and clickable at any pan, pitch or zoom (x-ray scissored depth clear + own hit test); off in 2D"
+    },
+    {
+      "id": "INV30",
+      "rule": "Every colour scale uses all 41 exact LDS samples (rank-41) — map, legend, rankings and matrices read one table; never a class projection, gradient or interpolated colour; insufficient text contrast is solved with a backplate, never by recolouring a sample"
     }
   ],
   "chartContracts": [
@@ -765,7 +868,7 @@
       "viewKey": "ranking",
       "title": "สาขาเทียบคน",
       "question": "พื้นที่ใดมีส่วนแบ่งสาขามากกว่าส่วนแบ่งคน (count) / พื้นที่ใดมีสาขาต่อคนมากที่สุด (capita)",
-      "encoding": "count: paired horizontal bars per child — share of the area's stores (class colour) and share of residents (neutral bar); capita: one bar of stores per 10,000 residents with the store count; ranks, values and names as text",
+      "encoding": "count: paired horizontal bars per child — share of the area's stores (its 41-sample colour, the same as the map) and share of residents (neutral bar); capita: one bar of stores per 10,000 residents with the store count; ranks, values and names as text",
       "metric": "chart-model.js#buildRankingModel — storeShare, popShare (only when every child has population), perCapita",
       "scope": "children of the compared area (unit level → siblings in the district) within the filtered rows",
       "action": {
@@ -778,7 +881,7 @@
       "viewKey": "mix",
       "title": "ประเภทร้าน",
       "question": "ประเภทร้านใดอยู่ในพื้นที่ใด",
-      "encoding": "numeric heat table: top 12 children with stores × the store types present; table-layout fixed + <colgroup>, equal cells; tint = count class of the cell (quantile over the cells); 0 = zero outline",
+      "encoding": "numeric heat table: top 12 children with stores × the store types present; table-layout fixed + <colgroup>, equal cells; tint = the cell count on all 41 samples (rank-41 over the cells, own 41-swatch legend); 0 = zero outline; numbers on samples 27–29 sit on a neutral backplate",
       "metric": "chart-model.js#buildMatrixModel(columns 'types')",
       "scope": "children of the compared area within the filtered rows",
       "action": {
@@ -791,7 +894,7 @@
       "viewKey": "brands",
       "title": "แบรนด์",
       "question": "เชนใดอยู่ในพื้นที่ใด",
-      "encoding": "numeric heat table: top 12 children × the leading 8 brands of the compared rows; equal cells; tint = count class of the cell",
+      "encoding": "numeric heat table: top 12 children × the leading 8 brands of the compared rows; equal cells; tint = the cell count on all 41 samples (rank-41 over the cells)",
       "metric": "chart-model.js#buildMatrixModel(columns 'brands')",
       "scope": "children of the compared area within the filtered rows",
       "action": {
@@ -870,10 +973,55 @@
       "../data/build-receipt.json"
     ],
     "start": "npm start",
-    "test": "npm test",
+    "test": "npm test (150 tests on the shipped data and fixtures)",
     "handoff": "npm run handoff:bundle",
     "verifyLive": "npm run verify:live",
     "localUrl": "http://127.0.0.1:4173/",
-    "devHook": "window.__citymeter (state, map, update, fitCurrent, updateSpatialLayers, selectArea, selectStore, applyPreset, fitPitched, cameraPadding, buildMapStyle) — console tuning only, not an API"
+    "devHook": "window.__citymeter (state, map, xray, update, fitCurrent, frameVenue, toggleTwoPoint, updateSpatialLayers, selectArea, selectStore, selectVenue, applyPreset, fitPitched, cameraPadding, buildMapStyle) — console tuning only, not an API",
+    "vibeCoding": "handoff/IMPLEMENTATION_PLAN.md §วิธีส่งงานให้ coding agent and implementation-plan.json → agentTaskCards"
+  },
+  "venueLevelContract": {
+    "module": "js/venue-level.js (venueOf, isVenueLevel, referenceIds, areaVenueBuildings, tagVenueFeatures, buildingKinds, venueHostFeatures, displayHeight, venueTargets, xrayFeatures, venueFramePoints, buildingClickTarget) + app.js (displayedBuildings, currentVenueHosts, updateVenueScene, frameVenue, onBuildingSelect, toggleTwoPoint, syncEyeToggle)",
+    "definition": "venue level = panel mode venue, or panel mode store whose row names a venue (row.v ≥ 0)",
+    "areaLevel": "district and unit levels draw the accepted venue_reference buildings of the venues named by the focused rows (state.rows) as อาคารของสถานที่; a venue without an accepted reference draws nothing; country/province draw none",
+    "venueLevel": "only the venue's rows carry detail (focus level venue); only its buildings are blue: its reference footprints/parts, else the footprints its own rows' points fall inside (point_inside); other venues' buildings stay quiet massing",
+    "camera": "eye (two-point) by default; model with ?cam=model; plan in 2D; frameVenue (cameraContract.fitting.venue)",
+    "scene": "massing.setScene('eye', venueTargets(hosts)) while the camera preset is eye; 'default' otherwise",
+    "xray": "js/venue-xray.js: custom 3D layer after the buildings drawn as data; scissored depth clear inside the solid's screen box, solid + edges in --map-active-layer / --map-selected-stroke; hitTest on its own triangles; enabled in 3D only; click opens the venue from a store",
+    "drawOrder": "area fills (before waterway) → … → city-massing, focus-massing-3d, focus-massing-occluding → joined-buildings-plan / -3d / -outline (before water-name) → venue-xray → labels → area outlines → store dots",
+    "clickPriority": "stores-layer → joined-buildings → venue-xray → area layers (originalEvent.__citymeterHandled); a venue building opens its venue from an area or a store; inside the venue level it opens the store it holds",
+    "legend": "#legend-venue-building อาคารของสถานที่ (venue_reference) and #legend-joined อาคารตามพิกัดสาขา (point_inside), shown only when such buildings are drawn",
+    "panel": "unit panel lists สถานที่ตามชื่อสาขา first (the next level); venue and store facts show อาคารสถานที่ / อาคารตามพิกัด with source and height state (js/spatial-store.js#buildingFact, #referenceBuildingFact)",
+    "url": "?place=<GV-|SC- id> opens the venue level; ?cam=model keeps the model camera; the store URL of a store in a venue is also venue level",
+    "mobile": "while the sheet covers the map the venue view waits (plan in the strip above the sheet); closing the sheet re-frames in eye (framePoint zoom 16 lifted above the sheet area)"
+  },
+  "buildingEvidenceContract": {
+    "author": "ChatGPT commit 037ff18 (2026-10-22), used unchanged in 0.2",
+    "relations": [
+      {
+        "relation": "store → venue name",
+        "file": "data/venue-joins.json",
+        "coverage": "3,625 linked rows (+141 / −9 / 1 reassignment from 3,493); 3,542 identities incl. 105 new catalog venues; 248 also match an independent venue point, 3,374 name only, 3 coordinate review",
+        "meaning": "the branch name or address names the venue — not tenancy"
+      },
+      {
+        "relation": "named venue → reference geometry",
+        "file": "data/venue-reference-buildings.json",
+        "coverage": "29 venues, 76 features (footprints + display parts), 44 name-linked rows",
+        "meaning": "อาคารของสถานที่ตามชื่อสาขา — exact venue name/source-id crosswalk, OSM / CityMETER parts"
+      },
+      {
+        "relation": "plotted store point → footprint",
+        "file": "data/spatial/<province>.json, data/spatial-joins.json",
+        "coverage": "806 point_inside, 9,328 boundary_candidate, 0 ambiguous, 17,473 no_building, 0 unavailable (27,607 rows)",
+        "meaning": "the source coordinate lies inside one footprint (≥ 10 m from its edge); boundary candidates stay unresolved; no_building = no containing polygon in the snapshot, not physical absence"
+      }
+    ],
+    "rules": [
+      "never snap a point to a building or move a coordinate",
+      "never upgrade a point status from a name relation",
+      "heights are source/model context; missing height is null and 3 m is display-only",
+      "source priority native → verified reference → Microsoft gap fill; earlier boundary/ambiguous results are never promoted"
+    ]
   }
 }

@@ -1,9 +1,9 @@
 {
   "$schema": "./handoff.schema.json",
-  "schemaVersion": "1.0.0",
+  "schemaVersion": "1.1.0",
   "documentType": "product-statement",
   "productId": "citymeter-grocery",
-  "productVersion": "0.1.0",
+  "productVersion": "0.2.0",
   "updatedOn": "2026-10-22",
   "humanDocument": "../PRODUCT_STATEMENT.md",
   "standard": "Product Brief — CityMETER v6 §1.6.3 metadata block; Master Brand Brief v0.5.3 §7.2 / §3.7 (same structure as CityMETER Luxury Brands 0.5)",
@@ -255,7 +255,10 @@
     "polygon",
     "ranking",
     "matrix",
-    "3d-massing"
+    "3d-massing",
+    "venue-buildings",
+    "venue-xray",
+    "two-point-view"
   ],
   "recommended_pairing_layers": [
     "Population",
@@ -290,7 +293,7 @@
       "perCapita (stores per 10,000 residents)",
       "share (top-k stores, union)",
       "popShare (top-k residents)",
-      "class (quantile, up to 5)"
+      "colour sample 0–40 (rank-41 over the compared areas; all 41 LDS samples, owner rule 2026-10-22)"
     ],
     "inferred_outputs": [
       "ranking of child areas",

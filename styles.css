@@ -270,6 +270,22 @@ input[type="search"]::-webkit-search-cancel-button { -webkit-appearance: none; }
 .legend-step { display: inline-flex; flex-direction: column; align-items: center; gap: 2px; font-size: 11px; line-height: 1.2; min-width: 34px; color: var(--text-metadata); }
 .legend-step i { display: block; width: 100%; height: 10px; border: 1px solid var(--border-default); }
 .legend-step .legend-zero { background: var(--scale-count-1); box-shadow: inset 0 0 0 2px var(--data-zero-outline); }
+/* 41-sample LDS ramp (js/ramp-legend.js, owner rule 2026-10-22): the exact samples as 41 discrete swatches, never a CSS gradient
+   (a gradient interpolates between approved samples). A short mark under a sample = at least one compared value holds it. */
+.ramp { display: inline-grid; gap: 6px; flex: 1 1 auto; min-width: 0; max-width: 320px; vertical-align: middle; }
+.chart-legend .ramp { flex: 0 1 240px; min-width: 150px; }
+.ramp-bar { display: flex; height: 10px; border: 1px solid var(--border-default); }
+.ramp-bar i { position: relative; flex: 1 1 0; min-width: 0; }
+.ramp-bar i.is-used::after { content: ''; position: absolute; left: 15%; right: 15%; top: calc(100% + 2px); height: 3px; border-radius: 1px; background: var(--text-metadata); }
+.ramp-ticks { position: relative; display: block; height: 14px; font-size: 11px; line-height: 14px; color: var(--text-metadata); font-variant-numeric: tabular-nums; }
+.ramp-tick { position: absolute; top: 0; left: var(--at, 50%); transform: translateX(-50%); white-space: nowrap; }
+.ramp-tick.is-min { left: 0; transform: none; }
+.ramp-tick.is-max, .ramp-tick.is-only { left: auto; right: 0; transform: none; }
+/* Area legend: title and metric switch on the first row; the ramp (+ 0 / ไม่มีข้อมูล) gets the full second row. */
+#legend-areas { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "title switch" "steps steps"; align-items: center; gap: 8px 12px; }
+#legend-areas .legend-title { grid-area: title; }
+#legend-areas .legend-steps { grid-area: steps; gap: 10px; min-width: 0; }
+#legend-areas #legend-metric { grid-area: switch; margin: 0; }
 .legend-marks span { display: inline-flex; align-items: center; gap: 6px; }
 .legend-pin { width: 10px; height: 10px; border-radius: 50%; background: var(--series-1-fill); border: 1px solid var(--map-marker-stroke); box-shadow: 0 0 0 1.5px var(--map-marker-halo); }
 .legend-building { width: 12px; height: 12px; background: var(--map-active-layer); border: 1px solid var(--map-selected-stroke); transform: skewY(-12deg); }
@@ -379,6 +395,8 @@ input[type="search"]::-webkit-search-cancel-button { -webkit-appearance: none; }
 .matrix-row[aria-pressed="true"] { background: var(--surface-alt); }
 .matrix-cell { display: block; width: 100%; min-width: 0; height: 36px; min-height: 36px; padding: 0 4px; border: 1px solid var(--border-default); border-radius: 6px; font-size: 13px; text-align: center; }
 .matrix-cell.is-measured_zero { color: var(--text-metadata); }
+/* A sample that reaches 4.5:1 with neither foundation ink (scales.js `plate`): the number sits on a neutral backplate; the sample is never recoloured. */
+.matrix-cell .data-number.has-plate { background: var(--surface-card); color: var(--text-primary); padding: 1px 5px; border-radius: 4px; }
 .matrix tr.is-selected .matrix-cell { outline: 2px solid var(--map-selected-stroke); outline-offset: -2px; }
 .chart-empty { display: grid; place-items: center; gap: 10px; min-height: 120px; text-align: center; color: var(--text-metadata); font-size: 13px; }
 

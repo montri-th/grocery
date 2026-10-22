@@ -1,8 +1,10 @@
 # เริ่มงานต่อ — CityMETER Grocery
 
-รุ่นส่งต่อ 0.1 · ปรับล่าสุด 22 ตุลาคม 2569 · ข้อมูลตรวจถึง 22 ตุลาคม 2569
+รุ่นส่งต่อ 0.2 · ปรับล่าสุด 22 ตุลาคม 2569 (รอบสอง) · ข้อมูลตรวจถึง 22 ตุลาคม 2569
 
 ชุดนี้ส่งต่อให้ developer หรือ coding agent พัฒนาต่อจาก repository ที่ใช้งานจริง หลักของรุ่นนี้คือ **ถามคำถามเดียว — ร้านกระจุกที่ไหนเมื่อเทียบกับคน — ได้ทุกระดับพื้นที่ของ production** (ประเทศไทย › จังหวัด › อำเภอ/เขต › อปท./ย่าน) ด้วยตัวเลขที่ตรงกับ CityMETER แสดงรายละเอียดเฉพาะส่วนที่ focus ส่วนอื่นให้เงียบ และทำให้ Product Statement เป็น winning strategy ที่ทุกส่วนของผลิตภัณฑ์ต้องรับใช้ โครงสร้างทั้งหมดยกมาจาก CityMETER Luxury Brands 0.5
+
+**รุ่น 0.2** (คำสั่งเจ้าของ 22 ต.ค. 2569 รอบสอง): สถานที่เป็นระดับที่ห้าทั้งใน breadcrumb และบนแผนที่ · มุมสถาปนิก (two-point, `eye`) ที่ระดับสถานที่แบบเดียวกับ Luxury Brands พร้อม venue x-ray · ทุกสเกลสีใช้ครบ 41 ขั้นของ LDS · ใช้ผล join สาขา–สถานที่–อาคารของ ChatGPT (commit `037ff18`) ตามเดิม · ผลตรวจเทียบ Luxury Brands (G01–G16) และ task card สำหรับ coding agent
 
 Live: [Grocery](https://montri-th.github.io/grocery/) · Source: [GitHub](https://github.com/montri-th/grocery)
 
@@ -12,9 +14,9 @@ Live: [Grocery](https://montri-th.github.io/grocery/) · Source: [GitHub](https:
 |---|---|---|
 | [../PRODUCT_STATEMENT.md](../PRODUCT_STATEMENT.md) | [product-statement.json](product-statement.json) | Winning strategy: Who / What / Which / How, quality bar, ป้ายหลักฐาน, hypotheses — อ่านก่อนเปลี่ยนสิ่งที่หน้าแรกบอก |
 | [PRODUCT_BRIEF.md](PRODUCT_BRIEF.md) | [product-brief.json](product-brief.json) | การตัดสินใจของเจ้าของ, ลำดับชั้นพื้นที่ + membership, ขอบเขตข้อมูลสามชั้น + focus modes, Aha “สาขากระจุกเทียบคน”, ตัวชี้วัดและสี, focus/quiet, basemap, มวลอาคาร, กล้อง, breadcrumb, แผงสี่โหมด, กราฟ, โลโก้, invariants INV01–INV23 |
-| [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) | [implementation-plan.json](implementation-plan.json) | โมดูลและข้อต่อ, สายการสร้างข้อมูล, งาน P01–P12, backlog N01–N14, acceptance AC01–AC24, วิธีทดสอบและ release |
+| [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) | [implementation-plan.json](implementation-plan.json) | โมดูลและข้อต่อ, สายการสร้างข้อมูล, งาน P01–P16 + J01–J04, ผลตรวจเทียบ Luxury Brands G01–G16, backlog N01–N23, acceptance AC01–AC33, วิธีทดสอบ, prompt + task card สำหรับ coding agent, release |
 | [VERIFICATION.md](VERIFICATION.md) | [handoff-manifest.json](handoff-manifest.json) | ผลตรวจแยกระดับ (unit / rendered / live) และ hash ของทุกไฟล์ |
-| README นี้ | [handoff.schema.json](handoff.schema.json) | สัญญาโครงสร้างของ JSON ทั้งสี่ (schema 1.0.0) |
+| README นี้ | [handoff.schema.json](handoff.schema.json) | สัญญาโครงสร้างของ JSON ทั้งสี่ (schema 1.1.0: บังคับ venueLevelContract, buildingEvidenceContract, metricContract แบบ `rank-41` / 41 ขั้น, parityAudit, agentTaskCards, vibeCoding) |
 
 `product-statement.json`, `product-brief.json` และ `implementation-plan.json` เขียนด้วยมือและต้องแก้คู่กับ Markdown ส่วน `handoff-manifest.json` สร้างด้วย `npm run handoff:manifest` เท่านั้นและไม่ถูก track ใน git (อยู่ใน bundle ที่ `source/handoff/handoff-manifest.json`) ห้ามแก้ hash ด้วยมือ
 
@@ -24,7 +26,8 @@ Live: [Grocery](https://montri-th.github.io/grocery/) · Source: [GitHub](https:
 
 ```sh
 npm start      # http://127.0.0.1:4173/
-npm test       # 65 unit tests บนข้อมูลจริงและ fixtures
+npm test       # 150 unit tests บนข้อมูลจริงและ fixtures
+python scripts/qa/core_qa.py && python scripts/qa/venue_qa.py   # rendered harness (ดู scripts/qa/README.md)
 ```
 
 เป็น static site ไม่มี build step ไม่ต้อง `npm install` ต้องมี Node ≥ 20 และ Python 3 แผนที่ต้องเข้าถึง unpkg.com (MapLibre) และ tiles.openfreemap.org (tiles + glyphs; basemap สร้างเองใน `js/map-style.js`) ส่วนกราฟไม่ใช้ไลบรารีภายนอก ถ้าเครื่องทดสอบถูกบล็อก ใช้ harness แบบ stub tiles ใน VERIFICATION การเปิด `index.html` เป็นไฟล์โดยตรงจะนำไปเว็บสาธารณะ
@@ -37,9 +40,10 @@ npm test       # 65 unit tests บนข้อมูลจริงและ fix
 - ประชากรที่ไม่มีคือไม่มีข้อมูล ไม่ใช่ศูนย์ และไม่ประมาณ
 - ขอบเขตข้อมูลสามชั้น: `filtered` ขับจุด Aha choropleth กราฟ; `scopeRows` ขับตัวเลขของพื้นที่; `rows` ขับหมุด ตาราง ตัวนับ
 - focus + quiet: ส่วนที่โฟกัสมีสี ป้าย จุดสีประเภท หมุด/โลโก้ (z ≥ 14); ส่วนอื่นเป็นเส้นขอบ ป้ายจาง จุดเทาไม่มีโลโก้และไม่อยู่ใน tab order
-- สีข้อมูล: LDS `count` / `density.capita` quantile บนค่าที่ปัด HEX เดียวกันสองธีม; measured_zero ≠ no_data ≠ out_of_scope; legend บอกตัวหาร
+- สีข้อมูล: ทุกสเกลใช้ครบ 41 ขั้นของ LDS `count` / `density.capita` (`js/scales.js#buildScale` แบบ `rank-41` + legend 41 ช่อง `js/ramp-legend.js`) ห้ามชุด 5 ระดับ ห้าม gradient; HEX เดียวกันสองธีม; measured_zero ≠ no_data ≠ out_of_scope; legend บอกตัวหาร; contrast ไม่ถึงใช้แผ่นรอง ไม่เปลี่ยนสี
 - หนึ่งแถวต่อหนึ่งจุด ไม่มี cluster พิกัดเดิม; หมุด ≤ 450 โลโก้ ≤ 250 เฉพาะ zoom ≥ 14 ในโฟกัส
 - breadcrumb ประเทศไทย › จังหวัด › อำเภอ/เขต › อปท./ย่าน › สถานที่; ร้านไม่ใช่ crumb; ลิงก์ production ออกไปเท่านั้น
+- ระดับสถานที่: ระดับอำเภอ/อปท. วาดเฉพาะรูปทรงอ้างอิงที่ยอมรับของสถานที่ในโฟกัส; ที่ระดับสถานที่ อาคารสีน้ำเงินมีแต่ของสถานที่นั้น (reference หรือรูปทรงที่จุดของสถานที่นั้นอยู่ภายใน) ไม่ใช่อาคารใกล้สุด; มุมสถาปนิก (`eye`) ใช้ที่ระดับสถานที่เท่านั้น (`?cam=model` ปิด); ลำดับชั้น massing → อาคารที่วาด → x-ray และลำดับการกด จุดสาขา → อาคาร → x-ray → พื้นที่ เป็นสัญญา; อาคารที่วาดไม่ยืนยันการเช่า ชั้น ความสูง หรือการเปิด
 - สถานะ “อยู่ในรายการสาขาของแบรนด์” — ห้ามเขียนว่าเปิดอยู่หรือสร้างสถานะปิดเอง; สถานที่คือชื่อที่สาขาอ้างถึง ไม่ใช่ “อยู่ภายใน”
 - ไม่มี Caveats/Research badge/CSV ใน UI; แหล่งข้อมูล วันที่ และความแม่นพิกัดอยู่ในรายละเอียดสาขา
 - LDS 0.9.7 tokens เท่านั้น; ไอคอน nav-7 FILL 0 / wght 300; pictogram 9 glyph เป็นข้อยกเว้นทดลอง; ไม่มี decorative bracket หรือ colored left rail; focus ring มองเห็น; reduced motion
@@ -47,13 +51,13 @@ npm test       # 65 unit tests บนข้อมูลจริงและ fix
 
 ## เริ่มด้วยงานหนึ่งชิ้น
 
-ใช้คำสั่งตั้งต้นนี้กับ coding agent แล้วแทน `Nxx` ด้วยงานใน backlog (หรือระบุงานใหม่):
+หยิบ task card จาก `implementation-plan.json → agentTaskCards` แล้วใช้ prompt ใน [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) §วิธีส่งงานให้ coding agent หรือคำสั่งสั้นนี้ (แทน `Nxx` ด้วยงานใน backlog):
 
 ```text
 อ่าน AGENTS.md, PRODUCT_STATEMENT.md, handoff/PRODUCT_BRIEF.md และ handoff/product-brief.json
 ทำเฉพาะงาน Nxx ใน handoff/IMPLEMENTATION_PLAN.md
 ตรวจ source และสถานะจริงก่อนแก้ อย่าถือว่าทำเสร็จแล้ว
-คงลำดับชั้นและ key ของ production, membership จาก production, ขอบเขตข้อมูลสามชั้น (filtered / scopeRows / rows) และ focus modes, Aha ทุกระดับ, focus + quiet, สีและ class ของ LDS, breadcrumb, source data, identities, coordinates และ LDS tokens
+คงลำดับชั้นและ key ของ production, membership จาก production, ขอบเขตข้อมูลสามชั้น (filtered / scopeRows / rows) และ focus modes, Aha ทุกระดับ, focus + quiet, สี 41 ขั้นของ LDS, breadcrumb และระดับสถานที่, source data, identities, coordinates และ LDS tokens
 เพิ่มหรือปรับ tests ใน tests/ สำหรับพฤติกรรมที่เปลี่ยน แล้วตรวจ browser ที่ 390 และ 1280 ทั้งสองธีม
 ส่งรายการไฟล์ที่แก้ ผลตรวจที่ทำจริง และประเด็นที่ยังไม่ยืนยัน
 อย่าเปลี่ยนสูตร metric, การนับสมาชิก, taxonomy หรือสีข้อมูลเงียบ ๆ และอย่ารายงานว่าเผยแพร่แล้วจากผลในเครื่อง (ใช้ npm run verify:live)
@@ -62,8 +66,8 @@ npm test       # 65 unit tests บนข้อมูลจริงและ fix
 ## ตรวจความครบก่อนรับช่วง
 
 1. `RELEASE_RECEIPT.json` ใน bundle ระบุ commit ที่เผยแพร่ ให้ `git checkout <commit>` แล้วเทียบ `handoff/handoff-manifest.json` กับไฟล์จริง (`npm run handoff:manifest` ต้องให้ hash เดิมบน working tree ที่สะอาด)
-2. `npm test` ต้องผ่าน 65/65
+2. `npm test` ต้องผ่าน 150/150
 3. `npm run verify:live` ต้องผ่านทุกไฟล์ที่เผยแพร่ (ดู `evidence/live-attestation-*.json` ใน bundle สำหรับผลตอนส่งมอบ)
-4. เปิด 390 px และ desktop ทั้งสองธีม ไล่ flow: Aha ประเทศ → ดูทุกจังหวัด → ต่อ 1 หมื่นคน → จังหวัด → อำเภอ → อปท./ย่าน → ซูม 14 (หมุด + โลโก้) → สาขา → สถานที่ → breadcrumb ขึ้นทีละระดับ → กราฟสามมุมมอง → ตาราง → help
+4. เปิด 390 px และ desktop ทั้งสองธีม ไล่ flow: Aha ประเทศ → ดูทุกจังหวัด → ต่อ 1 หมื่นคน → จังหวัด → อำเภอ → อปท./ย่าน → ซูม 14 (หมุด + โลโก้) → สาขา → สถานที่ (มุมสถาปนิก + x-ray) → breadcrumb ขึ้นทีละระดับ → กราฟสามมุมมอง → ตาราง → help
 
 ชุดส่งต่อเผยแพร่เฉพาะ source/data/assets ที่อยู่ใน repository และบทสรุปประยุกต์ ไม่แนบ private Drive/Sheet URLs, credentials, brief ภายในฉบับเต็ม, ข้อมูลดิบ หรือ LDS/token library ทั้งชุด

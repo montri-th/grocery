@@ -18,10 +18,18 @@
     "pictograms": "Material Symbols Rounded 9-glyph pictogram subset (assets/icons/material-pictogram-300.woff2); FILL 0 / wght 300 / GRAD 0 / opsz 24; test exception to nav-7 approved by the owner 2026-10-22 (Luxury Brands), carried over"
   },
   "colors": {
-    "applied": "assets/theme.css — foundation pairs, semantic states, map roles (activeLayer, selectedStroke, markerHalo, markerStroke), data states (noData, zero), categorical series 1–10 (landometer-series-10-v8 soft), count and density.capita five-class tables with ink, basemap-only tokens (--basemap-*)",
-    "analytical": "js/scales.js — count (scaleVersion 4ff5c1fb4be71ecd13c48685b38371b528bcd4ce369ce964a75354c2eb4d0980) and density.capita (scaleVersion 0b49c15c6f91e48db79f5c6bd9c729656c95cd6f3162941490c5c125111b4ab1), 41-sample LUTs, identical HEX on both themes; the legend states the denominator (ต่อ 1 หมื่นคน)",
+    "applied": "assets/theme.css — foundation pairs, semantic states, map roles (activeLayer, selectedStroke, markerHalo, markerStroke), data states (noData, zero), categorical series 1–10 (landometer-series-10-v8 soft), count and density.capita five-class tokens with ink (single-colour cues only: exact samples 0/10/20/30/40, never a scale), basemap-only tokens (--basemap-*)",
+    "analytical": "js/scales.js — count (scaleVersion 4ff5c1fb4be71ecd13c48685b38371b528bcd4ce369ce964a75354c2eb4d0980) and density.capita (scaleVersion 0b49c15c6f91e48db79f5c6bd9c729656c95cd6f3162941490c5c125111b4ab1), 41-sample LUTs, identical HEX on both themes; every colour scale uses all 41 samples (owner rule 2026-10-22, method rank-41 in buildScale); the legend (js/ramp-legend.js) shows the 41 discrete swatches, marks the samples in use, ticks min · median · max and states the denominator (ต่อ 1 หมื่นคน)",
     "categorical": "store types: C_STORE series-7, SUPERMARKET series-3, HYPERMARKET series-2, WHOLESALE series-8, PHARMACY series-1 (logos.css --type-*)",
-    "notDistributed": "full LDS library, other analytical families, Location Intelligence profile scales"
+    "notDistributed": "full LDS library, other analytical families, Location Intelligence profile scales",
+    "scaleRule": {
+      "owner": "Color scale ขอให้ใช้ 41 scales ตาม LDS เสมอ (2026-10-22)",
+      "method": "rank-41: display-rounded positive values take their mid-rank among the compared values; sample = round(40 × (rank − rankLowest) / (rankHighest − rankLowest)); ties share a sample; one distinct value → sample 40",
+      "why": "rank rather than linear magnitude: Bangkok holds 5,310 of 27,607 branches, so a linear ramp would put 70 of 77 provinces in samples 0–4",
+      "states": "measured_zero = sample 0 + zero outline; no_data = neutral #D5DAD6; out_of_scope = not drawn",
+      "legend": "41 discrete swatches in LUT order (never a CSS gradient), a mark under each sample in use, ticks at the lowest, median and highest shown values, text alternative with the same values",
+      "contrast": "text on a sample takes the better foundation ink (#182327 / #FFFFFF); where neither reaches 4.5:1 (count samples 27–29, density.capita 31–35) the number sits on a neutral backplate; the sample is never recoloured"
+    }
   },
   "firstAha": "share of the area's stores held by its top children against their share of registered residents — ‘30% ของสาขาอยู่ใน 3 จังหวัดนี้ ซึ่งมีคนแค่ 13% ของประเทศ’ by default — recomputed at every drill level and filter; the map focuses those children automatically and keeps the rest quiet",
   "areaUnit": "production hierarchy (owner choice ‘A+อปท’ 2026-10-22): ประเทศไทย › จังหวัด › อำเภอ/เขต › อปท./ย่าน; DOLA local administrations outside Bangkok, CityMETER Locales inside; membership, boundaries and population from production",
@@ -40,7 +48,7 @@
   ],
   "validation": {
     "status": "release 0.2 verification recorded in handoff/VERIFICATION.md",
-    "unitTests": 147,
+    "unitTests": 150,
     "renderedHarness": "Playwright + vendored MapLibre 5.6.2 + stub TileJSON with empty tiles; 1280×800 and 390×844; light and dark",
     "liveChecks": "see handoff/VERIFICATION.md — the real-tile look is confirmed only there",
     "scope": "Applied LDS assets, fonts and actual rendered interfaces. No blanket LDS, CVD, native-device or market-completeness claim."
@@ -55,7 +63,7 @@
   "mapContract": {
     "basemap": "generated at runtime by js/map-style.js on https://tiles.openfreemap.org/planet (OpenMapTiles) with --basemap-* tokens; labels name:th first; no POI/housenumber/boundary labels",
     "layerOrder": "landcover/water → area fills (before waterway) → 2D footprints → roads → massing tiers → buildings drawn as data (joined-buildings, before water-name) → venue x-ray (custom 3D layer) → labels → area outlines / selection → store dots → HTML labels and pins",
-    "choropleth": "count or density.capita, quantile up to five classes over the compared children on display-rounded values; fills stop at zoom 9 (provinces), 12 (districts), 14.5 (units); EVID-05 measured / measured_zero / no_data / out_of_scope",
+    "choropleth": "count or density.capita on all 41 LDS samples (rank-41 over the compared children on display-rounded values); fills stop at zoom 9 (provinces), 12 (districts), 14.5 (units); EVID-05 measured / measured_zero / no_data / out_of_scope",
     "stores": "every filtered row a WebGL dot fading in at zoom 7–8; focus = store-type colour to zoom 14, context = small grey; from zoom 14 rows in focus become HTML pins with brand logos (≤ 450 pins, ≤ 250 logos)",
     "massing": "city tier (OSM heights, quiet, 3D only) and a rounded focus tier around a compact open unit and around the buildings drawn as data; context only, never data; SCENE.eye (city 0.16, focus 0.62, see-through occluders) at venue level in the two-point view",
     "camera": "plan for anything wider than 0.3°, for areas on mobile portrait and with 3D off · city (pitch 56, bearing 28) for a compact district · model (pitch 60, FOV 14) for a unit or a store outside every venue · eye (มุมสถาปนิก, pitch 75, FOV 24) at venue level by default (?cam=model opts out)",
@@ -70,8 +78,8 @@
   },
   "venueLogos": "128 sha256-verified files for 2,547 of 3,542 registered venue names (mostly shared operator banners with a role caption); venue names, independent reference geometry and plotted-point containment are separate evidence, never confirmed tenancy",
   "chartContract": {
-    "ranking": "paired bars: share of stores (class colour) and share of residents (neutral) per child; or stores per 10,000 residents",
-    "matrix": "table-layout fixed with a colgroup; every cell the same size; tint = count class of the cell"
+    "ranking": "paired bars: share of stores (its 41-sample colour, the same as the map) and share of residents (neutral) per child; or stores per 10,000 residents",
+    "matrix": "table-layout fixed with a colgroup; every cell the same size; tint = the cell count on all 41 samples (rank-41 over the cells); a number whose sample reaches 4.5:1 with neither ink sits on a neutral backplate; legend = the 41-sample ramp"
   },
   "copy": "short natural Thai without on-screen caveats: สาขา (one source row) / แบรนด์ / สถานที่ตามชื่อสาขา / อปท. / ย่าน / ประชากร / ต่อ 1 หมื่นคน; status ‘อยู่ในรายการสาขาของแบรนด์’",
   "knownExceptions": [

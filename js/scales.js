@@ -5,17 +5,32 @@
  *   count          — totals (สาขา). scaleVersion 4ff5c1fb…0980, dusty cyan → editorial navy.
  *   density.capita — stores per 10,000 registered residents. scaleVersion 0b49c15c…4ab1, salmon → rose.
  * DATAVIZ-02/03: the exact approved light 41-sample LUTs are consumed unchanged
- * on both themes; class colours are LUT[round(i × 40 / (n − 1))]; no interpolation.
+ * on both themes; no interpolation and no derived colours.
  *
- * The consumer (this module) declares the classification: quantile classes
- * (n = 5, fewer when there are fewer distinct values) over the current
- * children's values, on values rounded to their display precision (integers
- * for counts, one decimal for per-capita) so a displayed number and its class
- * always agree. Outliers are not clamped: the top class simply runs to the
- * maximum. Zero is a measured fact (EVID-05 measured_zero: lowest class colour
- * + zero outline), never a class of the ramp; an unknown population is
- * no_data (neutral fill), never zero; areas outside the comparison are
- * out_of_scope (nothing drawn).
+ * Owner rule (2026-10-22, release 0.2): every colour scale uses all 41 LDS
+ * samples, never a five-class projection. The consumer (this module) declares
+ * the classification `rank-41` over the values being compared:
+ *   - values are first rounded to their display precision (integers for
+ *     counts, one decimal for per-capita, a tiny positive held at 0.1 and shown
+ *     "<0.1"), so a shown number and its colour always agree and equal shown
+ *     values share one sample;
+ *   - each distinct positive value takes its mid-rank among the compared
+ *     values (ties share the mean position), stretched so the lowest value is
+ *     sample 0 and the highest sample 40:
+ *       sample = round(40 × (rank − rankLowest) / (rankHighest − rankLowest));
+ *     a single distinct value takes sample 40;
+ *   - each used sample therefore holds a closed interval of shown values
+ *     [lower, upper] (on the display grid this is [lower, next lower)); the
+ *     map, its legend, the rankings and the matrices read the same table.
+ * Rank rather than linear magnitude: Bangkok holds 5,310 of 27,607 branches, so
+ * a linear ramp would put 70 of the 77 provinces in the first five samples.
+ * Outliers are not clamped: the highest sample simply holds the maximum.
+ * Zero is a measured fact (EVID-05 measured_zero: sample 0 + zero outline),
+ * never a sample of the ramp; an unknown population is no_data (neutral fill),
+ * never zero; areas outside the comparison are out_of_scope (nothing drawn).
+ * Text on a sample uses the foundation ink with the higher contrast; where
+ * neither reaches 4.5:1 (count 27–29, density.capita 31–35) the number sits on
+ * a neutral backplate (`plate`) instead of recolouring the sample.
  */
 const FAMILY = (scaleId, unit, labelTh, anchors, lut, scaleVersion) => Object.freeze({
   scaleId, kind: 'sequential', unit, labelTh, anchors, lut: Object.freeze(lut),
@@ -41,6 +56,9 @@ export const CAPITA_SCALE = FAMILY('density.capita', 'สาขาต่อป�
 ], '0b49c15c6f91e48db79f5c6bd9c729656c95cd6f3162941490c5c125111b4ab1');
 
 export const SCALES = Object.freeze({count: COUNT_SCALE, capita: CAPITA_SCALE});
+/** Number of exact LDS samples every scale uses, and the classification this module declares. */
+export const STEPS = 41;
+export const METHOD = 'rank-41';
 export const METRICS = Object.freeze({
   count: {label: 'จำนวนสาขา', short: 'สาขา', legend: 'จำนวนสาขา', step: 1, digits: 0},
   capita: {label: 'สาขาต่อประชากร 10,000 คน', short: 'ต่อ 1 หมื่นคน', legend: 'สาขาต่อประชากร 10,000 คน', step: 0.1, digits: 1},
@@ -52,7 +70,11 @@ export function inkFor(fill) {
   return contrastRatio(fill, dark) >= contrastRatio(fill, light) ? dark : light;
 }
 
-/** Exact class colours for n ∈ {3,5,7,9}: index round(i × 40 / (n − 1)). */
+/**
+ * Exact LDS class projections for n ∈ {3,5,7,9}: index round(i × 40 / (n − 1)).
+ * Kept only for the single-colour cue tokens of assets/theme.css (samples
+ * 0/10/20/30/40); data encoding always uses all 41 samples (buildScale).
+ */
 export function classColors(n = 5, scale = COUNT_SCALE) {
   if (![3, 5, 7, 9].includes(n)) throw new RangeError('Class count must be 3, 5, 7 or 9');
   return Array.from({length: n}, (_, i) => scale.lut[Math.round((i * 40) / (n - 1))]);
@@ -74,53 +96,63 @@ export function formatMetric(value, metric = 'count') {
 }
 
 /**
- * Quantile classes over the measured positive values (display-rounded).
- * Returns closed intervals [lower, upper] in display units; with fewer distinct
- * values than n the number of classes shrinks so intervals never overlap.
+ * Rank-41 positions of the measured positive values (display-rounded).
+ * Returns the distinct shown values in ascending order:
+ * [{value, count, rank, index}] where rank is the 0-based mid-rank among all
+ * positive values and index the LDS sample 0…40.
  */
-export function quantileIntervals(values, n = 5, metric = 'count') {
-  const step = METRICS[metric]?.step ?? 1;
-  const sorted = values.map(v => displayValue(v, metric)).filter(v => v != null && v > 0).sort((a, b) => a - b);
-  if (!sorted.length) return [];
-  const uppers = [];
-  for (let i = 1; i <= n; i++) {
-    const q = sorted[Math.min(sorted.length - 1, Math.ceil((i * sorted.length) / n) - 1)];
-    if (!uppers.length || q > uppers.at(-1)) uppers.push(q);
+export function sampleIndexes(values, metric = 'count') {
+  const shown = (Array.isArray(values) ? values : []).map(v => displayValue(v, metric)).filter(v => v != null && v > 0).sort((a, b) => a - b);
+  const runs = [];
+  for (let i = 0; i < shown.length;) {
+    let j = i;
+    while (j + 1 < shown.length && shown[j + 1] === shown[i]) j++;
+    runs.push({value: shown[i], count: j - i + 1, rank: (i + j) / 2});
+    i = j + 1;
   }
-  const fix = v => (metric === 'capita' ? Math.round(v * 10) / 10 : v);
-  const intervals = [];
-  let lower = sorted[0];
-  for (const upper of uppers) { intervals.push({lower: fix(lower), upper: fix(upper)}); lower = fix(upper + step); }
-  return intervals;
+  if (!runs.length) return runs;
+  const lowest = runs[0].rank, span = runs.at(-1).rank - lowest;
+  return runs.map(r => ({...r, index: span > 0 ? Math.round(((r.rank - lowest) / span) * (STEPS - 1)) : STEPS - 1}));
 }
 
 /**
- * Build the legend/class model for the current comparison.
+ * Build the scale model for the current comparison.
  * `values` are the metric values of every compared area (null = no_data, 0 = measured_zero).
+ * classes: one per used sample, ascending — {index, lower, upper, areas, fill, ink, plate, label}.
+ * ticks: the lowest, middle (median of the shown values) and highest values for the legend.
  */
-export function buildClasses(values, {metric = 'count', n = 5} = {}) {
+export function buildScale(values, {metric = 'count'} = {}) {
   const scale = SCALES[metric] || COUNT_SCALE;
   const list = Array.isArray(values) ? values : [];
-  const intervals = quantileIntervals(list, n, metric);
-  const colors = classColors(n, scale);
-  const picks = intervals.map((_, i) => (intervals.length === 1 ? n - 1 : Math.round((i * (n - 1)) / (intervals.length - 1))));
+  const runs = sampleIndexes(list, metric);
   const fmt = v => formatMetric(v, metric);
-  const classes = intervals.map((interval, i) => ({
-    index: picks[i], lower: interval.lower, upper: interval.upper, fill: colors[picks[i]], ink: inkFor(colors[picks[i]]),
-    label: interval.lower === interval.upper ? fmt(interval.lower) : `${fmt(interval.lower)}–${fmt(interval.upper)}`,
-  }));
-  const measured = list.map(v => displayValue(v, metric)).filter(v => v != null && v > 0);
+  const bySample = new Map();
+  for (const r of runs) {
+    const c = bySample.get(r.index);
+    if (c) { c.upper = r.value; c.areas += r.count; } else bySample.set(r.index, {index: r.index, lower: r.value, upper: r.value, areas: r.count});
+  }
+  const classes = [...bySample.values()].map(c => {
+    const fill = scale.lut[c.index], ink = inkFor(fill);
+    return {...c, fill, ink, plate: contrastRatio(fill, ink) < 4.5, label: c.lower === c.upper ? fmt(c.lower) : `${fmt(c.lower)}–${fmt(c.upper)}`};
+  });
+  const measuredCount = runs.reduce((sum, r) => sum + r.count, 0);
+  let median = null;
+  for (let seen = 0, i = 0; i < runs.length; i++) { seen += runs[i].count; if (seen > Math.floor((measuredCount - 1) / 2)) { median = runs[i]; break; } }
+  const lowest = runs[0], highest = runs.at(-1);
+  const tick = (r, role) => ({role, value: r.value, index: r.index, label: fmt(r.value)});
+  const ticks = !runs.length ? [] : runs.length === 1 ? [tick(lowest, 'only')]
+    : [tick(lowest, 'min'), ...(median && median !== lowest && median !== highest && median.index >= 8 && median.index <= 32 ? [tick(median, 'median')] : []), tick(highest, 'max')];
   return {
-    scaleId: scale.scaleId, scaleVersion: scale.scaleVersion, metric, unit: METRICS[metric]?.legend || scale.unit, method: 'quantile',
-    classCount: classes.length, max: measured.length ? Math.max(...measured) : 0, classes,
-    zero: {fill: colors[0], outline: scale.zeroOutline, label: '0'}, noData: {fill: scale.noData, label: 'ไม่มีข้อมูลประชากร'},
+    scaleId: scale.scaleId, scaleVersion: scale.scaleVersion, metric, unit: METRICS[metric]?.legend || scale.unit, method: METHOD, steps: STEPS, lut: scale.lut,
+    classCount: classes.length, measuredCount, min: lowest?.value ?? null, median: median?.value ?? null, max: highest?.value ?? 0, classes, ticks,
+    zero: {fill: scale.lut[0], ink: inkFor(scale.lut[0]), outline: scale.zeroOutline, label: '0'}, noData: {fill: scale.noData, label: 'ไม่มีข้อมูลประชากร'},
     zeroCount: list.filter(v => v === 0).length, noDataCount: list.filter(v => v == null || !Number.isFinite(v)).length,
   };
 }
 
 /**
  * Resolve one value to its EVID-05 state and visual treatment.
- * - measured: positive → class fill · measured_zero: 0 → lowest fill + zero outline
+ * - measured: positive → its LDS sample (0…40) · measured_zero: 0 → sample 0 + zero outline
  * - no_data: unknown (e.g. per-capita without population) → neutral fill · out_of_scope → nothing drawn
  */
 export function classify(value, model, state = 'measured') {
@@ -130,16 +162,13 @@ export function classify(value, model, state = 'measured') {
   }
   const metric = model?.metric || 'count';
   const v = displayValue(value, metric);
-  if (v <= 0) return {state: 'measured_zero', fill: model.zero.fill, ink: inkFor(model.zero.fill), outline: model.zero.outline, label: '0'};
-  const cls = model.classes.find(c => v >= c.lower && v <= c.upper) || model.classes.at(-1);
-  if (!cls) { const lut = (SCALES[metric] || COUNT_SCALE).lut; return {state: 'measured', fill: lut[40], ink: inkFor(lut[40]), label: formatMetric(value, metric), classIndex: 4}; }
-  return {state: 'measured', fill: cls.fill, ink: cls.ink, label: formatMetric(value, metric), classIndex: cls.index};
-}
-
-/** Equal-interval integer classes (kept for the count matrices of the chart tray). */
-export function buildCountClasses(values, n = 5) {
-  const measured = (Array.isArray(values) ? values : []).filter(v => Number.isFinite(v) && v > 0);
-  return buildClasses(measured, {metric: 'count', n});
+  if (v <= 0) return {state: 'measured_zero', fill: model.zero.fill, ink: model.zero.ink, outline: model.zero.outline, label: '0', sample: 0};
+  // The class holding v; a value outside the built table takes the nearest class below it (or the first).
+  let cls = null;
+  for (const c of model?.classes || []) { if (c.lower <= v) cls = c; else break; }
+  cls = cls || model?.classes?.[0];
+  if (!cls) { const lut = (SCALES[metric] || COUNT_SCALE).lut, fill = lut[STEPS - 1], ink = inkFor(fill); return {state: 'measured', fill, ink, plate: contrastRatio(fill, ink) < 4.5, label: formatMetric(value, metric), sample: STEPS - 1}; }
+  return {state: 'measured', fill: cls.fill, ink: cls.ink, plate: cls.plate, label: formatMetric(value, metric), sample: cls.index};
 }
 
 /** Relative luminance (sRGB) for the build-time contrast check used in tests. */

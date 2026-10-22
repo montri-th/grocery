@@ -5,18 +5,21 @@
  *  - ranking : the compared areas. With the count metric each row pairs the
  *              area's share of stores with its share of residents (the first
  *              Aha, area by area); with the per-capita metric it shows stores
- *              per 10,000 residents. Bars read the map's class colours.
+ *              per 10,000 residents. Bars read the map's 41-sample colours.
  *  - mix     : areas × the five store types (store counts, numeric heat table)
  *  - brands  : areas × the leading brands (store counts)
  *
  * Colour: bars and cells use the LDS families of the map (count = dusty cyan →
- * navy, per-capita = salmon → rose; same HEX on both themes). The population
+ * navy, per-capita = salmon → rose; same HEX on both themes) with all 41
+ * samples (js/scales.js rank-41; owner rule 2026-10-22). A matrix number whose
+ * sample reaches 4.5:1 with neither ink sits on a neutral backplate. The population
  * share is a neutral bar with its own label, never a data colour. Every mark is
  * a real <button>, so keyboard and screen-reader users get the same drill-down
  * as pointer users; every click emits {type: 'area', level, index}.
  */
 import {buildRankingModel, buildMatrixModel} from './chart-model.js';
-import {buildClasses, classify, formatMetric} from './scales.js';
+import {buildScale, classify, formatMetric, STEPS} from './scales.js?v=20261022-v3';
+import {rampHTML} from './ramp-legend.js?v=20261022-v3';
 import {TYPE_SHORT} from './model.js';
 
 const NUMBER = new Intl.NumberFormat('th-TH', {maximumFractionDigits: 0});
@@ -33,7 +36,7 @@ function empty(element, message) {
 function ranking(element, m, ctx, select) {
   const metric = ctx.metric;
   const values = m.children.map(c => (metric === 'capita' ? c.perCapita : c.count));
-  const classes = buildClasses(values, {metric});
+  const classes = buildScale(values, {metric});
   const list = m.children.filter(c => c.count > 0 || metric === 'capita');
   const noun = ctx.childNoun || LEVEL_NOUN[m.level] || 'พื้นที่';
   if (metric === 'capita') {
@@ -76,7 +79,7 @@ function ranking(element, m, ctx, select) {
 
 function matrix(element, m, ctx, select) {
   if (!m.areas.length) { empty(element, 'ไม่มีพื้นที่ที่มีสาขาในตัวกรองนี้'); return; }
-  const classes = buildClasses(m.cells.map(c => c.count), {metric: 'count'});
+  const classes = buildScale(m.cells.map(c => c.count), {metric: 'count'});
   const head = m.cols.map(c => `<th scope="col" title="${esc(c.name)}"><span class="matrix-col">${m.columns === 'types' ? `<i class="category-swatch type-${esc(c.id)}" aria-hidden="true"></i>${esc(TYPE_SHORT[c.id] || c.name)}` : esc(c.name)}</span></th>`).join('');
   const body = m.areas.map(a => {
     const pressed = a.index === ctx.selectedIndex;
@@ -85,17 +88,16 @@ function matrix(element, m, ctx, select) {
       const cls = classify(count, classes);
       const style = cls.state === 'measured_zero' ? `background:${cls.fill};color:${cls.ink};box-shadow:inset 0 0 0 2px ${cls.outline}` : `background:${cls.fill};color:${cls.ink}`;
       return `<td><button type="button" class="matrix-cell is-${cls.state}" data-level="${esc(a.level)}" data-index="${a.index}" style="${style}"
-        aria-label="${esc(a.name)} × ${esc(c.name)}: ${num(count)} สาขา กดเพื่อดูพื้นที่นี้" title="${esc(a.name)} × ${esc(c.name)} — ${num(count)} สาขา"><span class="data-number">${num(count)}</span></button></td>`;
+        aria-label="${esc(a.name)} × ${esc(c.name)}: ${num(count)} สาขา กดเพื่อดูพื้นที่นี้" title="${esc(a.name)} × ${esc(c.name)} — ${num(count)} สาขา"><span class="data-number${cls.plate ? ' has-plate' : ''}">${num(count)}</span></button></td>`;
     }).join('');
     return `<tr${pressed ? ' class="is-selected"' : ''}><th scope="row"><button type="button" class="matrix-row" data-level="${esc(a.level)}" data-index="${a.index}" aria-pressed="${pressed}">${esc(a.name)}<small class="data-number">${num(a.count)}</small></button></th>${cells}</tr>`;
   }).join('');
-  const legend = classes.classes.map(c => `<span class="legend-step"><i style="background:${c.fill}" aria-hidden="true"></i>${esc(c.label)}</span>`).join('');
   const columns = `<colgroup><col class="matrix-head-col">${m.cols.map(() => '<col class="matrix-cell-col">').join('')}</colgroup>`;
   const noun = ctx.childNoun || LEVEL_NOUN[m.level] || 'พื้นที่';
   const what = m.columns === 'types' ? `${num(m.cols.length)} ประเภทร้าน` : `${num(m.cols.length)}/${num(m.totalColumns)} แบรนด์`;
   element.innerHTML = `<p class="chart-caption">${num(m.areas.length)}/${num(m.totalAreas)} ${esc(noun)} × ${what} · ตัวเลข = สาขา · สีเข้ม = มากกว่า</p>
     <div class="matrix-scroll"><table class="matrix" style="--matrix-columns:${m.cols.length}">${columns}<thead><tr><th scope="col" class="matrix-corner">${esc(noun)} · สาขา</th>${head}</tr></thead><tbody>${body}</tbody></table></div>
-    <p class="chart-legend"><span class="legend-title">ระดับสี (สาขาในช่อง, ${num(classes.classCount)} ระดับควอนไทล์):</span>${legend}<span class="legend-step"><i class="legend-zero" aria-hidden="true"></i>0 = ไม่พบ</span></p>`;
+    <p class="chart-legend"><span class="legend-title">ระดับสี (สาขาในช่อง, ไล่ ${STEPS} ขั้นตามลำดับค่า):</span>${rampHTML(classes, {unit: 'สาขา', what: 'ช่อง'})}<span class="legend-step"><i class="legend-zero" aria-hidden="true"></i>0 = ไม่พบ</span></p>`;
   element.querySelectorAll('[data-index]').forEach(b => b.addEventListener('click', () => select({type: 'area', level: b.dataset.level, index: Number(b.dataset.index)})));
 }
 
