@@ -20,6 +20,7 @@ Static HTML/CSS และ JavaScript ES modules ไม่มี build step ไ�
 | `js/stores-layer.js` | 27,607 WebGL dots (context/focus/selected), `focusExpression`, `typeColors` | หนึ่งจุดต่อแถว; โฟกัสเปลี่ยนแค่ filter; click ลงทะเบียนก่อนพื้นที่ |
 | `js/pins.js` | หมุด HTML + โลโก้จาก zoom 14 (≤ 450 / ≤ 250), slot + leader line, keyboard | พิกัดต้นทางไม่เปลี่ยน; ไม่ทับ UI/ป้าย; context ไม่อยู่ใน tab order |
 | `js/geo-store.js` | โหลดขอบเขตอำเภอ/อปท. และรายละเอียดสาขารายจังหวัด (cache, retry, timeout) | ล้มเหลวไม่ทำให้ส่วนอื่นหยุด |
+| `js/spatial-store.js`, `js/spatial-layer.js` | โหลดผล point containment รายจังหวัดและรูปทรงอ้างอิงตามชื่อ แล้วเลือกชั้นแผนที่ 2D/3D | ชื่อ/จุดอ้างอิง/point containment แยกหลักฐาน; โหลดไม่สำเร็จไม่แปลว่าไม่มีอาคาร |
 | `js/chart-model.js` / `js/charts.js` | โมเดลและ HTML ของกราฟ ranking (คู่สาขา–คน / ต่อคน) และ matrix (ประเภท / แบรนด์) | ทุก mark เป็น `<button>`; matrix ช่องเท่ากัน; แท่งประชากรไม่ใช่สีข้อมูล |
 | `js/profile-model.js` | `typeMix`, `brandMix`, `venueRanking`, `describeStatus`, `describeGeometry`, `buildUnitProfile`, `buildVenueProfile`, `buildStoreDetail` | pure; ไม่ยกระดับความแม่นพิกัด; สถานะ “อยู่ในรายการสาขาของแบรนด์” |
 | `js/panel.js` | HTML ของแผงทุกโหมด, `metricTile`/`heading` + pictogram, `metricSwitch`, ชิปตัวกรอง | pure strings; ปุ่มทุกตัวมี `data-action` |
@@ -42,7 +43,13 @@ Static HTML/CSS และ JavaScript ES modules ไม่มี build step ไ�
 | `scripts/build-brand-logos.py` (+ `measure-logos.mjs`) | ตรวจ sha256, วัดพื้นรอง, ฝังไบต์ต้นฉบับ | `assets/brand-logos.svg`, `data/brand-logos.json`, manifest |
 | `scripts/build-venue-logos.py` (+ `measure-logos.mjs`) | ตรวจ sha256, วัดพื้นรอง, คัดลอกไบต์ | `assets/venue-logos/`, `data/venue-logos.json`, manifest |
 | `scripts/build-pictogram-font.py` | ตัด subset 9 glyph จาก npm material-symbols 0.27.0 | `assets/icons/material-pictogram-300.woff2` + `.json` |
+| `scripts/reconcile-venue-names.py` | เชื่อม qualified host alias + จังหวัดต้นทาง; ใช้จุดอ้างอิง venue ตรวจข้อขัดแย้งทางระยะ | `data/venue-joins.json`: 3,625 links (+141 / −9), 105 ตัวตนใหม่; 3 จุดรอตรวจพิกัด |
+| `scripts/build-venue-references.py` | เชื่อม venue/source id ที่ยอมรับแล้วกับ geometry เดิมของชุด Luxury Brands | `data/venue-reference-buildings.json`: 29 venue / 76 features / 44 สาขาที่เชื่อมชื่อ |
+| `scripts/build-reference-spatial-joins.mjs` | ทดสอบจุดเดิมกับ 29 host footprints โดยไม่เรียกเครือข่าย; คง holes และเกณฑ์ทบทวนขอบ 10 ม. | `data/spatial-joins.json`, `data/spatial/<จังหวัด>.json` ครบ 77 จังหวัด |
+| `scripts/combine-spatial-sources.py` | รวม snapshot ตาม native host hit → verified reference hit → Microsoft gap fill; ไม่ยกระดับ boundary/ambiguity และไม่เรียกเครือข่าย | `data/spatial-joins.json`, `data/spatial/` ครบ 27,607 แถว / 77 จังหวัด |
 | `scripts/build-handoff.mjs`, `scripts/verify-live.mjs` | manifest + ZIP, live byte attestation | hash จาก bytes จริง |
+
+สคริปต์ `scripts/build-spatial-joins.mjs` เป็นงานทดลอง OpenFreeMap ที่ยังไม่เผยแพร่ ไม่ใช่สายการสร้างผล join สำหรับเว็บ ผลเดิมและ raw receipts อยู่นอก public repo; การดึง public instance เพิ่มต้องรักษาขอบเขตบริการ (4 requests, 3,000 tiles/50 MB และ User-Agent ระบุแอป) หรือมีหลักฐานการอนุญาตจากผู้ให้บริการสำหรับ batch ใหญ่กว่า ดู [DATA_METHOD.md](../DATA_METHOD.md) §11
 
 ## แผนงานและสถานะ
 
@@ -60,6 +67,10 @@ Static HTML/CSS และ JavaScript ES modules ไม่มี build step ไ�
 | P10 | Product Statement + Brief + Plan + Verification + schema 1.0.0 | done | ajv 2020-12 (ดู VERIFICATION) |
 | P11 | ตรวจหน้าจอ (harness) 1280/390 สองธีม, LDS artifact checker | done | `VERIFICATION.md` |
 | P12 | เผยแพร่ GitHub Pages, live checks, live attestation, bundle | ดู `VERIFICATION.md` | `RELEASE_RECEIPT.json` ใน bundle |
+| J01 | ปรับ store → venue จากชื่อ พร้อม source-point contradiction check | เตรียมข้อมูลแล้ว | `data/venue-joins.json`: 3,625 links, เพิ่ม 141 / ถอน 9 / เปลี่ยนตัวตน 1, ตัวตนใหม่ 105 |
+| J02 | รูปทรงอ้างอิงตาม venue identity | เตรียมข้อมูลแล้ว | 29 venue / 76 features / 44 สาขาที่เชื่อมชื่อ; ไม่เท่ากับ point containment |
+| J03 | point-in-footprint join แบบรวมแหล่ง | เตรียมข้อมูลแล้ว | 806 `point_inside`, 9,328 `boundary_candidate`, 17,473 `no_building`, 0 `unavailable`; ทุก 27,607 แถวมีสถานะ |
+| J04 | rendered QA / เผยแพร่ / live attestation ของชุดที่ขยายแหล่งแล้ว | เตรียมข้อมูลครบ; release ต้องมีหลักฐานใหม่ | คง 29 venue reference แยกจากผลพิกัด ใช้ native + reference + Microsoft ตาม receipt; ผลเดิมของ 0.1 ไม่รับรองการเปลี่ยนชุดนี้ |
 
 ## งานถัดไปที่แนะนำ (backlog สำหรับ vibe coding)
 
@@ -74,7 +85,7 @@ Static HTML/CSS และ JavaScript ES modules ไม่มี build step ไ�
 | N07 | route ระดับอำเภอของ production และให้ demo ใช้ path เดียวกับ production | platform |
 | N08 | ประสิทธิภาพบนมือถือ: แหล่งจุด 27,607 แถว, การโหลดขอบเขตรายจังหวัด, worker สำหรับ MVT decode | frontend |
 | N09 | ประชากรของ 163 อปท./ย่านที่ขาด (เมื่อ production มี) | data owner; ห้ามประมาณ |
-| N10 | สถานที่นอกเหนือการจับชื่อ (ตรวจ venue candidate, โลโก้สถานที่บนแผนที่) | data owner + frontend |
+| N10 | ตรวจ venue candidate ที่ยังไม่มี anchor, 3 กรณีพิกัดขัดแย้ง และตรวจภาคสนามจุดที่ snapshot ยังไม่มีรูปทรงครอบ | data owner + frontend; ชื่อ/จุดอ้างอิง/รูปทรงไม่ใช้แทนหลักฐานกัน |
 | N11 | ทดสอบสมมติฐาน Who/What/Which/How กับผู้ใช้สามกลุ่ม (statement §7) | product owner |
 | N12 | ลงทะเบียนชุด pictogram (Luxury 8 + Grocery 9) ใน LDS เมื่อเจ้าของอนุมัติ แล้วยกเลิกข้อยกเว้น | design system owner |
 | N13 | จุดที่ขาด 1 แถวของเกาะพะงัน (API 57 / tile 56) | platform |
@@ -108,12 +119,14 @@ Static HTML/CSS และ JavaScript ES modules ไม่มี build step ไ�
 | AC22 | product statement | MD + JSON มี Who/What/Which/How, quality bar, ป้ายหลักฐาน, hypotheses; JSON ทั้งสามผ่าน schema 1.0.0 |
 | AC23 | โลโก้ | ทุกไฟล์ตรง sha256 ของทะเบียน; ไม่มีลิงก์ Drive; โลโก้ผู้ให้บริการ/เครือแสดงบทบาท; ไม่มีโลโก้ = ไม่มีกล่อง; ชื่อไม่เปลี่ยน |
 | AC24 | รายละเอียดสาขา | ที่อยู่/ตำบล/uuid/tile โหลดเมื่อเปิด; ล้มเหลวบอก “โหลดที่อยู่ไม่สำเร็จ”; แหล่งข้อมูล + วันที่ + ข้อจำกัดพิกัด; ลิงก์ค้นหาสาขา แหล่งข้อมูล tile ต้นทาง CityMETER |
+| AC25 | ชื่อ venue และ source point | ชื่อจาก alias ที่เจาะจง + จังหวัดเดียวกัน; จุด venue เป็น representative point ไม่ใช่ footprint; ตลาดที่เพิ่มใหม่ต้องไม่เกิน 300 ม. และ host ชนิดอื่นไม่เกิน 750 ม. เพื่อกันข้อขัดแย้ง ไม่ใช้หาร้านที่ใกล้ที่สุด |
+| AC26 | อาคารอ้างอิงและ point containment | แสดงรูปทรงตามชื่อด้วย label แยก; ไม่เปลี่ยน `point_inside` จาก name join; เกณฑ์ขอบ 10 ม. ไม่ใช่ความแม่นพิกัด; 17,473 แถวที่ไม่พบรูปทรงครอบใน snapshot ไม่ใช่หลักฐานว่าไม่มีอาคารจริง; ไม่ย้ายพิกัด; missing height ไม่ใช้ 3 ม. เป็นค่าจริง |
 
 ## วิธีพัฒนาและทดสอบ
 
 ```sh
 npm start                  # http://127.0.0.1:4173/
-npm test                   # 65 unit tests บนข้อมูลจริง (data/*.json) และ fixtures
+npm test                   # suite ปัจจุบันบนข้อมูลจริง (data/*.json) และ fixtures; ดูผลที่รันจริงใน VERIFICATION
 npm run handoff:manifest   # เขียน handoff/handoff-manifest.json จาก bytes จริง (git ls-files)
 npm run handoff:bundle     # + dist/CityMETER-Grocery-Developer-Handoff.zip
 npm run verify:live        # เทียบ SHA-256 ของไฟล์บน GitHub Pages กับ manifest

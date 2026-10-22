@@ -13,10 +13,10 @@
  *     the display answer to MapLibre's missing polygon corner radius
  *     (maplibre/maplibre-style-spec#1047); it changes nothing in the data.
  *
- * Host buildings (a separate map.activeLayer layer in CityMETER Luxury Brands)
- * are supported by the `hosts` input: tile buildings that overlap a host are
- * dropped from the focus tier and hidden in the city tier by feature id. The
- * Grocery dataset has no confirmed host buildings, so it always passes hosts: [].
+ * Selected raw building footprints use a separate map.activeLayer layer.
+ * Their `hosts` rings exclude overlapping context buildings from the focus
+ * tier and hide them in the city tier by feature id, avoiding duplicate surfaces.
+ * A highlighted footprint is a spatial or named-venue reference, not tenancy proof.
  *
  * Heights are OpenMapTiles render_height / render_min_height (OSM tags where
  * present, otherwise the schema's default). They are context, never a claim.
@@ -32,7 +32,7 @@ export const OCCLUDER_LAYER = 'focus-massing-occluding';
 /**
  * Scene opacities. `eye` is the venue-level two-point view of CityMETER Luxury
  * Brands (the surroundings go very quiet and anything that would hide the venue
- * becomes see-through). Grocery has no host buildings and stays on `default`.
+ * becomes see-through). Grocery stays on `default`.
  */
 export const SCENE = Object.freeze({
   default: {city: 0.22, focus: 1, occluder: 0.18},
@@ -216,9 +216,10 @@ export function installMassing(map, {sourceId = 'openmaptiles', beforeId, colors
     const bucket = Math.floor(zoom);
     const {tiles, truncated} = tilesForRegions(regions);
     const ready = typeof tileUrl === 'function' && tiles.length > 0 && tiles.every(t => Boolean(tileUrl(t)));
-    const key = `${enabled}|${ready}|${bucket}|${regions.length}:${regions.map(r => r.length + ':' + r[0]?.join(',')).join('|')}|${hosts.length}`;
+    const key = `${enabled}|${ready}|${bucket}|${regions.length}:${regions.map(r => r.length + ':' + r[0]?.join(',')).join('|')}|${hosts.map(r => r.map(p => p.join(',')).join(';')).join('|')}`;
     if (key === lastKey) return {features: 0, tiles: 0, cached: true};
     lastKey = key; lastBucket = bucket;
+    const my = ++token;
     if (!enabled || !regions.length || !ready) {
       map.getSource(FOCUS_SOURCE)?.setData({type: 'FeatureCollection', features: []}); setHidden([]);
       currentFeatures = []; setOccluders([]);
@@ -226,7 +227,6 @@ export function installMassing(map, {sourceId = 'openmaptiles', beforeId, colors
       if (typeof onResult === 'function') { try { onResult(empty); } catch (e) { console.warn('Massing onResult', e); } }
       return empty;
     }
-    const my = ++token;
     const radiusM = roundingRadiusM(Math.max(zoom, 14.5), latitude), offsetM = encloseOffsetM(radiusM);
     const layers = await Promise.all(tiles.map(t => loadTile(t).catch(e => { console.warn('Massing tile unavailable', e.message || e); return null; })));
     if (my !== token || disposed) return {features: 0, tiles: 0, stale: true};

@@ -1,0 +1,361 @@
+[
+  {
+    "id": "park-village-false",
+    "row": {
+      "poi_id": "973f79eb-412d-4308-91bd-b1014da8083d",
+      "store_name": "Park Village (พระราม 2)",
+      "brand_id": "SEVEN_ELEVEN",
+      "province_id": "a29ec31e-3a36-4ab7-9670-7cef38873c80",
+      "district_name_th": "บางขุนเทียน",
+      "latitude": 13.661416763648122,
+      "longitude": 100.43392181396484
+    },
+    "venue": {
+      "venue_name": "K Village"
+    },
+    "aliases": [
+      "K Village"
+    ],
+    "expectedBlocked": "k_village_is_not_park_village",
+    "expectedMatches": []
+  },
+  {
+    "id": "k-village-real",
+    "row": {
+      "poi_id": "6f0f9f96-3990-4a3e-a928-d7da7eb0c22c",
+      "store_name": "Villa Market เค วิลเลจ",
+      "brand_id": "VILLA_MARKET",
+      "province_id": "a29ec31e-3a36-4ab7-9670-7cef38873c80",
+      "district_name_th": "คลองเตย",
+      "latitude": 13.720291494155358,
+      "longitude": 100.56936264038086
+    },
+    "venue": {
+      "venue_name": "K Village"
+    },
+    "aliases": [
+      "เค วิลเลจ"
+    ],
+    "expectedBlocked": null,
+    "expectedMatches": [
+      "เค วิลเลจ"
+    ]
+  },
+  {
+    "id": "india-emporium-false",
+    "row": {
+      "poi_id": "e2ce86d4-b705-4068-8ccc-343c89552c6b",
+      "store_name": "อินเดียเอ็มโพเรียม",
+      "brand_id": "SEVEN_ELEVEN",
+      "province_id": "a29ec31e-3a36-4ab7-9670-7cef38873c80",
+      "district_name_th": "พระนคร",
+      "latitude": 13.74355378608672,
+      "longitude": 100.5014705657959
+    },
+    "venue": {
+      "venue_name": "Emporium"
+    },
+    "aliases": [
+      "Emporium"
+    ],
+    "expectedBlocked": "india_emporium_is_a_different_venue",
+    "expectedMatches": []
+  },
+  {
+    "id": "emporium-real",
+    "row": {
+      "poi_id": "1f163cfd-2b16-4fc1-a602-3747e9ded083",
+      "store_name": "เอ็มโพเรียม",
+      "brand_id": "GOURMET_MARKET",
+      "province_id": "a29ec31e-3a36-4ab7-9670-7cef38873c80",
+      "district_name_th": "คลองเตย",
+      "latitude": 13.730380441803822,
+      "longitude": 100.56884765625
+    },
+    "venue": {
+      "venue_name": "Emporium"
+    },
+    "aliases": [
+      "เอ็มโพเรียม"
+    ],
+    "expectedBlocked": null,
+    "expectedMatches": [
+      "เอ็มโพเรียม"
+    ]
+  },
+  {
+    "id": "kad-farang-maerim",
+    "row": {
+      "poi_id": "7df0fcee-7591-4e3c-a5e9-85d230837bd5",
+      "store_name": "กาดฝรั่ง(อ.แม่ริม)",
+      "brand_id": "SEVEN_ELEVEN",
+      "province_id": "47545867-d3f1-4e13-a5d9-70021b6f8e99",
+      "district_name_th": "แม่ริม",
+      "latitude": 18.901982834898558,
+      "longitude": 98.94990921020508
+    },
+    "venue": {
+      "venue_name": "Kad Farang"
+    },
+    "aliases": [
+      "Kad Farang"
+    ],
+    "expectedBlocked": "kad_farang_mae_rim_is_a_separate_branch",
+    "expectedMatches": []
+  },
+  {
+    "id": "kad-farang-hangdong",
+    "row": {
+      "poi_id": "ae63b4f9-2f87-49d6-a6ad-1fb60ad184be",
+      "store_name": "ริมปิง กาดฝรั่ง",
+      "brand_id": "RIMPING",
+      "province_id": "47545867-d3f1-4e13-a5d9-70021b6f8e99",
+      "district_name_th": "หางดง",
+      "latitude": 18.70161876321022,
+      "longitude": 98.93214225769043
+    },
+    "venue": {
+      "venue_name": "Kad Farang"
+    },
+    "aliases": [
+      "กาดฝรั่ง"
+    ],
+    "expectedBlocked": null,
+    "expectedMatches": [
+      "กาดฝรั่ง"
+    ]
+  },
+  {
+    "id": "megabangna-residential",
+    "row": {
+      "poi_id": "885d1643-e41c-4c14-9ff9-b8abc2cbd3be",
+      "store_name": "ม.เดอะซิตี้ เมกาบางนา",
+      "brand_id": "SEVEN_ELEVEN",
+      "province_id": "b844468b-d98e-4850-9de4-e7a62b49aaba",
+      "district_name_th": "บางพลี",
+      "latitude": 13.635560602615051,
+      "longitude": 100.68265914916992
+    },
+    "venue": {
+      "venue_name": "Megabangna"
+    },
+    "aliases": [
+      "Megabangna"
+    ],
+    "expectedBlocked": "residential_name_is_not_megabangna_host",
+    "expectedMatches": []
+  },
+  {
+    "id": "megabangna-real",
+    "row": {
+      "poi_id": "0fc85872-e2a7-4fd8-a7b1-2307496c08bb",
+      "store_name": "Tops Food Hall Megabangna",
+      "brand_id": "TOPS",
+      "province_id": "b844468b-d98e-4850-9de4-e7a62b49aaba",
+      "district_name_th": "บางพลี",
+      "latitude": 13.64757155882125,
+      "longitude": 100.67853927612305
+    },
+    "venue": {
+      "venue_name": "Megabangna"
+    },
+    "aliases": [
+      "Megabangna"
+    ],
+    "expectedBlocked": null,
+    "expectedMatches": [
+      "Megabangna"
+    ]
+  },
+  {
+    "id": "airport-fuel",
+    "row": {
+      "poi_id": "113988c9-74f6-496a-bb17-ea6d1b575809",
+      "store_name": "Tops Daily Bangchak Suvarnabhumi Airport",
+      "brand_id": "TOPS",
+      "province_id": "b844468b-d98e-4850-9de4-e7a62b49aaba",
+      "district_name_th": "บางพลี",
+      "latitude": 13.707367001939158,
+      "longitude": 100.7695198059082
+    },
+    "venue": {
+      "venue_name": "Suvarnabhumi Airport"
+    },
+    "aliases": [
+      "Suvarnabhumi Airport"
+    ],
+    "expectedBlocked": "airport_named_fuel_station_is_not_terminal",
+    "expectedMatches": []
+  },
+  {
+    "id": "airport-terminal",
+    "row": {
+      "poi_id": "9fbbfc2d-e7c9-41cc-9152-5af21956aa88",
+      "store_name": "อาคารผู้โดยสารสนามบินสุวรรณภูมิ ชั้น 4",
+      "brand_id": "SEVEN_ELEVEN",
+      "province_id": "b844468b-d98e-4850-9de4-e7a62b49aaba",
+      "district_name_th": "บางพลี",
+      "latitude": 13.692357021800516,
+      "longitude": 100.75020790100098
+    },
+    "venue": {
+      "venue_name": "Suvarnabhumi Airport"
+    },
+    "aliases": [
+      "สนามบินสุวรรณภูมิ"
+    ],
+    "expectedBlocked": null,
+    "expectedMatches": [
+      "สนามบินสุวรรณภูมิ"
+    ]
+  },
+  {
+    "id": "central-pattaya-ambiguous",
+    "row": {
+      "poi_id": "093b32d8-0b88-49c3-9932-25f5c4437024",
+      "store_name": "โลตัส  เซ็นทรัล พัทยา",
+      "brand_id": "LOTUSS",
+      "province_id": "747bdbc3-03f1-4156-b38a-dc664b43ae31",
+      "district_name_th": "บางละมุง",
+      "latitude": 12.934048230581466,
+      "longitude": 100.90367317199707
+    },
+    "venue": {
+      "venue_name": "Central Pattaya"
+    },
+    "aliases": [
+      "เซ็นทรัล พัทยา"
+    ],
+    "expectedBlocked": null,
+    "expectedMatches": [
+      "เซ็นทรัล พัทยา"
+    ],
+    "anchor": {
+      "latitude": 12.9350867,
+      "longitude": 100.8830901
+    }
+  },
+  {
+    "id": "central-pattaya-beach",
+    "row": {
+      "poi_id": "5e6aafad-7073-4f59-af52-cf5de7d37cde",
+      "store_name": "Tops Food Hall CentralFestival Pattaya Beach",
+      "brand_id": "TOPS",
+      "province_id": "747bdbc3-03f1-4156-b38a-dc664b43ae31",
+      "district_name_th": "บางละมุง",
+      "latitude": 12.934299189523367,
+      "longitude": 100.88418960571289
+    },
+    "venue": {
+      "venue_name": "Central Pattaya"
+    },
+    "aliases": [
+      "CentralFestival Pattaya Beach"
+    ],
+    "expectedBlocked": null,
+    "expectedMatches": [
+      "CentralFestival Pattaya Beach"
+    ],
+    "anchor": {
+      "latitude": 12.9350867,
+      "longitude": 100.8830901
+    }
+  },
+  {
+    "id": "ally-amorini",
+    "row": {
+      "poi_id": "701ffaf7-cebe-4db5-91b3-a35bbebb6608",
+      "store_name": "Tops Amorini Mall Ramintra",
+      "brand_id": "TOPS",
+      "province_id": "a29ec31e-3a36-4ab7-9670-7cef38873c80",
+      "district_name_th": "คันนายาว",
+      "latitude": 13.814326967334111,
+      "longitude": 100.68772315979004
+    },
+    "venue": {
+      "venue_name": "ALLY Village Amorini"
+    },
+    "aliases": [
+      "Amorini Mall Ramintra"
+    ],
+    "expectedBlocked": null,
+    "expectedMatches": [
+      "Amorini Mall Ramintra"
+    ]
+  },
+  {
+    "id": "ally-ramkamhaeng",
+    "row": {
+      "poi_id": "a47b71f3-690f-415e-a7fe-8a84c257e82e",
+      "store_name": "Villa Market สัมมากร เพลส รามคำแหง",
+      "brand_id": "VILLA_MARKET",
+      "province_id": "a29ec31e-3a36-4ab7-9670-7cef38873c80",
+      "district_name_th": "สะพานสูง",
+      "latitude": 13.77556692611671,
+      "longitude": 100.67373275756836
+    },
+    "venue": {
+      "venue_name": "ALLY Village Ramkamhaeng"
+    },
+    "aliases": [
+      "สัมมากร เพลส รามคำแหง"
+    ],
+    "expectedBlocked": null,
+    "expectedMatches": [
+      "สัมมากร เพลส รามคำแหง"
+    ]
+  },
+  {
+    "id": "bare-rama2",
+    "row": {
+      "store_name": "Home Pro พระราม2"
+    },
+    "venue": {
+      "venue_name": "unmatched"
+    },
+    "aliases": [],
+    "detail": {
+      "mallName": "พระราม 2",
+      "supMallType": "Neighborhood Center",
+      "subMallType": "supermarket_anchored"
+    },
+    "expectedBlocked": null,
+    "expectedMatches": [],
+    "expectedEligibleDetail": false
+  },
+  {
+    "id": "retailer-not-host",
+    "row": {
+      "store_name": "โลตัส โก เฟรช โรงพยาบาลขอนแก่น"
+    },
+    "venue": {
+      "venue_name": "unmatched"
+    },
+    "aliases": [],
+    "detail": {
+      "mallName": "โลตัส โก เฟรช โรงพยาบาลขอนแก่น",
+      "supMallType": "Neighborhood Center",
+      "subMallType": "supermarket_anchored"
+    },
+    "expectedBlocked": null,
+    "expectedMatches": [],
+    "expectedEligibleDetail": false
+  },
+  {
+    "id": "central-proper-mall",
+    "row": {
+      "store_name": "Tops Central Rama2"
+    },
+    "venue": {
+      "venue_name": "unmatched"
+    },
+    "aliases": [],
+    "detail": {
+      "mallName": "Central Rama2",
+      "supMallType": "Regional Mall"
+    },
+    "expectedBlocked": null,
+    "expectedMatches": [],
+    "expectedEligibleDetail": true
+  }
+]

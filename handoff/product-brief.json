@@ -477,7 +477,7 @@
         "when": "unit, store and venue in 3D (near-axonometric, verticals upright)"
       },
       "eye": {
-        "status": "kept in the module, not used (no host buildings)"
+        "status": "kept in the module, not used; selected buildings use the model preset"
       }
     },
     "fitting": {
@@ -834,7 +834,7 @@
   "venueLogoContract": {
     "module": "js/venue-logos.js#configureVenueLogos(catalog) → coverage; getVenueLogo({name, logo, role}); venueLogoMarkup(venue, {size, className, decorative})",
     "registry": "data/venue-logos.json — assets[] {key VL-…, file, mime, bytes, sha256, width, height, background, role, sourcePage, assetURL, sourceKind}; meta.status complete (128 of 128)",
-    "binding": "data/grocery.json venues[] = [GV id, name, type, typeTh, VL key | '', role]; 2,547 of 3,437 venue names carry a logo",
+    "binding": "data/grocery.json venues[] retains GV/SC identities, optional approved VL logo key and aliases; 2,547 of 3,542 registered venue names carry a logo; logos never establish host identity",
     "roles": {
       "venue_specific": "no caption (106)",
       "venue_specific_composite": "no caption (1)",

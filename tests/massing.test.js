@@ -187,3 +187,26 @@ test('city tier fades with distance from the focus anchors: near → quiet tone,
   assert.equal(map.featureState[1].fade, 1);
   massing.dispose();
 });
+
+test('switching between equal-sized host sets rebuilds the exclusion and clearing wins over an older tile request', async () => {
+  const bytes = readFileSync(new URL('./fixtures/mvt-sample.pbf', import.meta.url));
+  const response = () => ({ok: true, arrayBuffer: async () => bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength)});
+  const map = fakeMap();
+  const massing = installMassing(map, {tileUrl: () => 'fixture', fetchImpl: async () => response()});
+  const host = id => layer.features.find(f => f.id === id).rings()[0].map(([x, y]) => tileToLonLat(x, y, tile));
+  await massing.update({regions: [whole], hosts: [host(101)], zoom: 15.5});
+  assert.ok(!map.data[FOCUS_SOURCE].features.some(f => f.properties.osm_id === 101));
+  const next = await massing.update({regions: [whole], hosts: [host(102)], zoom: 15.5});
+  assert.notEqual(next.cached, true);
+  assert.ok(map.data[FOCUS_SOURCE].features.some(f => f.properties.osm_id === 101));
+  assert.ok(!map.data[FOCUS_SOURCE].features.some(f => f.properties.osm_id === 102));
+  massing.dispose();
+  const map2 = fakeMap(), releases = [];
+  const delayed = installMassing(map2, {tileUrl: () => 'delayed', fetchImpl: () => new Promise(resolve => releases.push(() => resolve(response())))});
+  const old = delayed.update({regions: [whole], hosts: [], zoom: 15.5});
+  await delayed.update({regions: [], hosts: [], zoom: 15.5});
+  releases.forEach(resolve => resolve());
+  assert.equal((await old).stale, true);
+  assert.deepEqual(map2.data[FOCUS_SOURCE].features, [], 'a late detail cannot restore buildings after leaving it');
+  delayed.dispose();
+});

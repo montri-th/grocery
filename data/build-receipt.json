@@ -229,11 +229,11 @@
    },
    "districts": {
     "retain": "3%",
-    "precision": 1e-05
+    "precision": 0.00001
    },
    "units": {
     "retain": "3%",
-    "precision": 1e-05
+    "precision": 0.00001
    }
   },
   "log": {
@@ -264,8 +264,272 @@
     "sha256": "b84aed95f6358ee3c953b41eca1d326e06968d73b55c7720436a438756259418"
    },
    "data/grocery.json": {
+    "bytes": 3549036,
+    "sha256": "33c07b062d5446bce73eb3a8c9f42ddc2e58f807d03ea8fbcfed666a549349c7"
+   }
+  },
+  "countScope": "Base build-data.py output count only; join artifacts are recorded in joinRefresh."
+ },
+ "joinRefresh": {
+  "asOf": "2026-10-22",
+  "verificationScope": "Prepared local join artifacts, final 129-test local suite and scoped rendered checks; this receipt does not attest a new live deployment.",
+  "previousCoreOutputs": {
+   "data/grocery.json": {
     "bytes": 3520761,
     "sha256": "6535ce226f090d7f1cf72b3391437035c3c8aa4f5d60745560c1b9d737e771bc"
+   }
+  },
+  "nameJoin": {
+   "receipt": "data/venue-joins.json",
+   "sourceRows": 27607,
+   "priorLinkedRows": 3493,
+   "linkedRows": 3625,
+   "newLinkedRows": 141,
+   "removedPriorLinks": 9,
+   "changedVenueLinks": 1,
+   "newVenueIdentities": 105,
+   "statusCounts": {
+    "not_matched": 23973,
+    "rejected_prior_name_match": 8,
+    "name_candidate_no_anchor": 3374,
+    "name_and_source_point": 248,
+    "name_match_coordinate_review": 3,
+    "ambiguous_venue_branch": 1
+   },
+   "confirmedInsideLinks": 0,
+   "coordinateChanges": 0,
+   "method": {
+    "retainedGVIds": "Existing research venue IDs remain distinct from sourceVenueId; prior identity is retained when a shared source reference occurs.",
+    "newVenueIds": "SC- plus original CityMETER venue UUID.",
+    "namePointDistanceThresholdM": 750,
+    "thresholdRole": "Geographic contradiction check for name matches, not a nearest-neighbour or containment proof.",
+    "coordinatePrecision": "Original map store coordinates are unchanged; MVT grid≈9.55m is not survey accuracy.",
+    "fuelOperatorRule": "Shared station logos never establish common branch identity.",
+    "noPromotion": "Name/point matches are not tenant or operating-status confirmations.",
+    "newMarketNamePointDistanceThresholdM": 300,
+    "sameProvinceRequired": true,
+    "sourceGeometryRole": "Public catalog representative venue points; separate independent building containment is required."
+   },
+   "catalogEvidence": {
+    "sourceURL": "https://landometer.com/api/v2/citymeter-v3/shopping-center/overlay-mvt/0/0/0",
+    "snapshotDate": "2026-10-21",
+    "rawSHA256": "d58a73d8edb3d36851785d3752c20dc9898f9f2384059aff1c8a0b1e53ae5f1e",
+    "verifiedOn": "2026-10-22",
+    "verification": "Fresh public catalog response SHA256 exactly matches the cached10869-record index."
+   }
+  },
+  "venueReference": {
+   "receipt": "data/venue-reference-buildings.json",
+   "venueCount": 29,
+   "features": 76,
+   "hostFootprints": 29,
+   "displayParts": 47,
+   "linkedStoreRows": 44,
+   "geometryAsOf": "2026-10-21",
+   "sourceCheckedOn": "2026-10-22",
+   "sourceURL": "https://montri-th.github.io/luxurybrands/data/venue-buildings.geojson",
+   "sourceSHA256": "bb28193667418804b2a5bc827a2ca29ce464997a230b07ce7b8337001cbc92a8",
+   "license": "ODbL-1.0",
+   "attribution": "© OpenStreetMap contributors",
+   "attributionURL": "https://www.openstreetmap.org/copyright",
+   "meaning": "Name/source identity crosswalk to original reference geometry; linkedStoreRows is independent of point containment."
+  },
+  "pointJoin": {
+   "receipt": "data/spatial-joins.json",
+   "pipeline": "scripts/combine-spatial-sources.py",
+   "inputRows": 27607,
+   "inputDataSha256": "33c07b062d5446bce73eb3a8c9f42ddc2e58f807d03ea8fbcfed666a549349c7",
+   "inputAreasSha256": "b84aed95f6358ee3c953b41eca1d326e06968d73b55c7720436a438756259418",
+   "counts": {
+    "point_inside": 806,
+    "boundary_candidate": 9328,
+    "ambiguous": 0,
+    "no_building": 17473,
+    "unavailable": 0
+   },
+   "decisionSources": {
+    "microsoft": 24537,
+    "citymeter_native": 3058,
+    "verified_reference": 12
+   },
+   "sourceComparisonCounts": {
+    "native_no_hit_ms_hit": 237,
+    "native_boundary_ms_inside": 20,
+    "native_no_hit_reference_hit": 5,
+    "reference_boundary_ms_inside": 1
+   },
+   "coverage": "All source rows evaluated against the pinned footprint snapshots; dataset coverage is not all physical buildings.",
+   "processingComplete": true,
+   "nationwideBuildingCoverage": false,
+   "guardMetres": 10,
+   "networkRequestsInCombination": 0,
+   "referenceVenueCount": 29,
+   "referenceFeatureCount": 76,
+   "provinceFiles": {
+    "count": 77,
+    "totalBytes": 38574833,
+    "hashIndex": "data/spatial-joins.json → provinces"
+   },
+   "method": {
+    "priority": [
+     "native_host_hit",
+     "verified_reference_host_hit",
+     "microsoft_gap_fill"
+    ],
+    "guardMetres": 10,
+    "coordinateChanges": 0,
+    "nearestAssignments": 0,
+    "boundaryRule": "Never promote an earlier-source boundary or ambiguous result with a later-source deep interior hit.",
+    "sourceComparison": "Alternative provider roofs remain audit comparisons; do not add their overlaps to chosen-source ambiguity.",
+    "nameIndependence": "Geometric building matches never assign a venue name or establish tenancy."
+   },
+   "heightPolicy": "Source/model context only. Microsoft missing/-1 height remains null;3m is display-only unknown fallback, never a measurement."
+  },
+  "withheldAnalysis": {
+   "provider": "OpenFreeMap",
+   "status": "unreleased_excluded_from_public_data",
+   "reason": "Provider public-service automated/offline extraction limits require separate permission for the broader batch.",
+   "termsURL": "https://openfreemap.org/tos/"
+  },
+  "outputs": {
+   "data/grocery.json": {
+    "bytes": 3549036,
+    "sha256": "33c07b062d5446bce73eb3a8c9f42ddc2e58f807d03ea8fbcfed666a549349c7"
+   },
+   "data/areas.json": {
+    "bytes": 802906,
+    "sha256": "b84aed95f6358ee3c953b41eca1d326e06968d73b55c7720436a438756259418"
+   },
+   "data/venue-joins.json": {
+    "bytes": 1231938,
+    "sha256": "2779d3c1208f920a8e79af418913db1e0b0278ccb29df2e7dde0336f65b3ba51"
+   },
+   "data/venue-reference-buildings.json": {
+    "bytes": 120596,
+    "sha256": "17e96c8af62597b9f8c57e0a8a3e9e0d11cde1fc985749e5127302999762b182"
+   },
+   "data/spatial-joins.json": {
+    "bytes": 24240,
+    "sha256": "124b4361d126b8f8d61a30f75c816bbf9dda8341ba71dbe47928b59b28d11a52"
+   },
+   "data/building-sources.json": {
+    "bytes": 106382,
+    "sha256": "545727a0fb9438e2057642df39673fa4344fd13fde74708b36a01e71644c84cb"
+   },
+   "data/licenses/CDLA-Permissive-2.0.txt": {
+    "bytes": 2354,
+    "sha256": "4531a67d443284d93ffed0803df5b10634aff21c3d77e381f2d48af01d875868"
+   }
+  },
+  "targetedTests": {
+   "checkedOn": "2026-10-22",
+   "command": "node --test tests/spatial-geometry.test.js tests/mvt.test.js tests/geometry.test.js tests/venue-matching.test.js tests/venue-join-invariants.test.js tests/venue-reference-buildings.test.js tests/spatial-ui.test.js tests/data.test.js",
+   "passed": 50,
+   "failed": 0,
+   "skipped": 0,
+   "scope": "Historical intermediate reference-only stage; final combined verification is fullLocalTests."
+  },
+  "releaseDecision": {
+   "decision": "expanded_building_sources_prepared",
+   "status": "awaiting_final_release_and_live_attestation",
+   "note": "All source rows processed against pinned snapshots; not a census of every physical building. Namedvenue29/76/44 stays independent."
+  },
+  "sourceCatalog": {
+   "file": "data/building-sources.json",
+   "licenses": [
+    "CDLA-Permissive-2.0",
+    "ODbL-1.0",
+    "CC-BY-4.0"
+   ],
+   "microsoftRelease": "2026-08-13",
+   "nativeModelSourceNote": "V4 tile heights mix modeled3D-GloBFP, imputed Open Buildings and OSM context; tile fields do not identify the per-feature upstream source. No measured-height or floor claim."
+  },
+  "fullLocalTests": {
+   "checkedOn": "2026-10-22",
+   "command": "node --test tests/*.test.js",
+   "passed": 129,
+   "failed": 0,
+   "skipped": 0
+  },
+  "selectionFitAndURLChecks": {
+   "checkedOn": "2026-10-22",
+   "command": "node --test tests/url-state.test.js tests/spatial-fit-intent.test.js",
+   "passed": 9,
+   "failed": 0,
+   "skipped": 0,
+   "scope": "Actual production selection, async completion, map-install and URL-restore functions with network/render stand-ins; local regression checks, not live deployment attestation.",
+   "checks": [
+    "Cold store selection fits its full building once after geometry becomes ready; cached venue selection fits once.",
+    "Cold URL data arriving before map load waits and uses geometry in the single initial fit.",
+    "Direct map gestures cancel pending fits, including before initial map load; camera animations do not cancel them.",
+    "Stale selections, pin selections, absent geometry and closed detail cannot cause a late camera jump.",
+    "Megabangna direct URL restores source province 11, district 1103 and unit 04110302; filtered point-first venue selection matches the click flow.",
+    "URL restoration retains all store coordinates and administrative memberships."
+   ]
+  },
+  "detailContextChecks": {
+   "checkedOn": "2026-10-22",
+   "command": "node --test tests/spatial-context.test.js",
+   "passed": 2,
+   "failed": 0,
+   "skipped": 0,
+   "scope": "Actual production spatial-update function and tile planner using the shipped Megabangna reference and municipality geometry; local regression checks, not live deployment attestation.",
+   "checks": [
+    "Store and venue detail prioritize selected host regions, including tile 14/12774/7565 before the nine-tile cap, so context exclusion can inspect the host twin.",
+    "Overlapping display parts share tile requests; area views retain compact-unit context and the existing nine-request cap.",
+    "Context planning changes no raw geometry, point coordinates or administrative memberships."
+   ]
+  },
+  "independentGeometryAudit": {
+   "checkedOn": "2026-10-22",
+   "rows": 27607,
+   "sourceGeometries": 13628,
+   "invalidGeometry": 0,
+   "containmentErrors": 0,
+   "guardErrors": 0,
+   "provenanceErrors": 0,
+   "maxBoundaryDistanceRoundingDifferenceM": 0.0005,
+   "sourceGeometryRepaired": false,
+   "evidence": "combined-geos-audit.json"
+  },
+  "renderedFactsCheck": {
+   "checkedOn": "2026-10-22",
+   "scope": "Isolated current panel renderer/styles with native and Microsoft unknown/predicted fixtures; not live/map integration.",
+   "cases": 12,
+   "widths": [
+    390,
+    1280
+   ],
+   "themes": [
+    "light",
+    "dark"
+   ],
+   "horizontalOverflow": 0,
+   "factRowOverlap": 0,
+   "pageErrors": 0,
+   "thaiScreenshotsInspected": true,
+   "evidence": "rendered-facts-check.json"
+  },
+  "reproducers": {
+   "scripts/build-microsoft-spatial.mjs": {
+    "bytes": 8393,
+    "sha256": "d744eb983ae950bd0b523cff317fc28830f283cd4441c4b9074249055bf036d7"
+   },
+   "scripts/build-reference-spatial-joins.mjs": {
+    "bytes": 8246,
+    "sha256": "7e779c73b86475f96dfa485b849c1e976543817fdd5a800bb3784971864d5d98"
+   },
+   "scripts/build-venue-references.py": {
+    "bytes": 6615,
+    "sha256": "ea21bc05e5eb378f8802773b04b248898a177b80855ea9545e791ead30968a6b"
+   },
+   "scripts/combine-spatial-sources.py": {
+    "bytes": 10038,
+    "sha256": "486b7a7be64b243aafb12aca2bce20fff912c74cbc165f7f397e3d23c1f2e139"
+   },
+   "scripts/fetch-microsoft-buildings.py": {
+    "bytes": 12273,
+    "sha256": "4ec1feb0790e57a7dd0fe3bca21a8b8a9c359c4a32272b8a1ee2ca8aa5f13cd8"
    }
   }
  }

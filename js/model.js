@@ -58,7 +58,7 @@ export function buildModel(grocery, areas) {
   const brands = grocery.brands.map((b, i) => ({...b, index: i}));
   const types = grocery.types.map((t, i) => ({...t, index: i}));
   const sources = grocery.sources.map((s, i) => ({...s, index: i}));
-  const venues = grocery.venues.map(([id, name, type, typeTh, logo, role], i) => ({id, name, type, typeTh, logo, role, index: i}));
+  const venues = grocery.venues.map(([id, name, type, typeTh, logo, role, aliases = []], i) => ({id, name, type, typeTh, logo, role, aliases: Array.isArray(aliases) ? aliases : [], index: i}));
   const provinces = table(areas.provinces).map((p, i) => ({...p, index: i, level: 'province'}));
   const districts = table(areas.districts).map((d, i) => ({...d, index: i, level: 'district'}));
   const units = table(areas.units).map((u, i) => ({...u, index: i, level: 'unit', p: districts[u.d].p}));
@@ -72,8 +72,8 @@ export function buildModel(grocery, areas) {
       brand: brands[b].name, brandId: brands[b].id, type: types[t].id};
   });
   for (const r of rows) {
-    const venue = r.v >= 0 ? venues[r.v].name : '';
-    r.text = lower([r.brand, r.name, venue, districts[r.d].name, provinces[r.p].name, ...r.u.map(i => unitName(units[i]))].join(' '));
+    const venue = r.v >= 0 ? venues[r.v] : null;
+    r.text = lower([r.brand, r.name, venue?.name || '', ...(venue?.aliases || []), districts[r.d].name, provinces[r.p].name, ...r.u.map(i => unitName(units[i]))].join(' '));
   }
   const rowByKey = new Map(rows.map(r => [r.key, r]));
   const index = (list, key) => new Map(list.map(x => [x[key], x]));

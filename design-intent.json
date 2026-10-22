@@ -67,7 +67,7 @@
     "fallback": "visible brand names and accessible marker labels retained; logos are identity, not a metric or endorsement",
     "manifest": "assets/brand-logos-manifest.json"
   },
-  "venueLogos": "128 sha256-verified files for 2,547 of 3,437 venue names (mostly shared operator banners with a role caption); a venue is a name a branch refers to, never a confirmed host",
+  "venueLogos": "128 sha256-verified files for 2,547 of 3,542 registered venue names (mostly shared operator banners with a role caption); venue names, independent reference geometry and plotted-point containment are separate evidence, never confirmed tenancy",
   "chartContract": {
     "ranking": "paired bars: share of stores (class colour) and share of residents (neutral) per child; or stores per 10,000 residents",
     "matrix": "table-layout fixed with a colgroup; every cell the same size; tint = count class of the cell"

@@ -194,9 +194,16 @@ function venueRow(v) {
 }
 export {venueRow};
 
+/** A usable result, an explicit missing state, or a retry; never a tenancy claim. */
+function buildingFactMarkup(fact) {
+  if (!fact) return '';
+  const sources = (fact.sources || []).map(source => link(source.url, source.label) || esc(source.label)).filter(Boolean).join(' · ');
+  return `<span>${esc(fact.label)}</span>${fact.detail ? `<br><span class="hint">${esc(fact.detail)}</span>` : ''}${fact.heightLabel ? `<br><span class="hint">${esc(fact.heightLabel)}</span>` : ''}${sources ? `<br><span class="hint">แหล่งอาคาร: ${sources}</span>` : ''}${fact.state === 'unavailable' ? '<br><button type="button" class="link-button" data-action="retry-spatial">ลองโหลดข้อมูลอาคารอีกครั้ง</button>' : ''}`;
+}
+
 /* ---------- Venue candidate ---------- */
 
-export function renderVenue(v) {
+export function renderVenue(v, extra = {}) {
   if (!v) return '';
   const logo = getVenueLogo(v.venue);
   const rows = v.rows.map(r => `<li><button type="button" class="brand-row" data-action="select-store" data-id="${esc(r.key)}">${brandLogoMarkup(r.brand)}<span><strong>${esc(r.brand)}</strong><br><span class="small muted">${esc(r.name)}</span></span></button></li>`).join('');
@@ -208,6 +215,7 @@ export function renderVenue(v) {
       <p class="subtle">${v.unit ? `${areaButton(v.unit, v.unitLabel)} · ` : ''}${areaButton(v.district, v.districtLabel)} · ${areaButton(v.province)}</p>
       <div class="metrics compact">${metricTile(v.count, 'สาขา', 'store')}${metricTile(v.brands, 'แบรนด์', 'brand')}</div>
       <p class="hint">ชื่อสาขาหรือที่อยู่ระบุสถานที่นี้</p>
+      ${extra.building || extra.buildingReference ? `<dl class="facts">${extra.buildingReference ? `<dt>อาคารสถานที่</dt><dd>${buildingFactMarkup(extra.buildingReference)}</dd>` : ''}${extra.building ? `<dt>อาคารตามพิกัด</dt><dd>${buildingFactMarkup(extra.building)}</dd>` : ''}</dl>` : ''}
     </section>
     <section class="panel-section"><div class="section-heading">${heading('store', 'สาขา')}<span class="hint">${num(v.rows.length)}</span></div><ul class="outlet-list">${rows}</ul></section>`;
 }
@@ -240,6 +248,8 @@ export function renderStore(d, extra = {}) {
         <dt>ที่อยู่</dt><dd class="fact-address">${address}${extra.detail?.subdistrict ? `<br><span class="hint">ตำบล/แขวง${esc(extra.detail.subdistrict)}</span>` : ''}</dd>
         <dt>พื้นที่</dt><dd>${place}</dd>
         ${d.venue ? `<dt>สถานที่</dt><dd class="fact-venue">${venueLogoMarkup(d.venue, {size: 'md'})}<span><button type="button" class="link-button" data-action="select-venue" data-id="${d.venue.index}">${esc(d.venue.name)}</button><br><span class="hint">${esc(d.venue.typeTh)} · ตามชื่อสาขา</span></span></dd>` : ''}
+        ${extra.buildingReference ? `<dt>อาคารสถานที่</dt><dd>${buildingFactMarkup(extra.buildingReference)}</dd>` : ''}
+        ${extra.building ? `<dt>อาคารตามพิกัด</dt><dd>${buildingFactMarkup(extra.building)}</dd>` : ''}
         <dt>พิกัด</dt><dd><span class="data-number">${esc(coords)}</span><br><span class="hint" title="${esc(d.geometry.note)}">${esc(d.geometry.label)}${d.coLocated ? ` · ร่วมพิกัดกับอีก ${num(d.coLocated)} สาขา` : ''}</span></dd>
         <dt>แหล่งข้อมูล</dt><dd>${esc(d.source?.label || '')}${d.source?.date ? `<br><span class="hint">${esc(d.source.date)}</span>` : ''}</dd>
         ${extra.detail?.uuid ? `<dt>รหัส</dt><dd><span class="data-number id-text">${esc(extra.detail.uuid)}</span></dd>` : ''}

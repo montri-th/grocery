@@ -1,0 +1,1264 @@
+{
+  "sourceURL": "https://montri-th.github.io/luxurybrands/data/venue-buildings.geojson",
+  "sourceSHA256": "bb28193667418804b2a5bc827a2ca29ce464997a230b07ce7b8337001cbc92a8",
+  "geometryAsOf": "2026-10-21",
+  "note": "Independent expectations projected from retained source bytes; geometry hashes cover every original coordinate and hole. Luxury outlet IDs and polygon coordinates are omitted.",
+  "features": [
+    {
+      "id": "osm:way/781138575",
+      "geometrySHA256": "be38b228a51303d662eb8853424789f1dd18d11f4e5550c10770bc70fcc963fe",
+      "sourceVenueIds": [
+        "49b5afdc-2436-48bc-8a89-007ac5541d98"
+      ],
+      "hostId": "osm:way/781138575",
+      "sourceHeightM": null,
+      "displayHeightM": 0,
+      "displayBaseM": 0,
+      "renderAs": "outline",
+      "heightRole": "unknown_display_fallback",
+      "sourceURL": "https://www.openstreetmap.org/way/781138575"
+    },
+    {
+      "id": "osm:way/781138575/part/779e041c5404cccd",
+      "geometrySHA256": "5afc42bfc6796099d128d899a81cc974ebd070f91f3ad62b3d59aba05a08fb05",
+      "sourceVenueIds": [
+        "49b5afdc-2436-48bc-8a89-007ac5541d98"
+      ],
+      "hostId": "osm:way/781138575",
+      "sourceHeightM": 38,
+      "displayHeightM": 38,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=aba0d3c8-0510-4e13-9b03-9467577763ff"
+    },
+    {
+      "id": "osm:way/781138575/part/d0fcfbbee0f46706",
+      "geometrySHA256": "ad0142c5fce3fa4ae76e803544932526d66fa5e6023fb8f727771e0fe90458ea",
+      "sourceVenueIds": [
+        "49b5afdc-2436-48bc-8a89-007ac5541d98"
+      ],
+      "hostId": "osm:way/781138575",
+      "sourceHeightM": 23,
+      "displayHeightM": 23,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=aba0d3c8-0510-4e13-9b03-9467577763ff"
+    },
+    {
+      "id": "osm:way/781138575/part/8ec7ba24622de178",
+      "geometrySHA256": "82a9049cb4319370c6fd86af5857d2ae48683b1cc6266d8b28f25e0b9c21ae95",
+      "sourceVenueIds": [
+        "49b5afdc-2436-48bc-8a89-007ac5541d98"
+      ],
+      "hostId": "osm:way/781138575",
+      "sourceHeightM": 19.91,
+      "displayHeightM": 19.91,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=aba0d3c8-0510-4e13-9b03-9467577763ff"
+    },
+    {
+      "id": "osm:way/781138575/part/6e611892c069d33e",
+      "geometrySHA256": "f4ce2237cb5452f18b7886cbfbfb3f476b9e5fa72a15e3ebc47155616cbfb15a",
+      "sourceVenueIds": [
+        "49b5afdc-2436-48bc-8a89-007ac5541d98"
+      ],
+      "hostId": "osm:way/781138575",
+      "sourceHeightM": 3.5,
+      "displayHeightM": 3.5,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=aba0d3c8-0510-4e13-9b03-9467577763ff"
+    },
+    {
+      "id": "osm:way/781138575/part/133c8a85dabee8ef",
+      "geometrySHA256": "cb7f5bfabce2ae0b5f2b7f1daf4db4c0b2a4c56c50f2b071b548b986f4e4ffc0",
+      "sourceVenueIds": [
+        "49b5afdc-2436-48bc-8a89-007ac5541d98"
+      ],
+      "hostId": "osm:way/781138575",
+      "sourceHeightM": 7,
+      "displayHeightM": 7,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=aba0d3c8-0510-4e13-9b03-9467577763ff"
+    },
+    {
+      "id": "osm:way/781138575/part/5edab9aba3f0c90f",
+      "geometrySHA256": "15c68489eabfcec7bedabc346d9556aed16f3c6d5281a0a4ce7d572484938010",
+      "sourceVenueIds": [
+        "49b5afdc-2436-48bc-8a89-007ac5541d98"
+      ],
+      "hostId": "osm:way/781138575",
+      "sourceHeightM": 7,
+      "displayHeightM": 7,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=aba0d3c8-0510-4e13-9b03-9467577763ff"
+    },
+    {
+      "id": "osm:way/781138575/part/9c4c77fd29b358d5",
+      "geometrySHA256": "768ab2bb5f3fa2a8dffc557cdea805e91c98bfd5b180fd09a9153eda61bfc09c",
+      "sourceVenueIds": [
+        "49b5afdc-2436-48bc-8a89-007ac5541d98"
+      ],
+      "hostId": "osm:way/781138575",
+      "sourceHeightM": 38,
+      "displayHeightM": 40.5,
+      "displayBaseM": 37.5,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=aba0d3c8-0510-4e13-9b03-9467577763ff"
+    },
+    {
+      "id": "osm:way/157668553",
+      "geometrySHA256": "7e78ee82f158724aa0b8ddeca9f80423fbf01b60855d953493c504c6992fd50e",
+      "sourceVenueIds": [
+        "035fd94c-e78f-4310-9b86-6e72aa9cde4c"
+      ],
+      "hostId": "osm:way/157668553",
+      "sourceHeightM": 26.83,
+      "displayHeightM": 26.83,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_model_estimate",
+      "sourceURL": "https://www.openstreetmap.org/way/157668553"
+    },
+    {
+      "id": "osm:way/1195022785",
+      "geometrySHA256": "98798fe1a10de06775edc489f36a4498ed578af8e3f563aad541bdbbd6c4775a",
+      "sourceVenueIds": [
+        "24fed66f-080c-4adb-bd6c-d77df866e6d4"
+      ],
+      "hostId": "osm:way/1195022785",
+      "sourceHeightM": null,
+      "displayHeightM": 0,
+      "displayBaseM": 0,
+      "renderAs": "outline",
+      "heightRole": "unknown_display_fallback",
+      "sourceURL": "https://www.openstreetmap.org/way/1195022785"
+    },
+    {
+      "id": "osm:way/1195022785/part/2a7da6fb30be44ed",
+      "geometrySHA256": "7603e20cdfbba741d60ff38ad53aad1805a4906c230698db8a933bb61248f0e7",
+      "sourceVenueIds": [
+        "24fed66f-080c-4adb-bd6c-d77df866e6d4"
+      ],
+      "hostId": "osm:way/1195022785",
+      "sourceHeightM": 9.45,
+      "displayHeightM": 9.45,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=81c459b3-d3b7-4fa6-b1b1-a938471aadec"
+    },
+    {
+      "id": "osm:way/1195022785/part/28a04dd8a557061a",
+      "geometrySHA256": "eda2e4b2e42882ab3018e44710546d246dd64fbec805ce7ae7693b0c27511657",
+      "sourceVenueIds": [
+        "24fed66f-080c-4adb-bd6c-d77df866e6d4"
+      ],
+      "hostId": "osm:way/1195022785",
+      "sourceHeightM": 30,
+      "displayHeightM": 30,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=81c459b3-d3b7-4fa6-b1b1-a938471aadec"
+    },
+    {
+      "id": "osm:way/1195022785/part/dd32927d4b43cd9f",
+      "geometrySHA256": "66dcd253dc4121f7fb33f1f154dfc4aabcab580994474793fd76eccc61ad2506",
+      "sourceVenueIds": [
+        "24fed66f-080c-4adb-bd6c-d77df866e6d4"
+      ],
+      "hostId": "osm:way/1195022785",
+      "sourceHeightM": 167,
+      "displayHeightM": 167,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=81c459b3-d3b7-4fa6-b1b1-a938471aadec"
+    },
+    {
+      "id": "osm:way/157482067",
+      "geometrySHA256": "c8035f11d2cf60b805f3948b23d608833cb8c269d0f3cacc312ff492bfc0778d",
+      "sourceVenueIds": [
+        "cda925e0-2b45-4611-acdc-fa9cc13e2b89"
+      ],
+      "hostId": "osm:way/157482067",
+      "sourceHeightM": 35,
+      "displayHeightM": 0,
+      "displayBaseM": 0,
+      "renderAs": "outline",
+      "heightRole": "osm_published_height_not_survey_verified",
+      "sourceURL": "https://www.openstreetmap.org/way/157482067"
+    },
+    {
+      "id": "osm:way/157482067/part/666cddc6fdcea8b0",
+      "geometrySHA256": "702c5de187fba009cbfb3578d3a89783c124f818e35b2dce002389f448cdbcd2",
+      "sourceVenueIds": [
+        "cda925e0-2b45-4611-acdc-fa9cc13e2b89"
+      ],
+      "hostId": "osm:way/157482067",
+      "sourceHeightM": 38,
+      "displayHeightM": 38,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=aba0d3c8-0510-4e13-9b03-9467577763ff"
+    },
+    {
+      "id": "osm:way/157482067/part/4424bcae64936868",
+      "geometrySHA256": "ad2be54eee1f43c1a0901c8d6778480200e301cc63dab3339f282286831f8259",
+      "sourceVenueIds": [
+        "cda925e0-2b45-4611-acdc-fa9cc13e2b89"
+      ],
+      "hostId": "osm:way/157482067",
+      "sourceHeightM": 39,
+      "displayHeightM": 39,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=aba0d3c8-0510-4e13-9b03-9467577763ff"
+    },
+    {
+      "id": "osm:way/157482067/part/0fe33f8ef05b4a91",
+      "geometrySHA256": "ed209e713716c519215ae237a69a931b23dc8558ed11f4a6f1c37ae98caaf04c",
+      "sourceVenueIds": [
+        "cda925e0-2b45-4611-acdc-fa9cc13e2b89"
+      ],
+      "hostId": "osm:way/157482067",
+      "sourceHeightM": 37,
+      "displayHeightM": 37,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=aba0d3c8-0510-4e13-9b03-9467577763ff"
+    },
+    {
+      "id": "osm:way/157482067/part/bb4d422870ee8bbd",
+      "geometrySHA256": "9994e133900d9ad1f614bf8439e32f835920e8eb28ca13754d7798d8d95ee82b",
+      "sourceVenueIds": [
+        "cda925e0-2b45-4611-acdc-fa9cc13e2b89"
+      ],
+      "hostId": "osm:way/157482067",
+      "sourceHeightM": 45,
+      "displayHeightM": 45,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=aba0d3c8-0510-4e13-9b03-9467577763ff"
+    },
+    {
+      "id": "osm:way/157482067/part/d9a01844ff521236",
+      "geometrySHA256": "f7fcada776ff42a717e7b1b0532889399fda32106ce1befba84f48a31a0082a6",
+      "sourceVenueIds": [
+        "cda925e0-2b45-4611-acdc-fa9cc13e2b89"
+      ],
+      "hostId": "osm:way/157482067",
+      "sourceHeightM": 40,
+      "displayHeightM": 40,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=aba0d3c8-0510-4e13-9b03-9467577763ff"
+    },
+    {
+      "id": "osm:way/157482067/part/a966b5a958c8712e",
+      "geometrySHA256": "244fe6f15a0886272c7437fac5efa17916ea34addcabcd7d47bf29227ed056fb",
+      "sourceVenueIds": [
+        "cda925e0-2b45-4611-acdc-fa9cc13e2b89"
+      ],
+      "hostId": "osm:way/157482067",
+      "sourceHeightM": 35,
+      "displayHeightM": 35,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=aba0d3c8-0510-4e13-9b03-9467577763ff"
+    },
+    {
+      "id": "osm:way/157482067/part/9c899074047f0165",
+      "geometrySHA256": "30ae9dc3cd0ca3f4629dff1402ec14e5c5edc004ba549d38764fbc4811b7f6f3",
+      "sourceVenueIds": [
+        "cda925e0-2b45-4611-acdc-fa9cc13e2b89"
+      ],
+      "hostId": "osm:way/157482067",
+      "sourceHeightM": 215,
+      "displayHeightM": 215,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=aba0d3c8-0510-4e13-9b03-9467577763ff"
+    },
+    {
+      "id": "osm:way/157482067/part/a11215c9078ae623",
+      "geometrySHA256": "52274c2fdf0a6fa6e9db3101130ada09e834e0d37d2e2c2535a6c94505952692",
+      "sourceVenueIds": [
+        "cda925e0-2b45-4611-acdc-fa9cc13e2b89"
+      ],
+      "hostId": "osm:way/157482067",
+      "sourceHeightM": 210,
+      "displayHeightM": 210,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=aba0d3c8-0510-4e13-9b03-9467577763ff"
+    },
+    {
+      "id": "osm:way/157482067/part/9798d1ed9a43be74",
+      "geometrySHA256": "021e076466df7d42ec0211dc9fcd857d6c4ee262b40510bcc333d8740f0a3cef",
+      "sourceVenueIds": [
+        "cda925e0-2b45-4611-acdc-fa9cc13e2b89"
+      ],
+      "hostId": "osm:way/157482067",
+      "sourceHeightM": 222,
+      "displayHeightM": 222,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=aba0d3c8-0510-4e13-9b03-9467577763ff"
+    },
+    {
+      "id": "osm:way/157482067/part/5f059f165264d0f9",
+      "geometrySHA256": "9273dfdb98d94381997043871f284e556dd3f08681899363999bd8067cd2790d",
+      "sourceVenueIds": [
+        "cda925e0-2b45-4611-acdc-fa9cc13e2b89"
+      ],
+      "hostId": "osm:way/157482067",
+      "sourceHeightM": 235,
+      "displayHeightM": 235,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=aba0d3c8-0510-4e13-9b03-9467577763ff"
+    },
+    {
+      "id": "osm:way/157482067/part/98ccd7ca948e1a08",
+      "geometrySHA256": "89040fb32b6efb6eb5da17a53fc5430f23ec86f7cb4b283993a2568c4790f166",
+      "sourceVenueIds": [
+        "cda925e0-2b45-4611-acdc-fa9cc13e2b89"
+      ],
+      "hostId": "osm:way/157482067",
+      "sourceHeightM": 180,
+      "displayHeightM": 180,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=aba0d3c8-0510-4e13-9b03-9467577763ff"
+    },
+    {
+      "id": "osm:way/157482067/part/ab92b1c6bc967fee",
+      "geometrySHA256": "498b7eecbf1f068232568b4942e09341a05ab2fb6ba4d05a6cd5470b1c4a33eb",
+      "sourceVenueIds": [
+        "cda925e0-2b45-4611-acdc-fa9cc13e2b89"
+      ],
+      "hostId": "osm:way/157482067",
+      "sourceHeightM": 194,
+      "displayHeightM": 194,
+      "displayBaseM": 180,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=aba0d3c8-0510-4e13-9b03-9467577763ff"
+    },
+    {
+      "id": "osm:way/157482067/part/0ce57c7abf05b1d1",
+      "geometrySHA256": "a9c7b3e9a7cac2166f1a42be644b069e085f8a089e4a4ce2d1f8ed1838753218",
+      "sourceVenueIds": [
+        "cda925e0-2b45-4611-acdc-fa9cc13e2b89"
+      ],
+      "hostId": "osm:way/157482067",
+      "sourceHeightM": 199,
+      "displayHeightM": 199,
+      "displayBaseM": 180,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=aba0d3c8-0510-4e13-9b03-9467577763ff"
+    },
+    {
+      "id": "osm:way/157482067/part/b57fe0a88ee86cf4",
+      "geometrySHA256": "064465d4d91d2dfedc3854dd6bd09d189545c2bc195c03b9e07a935168b17e68",
+      "sourceVenueIds": [
+        "cda925e0-2b45-4611-acdc-fa9cc13e2b89"
+      ],
+      "hostId": "osm:way/157482067",
+      "sourceHeightM": 220,
+      "displayHeightM": 220,
+      "displayBaseM": 215,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=aba0d3c8-0510-4e13-9b03-9467577763ff"
+    },
+    {
+      "id": "osm:way/157482067/part/0fbffabf2633595e",
+      "geometrySHA256": "ef3bce4eb71403fc09927baf663bf66f5b827b4e1fd87bf2e7287e7a512b119c",
+      "sourceVenueIds": [
+        "cda925e0-2b45-4611-acdc-fa9cc13e2b89"
+      ],
+      "hostId": "osm:way/157482067",
+      "sourceHeightM": 225,
+      "displayHeightM": 225,
+      "displayBaseM": 215,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=aba0d3c8-0510-4e13-9b03-9467577763ff"
+    },
+    {
+      "id": "osm:way/318785712",
+      "geometrySHA256": "da4cfc21d3f3dc07a481f49362cea8d87cf2d1cbd5fde39016b32bc1b550b04f",
+      "sourceVenueIds": [
+        "ea2376ff-1967-4758-b7ea-5e5121f73a4e"
+      ],
+      "hostId": "osm:way/318785712",
+      "sourceHeightM": 42,
+      "displayHeightM": 42,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "osm_published_height_not_survey_verified",
+      "sourceURL": "https://www.openstreetmap.org/way/318785712"
+    },
+    {
+      "id": "osm:way/680735864",
+      "geometrySHA256": "0fff294c0504a126f828b41fd5dbf34353c4fd749fdab44a9a9f6e070a178a8d",
+      "sourceVenueIds": [
+        "a574110c-d856-40fd-a3e6-d3c42c00cd3d"
+      ],
+      "hostId": "osm:way/680735864",
+      "sourceHeightM": 23.1,
+      "displayHeightM": 23.1,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_model_estimate",
+      "sourceURL": "https://www.openstreetmap.org/way/680735864"
+    },
+    {
+      "id": "osm:way/405853851",
+      "geometrySHA256": "4c08ef2cc0877d971dc9e356567944531e56f747e5df46d5db83d167c0cfdc74",
+      "sourceVenueIds": [
+        "21ea9aa4-7e0a-491d-bad4-30c87269dd1a"
+      ],
+      "hostId": "osm:way/405853851",
+      "sourceHeightM": null,
+      "displayHeightM": 3,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "unknown_display_fallback",
+      "sourceURL": "https://www.openstreetmap.org/way/405853851"
+    },
+    {
+      "id": "osm:way/1423494591",
+      "geometrySHA256": "21439b43b091801f5079290a0005f17df0c4b64f682bca41de8b43fa91d4147d",
+      "sourceVenueIds": [
+        "8381df9c-bcc0-482d-9dee-776e25b298de"
+      ],
+      "hostId": "osm:way/1423494591",
+      "sourceHeightM": null,
+      "displayHeightM": 0,
+      "displayBaseM": 0,
+      "renderAs": "outline",
+      "heightRole": "unknown_display_fallback",
+      "sourceURL": "https://www.openstreetmap.org/way/1423494591"
+    },
+    {
+      "id": "osm:way/1423494591/part/b00dc85cbc51f068",
+      "geometrySHA256": "e97ab22f1a83c443b0ee66ac178561bc6e2d23a138aa5bad4b4f366ad99c2189",
+      "sourceVenueIds": [
+        "8381df9c-bcc0-482d-9dee-776e25b298de"
+      ],
+      "hostId": "osm:way/1423494591",
+      "sourceHeightM": 13.57,
+      "displayHeightM": 13.57,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=b552990f-6530-46bf-b966-d01dea3703b1"
+    },
+    {
+      "id": "osm:way/1423494591/part/4321948e2cb14f5a",
+      "geometrySHA256": "e70debaf4d5f8c0093efa2fd09c8967c810eb9dd3caf56e3a2073e7a193911db",
+      "sourceVenueIds": [
+        "8381df9c-bcc0-482d-9dee-776e25b298de"
+      ],
+      "hostId": "osm:way/1423494591",
+      "sourceHeightM": 82,
+      "displayHeightM": 82,
+      "displayBaseM": 64,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=b552990f-6530-46bf-b966-d01dea3703b1"
+    },
+    {
+      "id": "osm:way/229875823",
+      "geometrySHA256": "e354637b2770283a439681d75c3ba7e5ce47136f419404f0e8996fe44b09ea45",
+      "sourceVenueIds": [
+        "5b4e0357-d56e-43f3-9c73-49ab307a3714"
+      ],
+      "hostId": "osm:way/229875823",
+      "sourceHeightM": null,
+      "displayHeightM": 0,
+      "displayBaseM": 0,
+      "renderAs": "outline",
+      "heightRole": "unknown_display_fallback",
+      "sourceURL": "https://www.openstreetmap.org/way/229875823"
+    },
+    {
+      "id": "osm:way/229875823/part/0818bf79cefbd4a3",
+      "geometrySHA256": "360e73b404cfda42a53231e8cc0bd4229bc60b52f158c52bac695d8cd6823285",
+      "sourceVenueIds": [
+        "5b4e0357-d56e-43f3-9c73-49ab307a3714"
+      ],
+      "hostId": "osm:way/229875823",
+      "sourceHeightM": 23,
+      "displayHeightM": 23,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=207b80fc-a6f8-459a-b25f-ffa565dd1005"
+    },
+    {
+      "id": "osm:way/229875823/part/2c7031712bea6c1e",
+      "geometrySHA256": "70b33e9d36d8ed339953531f236c121d1084cae7566c21ecca117a4209a3c4c9",
+      "sourceVenueIds": [
+        "5b4e0357-d56e-43f3-9c73-49ab307a3714"
+      ],
+      "hostId": "osm:way/229875823",
+      "sourceHeightM": 21,
+      "displayHeightM": 21,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=207b80fc-a6f8-459a-b25f-ffa565dd1005"
+    },
+    {
+      "id": "osm:way/175552840",
+      "geometrySHA256": "3c42272d87fb1a033ce1d4a729904ec1b3f96b123c1a007efe6c74a2b819dd43",
+      "sourceVenueIds": [
+        "b5fe248d-32b9-4ee8-af28-168bc37cd54e"
+      ],
+      "hostId": "osm:way/175552840",
+      "sourceHeightM": 7,
+      "displayHeightM": 7,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_model_estimate",
+      "sourceURL": "https://www.openstreetmap.org/way/175552840"
+    },
+    {
+      "id": "osm:way/25620935",
+      "geometrySHA256": "cde4188524e8e48aa4eaf248bc85271ba0bfef176967e2b1746125ab7bb6c319",
+      "sourceVenueIds": [
+        "6a75c3ca-644e-45d2-9f82-65d20cc25539"
+      ],
+      "hostId": "osm:way/25620935",
+      "sourceHeightM": 16.06,
+      "displayHeightM": 16.06,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_model_estimate",
+      "sourceURL": "https://www.openstreetmap.org/way/25620935"
+    },
+    {
+      "id": "osm:way/31133906",
+      "geometrySHA256": "ba74940805311bfb8c5ecf84edf141435eac61d9d4230ff80404735959c8f062",
+      "sourceVenueIds": [
+        "c0635338-fd5c-4b40-9a49-07912d5721d3"
+      ],
+      "hostId": "osm:way/31133906",
+      "sourceHeightM": null,
+      "displayHeightM": 3,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "unknown_display_fallback",
+      "sourceURL": "https://www.openstreetmap.org/way/31133906"
+    },
+    {
+      "id": "osm:way/97555393",
+      "geometrySHA256": "3d90d2261d410f0dde56719da1a42c597a47f9278db0de4b256e8e9d4afe9d67",
+      "sourceVenueIds": [
+        "7d424176-9f2c-4c93-8475-d881c117d863"
+      ],
+      "hostId": "osm:way/97555393",
+      "sourceHeightM": 19.92,
+      "displayHeightM": 19.92,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_model_estimate",
+      "sourceURL": "https://www.openstreetmap.org/way/97555393"
+    },
+    {
+      "id": "osm:way/254011801",
+      "geometrySHA256": "6b346f23ad5e0525c24acb23b90437bff4e80c470f7dbb487bd1151aed21e71c",
+      "sourceVenueIds": [
+        "0b15acb6-aefc-4e7f-901d-6266968c39d8"
+      ],
+      "hostId": "osm:way/254011801",
+      "sourceHeightM": 21,
+      "displayHeightM": 21,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_model_estimate",
+      "sourceURL": "https://www.openstreetmap.org/way/254011801"
+    },
+    {
+      "id": "osm:way/320898597",
+      "geometrySHA256": "cdddc00534e6efb98fe7691d806354767949e84e4363e9ca7a32842e224c8ff5",
+      "sourceVenueIds": [
+        "626575d4-d923-4536-b953-26f1ae11fd5d"
+      ],
+      "hostId": "osm:way/320898597",
+      "sourceHeightM": null,
+      "displayHeightM": 3,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "unknown_display_fallback",
+      "sourceURL": "https://www.openstreetmap.org/way/320898597"
+    },
+    {
+      "id": "osm:way/152773784",
+      "geometrySHA256": "5e8ff993f9e31aa208fae4facfafe917ee4c9670aff82c02c8895d3e818aa2b1",
+      "sourceVenueIds": [
+        "9fd7c3dc-065f-4ab3-9a84-246d5cf24faf"
+      ],
+      "hostId": "osm:way/152773784",
+      "sourceHeightM": 12.47,
+      "displayHeightM": 12.47,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_model_estimate",
+      "sourceURL": "https://www.openstreetmap.org/way/152773784"
+    },
+    {
+      "id": "osm:way/176298728",
+      "geometrySHA256": "df60e5f1d7f8c45f6c3766d8dfa2b0735dec3af676c928e39dcfcc6e479c7a7d",
+      "sourceVenueIds": [
+        "cd0c5a6e-df8d-4452-893d-bc0a5cb8ad31"
+      ],
+      "hostId": "osm:way/176298728",
+      "sourceHeightM": 39.9,
+      "displayHeightM": 39.9,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_model_estimate",
+      "sourceURL": "https://www.openstreetmap.org/way/176298728"
+    },
+    {
+      "id": "osm:way/1151938444",
+      "geometrySHA256": "a6089fc0df65243ba1f92ed266265f368d73935e6eb4bf97e0d1b6dd49e26c6e",
+      "sourceVenueIds": [
+        "a6b22882-dae1-49bd-b8cc-f91c336004f5"
+      ],
+      "hostId": "osm:way/1151938444",
+      "sourceHeightM": null,
+      "displayHeightM": 3,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "unknown_display_fallback",
+      "sourceURL": "https://www.openstreetmap.org/way/1151938444"
+    },
+    {
+      "id": "osm:relation/19002023",
+      "geometrySHA256": "01b16d1cc503e074629c92038a4017e29a27a2b920af5a00074c62627313abb3",
+      "sourceVenueIds": [
+        "e1716af8-9fa8-4b11-97e2-f76e9161b013"
+      ],
+      "hostId": "osm:relation/19002023",
+      "sourceHeightM": 24.9,
+      "displayHeightM": 24.9,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_model_estimate",
+      "sourceURL": "https://www.openstreetmap.org/relation/19002023"
+    },
+    {
+      "id": "osm:way/154773946",
+      "geometrySHA256": "7186e0f61449a28440140f3d1569588ebbf63624c12da3a7377bfde378965564",
+      "sourceVenueIds": [
+        "f1573264-f8b1-49f4-ac31-f5dff57e439c"
+      ],
+      "hostId": "osm:way/154773946",
+      "sourceHeightM": 28.7,
+      "displayHeightM": 28.7,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_model_estimate",
+      "sourceURL": "https://www.openstreetmap.org/way/154773946"
+    },
+    {
+      "id": "osm:way/30135300",
+      "geometrySHA256": "f1d51a6a383168b0687dd0ee858160cf3cdfa59d0416af681da862b44a9b38ec",
+      "sourceVenueIds": [
+        "6ff13e36-11a8-43be-ab53-b99e77cdf482"
+      ],
+      "hostId": "osm:way/30135300",
+      "sourceHeightM": null,
+      "displayHeightM": 0,
+      "displayBaseM": 0,
+      "renderAs": "outline",
+      "heightRole": "unknown_display_fallback",
+      "sourceURL": "https://www.openstreetmap.org/way/30135300"
+    },
+    {
+      "id": "osm:way/30135300/part/caa3d6e6c00e2ba7",
+      "geometrySHA256": "1c81489593a5b48282c6e1feaf71042e19e9cfa78e5d95ed088d7a1b1eeb78b4",
+      "sourceVenueIds": [
+        "6ff13e36-11a8-43be-ab53-b99e77cdf482"
+      ],
+      "hostId": "osm:way/30135300",
+      "sourceHeightM": 46.5,
+      "displayHeightM": 46.5,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=b552990f-6530-46bf-b966-d01dea3703b1"
+    },
+    {
+      "id": "osm:way/30135300/part/209a6282ae7facfb",
+      "geometrySHA256": "be19276695f4f0edfe0f4139820c8068182643dd8f7751efd77a1dc0c897f424",
+      "sourceVenueIds": [
+        "6ff13e36-11a8-43be-ab53-b99e77cdf482"
+      ],
+      "hostId": "osm:way/30135300",
+      "sourceHeightM": 109.5,
+      "displayHeightM": 109.5,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=b552990f-6530-46bf-b966-d01dea3703b1"
+    },
+    {
+      "id": "osm:way/30135300/part/51d005100a0c422b",
+      "geometrySHA256": "f396b89bc5582272ad3fcc89f34aad2c7a3af4b162294c080c8eab8d09fb492a",
+      "sourceVenueIds": [
+        "6ff13e36-11a8-43be-ab53-b99e77cdf482"
+      ],
+      "hostId": "osm:way/30135300",
+      "sourceHeightM": 116.5,
+      "displayHeightM": 116.5,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=b552990f-6530-46bf-b966-d01dea3703b1"
+    },
+    {
+      "id": "osm:way/30135300/part/e9763d56dff1bc03",
+      "geometrySHA256": "8368a818d892150e4b198b63822b07306cd9984ea4ad5365875beab292b715c6",
+      "sourceVenueIds": [
+        "6ff13e36-11a8-43be-ab53-b99e77cdf482"
+      ],
+      "hostId": "osm:way/30135300",
+      "sourceHeightM": 38,
+      "displayHeightM": 38,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=b552990f-6530-46bf-b966-d01dea3703b1"
+    },
+    {
+      "id": "osm:way/30135300/part/4fa67ed46eb7db52",
+      "geometrySHA256": "716468f06e69bdd97d277f62348dc75b4847cf9c12bcfa86c81e11908f8a8c1a",
+      "sourceVenueIds": [
+        "6ff13e36-11a8-43be-ab53-b99e77cdf482"
+      ],
+      "hostId": "osm:way/30135300",
+      "sourceHeightM": 95.5,
+      "displayHeightM": 95.5,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=b552990f-6530-46bf-b966-d01dea3703b1"
+    },
+    {
+      "id": "osm:way/30135300/part/a44248d0061a787c",
+      "geometrySHA256": "1d44d6fc8ac2453764731f6850839c31ed5a7785aeba0c05230f0827e7e608c1",
+      "sourceVenueIds": [
+        "6ff13e36-11a8-43be-ab53-b99e77cdf482"
+      ],
+      "hostId": "osm:way/30135300",
+      "sourceHeightM": 22,
+      "displayHeightM": 22,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=b552990f-6530-46bf-b966-d01dea3703b1"
+    },
+    {
+      "id": "osm:way/30135300/part/87515972289b9895",
+      "geometrySHA256": "01d7f77c80037a530af3d3f9d867469bee484f29b810f2883f52d96ecf93c2e5",
+      "sourceVenueIds": [
+        "6ff13e36-11a8-43be-ab53-b99e77cdf482"
+      ],
+      "hostId": "osm:way/30135300",
+      "sourceHeightM": 29,
+      "displayHeightM": 29,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=b552990f-6530-46bf-b966-d01dea3703b1"
+    },
+    {
+      "id": "osm:way/30135300/part/63040e33ab5974fe",
+      "geometrySHA256": "825ae0d041885e4e4d76584007e4b309f4ba5baa6c3974780168791f658ecca5",
+      "sourceVenueIds": [
+        "6ff13e36-11a8-43be-ab53-b99e77cdf482"
+      ],
+      "hostId": "osm:way/30135300",
+      "sourceHeightM": 120,
+      "displayHeightM": 120,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=b552990f-6530-46bf-b966-d01dea3703b1"
+    },
+    {
+      "id": "osm:way/30135300/part/fe8932fdfa545360",
+      "geometrySHA256": "03ce27ebe5f625265b7f3a1c24da5c659a4ef5b73241484bde30b71fa3b23107",
+      "sourceVenueIds": [
+        "6ff13e36-11a8-43be-ab53-b99e77cdf482"
+      ],
+      "hostId": "osm:way/30135300",
+      "sourceHeightM": 39.5,
+      "displayHeightM": 39.5,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=b552990f-6530-46bf-b966-d01dea3703b1"
+    },
+    {
+      "id": "osm:way/30135300/part/a5c36d2142928ece",
+      "geometrySHA256": "b4fd7b454a85f58624c5a4e3eef52cbb69bc24d5194967da8b756074d301b643",
+      "sourceVenueIds": [
+        "6ff13e36-11a8-43be-ab53-b99e77cdf482"
+      ],
+      "hostId": "osm:way/30135300",
+      "sourceHeightM": 36,
+      "displayHeightM": 36,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=b552990f-6530-46bf-b966-d01dea3703b1"
+    },
+    {
+      "id": "osm:way/30135300/part/bb2e2482225f9422",
+      "geometrySHA256": "c3804ec04dbe21b831cc3ece421a9b4a213397df87fa9c15135441b540efbfa5",
+      "sourceVenueIds": [
+        "6ff13e36-11a8-43be-ab53-b99e77cdf482"
+      ],
+      "hostId": "osm:way/30135300",
+      "sourceHeightM": 22,
+      "displayHeightM": 22,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=b552990f-6530-46bf-b966-d01dea3703b1"
+    },
+    {
+      "id": "osm:way/30135300/part/d51919636bea05e2",
+      "geometrySHA256": "eb3985d65cf3194dac82c718f7435e791b7f6825b1e7d8d02ba7a2ea8a2600fb",
+      "sourceVenueIds": [
+        "6ff13e36-11a8-43be-ab53-b99e77cdf482"
+      ],
+      "hostId": "osm:way/30135300",
+      "sourceHeightM": 88.5,
+      "displayHeightM": 88.5,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=b552990f-6530-46bf-b966-d01dea3703b1"
+    },
+    {
+      "id": "osm:way/30135300/part/af9dd866e4da5e01",
+      "geometrySHA256": "b8f8a4e053ef5f4c5a8a77a3ac6cef05d81c587ca494373d23b0c00fbfafe3da",
+      "sourceVenueIds": [
+        "6ff13e36-11a8-43be-ab53-b99e77cdf482"
+      ],
+      "hostId": "osm:way/30135300",
+      "sourceHeightM": 102.5,
+      "displayHeightM": 102.5,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=b552990f-6530-46bf-b966-d01dea3703b1"
+    },
+    {
+      "id": "osm:way/30135300/part/0f4aee928b7287c8",
+      "geometrySHA256": "ba200c0dc2193881b1763cd889688cb7f191939ddcf8327f74dda5a066f21469",
+      "sourceVenueIds": [
+        "6ff13e36-11a8-43be-ab53-b99e77cdf482"
+      ],
+      "hostId": "osm:way/30135300",
+      "sourceHeightM": 71,
+      "displayHeightM": 71,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=b552990f-6530-46bf-b966-d01dea3703b1"
+    },
+    {
+      "id": "osm:way/30135300/part/2a8e7b6ad4f76fc0",
+      "geometrySHA256": "2c97741bde2e33d6e52af25d99e0a3a3c11aef6b771fd15b275ca86c32675ce5",
+      "sourceVenueIds": [
+        "6ff13e36-11a8-43be-ab53-b99e77cdf482"
+      ],
+      "hostId": "osm:way/30135300",
+      "sourceHeightM": 95.5,
+      "displayHeightM": 95.5,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=b552990f-6530-46bf-b966-d01dea3703b1"
+    },
+    {
+      "id": "osm:way/30135300/part/ce6b5781d7264c7a",
+      "geometrySHA256": "db7b5e1dc99ee27d49642ad63e683226e9237f9be4217249a2b049b5cc3ff1cf",
+      "sourceVenueIds": [
+        "6ff13e36-11a8-43be-ab53-b99e77cdf482"
+      ],
+      "hostId": "osm:way/30135300",
+      "sourceHeightM": 102.5,
+      "displayHeightM": 102.5,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=b552990f-6530-46bf-b966-d01dea3703b1"
+    },
+    {
+      "id": "osm:way/30135300/part/2266121303544c7a",
+      "geometrySHA256": "7f06872b07a424750be63c8e9c831c10ba7f40059390bb0075da1f0f344be5ae",
+      "sourceVenueIds": [
+        "6ff13e36-11a8-43be-ab53-b99e77cdf482"
+      ],
+      "hostId": "osm:way/30135300",
+      "sourceHeightM": 57,
+      "displayHeightM": 57,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=b552990f-6530-46bf-b966-d01dea3703b1"
+    },
+    {
+      "id": "osm:way/30135300/part/d88b77aed4d874e2",
+      "geometrySHA256": "6ed62c3e7a4bf92e16d6e8fa2de5faa7a7a015316583d8ba4ef4c10e2f2230e3",
+      "sourceVenueIds": [
+        "6ff13e36-11a8-43be-ab53-b99e77cdf482"
+      ],
+      "hostId": "osm:way/30135300",
+      "sourceHeightM": 45,
+      "displayHeightM": 45,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_part_height_source",
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/parts?inTileType=SUBDISTRICT&inTileId=b552990f-6530-46bf-b966-d01dea3703b1"
+    },
+    {
+      "id": "osm:way/96359391",
+      "geometrySHA256": "99b9e494c7071fb92cbaad18d10e0b01cacd3c71ceca2f0c9264962f82777f01",
+      "sourceVenueIds": [
+        "cc750e68-a331-4f5b-acee-e82cb620814c"
+      ],
+      "hostId": "osm:way/96359391",
+      "sourceHeightM": 23.1,
+      "displayHeightM": 23.1,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_model_estimate",
+      "sourceURL": "https://www.openstreetmap.org/way/96359391"
+    },
+    {
+      "id": "osm:way/31141120",
+      "geometrySHA256": "20e0d8bfcd22ddbad17b8ace66f892b353191c040bc8518d9cb31139b10be573",
+      "sourceVenueIds": [
+        "9d03f9b0-9385-48f4-9aae-9697580b593c"
+      ],
+      "hostId": "osm:way/31141120",
+      "sourceHeightM": 21,
+      "displayHeightM": 21,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_model_estimate",
+      "sourceURL": "https://www.openstreetmap.org/way/31141120"
+    },
+    {
+      "id": "osm:way/151000011",
+      "geometrySHA256": "b902554be52c6e6f426a7eba00c695ba545b460a6ef18eeacd77bb47ba0d1cd3",
+      "sourceVenueIds": [
+        "8872339c-c89a-426a-ad30-3b06ee21b5e5"
+      ],
+      "hostId": "osm:way/151000011",
+      "sourceHeightM": 21,
+      "displayHeightM": 21,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_model_estimate",
+      "sourceURL": "https://www.openstreetmap.org/way/151000011"
+    },
+    {
+      "id": "osm:way/546498849",
+      "geometrySHA256": "6c7939d1334d5897a93f2121dc5ee19acc9dd6d53fb6e27ed9a02b8917f49054",
+      "sourceVenueIds": [
+        "a49782fc-7c75-4446-a5e9-4e039941da16"
+      ],
+      "hostId": "osm:way/546498849",
+      "sourceHeightM": 3.5,
+      "displayHeightM": 3.5,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_model_estimate",
+      "sourceURL": "https://www.openstreetmap.org/way/546498849"
+    },
+    {
+      "id": "osm:way/105567376",
+      "geometrySHA256": "980cc34d79764ac3e2d6b170be83bdafc0b6a90d11286799c07c5219d7d48296",
+      "sourceVenueIds": [
+        "597d9a97-fd03-46f9-a300-2d73586a73d5"
+      ],
+      "hostId": "osm:way/105567376",
+      "sourceHeightM": 14.28,
+      "displayHeightM": 14.28,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_model_estimate",
+      "sourceURL": "https://www.openstreetmap.org/way/105567376"
+    },
+    {
+      "id": "osm:way/359413315",
+      "geometrySHA256": "a1ccf25027e7a1d4ea4343ddfa8d9ea91792fef939671a15729259b266b0c31b",
+      "sourceVenueIds": [
+        "98e6c30a-dea7-46c9-b655-8e68e1e9db48"
+      ],
+      "hostId": "osm:way/359413315",
+      "sourceHeightM": 15.97,
+      "displayHeightM": 15.97,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_model_estimate",
+      "sourceURL": "https://www.openstreetmap.org/way/359413315"
+    },
+    {
+      "id": "osm:way/31134583",
+      "geometrySHA256": "1fe7db20090c965bf73be698cb0dcef658dbb9ab669bd664177b2a330571e854",
+      "sourceVenueIds": [
+        "bf3ce976-631b-4a15-9eda-8a016d77cc62"
+      ],
+      "hostId": "osm:way/31134583",
+      "sourceHeightM": 26.02,
+      "displayHeightM": 26.02,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_model_estimate",
+      "sourceURL": "https://www.openstreetmap.org/way/31134583"
+    },
+    {
+      "id": "osm:relation/8869853",
+      "geometrySHA256": "7e9ba2722ffd966c298e77ba913b0439283a6d5cc2e88927e7165a589f8cbd25",
+      "sourceVenueIds": [
+        "08a6a98a-0f80-46d9-8c70-9f08f3459c27"
+      ],
+      "hostId": "osm:relation/8869853",
+      "sourceHeightM": 17.5,
+      "displayHeightM": 17.5,
+      "displayBaseM": 0,
+      "renderAs": "extrusion",
+      "heightRole": "citymeter_model_estimate",
+      "sourceURL": "https://www.openstreetmap.org/relation/8869853"
+    }
+  ],
+  "reviewedCrosswalkAsOf": "2026-10-22",
+  "venues": {
+    "GV-00cb8cd30342401a": {
+      "sourceVenueId": "6ff13e36-11a8-43be-ab53-b99e77cdf482",
+      "memberKeys": [
+        "5c5dcc19"
+      ]
+    },
+    "GV-02fbbcc675cf1548": {
+      "sourceVenueId": "5b4e0357-d56e-43f3-9c73-49ab307a3714",
+      "memberKeys": [
+        "258f3d84",
+        "bb78449f"
+      ]
+    },
+    "GV-0b8a3e30512a861b": {
+      "sourceVenueId": "8381df9c-bcc0-482d-9dee-776e25b298de",
+      "memberKeys": [
+        "066fdc2f"
+      ]
+    },
+    "GV-0cf8f416d0b3ffe6": {
+      "sourceVenueId": "7d424176-9f2c-4c93-8475-d881c117d863",
+      "memberKeys": [
+        "85555cbe",
+        "93d25745"
+      ]
+    },
+    "GV-2505f17e3a465583": {
+      "sourceVenueId": "cd0c5a6e-df8d-4452-893d-bc0a5cb8ad31",
+      "memberKeys": [
+        "2bf251e7",
+        "755f1189"
+      ]
+    },
+    "GV-26efea421326c00d": {
+      "sourceVenueId": "cda925e0-2b45-4611-acdc-fa9cc13e2b89",
+      "memberKeys": [
+        "4b8f090b",
+        "99433b69"
+      ]
+    },
+    "GV-41fdf7169946b310": {
+      "sourceVenueId": "21ea9aa4-7e0a-491d-bad4-30c87269dd1a",
+      "memberKeys": [
+        "22d9979a"
+      ]
+    },
+    "GV-48dec42f75991880": {
+      "sourceVenueId": "24fed66f-080c-4adb-bd6c-d77df866e6d4",
+      "memberKeys": [
+        "1f163cfd",
+        "2ca8a056"
+      ]
+    },
+    "GV-61d74add1aa82152": {
+      "sourceVenueId": "6a75c3ca-644e-45d2-9f82-65d20cc25539",
+      "memberKeys": [
+        "5ec5f875"
+      ]
+    },
+    "GV-640c6a18dbb7c915": {
+      "sourceVenueId": "597d9a97-fd03-46f9-a300-2d73586a73d5",
+      "memberKeys": [
+        "3aee1c09",
+        "86f759ec"
+      ]
+    },
+    "GV-6ccd07bfad89a4dc": {
+      "sourceVenueId": "08a6a98a-0f80-46d9-8c70-9f08f3459c27",
+      "memberKeys": [
+        "61d5bf75",
+        "e69105a7"
+      ]
+    },
+    "GV-7360be41ebe1367b": {
+      "sourceVenueId": "9fd7c3dc-065f-4ab3-9a84-246d5cf24faf",
+      "memberKeys": [
+        "5dbb8c2f"
+      ]
+    },
+    "GV-73cd0a1b5ffe8e72": {
+      "sourceVenueId": "c0635338-fd5c-4b40-9a49-07912d5721d3",
+      "memberKeys": [
+        "08ce9795",
+        "d0b3c4ed",
+        "e127ffc5"
+      ]
+    },
+    "GV-74dcea995e42ef69": {
+      "sourceVenueId": "98e6c30a-dea7-46c9-b655-8e68e1e9db48",
+      "memberKeys": [
+        "2bc94b4e",
+        "ccc605ac"
+      ]
+    },
+    "GV-76b7c25e95c9f29c": {
+      "sourceVenueId": "a6b22882-dae1-49bd-b8cc-f91c336004f5",
+      "memberKeys": [
+        "f3b081bc"
+      ]
+    },
+    "GV-7e53099345cf6e07": {
+      "sourceVenueId": "0b15acb6-aefc-4e7f-901d-6266968c39d8",
+      "memberKeys": [
+        "1f251e61"
+      ]
+    },
+    "GV-7ed895d260f2e472": {
+      "sourceVenueId": "f1573264-f8b1-49f4-ac31-f5dff57e439c",
+      "memberKeys": [
+        "0d6d01a9",
+        "525dfd20"
+      ]
+    },
+    "GV-95c2fb2b723059b1": {
+      "sourceVenueId": "e1716af8-9fa8-4b11-97e2-f76e9161b013",
+      "memberKeys": [
+        "cfdf606e"
+      ]
+    },
+    "GV-9bdac1f2b8e9d331": {
+      "sourceVenueId": "a49782fc-7c75-4446-a5e9-4e039941da16",
+      "memberKeys": [
+        "02d8ed51",
+        "70e04ba5"
+      ]
+    },
+    "GV-9e1d3c678f9b9ae0": {
+      "sourceVenueId": "b5fe248d-32b9-4ee8-af28-168bc37cd54e",
+      "memberKeys": [
+        "0fc85872"
+      ]
+    },
+    "GV-ba340b366864ec40": {
+      "sourceVenueId": "626575d4-d923-4536-b953-26f1ae11fd5d",
+      "memberKeys": [
+        "03199292",
+        "cd65089d"
+      ]
+    },
+    "GV-c454a5b39b62a96b": {
+      "sourceVenueId": "cc750e68-a331-4f5b-acee-e82cb620814c",
+      "memberKeys": [
+        "68bca26d"
+      ]
+    },
+    "GV-c45c849e68194e17": {
+      "sourceVenueId": "8872339c-c89a-426a-ad30-3b06ee21b5e5",
+      "memberKeys": [
+        "5e6aafad"
+      ]
+    },
+    "GV-cbc5972e94e4c8ce": {
+      "sourceVenueId": "ea2376ff-1967-4758-b7ea-5e5121f73a4e",
+      "memberKeys": [
+        "ea5f087e"
+      ]
+    },
+    "GV-d57dcb0f9edac1cf": {
+      "sourceVenueId": "035fd94c-e78f-4310-9b86-6e72aa9cde4c",
+      "memberKeys": [
+        "2be6ebd1"
+      ]
+    },
+    "GV-ea16222bd6995c79": {
+      "sourceVenueId": "bf3ce976-631b-4a15-9eda-8a016d77cc62",
+      "memberKeys": [
+        "b0660c9a",
+        "dcdc0ec3"
+      ]
+    },
+    "GV-eb55a15be512058d": {
+      "sourceVenueId": "49b5afdc-2436-48bc-8a89-007ac5541d98",
+      "memberKeys": [
+        "6823e48d"
+      ]
+    },
+    "GV-ef24c534e5060c7e": {
+      "sourceVenueId": "9d03f9b0-9385-48f4-9aae-9697580b593c",
+      "memberKeys": [
+        "5205630f",
+        "f5ac6bd4"
+      ]
+    },
+    "SC-a574110c-d856-40fd-a3e6-d3c42c00cd3d": {
+      "sourceVenueId": "a574110c-d856-40fd-a3e6-d3c42c00cd3d",
+      "memberKeys": [
+        "55ee5a9b"
+      ]
+    }
+  }
+}

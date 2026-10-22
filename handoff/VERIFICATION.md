@@ -1,4 +1,4 @@
-# Verification record — release 0.1 (2026-10-22)
+# Verification record — Grocery baseline and join update (2026-10-22)
 
 Dataset snapshot: 2026-10-22 (what CityMETER production shows). Levels are reported separately: data reconciliation, unit tests, machine contracts, LDS checks, rendered harness, live browser checks and live byte attestation. None of them is a blanket LDS, accessibility or market-completeness certificate.
 
@@ -18,9 +18,34 @@ Dataset snapshot: 2026-10-22 (what CityMETER production shows). Levels are repor
 | Keys | 27,607 unique 8-character keys (asserted) |
 | Logos | 17 brand files and 128 venue files byte-identical to the sheet's sha256 |
 
-## Automated (unit)
+## Venue/building join update — local verification
 
-`npm test` — **65/65 passed** (Node 22) on the release working tree, against the shipped data files:
+The expanded prepared join artifacts are recorded in `data/build-receipt.json → joinRefresh` and `data/building-sources.json`. Every source row has been evaluated against pinned footprint snapshots. This is dataset processing coverage, not proof that every physical building exists in the snapshots. Historical release 0.1 browser/live evidence below does not attest this update; the final published commit still needs its own release receipt and live byte check.
+
+| Check | Prepared result |
+|---|---|
+| Name reconciliation | 3,625 linked rows from prior 3,493: +141 new, −9 removed, 1 reassignment; 105 new identities. Of the links, 248 have an independent source-point check, 3,374 retain a name without an anchor, and 3 require coordinate review. |
+| Store invariants | All 27,607 source rows, coordinates, flags and administrative memberships retained; 3,542 registered venue identities |
+| Named venue geometry | 29 venues / 76 features (29 host footprints + 47 display parts) / 44 name-linked store rows; independent of point containment |
+| Combined point result | 806 `point_inside`, 9,328 `boundary_candidate`, 0 `ambiguous`, 17,473 `no_building`, 0 `unavailable`; 27,607 rows / 77 provinces |
+| Decision source | Native host hit: 3,058 (315 inside / 2,743 boundary); verified reference hit: 12 (10 / 2); Microsoft gap fill: 24,537 (481 inside / 6,583 boundary / 17,473 no-hit) |
+| Priority and comparison | Earlier boundary/ambiguous results are retained. Native no-hit can fall through with native coverage/status preserved; alternative providers are not unioned into extra hosts. `no_building` means no containing selected-source polygon, not physical absence. |
+| Geometry and provenance | Original Polygon/MultiPolygon geometry and holes retained; chosen candidate IDs resolve; exact file hashes and provider provenance checked; no nearest assignment or point movement |
+| Heights and rights | Source/model estimates stay estimates. Microsoft missing/-1 height stays null; 3 m is display-only. CDLA Permissive 2.0 agreement accompanies Microsoft data; OSM/3D-GloBFP/Open Buildings credits and license roles stay separate. |
+
+Current full local suite: `node --test tests/*.test.js` — **129/129 passed**, 0 failed, 0 skipped. This includes combined-source priority/failure checks, candidate/source and all-row invariants, geometry holes/boundaries, native affine geometry metadata, provider/height facts, source agreements, privacy scan, cold-selection camera/URL and detail-context regressions, and the existing model/map tests. The 10 m guard is a geometric review threshold, not validated coordinate accuracy or an error radius. No match establishes tenancy, true shopfront, floor or operating status.
+
+Cold-selection and URL regression checks: `node --test tests/url-state.test.js tests/spatial-fit-intent.test.js` — **9/9 passed**. The harness executes the actual production selection, async completion, map-install and URL-restore functions with network/render stand-ins. A cold selection fits the full building once when geometry is ready; data ready before the map is used in its single initial fit. Direct gestures cancel a pending fit, while programmatic camera animation does not; stale payloads, pins, absent geometry and closed detail do not cause late camera jumps. A direct Megabangna URL restores province `11` → district `1103` → unit `04110302` and the complete breadcrumb, including with invalid or stale area parameters. Filtered venue links use the same point-first member rule as clicking a venue. These checks preserve source coordinates and administrative memberships; they are local regression evidence, not a new live browser or release attestation.
+
+Detail-context regression checks: `node --test tests/spatial-context.test.js` — **2/2 passed**. The actual spatial-update function and tile planner use the shipped Megabangna reference and municipality geometry. Store/venue detail now prioritizes host regions so tile `14/12774/7565` is included before the nine-tile cap; context exclusion can therefore inspect the host twin. Overlapping display parts share tile requests. Area views retain their compact-unit context and existing cap. No source geometry, point coordinate or administrative membership changes; these are local planning checks, with final rendered and live verification still separate.
+
+Independent GEOS audit: all 27,607 rows and 13,628 source geometries checked, zero invalid geometry, containment, guard, priority or provenance errors; maximum boundary-distance difference 0.0005 m from output rounding. No source geometry repair was applied. Detailed external QA evidence is `combined-geos-audit.json`.
+
+Rendered facts-only harness: the actual current `renderStore` and styles rendered native modeled height, Microsoft missing-height and Microsoft predicted-height fixtures at **390×844 and 1280×844, light/dark** (12 cases). Zero horizontal overflow, fact-row overlap or page errors; Thai narrow/desktop screenshots inspected directly. The source/height facts link official dataset pages and do not display the 3 m fallback as a measurement. This isolated panel check is not a map integration or live deployment check. Historical machine/LDS/browser/live records below retain their original release scope.
+
+## Automated (unit) — historical release 0.1
+
+Historical release 0.1: `npm test` — **65/65 passed** (Node 22) on that release working tree, against its shipped data files:
 
 - **data** (`data.test.js`): every province geometry file holds all its districts and units (label point, bbox); every store has a detail record (full uuid, source tile; 178 blank addresses stay blank); icon fonts match their contracts; no private Drive/Sheet link in any shipped text file
 - **model** (`model.test.js`): every source row, brand, type and area of the snapshot; production codes; filters never mutate rows; per-capita never invents a zero; names, nouns and production links; the build receipt reconciles the shipped rows with the API at every level

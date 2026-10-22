@@ -46,6 +46,7 @@
 .legend-step .legend-nodata { background: var(--data-no-data); box-shadow: inset 0 0 0 1px var(--border-default); }
 .map-panel.metric-capita .legend-step .legend-zero { background: var(--scale-capita-1); }
 .legend-pin { background: var(--type-c-store); }
+.legend-joined { width: 12px; height: 12px; background: var(--map-active-layer); border: 1.5px solid var(--map-selected-stroke); border-radius: 2px; }
 .legend-context { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--text-disabled); margin-right: 6px; vertical-align: 1px; }
 #category-key > div { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 4px 10px; }
 

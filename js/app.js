@@ -25,7 +25,7 @@
  * store, place, view3d — restored on load. Core data first; the map (MapLibre
  * from a CDN), province geometry and store details are independent and retryable.
  */
-import {buildModel, filterRows, hasPoint, unitName, districtNoun, unitNoun, perCapita, brandCount, withNoun} from './model.js';
+import {buildModel, filterRows, hasPoint, unitName, districtNoun, unitNoun, perCapita, brandCount, withNoun} from './model.js?v=20261022-j1';
 import {NO_SELECTION, normalizeSelection, levelOf, parentSelection, areaRows, childrenOf, summarizeChildren, rankChildren, buildAha, levelNouns, areaKey, CHILD_LEVEL} from './hierarchy.js';
 import {buildClasses, classify, formatMetric, METRICS} from './scales.js';
 import {renderInsightChart} from './charts.js';
@@ -36,12 +36,14 @@ import {installAreaLayers, installAreaLabels, FILL_MAX_ZOOM, LABEL_MAX_ZOOM, bbo
 import {configureBrandLogos, brandLogoMarkup} from './brand-logos.js';
 import {configureVenueLogos} from './venue-logos.js';
 import {typeMix, brandMix, buildUnitProfile, buildVenueProfile, buildStoreDetail} from './profile-model.js';
-import {renderOverview, renderUnit, renderVenue, renderStore, renderFilterChips, link, esc, num} from './panel.js';
+import {renderOverview, renderUnit, renderVenue, renderStore, renderFilterChips, link, esc, num} from './panel.js?v=20261022-j1';
 import {buildMapStyle, basemapPalette, TILEJSON_URL, MASSING_BEFORE} from './map-style.js';
-import {installMassing, outerRings} from './massing.js';
+import {installMassing, outerRings} from './massing.js?v=20261022-j1';
 import {presetFor, applyPreset, fitPitched, framePoint} from './camera.js';
 import {buildBreadcrumb, renderBreadcrumb, breadcrumbText} from './breadcrumb.js';
 import {fetchJSON, ensureProvinceGeo, provinceGeoNow, loadProvinceDetail} from './geo-store.js';
+import {createSpatialStore, selectSpatialBuildings, buildingFact, referenceBuildingFact} from './spatial-store.js?v=20261022-j1';
+import {installSpatialBuildings} from './spatial-layer.js?v=20261022-j1';
 
 const $ = id => document.getElementById(id);
 const FIELDS = ['search', 'brand', 'type'];
@@ -61,10 +63,39 @@ const state = {
   panel: {mode: 'overview', id: ''}, history: [],
   scopeRows: [], rows: [], aha: null, compare: null,
   view: 'ranking', page: 0, view3d: true, showAreas: true,
-  map: null, loaded: false, mapTheme: '', tileTemplate: '', initialCameraDone: false, lastPreset: '',
-  pins: null, stores: null, areas: null, labels: null, massing: null, popup: null,
+  map: null, loaded: false, mapTheme: '', tileTemplate: '', initialCameraDone: false, skipInitialSelectionFit: false, lastPreset: '',
+  pins: null, stores: null, areas: null, labels: null, massing: null, joinedBuildings: null, popup: null,
   storeDetail: null,
+  spatial: {key: '', loading: false, summary: null},
 };
+const spatialData = createSpatialStore();
+let spatialRequest = 0;
+
+/** A deliberate selection may fit once after its geometry becomes available. */
+export function createDeferredSelectionFit({currentKey, canFit, fit}) {
+  let pending = '';
+  return {
+    arm(key) { pending = key || ''; },
+    cancel() { pending = ''; },
+    reconcile() { if (pending && pending !== currentKey()) pending = ''; },
+    run(resolvedKey, options) {
+      if (!pending || resolvedKey !== pending) return false;
+      if (pending !== currentKey()) { pending = ''; return false; }
+      if (!canFit()) return false;
+      pending = '';
+      fit(options);
+      return true;
+    },
+  };
+}
+
+const deferredSelectionFit = createDeferredSelectionFit({
+  currentKey: () => spatialSelectionKey(),
+  canFit: () => state.loaded && !state.spatial.loading && Boolean(state.spatial.summary?.collection.features.length),
+  fit: options => fitCurrent(options),
+});
+function cancelPendingSelectionFit() { deferredSelectionFit.cancel(); state.pendingFit = false; state.skipInitialSelectionFit = true; }
+function armSelectionFit() { state.skipInitialSelectionFit = false; deferredSelectionFit.arm(spatialSelectionKey()); }
 
 /* ---------- small helpers ---------- */
 const M = () => state.model;
@@ -121,7 +152,12 @@ function restoreFromURL() {
   if (store) { state.panel = {mode: 'store', id: store.key}; state.sel = storeSelection(store); }
   else if (p.get('place')) {
     const v = m.venues.find(x => x.id === p.get('place'));
-    if (v) state.panel = {mode: 'venue', id: v.index};
+    if (v) {
+      state.panel = {mode: 'venue', id: v.index};
+      const members = filterRows(m.rows, state.filters).filter(r => r.v === v.index);
+      const first = members.find(hasPoint) || members[0];
+      if (first) state.sel = storeSelection(first);
+    }
   } else if (state.sel.unit >= 0) state.panel = {mode: 'unit', id: state.sel.unit};
   for (const k of FIELDS) $(k).value = state.filters[k];
 }
@@ -133,10 +169,12 @@ function applyTheme() {
   document.documentElement.dataset.theme = next;
   try { localStorage.setItem('citymeter-grocery-theme', value); } catch {}
   if (state.map && next !== state.mapTheme) {
+    cancelPendingSelectionFit();
     state.loaded = false;
     state.stores?.dispose(); state.stores = null;
     state.areas?.dispose(); state.areas = null;
     state.massing?.dispose(); state.massing = null;
+    state.joinedBuildings?.dispose(); state.joinedBuildings = null;
     state.mapTheme = next;
     state.map.setStyle(buildMapStyle(next), {diff: false});
   }
@@ -180,7 +218,7 @@ function rowInFocus(r, focus) {
 function update({fit = false} = {}) {
   const m = M();
   const fkey = JSON.stringify(state.filters);
-  if (fkey !== state.filterKey) { state.filtered = filterRows(m.rows, state.filters); state.filterKey = fkey; state.storesDirty = true; }
+  if (fkey !== state.filterKey) { cancelPendingSelectionFit(); state.filtered = filterRows(m.rows, state.filters); state.filterKey = fkey; state.storesDirty = true; }
   state.sel = normalizeSelection(m, state.sel);
   // A focus key list only applies at the level it was chosen for.
   const children = childrenOf(m, state.sel);
@@ -204,6 +242,8 @@ function update({fit = false} = {}) {
   $('filter-count').textContent = active ? String(active) : '';
   $('filter-chips').innerHTML = renderFilterChips(state.filters, {brand: Object.fromEntries(m.brands.map(b => [b.id, b.name])), type: Object.fromEntries(m.types.map(t => [t.id, t.th]))});
   syncAreaSelects();
+  prepareSpatialSelection();
+  deferredSelectionFit.reconcile();
   renderPanel();
   renderLegend();
   if (state.loaded) {
@@ -287,13 +327,13 @@ function renderPanel() {
     if (p) { p.districtLabel = districtLabel(p.district); html = renderUnit(p); }
   } else if (mode === 'venue') {
     const v = buildVenueProfile(m, state.filtered, state.panel.id);
-    if (v) { v.districtLabel = districtLabel(v.district); v.unitLabel = v.unit ? unitLabel(v.unit) : ''; html = renderVenue(v); }
+    if (v) { v.districtLabel = districtLabel(v.district); v.unitLabel = v.unit ? unitLabel(v.unit) : ''; html = renderVenue(v, {building: buildingFact(state.spatial.summary, state.spatial.loading), buildingReference: referenceBuildingFact(state.spatial.summary)}); }
   } else if (mode === 'store') {
     const r = rowByKey(state.panel.id);
     const d = buildStoreDetail(m, r, state.filtered);
     if (d) {
       const detail = state.storeDetail?.key === r.key ? state.storeDetail : null;
-      html = renderStore(d, {detail: detail?.value, detailError: detail?.error, districtLabel: districtLabel(d.district), unitLabel, placeOf});
+      html = renderStore(d, {detail: detail?.value, detailError: detail?.error, building: buildingFact(state.spatial.summary, state.spatial.loading), buildingReference: referenceBuildingFact(state.spatial.summary), districtLabel: districtLabel(d.district), unitLabel, placeOf});
       if (!detail) loadStoreDetail(r);
     }
   }
@@ -317,6 +357,37 @@ function renderPanel() {
   const key = `${mode}:${state.panel.id}:${state.sel.province}:${state.sel.district}:${state.sel.unit}`;
   if (key !== renderPanel.lastKey) $('panel').scrollTop = 0;
   renderPanel.lastKey = key;
+}
+
+function spatialSelectionRows() {
+  if (state.panel.mode === 'store') { const r = rowByKey(state.panel.id); return r ? [r] : []; }
+  if (state.panel.mode === 'venue') return state.filtered.filter(r => r.v === state.panel.id);
+  return [];
+}
+
+function spatialSelectionKey(rows = spatialSelectionRows()) {
+  return rows.length ? `${state.panel.mode}:${state.panel.id}:${rows.map(r => r.key).join(',')}` : '';
+}
+
+/** Province snapshots never change selection, point coordinates or counters. */
+function prepareSpatialSelection({retry = false} = {}) {
+  const rows = spatialSelectionRows();
+  const codes = [...new Set(rows.map(r => M().provinces[r.p].code))];
+  const key = spatialSelectionKey(rows);
+  if (!retry && key === state.spatial.key) return;
+  const request = ++spatialRequest;
+  if (!key) { state.spatial = {key, loading: false, summary: null}; return; }
+  const ready = codes.every(code => spatialData.peek(code)) && spatialData.peekReferences();
+  state.spatial = {key, loading: !ready, summary: selectSpatialBuildings(M(), rows, spatialData.peek, spatialData.peekReferences())};
+  if (ready) return;
+  Promise.allSettled([...codes.map(code => spatialData.ensure(code)), spatialData.ensureReferences()]).then(() => {
+    if (request !== spatialRequest || state.spatial.key !== key) return;
+    state.spatial = {key, loading: false, summary: selectSpatialBuildings(M(), rows, spatialData.peek, spatialData.peekReferences())};
+    renderPanel();
+    if (state.loaded) updateSpatialLayers();
+    if (state.spatial.summary.collection.features.length) deferredSelectionFit.run(key);
+    else deferredSelectionFit.cancel();
+  });
 }
 
 function loadStoreDetail(r) {
@@ -345,6 +416,7 @@ function renderMapAha() {
 function pushHistory() { state.history.push({panel: {...state.panel}, sel: {...state.sel}, focusKeys: [...state.focusKeys], autoFocus: state.autoFocus}); if (state.history.length > 30) state.history.shift(); }
 
 function goBack() {
+  cancelPendingSelectionFit();
   const previous = state.history.pop();
   if (!previous) { selectArea(parentSelection(state.sel), {push: false}); return; }
   state.panel = previous.panel; state.sel = previous.sel; state.focusKeys = previous.focusKeys; state.autoFocus = previous.autoFocus;
@@ -354,6 +426,7 @@ function goBack() {
 
 /** Drill to an area selection (country/province/district/unit). */
 function selectArea(sel, {push = true, fromMap = false} = {}) {
+  cancelPendingSelectionFit();
   const next = normalizeSelection(M(), sel);
   if (push) pushHistory();
   state.sel = next;
@@ -376,13 +449,16 @@ function selectAreaByLevel(lvl, index, opts) {
 function selectStore(key, {fly = true, showPopup = false, fromPin = false} = {}) {
   const r = rowByKey(key);
   if (!r) return;
+  cancelPendingSelectionFit();
   if (!(state.panel.mode === 'store' && state.panel.id === key)) pushHistory();
   state.panel = {mode: 'store', id: key};
   state.sel = storeSelection(r);
   state.focusKeys = [];
   update();
+  const wantsFit = fly || cameraPreset() !== state.lastPreset;
+  if (wantsFit) armSelectionFit();
   if (hasPoint(r) && state.loaded) {
-    if (fly || cameraPreset() !== state.lastPreset) framePoint(state.map, [r.lon, r.lat], {preset: cameraPreset(), zoom: 16, offset: sheetOffset(), animate: animate()});
+    if (wantsFit && !deferredSelectionFit.run(spatialSelectionKey())) fitCurrent();
     state.lastPreset = cameraPreset();
     state.popup?.remove(); state.popup = null;
     if (showPopup && !mobilePortrait()) {
@@ -403,12 +479,14 @@ function selectVenue(index) {
   if (!v) return;
   const members = state.filtered.filter(r => r.v === index);
   if (!members.length) return;
+  cancelPendingSelectionFit();
   pushHistory();
   state.panel = {mode: 'venue', id: index};
   const first = members.find(hasPoint) || members[0];
   state.sel = storeSelection(first);
   update();
-  if (state.loaded && hasPoint(first)) framePoint(state.map, [first.lon, first.lat], {preset: cameraPreset(), zoom: 16, offset: sheetOffset(), animate: animate()});
+  armSelectionFit();
+  if (state.loaded && hasPoint(first) && !deferredSelectionFit.run(spatialSelectionKey())) fitCurrent();
   openMobilePanel();
 }
 
@@ -444,6 +522,7 @@ function onPanelAction(event) {
     case 'select-area': selectAreaByLevel(lvl, Number(index)); break;
     case 'select-store': selectStore(id); break;
     case 'select-venue': selectVenue(Number(id)); break;
+    case 'retry-spatial': prepareSpatialSelection({retry: true}); renderPanel(); break;
     case 'filter-brand': setFilter('brand', value); break;
     case 'filter-type': setFilter('type', value); break;
     case 'back': goBack(); break;
@@ -616,6 +695,16 @@ function fitBBox(bbox, {instant = false, points = null} = {}) {
 }
 
 function fitCurrent({instant = false} = {}) {
+  if ((state.panel.mode === 'store' || state.panel.mode === 'venue') && state.spatial.summary?.collection.features.length) {
+    const points = spatialSelectionRows().filter(hasPoint).map(r => [r.lon, r.lat]);
+    for (const f of state.spatial.summary.collection.features) for (const ring of outerRings(f)) {
+      const height = Number(f.properties?.height) || 0;
+      for (const [lon, lat] of ring) { points.push([lon, lat]); if (height > 0) points.push([lon, lat, height]); }
+    }
+    const xs = points.map(p => p[0]), ys = points.map(p => p[1]);
+    fitBBox([Math.min(...xs), Math.min(...ys), Math.max(...xs), Math.max(...ys)], {instant, points});
+    return;
+  }
   if (state.panel.mode === 'store') {
     const r = rowByKey(state.panel.id);
     if (r && hasPoint(r)) framePoint(state.map, [r.lon, r.lat], {preset: cameraPreset(), zoom: 16, offset: sheetOffset(), animate: animate() && !instant});
@@ -700,14 +789,27 @@ function updateSpatialLayers() {
   const childLevel = state.compare.childLevel;
   state.labels?.update(state.showAreas ? labelModel() : [], {minZoom: 0, maxZoom: LABEL_MAX_ZOOM[childLevel] ?? 16, detailZoom: FILL_MAX_ZOOM[childLevel] ?? 14.5});
   updatePins();
-  // Focus massing only for a compact local unit (the 3D model tier is capped at nine z14 tiles).
+  const joined = state.spatial.summary?.collection || {type: 'FeatureCollection', features: []};
+  $('legend-joined').hidden = !joined.features.length;
+  state.joinedBuildings?.update(joined, {view3d: state.view3d});
+  const hosts = joined.features.flatMap(outerRings);
+  // Context follows a compact local unit or selected raw building; at most nine z14 tiles.
   const g = province() ? provinceGeoNow(province().code) : null;
   const unit = state.sel.unit >= 0 ? m.units[state.sel.unit] : null;
   const uf = unit && g ? g.units.get(unit.key) : null;
   const ub = uf?.properties?.b;
-  const regions = uf && ub && ub[2] - ub[0] < 0.08 && ub[3] - ub[1] < 0.08 ? outerRings(uf) : [];
-  const anchors = regions.length ? [uf.properties.c] : (state.panel.mode === 'store' && rowByKey(state.panel.id) ? [[rowByKey(state.panel.id).lon, rowByKey(state.panel.id).lat]] : []);
-  state.massing?.update({regions, hosts: [], anchors, enabled: true, city: state.view3d, zoom: state.map.getZoom(), latitude: state.map.getCenter().lat})?.catch(e => console.warn('Massing', e));
+  // A detail host must be inside the bounded context tiles so its twin can be hidden.
+  const compactUnit = !hosts.length && uf && ub && ub[2] - ub[0] < 0.08 && ub[3] - ub[1] < 0.08;
+  const regions = compactUnit ? outerRings(uf) : hosts.map(ring => {
+    const xs = ring.map(p => p[0]), ys = ring.map(p => p[1]), d = 0.0012;
+    const w = Math.min(...xs) - d, e = Math.max(...xs) + d, s = Math.min(...ys) - d, n = Math.max(...ys) + d;
+    return [[w, s], [e, s], [e, n], [w, n], [w, s]];
+  });
+  const anchors = compactUnit ? [uf.properties.c] : hosts.length ? hosts.map(ring => {
+    const xs = ring.map(p => p[0]), ys = ring.map(p => p[1]);
+    return [(Math.min(...xs) + Math.max(...xs)) / 2, (Math.min(...ys) + Math.max(...ys)) / 2];
+  }) : spatialSelectionRows().filter(hasPoint).map(r => [r.lon, r.lat]);
+  state.massing?.update({regions, hosts, anchors, enabled: true, city: state.view3d, zoom: state.map.getZoom(), latitude: state.map.getCenter().lat})?.catch(e => console.warn('Massing', e));
 }
 
 function installSpatialLayers() {
@@ -716,6 +818,10 @@ function installSpatialLayers() {
   const palette = basemapPalette(theme());
   // Stores first: their click handler must win over the area under a dot.
   state.stores = installStoresLayer(map, {onSelect: key => selectStore(key, {fly: false, showPopup: true, fromPin: true})});
+  state.joinedBuildings = installSpatialBuildings(map, {beforeId: STORE_LAYERS.context, onSelect: keys => {
+    const current = state.panel.mode === 'store' && keys.includes(state.panel.id) ? state.panel.id : keys.find(key => state.filtered.some(r => r.key === key));
+    if (current) selectStore(current, {fly: false, showPopup: true, fromPin: true});
+  }});
   state.areas = installAreaLayers(map, {linesBefore: STORE_LAYERS.context, onSelect: (lvl, index) => selectAreaByLevel(lvl, index, {fromMap: true})});
   state.massing = installMassing(map, {
     beforeId: MASSING_BEFORE, colors: {quiet: palette.massingQuiet, focus: palette.massingFocus, ground: palette.ground},
@@ -724,7 +830,12 @@ function installSpatialLayers() {
   });
   state.storesDirty = true;
   updateSpatialLayers();
-  if (!state.initialCameraDone) { state.initialCameraDone = true; fitCurrent({instant: true}); }
+  if (!state.initialCameraDone) {
+    state.initialCameraDone = true;
+    const fitted = deferredSelectionFit.run(spatialSelectionKey(), {instant: true});
+    const detail = state.panel.mode === 'store' || state.panel.mode === 'venue';
+    if (!fitted && !(detail && state.skipInitialSelectionFit)) fitCurrent({instant: true});
+  } else deferredSelectionFit.run(spatialSelectionKey());
 }
 
 function initMap() {
@@ -746,13 +857,14 @@ function initMap() {
     state.map.on('moveend', () => { clearTimeout(pinTimer); pinTimer = setTimeout(() => { updatePins(); if (state.loaded) updateMassingOnMove(); }, 80); });
     state.map.on('zoomend', () => { if (state.map.getZoom() < LOGO_MIN_ZOOM) $('map-status').textContent = `${num(state.rows.length)} สาขาในโฟกัส · ${num(state.filtered.length)} สาขาตามตัวกรอง`; });
     state.map.on('style.load', installSpatialLayers);
+    state.map.on('dragstart', cancelPendingSelectionFit);
     state.map.on('error', e => console.warn('Map resource', e.error?.message || e));
     // The same TileJSON MapLibre reads gives the tile template for the focus massing decoder.
     fetch(TILEJSON_URL).then(r => r.json()).then(j => { state.tileTemplate = j.tiles?.[0] || ''; if (state.loaded) updateSpatialLayers(); }).catch(e => console.warn('TileJSON', e));
   } catch (e) {
     state.loaded = false; state.initialCameraDone = false;
-    for (const cleanup of [() => state.pins?.dispose(), () => state.labels?.dispose(), () => state.stores?.dispose(), () => state.areas?.dispose(), () => state.massing?.dispose(), () => state.map?.remove()]) { try { cleanup(); } catch (err) { console.warn('Map cleanup', err); } }
-    state.map = null; state.pins = null; state.labels = null; state.stores = null; state.areas = null; state.massing = null;
+    for (const cleanup of [() => state.pins?.dispose(), () => state.labels?.dispose(), () => state.stores?.dispose(), () => state.joinedBuildings?.dispose(), () => state.areas?.dispose(), () => state.massing?.dispose(), () => state.map?.remove()]) { try { cleanup(); } catch (err) { console.warn('Map cleanup', err); } }
+    state.map = null; state.pins = null; state.labels = null; state.stores = null; state.areas = null; state.massing = null; state.joinedBuildings = null;
     throw e;
   }
 }
@@ -772,6 +884,7 @@ async function startMap() {
 }
 
 function toggle3d() {
+  cancelPendingSelectionFit();
   state.view3d = !state.view3d;
   $('toggle-3d').setAttribute('aria-pressed', String(state.view3d));
   renderLegend();
@@ -806,6 +919,8 @@ function validProvinceFrames(value) {
 }
 
 function wireEvents() {
+  for (const type of ['mousedown', 'touchstart', 'wheel']) $('map').addEventListener(type, cancelPendingSelectionFit, {capture: true, passive: true});
+  window.addEventListener('pagehide', e => { if (!e.persisted) { spatialRequest++; spatialData.dispose(); } });
   let timer;
   for (const f of FIELDS) $(f).addEventListener(f === 'search' ? 'input' : 'change', () => {
     clearTimeout(timer);
@@ -879,6 +994,7 @@ async function init() {
     applyTheme();
     wireEvents();
     update();
+    if (state.panel.mode === 'store' || state.panel.mode === 'venue') armSelectionFit();
     if (state.panel.mode !== 'overview') openMobilePanel();
     window.dispatchEvent(new CustomEvent('citymeter:ready'));
     startMap();
