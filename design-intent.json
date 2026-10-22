@@ -1,6 +1,6 @@
 {
   "artifact": "CityMETER Grocery — where grocery stores concentrate against where people live, from the country down to local administrations and Bangkok Locales",
-  "productVersion": "0.1.0",
+  "productVersion": "0.2.0",
   "updatedOn": "2026-10-22",
   "derivedFrom": "CityMETER Luxury Brands 0.5.0 (same layout, design system and handoff structure)",
   "ldsVersion": "0.9.7",
@@ -39,8 +39,8 @@
     "empty, map-failure, geometry-failure and load-error paths with actions"
   ],
   "validation": {
-    "status": "release 0.1 verification recorded in handoff/VERIFICATION.md",
-    "unitTests": 65,
+    "status": "release 0.2 verification recorded in handoff/VERIFICATION.md",
+    "unitTests": 147,
     "renderedHarness": "Playwright + vendored MapLibre 5.6.2 + stub TileJSON with empty tiles; 1280×800 and 390×844; light and dark",
     "liveChecks": "see handoff/VERIFICATION.md — the real-tile look is confirmed only there",
     "scope": "Applied LDS assets, fonts and actual rendered interfaces. No blanket LDS, CVD, native-device or market-completeness claim."
@@ -54,13 +54,14 @@
   },
   "mapContract": {
     "basemap": "generated at runtime by js/map-style.js on https://tiles.openfreemap.org/planet (OpenMapTiles) with --basemap-* tokens; labels name:th first; no POI/housenumber/boundary labels",
-    "layerOrder": "landcover/water → area fills (before waterway) → 2D footprints → roads → massing (before water-name) → labels → area outlines / selection → store dots → HTML labels and pins",
+    "layerOrder": "landcover/water → area fills (before waterway) → 2D footprints → roads → massing tiers → buildings drawn as data (joined-buildings, before water-name) → venue x-ray (custom 3D layer) → labels → area outlines / selection → store dots → HTML labels and pins",
     "choropleth": "count or density.capita, quantile up to five classes over the compared children on display-rounded values; fills stop at zoom 9 (provinces), 12 (districts), 14.5 (units); EVID-05 measured / measured_zero / no_data / out_of_scope",
     "stores": "every filtered row a WebGL dot fading in at zoom 7–8; focus = store-type colour to zoom 14, context = small grey; from zoom 14 rows in focus become HTML pins with brand logos (≤ 450 pins, ≤ 250 logos)",
-    "massing": "city tier (OSM heights, quiet, 3D only) and a rounded focus tier for a compact open unit; context only, never data",
-    "camera": "plan for anything wider than 0.3°, on mobile portrait and with 3D off · city (pitch 56, bearing 28) for a compact district · model (pitch 60, FOV 14) for a unit, store or venue",
-    "breadcrumb": "ประเทศไทย › จังหวัด › อำเภอ/เขต › อปท./ย่าน › สถานที่ with production keys (abbr, district code, DOLA code / Locale uuid); store is the heading, not a crumb; production links go out",
-    "areaLabels": "ink chips (--area-label-* tokens, display font, level pictogram, value badge) distinct from logo boxes; quiet labels faded"
+    "massing": "city tier (OSM heights, quiet, 3D only) and a rounded focus tier around a compact open unit and around the buildings drawn as data; context only, never data; SCENE.eye (city 0.16, focus 0.62, see-through occluders) at venue level in the two-point view",
+    "camera": "plan for anything wider than 0.3°, for areas on mobile portrait and with 3D off · city (pitch 56, bearing 28) for a compact district · model (pitch 60, FOV 14) for a unit or a store outside every venue · eye (มุมสถาปนิก, pitch 75, FOV 24) at venue level by default (?cam=model opts out)",
+    "breadcrumb": "ประเทศไทย › จังหวัด › อำเภอ/เขต › อปท./ย่าน › สถานที่ with production keys (abbr, district code, DOLA code / Locale uuid, venue GV-/SC- id); store is the heading, not a crumb; a store in a venue ends at the venue; production links go out",
+    "areaLabels": "ink chips (--area-label-* tokens, display font, level pictogram, value badge) distinct from logo boxes; quiet labels faded",
+    "venueBuildings": "joined-buildings layers (js/spatial-layer.js) in --map-active-layer / --map-selected-stroke: อาคารของสถานที่ (venue_reference, 29 venues) at district/unit/venue level and อาคารตามพิกัดสาขา (point_inside) for a selected store or venue; the x-ray solid uses the same roles"
   },
   "brandIdentity": {
     "sources": "17 brands: 14 official sources, 3 retailer/reference; source artwork embedded unchanged, outer whitespace cropped in viewport only; backplates measured from the artwork",
@@ -76,5 +77,6 @@
   "knownExceptions": [
     "assets/theme.css keeps 24 basemap-only literal HEX values (declared once per theme, never data colours), reported by the LDS artifact checker as in Luxury Brands",
     "pictogram subset is a declared test exception to nav-7"
-  ]
+  ],
+  "venueLevel": "release 0.2 (owner 2026-10-22, ‘in the same form as Luxury Brands’): สถานที่ is the fifth crumb and a map level — at district/unit level the accepted reference buildings of the venues in focus are drawn as อาคารของสถานที่ and open the venue; at venue level (a venue, or a store whose branch name names one) the two-point camera eye (มุมสถาปนิก) is the default, the massing goes quiet and see-through (SCENE.eye) and js/venue-xray.js draws the venue's buildings on top, clickable; evidence (name reference vs plotted point) is labelled separately and never read as tenancy"
 }

@@ -23,20 +23,20 @@
     .launch-card :focus-visible{outline:3px solid var(--interaction-focus-ring,#1D4497);outline-offset:3px}
     @media(max-width:420px){#launch-status{padding:16px}.launch-card{padding:20px}.launch-card h1{font-size:21px}}
   </style>
-  <script src="js/launch.js?v=20261022-j1"></script>
+  <script src="js/launch.js?v=20261022-v2"></script>
   <link rel="icon" href="assets/icons/icon-portfolio-32.png" sizes="32x32">
   <link rel="icon" href="assets/icons/icon-portfolio-16.png" sizes="16x16">
   <link rel="icon" href="assets/icons/icon-portfolio-48.png" sizes="48x48">
   <link rel="apple-touch-icon" href="assets/icons/icon-portfolio-180.png">
   <link rel="manifest" href="site.webmanifest">
-  <link rel="stylesheet" href="assets/lds/build-kit/fonts.css?v=20261022-j1">
-  <link rel="stylesheet" href="assets/theme.css?v=20261022-j1">
-  <link rel="stylesheet" href="styles.css?v=20261022-j1">
-  <link rel="stylesheet" href="navigation.css?v=20261022-j1">
-  <link rel="stylesheet" href="logos.css?v=20261022-j1">
-  <link rel="stylesheet" href="grocery.css?v=20261022-j1">
-  <script type="module" src="js/app.js?v=20261022-j1"></script>
-  <script type="module" src="js/navigation.js?v=20261022-j1"></script>
+  <link rel="stylesheet" href="assets/lds/build-kit/fonts.css?v=20261022-v2">
+  <link rel="stylesheet" href="assets/theme.css?v=20261022-v2">
+  <link rel="stylesheet" href="styles.css?v=20261022-v2">
+  <link rel="stylesheet" href="navigation.css?v=20261022-v2">
+  <link rel="stylesheet" href="logos.css?v=20261022-v2">
+  <link rel="stylesheet" href="grocery.css?v=20261022-v2">
+  <script type="module" src="js/app.js?v=20261022-v2"></script>
+  <script type="module" src="js/navigation.js?v=20261022-v2"></script>
 </head>
 <body>
 <a class="skip" href="#panel">ข้ามไปแผงข้อมูล</a>
@@ -80,6 +80,7 @@
         <button id="bangkok-map" type="button">กรุงเทพฯ</button>
         <button id="toggle-areas" type="button" aria-pressed="true">พื้นที่</button>
         <button id="toggle-3d" type="button" aria-pressed="true" title="สลับมุมมอง 3 มิติ (อาคารทั้งเมือง) กับแผนผัง 2 มิติ">3D</button>
+        <button id="toggle-eye" type="button" aria-pressed="true" disabled title="มุมสถาปนิก: เปอร์สเปกทีฟ 2 จุดที่ระดับสถานที่ อาคารรอบข้างจางลง อาคารที่บังสถานที่โปร่งใส">มุมสถาปนิก</button>
         <button id="open-help" type="button" aria-haspopup="dialog" aria-controls="usage-help">วิธีใช้</button>
         <button id="mobile-panel" type="button" aria-expanded="false" aria-controls="panel">ข้อมูล</button>
       </div>
@@ -97,7 +98,8 @@
           <span><i class="legend-pin" aria-hidden="true"></i>1 จุด = 1 สาขา</span>
           <span class="legend-context-item"><i class="legend-context" aria-hidden="true"></i>สาขานอกโฟกัส</span>
           <span class="legend-massing-item is-quiet-item" title="อาคารจาก OpenStreetMap ผ่าน OpenFreeMap แสดงจางเป็นบริบทเมื่อซูมถึงระดับเมือง ความสูงเป็นบริบท ไม่ใช่ผลรังวัด"><i class="legend-massing is-quiet" aria-hidden="true"></i>อาคารบริบท</span>
-          <span id="legend-joined" hidden><i class="legend-joined" aria-hidden="true"></i>อาคารที่จับคู่</span>
+          <span id="legend-venue-building" hidden title="รูปทรงอาคารที่เชื่อมกับสถานที่ตามชื่อสาขา (OpenStreetMap / CityMETER) ไม่ได้ยืนยันว่าร้านเช่าอยู่ในอาคาร"><i class="legend-joined" aria-hidden="true"></i>อาคารของสถานที่</span>
+          <span id="legend-joined" hidden title="อาคารที่พิกัดสาขาอยู่ภายในขอบเขต (CityMETER / Microsoft) ไม่ได้ยืนยันว่าร้านเช่าอยู่ในอาคาร"><i class="legend-joined" aria-hidden="true"></i>อาคารตามพิกัดสาขา</span>
           <details id="category-key"><summary>สีประเภทร้าน</summary><div id="category-items"></div></details>
         </div>
       </div>
@@ -181,6 +183,7 @@
     <li><strong>ข้อค้นพบแรก</strong><p>“30% ของสาขาอยู่ใน 3 จังหวัดนี้ ซึ่งมีคนแค่ 13% ของประเทศ” — แผนที่โฟกัสพื้นที่เหล่านั้นให้แล้ว · “ดูทุกจังหวัด” เปิดทุกพื้นที่เท่ากัน</p></li>
     <li><strong>เส้นทาง</strong><p>ประเทศไทย › จังหวัด › อำเภอ/เขต › อปท./ย่าน › สถานที่ — กดระดับใดก็ได้เพื่อย้อนกลับ กดพื้นที่บนแผนที่เพื่อเจาะลง</p></li>
     <li><strong>สีพื้นที่</strong><p>“จำนวนสาขา” ใช้โทนฟ้า–น้ำเงิน “ต่อ 1 หมื่นคน” ใช้โทนส้มอมชมพู สีเข้ม = มาก ช่วงตัวเลขอยู่ในคำอธิบายมุมล่าง · พื้นที่นอกโฟกัสเหลือเส้นขอบ · ไม่มีข้อมูลประชากรจะเป็นสีเทา ไม่ใช่ศูนย์</p></li>
+    <li><strong>สถานที่</strong><p>ระดับที่ห้าของเส้นทาง — เปิดจาก “สถานที่ตามชื่อสาขา” ในแผงพื้นที่ จากอาคารสีน้ำเงินบนแผนที่ หรือจากชื่อสถานที่ในข้อมูลสาขา · ที่ระดับนี้ “มุมสถาปนิก” (เปอร์สเปกทีฟ 2 จุด) เปิดเป็นค่าเริ่มต้น อาคารรอบข้างจางลง อาคารที่บังสถานที่โปร่งใส · สีน้ำเงิน = อาคารของสถานที่ตามชื่อสาขา หรืออาคารที่พิกัดสาขาอยู่ภายใน ไม่ได้ยืนยันว่าร้านเช่าอยู่ในอาคารนั้น</p></li>
     <li><strong>จุดและหมุด</strong><p>1 จุด = 1 สาขา สีตามประเภทร้าน (ดู “สีประเภทร้าน”) · ซูมใกล้จะเห็นโลโก้แบรนด์ กดเพื่อดูที่อยู่ สถานที่ตามชื่อสาขา และแหล่งข้อมูล</p></li>
     <li><strong>กราฟและตาราง</strong><p>“เปิดกราฟ” เทียบส่วนแบ่งสาขากับส่วนแบ่งประชากร ประเภทร้าน และแบรนด์ของพื้นที่ย่อย · “รายการ” เปิดตารางสาขา</p></li>
   </ol>

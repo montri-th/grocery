@@ -21,9 +21,20 @@
  * choropleth (area-layers.js) with the LDS count / density.capita families;
  * every store a WebGL dot (stores-layer.js), HTML pins with logos from zoom 14
  * (pins.js); two-tier city massing in 3D (massing.js); camera presets (camera.js).
+ *
+ * Venue level (release 0.2, owner instruction 2026-10-22 — "in the same form as
+ * Luxury Brands"): สถานที่ is the fifth crumb and a level of its own on the map.
+ * At an area level the reference buildings of the venues in focus are drawn as
+ * อาคารของสถานที่ and open the venue; at venue level (a venue, or a store whose
+ * branch name names one) the two-point camera `eye` (มุมสถาปนิก, pitch 75 /
+ * FOV 24) is the default, the surroundings go quiet and see-through (massing
+ * SCENE.eye) and the venue's buildings are drawn by the x-ray (venue-xray.js) so
+ * they stay visible and clickable. Evidence rules: js/venue-level.js.
+ *
  * URL state: search, brand, type, province, district, unit, areas, metric, view,
- * store, place, view3d — restored on load. Core data first; the map (MapLibre
- * from a CDN), province geometry and store details are independent and retryable.
+ * store, place, view3d, cam (cam=model turns the two-point view off) — restored
+ * on load. Core data first; the map (MapLibre from a CDN), province geometry,
+ * building joins and store details are independent and retryable.
  */
 import {buildModel, filterRows, hasPoint, unitName, districtNoun, unitNoun, perCapita, brandCount, withNoun} from './model.js?v=20261022-j1';
 import {NO_SELECTION, normalizeSelection, levelOf, parentSelection, areaRows, childrenOf, summarizeChildren, rankChildren, buildAha, levelNouns, areaKey, CHILD_LEVEL} from './hierarchy.js';
@@ -36,14 +47,16 @@ import {installAreaLayers, installAreaLabels, FILL_MAX_ZOOM, LABEL_MAX_ZOOM, bbo
 import {configureBrandLogos, brandLogoMarkup} from './brand-logos.js';
 import {configureVenueLogos} from './venue-logos.js';
 import {typeMix, brandMix, buildUnitProfile, buildVenueProfile, buildStoreDetail} from './profile-model.js';
-import {renderOverview, renderUnit, renderVenue, renderStore, renderFilterChips, link, esc, num} from './panel.js?v=20261022-j1';
+import {renderOverview, renderUnit, renderVenue, renderStore, renderFilterChips, link, esc, num} from './panel.js?v=20261022-v2';
 import {buildMapStyle, basemapPalette, TILEJSON_URL, MASSING_BEFORE} from './map-style.js';
 import {installMassing, outerRings} from './massing.js?v=20261022-j1';
 import {presetFor, applyPreset, fitPitched, framePoint} from './camera.js';
 import {buildBreadcrumb, renderBreadcrumb, breadcrumbText} from './breadcrumb.js';
 import {fetchJSON, ensureProvinceGeo, provinceGeoNow, loadProvinceDetail} from './geo-store.js';
 import {createSpatialStore, selectSpatialBuildings, buildingFact, referenceBuildingFact} from './spatial-store.js?v=20261022-j1';
-import {installSpatialBuildings} from './spatial-layer.js?v=20261022-j1';
+import {installSpatialBuildings, BUILDING_LAYERS} from './spatial-layer.js?v=20261022-v2';
+import {installVenueXray} from './venue-xray.js?v=20261022-v2';
+import {isVenueLevel, areaVenueBuildings, tagVenueFeatures, buildingKinds, venueHostFeatures, venueTargets, xrayFeatures, venueFramePoints, buildingClickTarget} from './venue-level.js?v=20261022-v2';
 
 const $ = id => document.getElementById(id);
 const FIELDS = ['search', 'brand', 'type'];
@@ -64,7 +77,8 @@ const state = {
   scopeRows: [], rows: [], aha: null, compare: null,
   view: 'ranking', page: 0, view3d: true, showAreas: true,
   map: null, loaded: false, mapTheme: '', tileTemplate: '', initialCameraDone: false, skipInitialSelectionFit: false, lastPreset: '',
-  pins: null, stores: null, areas: null, labels: null, massing: null, joinedBuildings: null, popup: null,
+  twoPoint: true, venueHosts: [],
+  pins: null, stores: null, areas: null, labels: null, massing: null, joinedBuildings: null, xray: null, popup: null,
   storeDetail: null,
   spatial: {key: '', loading: false, summary: null},
 };
@@ -110,7 +124,11 @@ const sheetOffset = () => (mobilePortrait() ? [0, -Math.round(window.innerHeight
 const focusMode = () => (state.focusKeys.length ? 'explicit' : state.autoFocus ? 'auto' : 'none');
 const compareSelection = () => (level() === 'unit' ? parentSelection(state.sel) : state.sel);
 const placeOf = r => [...r.u.map(i => unitLabel(M().units[i])), districtLabel(M().districts[r.d]), M().provinces[r.p].name].join(' · ');
-const cameraPreset = () => presetFor({view3d: state.view3d, mode: state.panel.mode === 'overview' ? 'overview' : 'detail'});
+// While the mobile sheet covers the map the venue view waits (plan); closing the sheet re-frames it (closeMobilePanel → fitCurrent).
+const sheetOpen = () => mobilePortrait() && $('panel').classList.contains('is-open');
+/** Venue level: a venue panel, or a store whose branch name names a venue (the crumbs end at that venue). */
+const venueLevel = () => isVenueLevel(state.panel, currentVenue());
+const cameraPreset = () => presetFor({view3d: state.view3d, mode: state.panel.mode === 'overview' ? 'overview' : 'detail', twoPoint: state.twoPoint && venueLevel() && !sheetOpen()});
 
 /* ---------- URL ---------- */
 function saveURL() {
@@ -126,6 +144,7 @@ function saveURL() {
   if (state.panel.mode === 'store') p.set('store', state.panel.id);
   if (state.panel.mode === 'venue') p.set('place', m.venues[state.panel.id]?.id || '');
   if (!state.view3d) p.set('view3d', '0');
+  if (!state.twoPoint) p.set('cam', 'model');
   history.replaceState(null, '', location.pathname + (p.size ? '?' + p : ''));
 }
 
@@ -148,6 +167,7 @@ function restoreFromURL() {
   if (areas === 'all') { state.autoFocus = false; state.focusKeys = []; }
   else state.focusKeys = [...new Set(areas.split(',').filter(Boolean))].slice(0, 3);
   state.view3d = p.get('view3d') !== '0';
+  state.twoPoint = p.get('cam') !== 'model'; // the venue-level two-point view is on by default (as in Luxury Brands)
   const store = rowByKey(p.get('store') || '');
   if (store) { state.panel = {mode: 'store', id: store.key}; state.sel = storeSelection(store); }
   else if (p.get('place')) {
@@ -175,6 +195,7 @@ function applyTheme() {
     state.areas?.dispose(); state.areas = null;
     state.massing?.dispose(); state.massing = null;
     state.joinedBuildings?.dispose(); state.joinedBuildings = null;
+    state.xray?.dispose(); state.xray = null;
     state.mapTheme = next;
     state.map.setStyle(buildMapStyle(next), {diff: false});
   }
@@ -246,6 +267,7 @@ function update({fit = false} = {}) {
   deferredSelectionFit.reconcile();
   renderPanel();
   renderLegend();
+  syncEyeToggle();
   if (state.loaded) {
     updateSpatialLayers();
     if (fit) fitCurrent();
@@ -695,6 +717,8 @@ function fitBBox(bbox, {instant = false, points = null} = {}) {
 }
 
 function fitCurrent({instant = false} = {}) {
+  // Venue level: the two-point (or model) camera on the venue's buildings and stores.
+  if (venueLevel() && state.loaded) { frameVenue({instant}); return; }
   if ((state.panel.mode === 'store' || state.panel.mode === 'venue') && state.spatial.summary?.collection.features.length) {
     const points = spatialSelectionRows().filter(hasPoint).map(r => [r.lon, r.lat]);
     for (const f of state.spatial.summary.collection.features) for (const ring of outerRings(f)) {
@@ -789,27 +813,34 @@ function updateSpatialLayers() {
   const childLevel = state.compare.childLevel;
   state.labels?.update(state.showAreas ? labelModel() : [], {minZoom: 0, maxZoom: LABEL_MAX_ZOOM[childLevel] ?? 16, detailZoom: FILL_MAX_ZOOM[childLevel] ?? 14.5});
   updatePins();
-  const joined = state.spatial.summary?.collection || {type: 'FeatureCollection', features: []};
-  $('legend-joined').hidden = !joined.features.length;
+  // Buildings drawn as data: the venues in focus at an area level, the selection's own buildings at venue/store level.
+  const joined = displayedBuildings();
+  const kinds = buildingKinds(joined);
+  $('legend-venue-building').hidden = !kinds.venue;
+  $('legend-joined').hidden = !kinds.point;
   state.joinedBuildings?.update(joined, {view3d: state.view3d});
   const hosts = joined.features.flatMap(outerRings);
-  // Context follows a compact local unit or selected raw building; at most nine z14 tiles.
+  // Context follows a compact local unit and/or the drawn buildings; at most nine z14 tiles.
   const g = province() ? provinceGeoNow(province().code) : null;
   const unit = state.sel.unit >= 0 ? m.units[state.sel.unit] : null;
   const uf = unit && g ? g.units.get(unit.key) : null;
   const ub = uf?.properties?.b;
-  // A detail host must be inside the bounded context tiles so its twin can be hidden.
-  const compactUnit = !hosts.length && uf && ub && ub[2] - ub[0] < 0.08 && ub[3] - ub[1] < 0.08;
-  const regions = compactUnit ? outerRings(uf) : hosts.map(ring => {
+  const detail = state.panel.mode === 'store' || state.panel.mode === 'venue';
+  // A detail host must be inside the bounded context tiles so its twin can be hidden: building tiles come first.
+  const compactUnit = (!detail || !hosts.length) && uf && ub && ub[2] - ub[0] < 0.08 && ub[3] - ub[1] < 0.08;
+  const hostBoxes = hosts.map(ring => {
     const xs = ring.map(p => p[0]), ys = ring.map(p => p[1]), d = 0.0012;
     const w = Math.min(...xs) - d, e = Math.max(...xs) + d, s = Math.min(...ys) - d, n = Math.max(...ys) + d;
     return [[w, s], [e, s], [e, n], [w, n], [w, s]];
   });
+  const unitRings = compactUnit ? outerRings(uf) : [];
+  const regions = hostBoxes.length ? hostBoxes.concat(unitRings) : unitRings;
   const anchors = compactUnit ? [uf.properties.c] : hosts.length ? hosts.map(ring => {
     const xs = ring.map(p => p[0]), ys = ring.map(p => p[1]);
     return [(Math.min(...xs) + Math.max(...xs)) / 2, (Math.min(...ys) + Math.max(...ys)) / 2];
   }) : spatialSelectionRows().filter(hasPoint).map(r => [r.lon, r.lat]);
   state.massing?.update({regions, hosts, anchors, enabled: true, city: state.view3d, zoom: state.map.getZoom(), latitude: state.map.getCenter().lat})?.catch(e => console.warn('Massing', e));
+  updateVenueScene(joined);
 }
 
 function installSpatialLayers() {
@@ -818,16 +849,21 @@ function installSpatialLayers() {
   const palette = basemapPalette(theme());
   // Stores first: their click handler must win over the area under a dot.
   state.stores = installStoresLayer(map, {onSelect: key => selectStore(key, {fly: false, showPopup: true, fromPin: true})});
-  state.joinedBuildings = installSpatialBuildings(map, {beforeId: STORE_LAYERS.context, onSelect: keys => {
-    const current = state.panel.mode === 'store' && keys.includes(state.panel.id) ? state.panel.id : keys.find(key => state.filtered.some(r => r.key === key));
-    if (current) selectStore(current, {fly: false, showPopup: true, fromPin: true});
-  }});
-  state.areas = installAreaLayers(map, {linesBefore: STORE_LAYERS.context, onSelect: (lvl, index) => selectAreaByLevel(lvl, index, {fromMap: true})});
+  // Draw order is depth order in MapLibre's 3D pass (Luxury Brands 0.5): the buildings drawn as data sit before
+  // the first label layer, the massing tiers are inserted BEFORE them, and the venue x-ray comes last.
+  state.joinedBuildings = installSpatialBuildings(map, {beforeId: MASSING_BEFORE, onSelect: (keys, info) => onBuildingSelect(keys, info)});
   state.massing = installMassing(map, {
-    beforeId: MASSING_BEFORE, colors: {quiet: palette.massingQuiet, focus: palette.massingFocus, ground: palette.ground},
+    beforeId: map.getLayer(BUILDING_LAYERS.fill) ? BUILDING_LAYERS.fill : MASSING_BEFORE, colors: {quiet: palette.massingQuiet, focus: palette.massingFocus, ground: palette.ground},
     tileUrl: t => (state.tileTemplate ? state.tileTemplate.replace('{z}', t.z).replace('{x}', t.x).replace('{y}', t.y) : ''),
     onResult: result => { $('map-status').dataset.massing = `${result.features || 0}`; },
   });
+  // The venue solid is clickable wherever it is drawn; installed before the areas so it wins over the area under it.
+  try {
+    state.xray = installVenueXray(map, {beforeId: MASSING_BEFORE, onSelect: () => { const v = currentVenue(); if (v && state.panel.mode !== 'venue') selectVenue(v.index); }});
+  } catch (e) { state.xray = null; console.warn('Venue x-ray unavailable', e); }
+  state.areas = installAreaLayers(map, {linesBefore: STORE_LAYERS.context, onSelect: (lvl, index) => selectAreaByLevel(lvl, index, {fromMap: true})});
+  // Venue reference buildings are small (29 venues) and drawn at district/unit level: load them with the map.
+  spatialData.ensureReferences().then(() => { if (state.loaded) updateSpatialLayers(); }).catch(e => console.warn('Venue buildings unavailable', e));
   state.storesDirty = true;
   updateSpatialLayers();
   if (!state.initialCameraDone) {
@@ -863,8 +899,8 @@ function initMap() {
     fetch(TILEJSON_URL).then(r => r.json()).then(j => { state.tileTemplate = j.tiles?.[0] || ''; if (state.loaded) updateSpatialLayers(); }).catch(e => console.warn('TileJSON', e));
   } catch (e) {
     state.loaded = false; state.initialCameraDone = false;
-    for (const cleanup of [() => state.pins?.dispose(), () => state.labels?.dispose(), () => state.stores?.dispose(), () => state.joinedBuildings?.dispose(), () => state.areas?.dispose(), () => state.massing?.dispose(), () => state.map?.remove()]) { try { cleanup(); } catch (err) { console.warn('Map cleanup', err); } }
-    state.map = null; state.pins = null; state.labels = null; state.stores = null; state.areas = null; state.massing = null; state.joinedBuildings = null;
+    for (const cleanup of [() => state.pins?.dispose(), () => state.labels?.dispose(), () => state.stores?.dispose(), () => state.xray?.dispose(), () => state.joinedBuildings?.dispose(), () => state.areas?.dispose(), () => state.massing?.dispose(), () => state.map?.remove()]) { try { cleanup(); } catch (err) { console.warn('Map cleanup', err); } }
+    state.map = null; state.pins = null; state.labels = null; state.stores = null; state.areas = null; state.massing = null; state.joinedBuildings = null; state.xray = null;
     throw e;
   }
 }
@@ -887,10 +923,111 @@ function toggle3d() {
   cancelPendingSelectionFit();
   state.view3d = !state.view3d;
   $('toggle-3d').setAttribute('aria-pressed', String(state.view3d));
+  syncEyeToggle();
   renderLegend();
   updateSpatialLayers();
-  if (state.map) { applyPreset(state.map, state.view3d && state.map.getZoom() >= 11 ? cameraPreset() : 'plan', {animate: animate()}); state.lastPreset = cameraPreset(); }
+  if (state.map) {
+    if (state.view3d && venueLevel()) frameVenue();
+    else applyPreset(state.map, state.view3d && state.map.getZoom() >= 11 ? cameraPreset() : 'plan', {animate: animate()});
+    state.lastPreset = cameraPreset();
+  }
   saveURL();
+}
+
+/** มุมสถาปนิก: the venue-level two-point camera, on by default there (?cam=model turns it off). */
+function toggleTwoPoint() {
+  cancelPendingSelectionFit();
+  state.twoPoint = !state.twoPoint;
+  syncEyeToggle();
+  updateSpatialLayers();
+  if (state.map && state.view3d && venueLevel()) frameVenue();
+  state.lastPreset = cameraPreset();
+  saveURL();
+  announce(state.twoPoint ? 'มุมสถาปนิก: เปอร์สเปกทีฟ 2 จุด' : 'มุมโมเดล');
+}
+/** The toggle works only at venue level in 3D; elsewhere it shows the setting, disabled. */
+function syncEyeToggle() {
+  const b = $('toggle-eye');
+  if (!b) return;
+  b.setAttribute('aria-pressed', String(state.twoPoint));
+  b.disabled = !state.view3d || !venueLevel();
+}
+
+/* ---------- venue level (Luxury Brands 0.5 form) ---------- */
+/**
+ * Buildings drawn as data (js/venue-level.js): at district/unit level the
+ * reference buildings of the venues the focused rows name (อาคารของสถานที่ —
+ * the next crumb, clickable); at venue/store level the selection's buildings
+ * from the spatial join, tagged with their evidence. Never a nearest-building guess.
+ */
+function displayedBuildings() {
+  const m = M(), references = spatialData.peekReferences();
+  if (state.panel.mode === 'store' || state.panel.mode === 'venue') return tagVenueFeatures(state.spatial.summary?.collection, m, references, spatialSelectionRows());
+  const lvl = level();
+  return lvl === 'district' || lvl === 'unit' ? areaVenueBuildings(m, state.rows, references) : {type: 'FeatureCollection', features: []};
+}
+
+/** The open venue's own buildings in the displayed collection (reference first, else its rows' point buildings). */
+function currentVenueHosts(joined) {
+  const venue = currentVenue();
+  if (!venue) return [];
+  const rows = state.panel.mode === 'venue' ? state.filtered.filter(r => r.v === venue.index) : [rowByKey(state.panel.id)].filter(Boolean);
+  return venueHostFeatures(joined, {venue, references: spatialData.peekReferences(), rowKeys: rows.map(r => r.key)});
+}
+
+/** Venue-level scene (Luxury Brands 0.5): quiet, see-through surroundings in the eye view; the venue solid drawn by the x-ray. */
+function updateVenueScene(joined) {
+  state.venueHosts = venueLevel() ? currentVenueHosts(joined) : [];
+  state.massing?.setScene(cameraPreset() === 'eye' ? 'eye' : 'default', venueTargets(state.venueHosts));
+  if (!state.xray) return;
+  const css = getComputedStyle(document.documentElement);
+  state.xray.update(xrayFeatures(state.venueHosts), {colors: {fill: css.getPropertyValue('--map-active-layer').trim(), stroke: css.getPropertyValue('--map-selected-stroke').trim()}});
+  state.xray.setEnabled(state.view3d);
+}
+
+/**
+ * Frame the venue level. Two-point (`eye`) or model camera: the venue's buildings
+ * — footprint and roof (projected with their display height) — and the venue's
+ * store points stay inside the padded viewport; a tall tower may push the camera
+ * out by at most one zoom level beyond the footprint fit so the pins stay readable
+ * (the x-ray keeps the solid visible either way). Without buildings, the store
+ * points. Plan (2D, or the strip above the open mobile sheet) uses the area fit.
+ */
+function frameVenue({instant = false} = {}) {
+  const map = state.map;
+  if (!map || !state.loaded) return;
+  const venue = currentVenue();
+  const rows = (state.panel.mode === 'venue' ? state.filtered.filter(r => r.v === venue?.index) : [rowByKey(state.panel.id)]).filter(r => r && hasPoint(r));
+  const points = rows.map(r => [r.lon, r.lat]);
+  const targets = venueTargets(state.venueHosts?.length ? state.venueHosts : currentVenueHosts(displayedBuildings()));
+  const {ground, roof} = venueFramePoints(targets, points);
+  if (!ground.length) return;
+  const preset = cameraPreset();
+  if (preset === 'plan' || sheetOpen()) {
+    const xs = ground.map(p => p[0]), ys = ground.map(p => p[1]);
+    fitBBox([Math.min(...xs), Math.min(...ys), Math.max(...xs), Math.max(...ys)], {instant});
+    return;
+  }
+  const anim = animate() && !instant;
+  if (targets.length && !mobilePortrait()) {
+    const bounds = ground.reduce((b, p) => b.extend([p[0], p[1]]), new maplibregl.LngLatBounds([ground[0][0], ground[0][1]], [ground[0][0], ground[0][1]]));
+    const h = map.getContainer().clientHeight, base = pitchedPadding();
+    const padding = {...base, top: Math.max(base.top, Math.round(h * (preset === 'eye' ? 0.12 : 0.1)))};
+    const foot = fitPitched(map, bounds, {preset, points: ground, padding, maxZoom: 17.6, minZoom: 14.5, apply: false});
+    const minZoom = Math.max(14.5, (foot?.zoom ?? 17.6) - 1);
+    fitPitched(map, bounds, {preset, points: [...ground, ...roof], padding, maxZoom: 17.6, minZoom, animate: anim});
+    return;
+  }
+  const center = [ground.reduce((a, p) => a + p[0], 0) / ground.length, ground.reduce((a, p) => a + p[1], 0) / ground.length];
+  framePoint(map, center, {preset, zoom: 16, offset: sheetOffset(), animate: anim});
+}
+
+/** A click on a drawn building: a venue building opens its venue (the venue crumb); a point building its store. */
+function onBuildingSelect(keys, {venueIndexes = []} = {}) {
+  const target = buildingClickTarget({mode: state.panel.mode, id: state.panel.id, venueIndexes, storeKeys: keys,
+    hasVenue: index => state.filtered.some(r => r.v === index), hasStore: key => state.filtered.some(r => r.key === key)});
+  if (target?.type === 'venue') selectVenue(target.index);
+  else if (target?.type === 'store') selectStore(target.key, {fly: false, showPopup: true, fromPin: true});
 }
 
 /* ---------- mobile sheet ---------- */
@@ -952,6 +1089,7 @@ function wireEvents() {
   $('country-map').onclick = () => selectArea({...NO_SELECTION});
   $('bangkok-map').onclick = () => { const p = M().provinceByCode.get('10'); selectArea({province: p.index}); };
   $('toggle-3d').onclick = toggle3d;
+  $('toggle-eye').onclick = toggleTwoPoint;
   $('toggle-areas').onclick = () => { state.showAreas = !state.showAreas; $('toggle-areas').setAttribute('aria-pressed', String(state.showAreas)); updateSpatialLayers(); };
   $('mobile-panel').onclick = () => { $('panel').classList.contains('is-open') ? closeMobilePanel() : openMobilePanel(); };
   $('close-mobile-panel').onclick = closeMobilePanel;
@@ -1005,6 +1143,6 @@ async function init() {
 }
 
 // Developer hook for live tuning in a browser console (not an API; may change without notice).
-window.__citymeter = {state, get map() { return state.map; }, update, fitCurrent, updateSpatialLayers, applyPreset: (name, opts) => state.map && applyPreset(state.map, name, opts), fitPitched: (b, opts) => state.map && fitPitched(state.map, b, opts), cameraPadding, buildMapStyle, selectArea, selectStore};
+window.__citymeter = {state, get map() { return state.map; }, get xray() { return state.xray; }, update, fitCurrent, frameVenue, toggleTwoPoint, updateSpatialLayers, applyPreset: (name, opts) => state.map && applyPreset(state.map, name, opts), fitPitched: (b, opts) => state.map && fitPitched(state.map, b, opts), cameraPadding, buildMapStyle, selectArea, selectStore, selectVenue};
 
 init();

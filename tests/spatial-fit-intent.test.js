@@ -19,7 +19,7 @@ function harness({loaded = true} = {}) {
   ];
   const state = {panel: {mode: 'overview', id: ''}, filtered: rows, loaded,
     initialCameraDone: loaded, skipInitialSelectionFit: false, lastPreset: 'eye',
-    spatial: {key: '', loading: false, summary: null}, map: {}, tileTemplate: ''};
+    spatial: {key: '', loading: false, summary: null}, map: {getLayer: () => null}, tileTemplate: ''};
   const caches = new Map(), requests = new Map(), fits = [];
   const model = {provinces: [{code: '10'}, {code: '20'}]};
   const spatialData = {
@@ -54,6 +54,7 @@ function harness({loaded = true} = {}) {
     renderPanel() {}, updateSpatialLayers() {}, basemapPalette: () => ({}), theme: () => 'light',
     installStoresLayer: () => ({}), installSpatialBuildings: () => ({}), installAreaLayers: () => ({}), installMassing: () => ({}),
     STORE_LAYERS: {context: 'context'}, MASSING_BEFORE: 'water-name', selectAreaByLevel() {},
+    BUILDING_LAYERS: {fill: 'joined-buildings-plan'}, installVenueXray: () => ({}),
   });
   const source = [
     between('export function createDeferredSelectionFit(', '/* ---------- small helpers ---------- */').replace('export ', ''),

@@ -1,4 +1,12 @@
-/** The accepted raw building footprint, separate from quiet city context. */
+/**
+ * Buildings drawn as data, separate from quiet city context: at an area level the
+ * reference buildings of the venues in focus (อาคารของสถานที่, js/venue-level.js
+ * areaVenueBuildings); at venue/store level the selection's own buildings
+ * (js/spatial-store.js). app.js installs these layers before the first label
+ * layer with the massing tiers inserted before them (MapLibre draws 3D layers in
+ * order), and the venue x-ray (js/venue-xray.js) after them.
+ * A click hands over the store keys plus the venue indexes of a reference building.
+ */
 export const BUILDING_LAYERS = Object.freeze({source: 'joined-buildings', fill: 'joined-buildings-plan', extrusion: 'joined-buildings-3d', line: 'joined-buildings-outline'});
 const empty = () => ({type: 'FeatureCollection', features: []});
 function palette() {
@@ -27,12 +35,14 @@ export function installSpatialBuildings(map, {beforeId, onSelect} = {}) {
     if (!f) return;
     if (e.originalEvent) e.originalEvent.__citymeterHandled = true;
     const keys = String(f.properties?.storeKeys || '').split(',').filter(Boolean);
-    if (keys.length) onSelect?.(keys);
+    const venueIndexes = String(f.properties?.venueIndexes ?? '').split(',').filter(Boolean).map(Number).filter(Number.isInteger);
+    if (keys.length || venueIndexes.length) onSelect?.(keys, {venueIndexes, evidence: f.properties?.evidence || ''});
   };
   map.on('click', click);
   function update(collection = empty(), {view3d = true} = {}) {
     // Rendering-only lift prevents z-fighting; exported geometry and height stay raw.
-    const features = (collection.features || []).map(f => ({...f, properties: {...f.properties, storeKeys: Array.isArray(f.properties?.storeKeys) ? f.properties.storeKeys.join(',') : f.properties?.storeKeys || ''}}));
+    const flat = value => (Array.isArray(value) ? value.join(',') : value ?? '');
+    const features = (collection.features || []).map(f => ({...f, properties: {...f.properties, storeKeys: flat(f.properties?.storeKeys), venueIndexes: flat(f.properties?.venueIndexes)}}));
     map.getSource(BUILDING_LAYERS.source)?.setData({type: 'FeatureCollection', features});
     if (map.getLayer(BUILDING_LAYERS.fill)) map.setLayoutProperty(BUILDING_LAYERS.fill, 'visibility', view3d ? 'none' : 'visible');
     if (map.getLayer(BUILDING_LAYERS.line)) { map.setLayoutProperty(BUILDING_LAYERS.line, 'visibility', 'visible'); map.setFilter(BUILDING_LAYERS.line, view3d ? ['==', ['get', 'renderAs'], 'outline'] : ['all']); }

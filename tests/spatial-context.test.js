@@ -5,6 +5,7 @@ import vm from 'node:vm';
 import {realModel, readJSON} from './helpers.js';
 import {outerRings, tilesForRegions, MAX_TILES} from '../js/massing.js';
 import {LABEL_MAX_ZOOM, FILL_MAX_ZOOM} from '../js/area-layers.js';
+import {buildingKinds} from '../js/venue-level.js';
 
 const model = realModel();
 const venue = model.venues.find(v => v.id === 'GV-9e1d3c678f9b9ae0');
@@ -20,7 +21,9 @@ const productionUpdate = app.slice(start, end);
 const tileId = tile => `${tile.z}/${tile.x}/${tile.y}`;
 const mallTile = '14/12774/7565';
 
-function contextFor(mode, selectedCollection = collection) {
+const none = {type: 'FeatureCollection', features: []};
+/** Run the production updateSpatialLayers with stand-ins; `areaCollection` is what displayedBuildings() draws at an area level. */
+function contextFor(mode, selectedCollection = collection, areaCollection = none) {
   const detail = mode === 'store' || mode === 'venue';
   const state = {loaded: true, storesDirty: false, panel: {mode, id: mode === 'store' ? row.key : venue.index},
     sel: {province: row.p, district: row.d, unit: row.u[0]}, view3d: true,
@@ -31,7 +34,8 @@ function contextFor(mode, selectedCollection = collection) {
   const context = vm.createContext({state, M: () => model, outerRings, LABEL_MAX_ZOOM, FILL_MAX_ZOOM,
     $: () => ({}), areaLayerModel: () => ({}), labelModel: () => [], updatePins() {},
     province: () => model.provinces[row.p], provinceGeoNow: () => ({units: new Map([[unit.properties.k, unit]])}),
-    spatialSelectionRows: () => detail ? [row] : [], hasPoint: () => true, console});
+    spatialSelectionRows: () => detail ? [row] : [], hasPoint: () => true, console,
+    displayedBuildings: () => (detail ? state.spatial.summary.collection : areaCollection), buildingKinds, updateVenueScene() {}});
   vm.runInContext(productionUpdate + '\nupdateSpatialLayers();', context, {filename: 'production-spatial-context.js'});
   return input;
 }
@@ -60,4 +64,14 @@ test('area views retain their compact-unit context and the existing request cap'
   assert.deepEqual(input.regions, outerRings(unit)); assert.equal(input.hosts.length, 0);
   assert.deepEqual(Array.from(input.anchors), [unit.properties.c]);
   assert.equal(plan.tiles.length, MAX_TILES); assert.equal(plan.total, 16); assert.equal(plan.truncated, true);
+});
+
+test('an area level that draws venue buildings plans their tiles first, keeps the compact unit as context and stays within the cap', () => {
+  const input = contextFor('unit', collection, collection), plan = tilesForRegions(input.regions);
+  assert.ok(plan.tiles.some(t => tileId(t) === mallTile), 'the venue building tile survives the nine-tile cap');
+  assert.ok(plan.tiles.length <= MAX_TILES);
+  assert.deepEqual(input.hosts, collection.features.flatMap(outerRings), 'drawn venue buildings hide their context twins');
+  const unitRings = outerRings(unit);
+  assert.deepEqual(Array.from(input.regions).slice(-unitRings.length), unitRings, 'the compact unit remains the context region');
+  assert.deepEqual(Array.from(input.anchors), [unit.properties.c]);
 });

@@ -166,6 +166,7 @@ export function renderUnit(p) {
     const word = r >= 1.15 ? `มากกว่าค่าเฉลี่ย${esc(p.districtLabel)} ${DEC1.format(r)} เท่า` : r <= 0.87 ? `น้อยกว่าค่าเฉลี่ย${esc(p.districtLabel)} (${DEC1.format(r)} เท่า)` : `ใกล้ค่าเฉลี่ย${esc(p.districtLabel)}`;
     compare = `<p class="unit-compare">สาขาต่อคน${word}<small>${formatMetric(p.perCapita, 'capita')} เทียบ ${formatMetric(ins.districtPerCapita, 'capita')} ต่อ 1 หมื่นคน</small></p>`;
   } else if (!p.pop) compare = '<p class="unit-compare is-muted">ไม่มีข้อมูลประชากรของพื้นที่นี้ จึงไม่คิดสาขาต่อคน</p>';
+  // สถานที่ is the next crumb below อปท./ย่าน (release 0.2): listed first, each row opens the venue level.
   const venues = p.venues.length ? `<section class="panel-section"><div class="section-heading">${heading('venue', 'สถานที่ตามชื่อสาขา')}<span class="hint">${num(p.venues.length)} แห่ง</span></div>
     <ul class="venue-list">${p.venues.slice(0, 10).map(v => venueRow(v)).join('')}</ul>
     ${p.venues.length > 10 ? `<p class="hint">+ อีก ${num(p.venues.length - 10)} แห่งในตาราง</p>` : ''}</section>` : '';
@@ -177,9 +178,9 @@ export function renderUnit(p) {
       ${compare}
       <div class="detail-actions"><button type="button" class="btn" data-action="open-table">ดูสาขา</button><button type="button" class="btn quiet" data-action="open-charts">เปรียบเทียบใน${esc(p.districtLabel)}</button></div>
     </section>
+    ${venues}
     <section class="panel-section"><div class="section-heading">${heading('type', 'ประเภทร้าน')}<span class="hint">สาขา · สัดส่วน</span></div>${typeBars(p.typeMix)}</section>
     ${p.brandMix.length ? `<section class="panel-section"><div class="section-heading">${heading('brand', 'แบรนด์')}<span class="hint">${num(p.brandMix.length)} แบรนด์</span></div>${brandRows(p.brandMix)}</section>` : ''}
-    ${venues}
     <section class="panel-section boundary"><div class="section-heading"><h3>ขอบเขตพื้นที่</h3><span class="hint">${p.areaKm2 ? `${DEC1.format(p.areaKm2)} ตร.กม.` : ''}</span></div>
       <p class="subtle">${p.unit.kind === 'L' ? 'ย่าน (Locale) ของกรุงเทพมหานครใน CityMETER' : `รหัส อปท. ${esc(p.unit.key)} (กรมส่งเสริมการปกครองท้องถิ่น)`} · ขอบเขตและประชากรจาก CityMETER</p>
       <p class="links">${link(p.production, 'ดูพื้นที่นี้ใน CityMETER')}</p>
