@@ -973,7 +973,7 @@
       "../data/build-receipt.json"
     ],
     "start": "npm start",
-    "test": "npm test (150 tests on the shipped data and fixtures)",
+    "test": "npm test (151 tests on the shipped data and fixtures)",
     "handoff": "npm run handoff:bundle",
     "verifyLive": "npm run verify:live",
     "localUrl": "http://127.0.0.1:4173/",

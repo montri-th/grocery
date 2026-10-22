@@ -26,7 +26,7 @@ Live: [Grocery](https://montri-th.github.io/grocery/) · Source: [GitHub](https:
 
 ```sh
 npm start      # http://127.0.0.1:4173/
-npm test       # 150 unit tests บนข้อมูลจริงและ fixtures
+npm test       # 151 unit tests บนข้อมูลจริงและ fixtures
 python scripts/qa/core_qa.py && python scripts/qa/venue_qa.py   # rendered harness (ดู scripts/qa/README.md)
 ```
 
@@ -66,7 +66,7 @@ python scripts/qa/core_qa.py && python scripts/qa/venue_qa.py   # rendered harne
 ## ตรวจความครบก่อนรับช่วง
 
 1. `RELEASE_RECEIPT.json` ใน bundle ระบุ commit ที่เผยแพร่ ให้ `git checkout <commit>` แล้วเทียบ `handoff/handoff-manifest.json` กับไฟล์จริง (`npm run handoff:manifest` ต้องให้ hash เดิมบน working tree ที่สะอาด)
-2. `npm test` ต้องผ่าน 150/150
+2. `npm test` ต้องผ่าน 151/151
 3. `npm run verify:live` ต้องผ่านทุกไฟล์ที่เผยแพร่ (ดู `evidence/live-attestation-*.json` ใน bundle สำหรับผลตอนส่งมอบ)
 4. เปิด 390 px และ desktop ทั้งสองธีม ไล่ flow: Aha ประเทศ → ดูทุกจังหวัด → ต่อ 1 หมื่นคน → จังหวัด → อำเภอ → อปท./ย่าน → ซูม 14 (หมุด + โลโก้) → สาขา → สถานที่ (มุมสถาปนิก + x-ray) → breadcrumb ขึ้นทีละระดับ → กราฟสามมุมมอง → ตาราง → help
 

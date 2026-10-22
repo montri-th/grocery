@@ -7,7 +7,7 @@
 ## เริ่มทำต่อใน 10 นาที
 
 1. อ่าน `AGENTS.md` (กติกาเจ้าของ มีวันที่และเหตุผล) แล้ว `handoff/README.md`
-2. `npm test` ต้องผ่าน **150/150** ก่อนแก้อะไร (Node ≥ 20, ไม่ต้อง `npm install`)
+2. `npm test` ต้องผ่าน **151/151** ก่อนแก้อะไร (Node ≥ 20, ไม่ต้อง `npm install`)
 3. `npm start` แล้วเปิดสถานะหลักทีละลิงก์: `/` (Aha ประเทศ) · `/?province=BKK&district=1007&unit=8d8ed740-cd31-4b6a-859f-096f1f3d0b0e` (ย่านสยาม: อาคารของสถานที่) · `/?place=GV-eb55a15be512058d` (Siam Paragon: มุมสถาปนิก + x-ray) · `/?place=GV-26efea421326c00d` (centralwOrld: หอสูง) · `/?place=GV-15636684fbc51542` (อาคารตามพิกัดสาขา) · `/?store=6823e48d` (ร้านในสถานที่)
 4. หยิบ task card หนึ่งใบจาก `implementation-plan.json → agentTaskCards` (สรุปใน §วิธีส่งงานให้ coding agent) แก้เฉพาะไฟล์ในการ์ด เพิ่ม test ตามการ์ด
 5. ก่อน push: `npm test` · harness (`scripts/qa/`) ไม่มี page error · bump `?v=` + `version` → หลัง push: รอ Pages → `npm run handoff:manifest` → `npm run verify:live` ต้องผ่านทุกไฟล์
@@ -86,7 +86,7 @@ Static HTML/CSS และ JavaScript ES modules ไม่มี build step ไ�
 | P13 | ระดับสถานที่: crumb ที่ห้า + อาคารของสถานที่ที่ระดับอำเภอ/อปท. (กดเข้า venue) + โฟกัสของสถานที่ + แผงเรียงสถานที่ก่อน | done (0.2) | `tests/venue-level.test.js`, `tests/spatial-context.test.js`; harness `venue_qa.py`; live |
 | P14 | มุมสถาปนิก (`eye`) ที่ระดับสถานที่ + ปุ่ม/`?cam=model` + `frameVenue` + `SCENE.eye` + venue x-ray + ลำดับชั้น/การกด | done (0.2) | `tests/venue-level.test.js` (camera/URL contract), `tests/venue-xray.test.js` (draw order, click); harness; live (occluders จาก tile จริง) |
 | P15 | handoff 0.2: brief/plan/statement/verification (MD + JSON, schema 1.1.0), agent task cards, QA harness ใน repo | done (0.2) | ajv 2020-12; `scripts/qa/` |
-| P16 | ทุกสเกลสีใช้ครบ 41 ขั้นของ LDS (กติกาเจ้าของ 22 ต.ค. 2569): `buildScale` แบบ `rank-41` แทน quantile 5 ระดับ, legend 41 ช่อง (`js/ramp-legend.js`) บนแผนที่และใต้ matrix, แผ่นรองตัวเลขในขั้นที่ contrast ไม่ถึง | done (0.2) | `tests/scales.test.js` (rank-41 บนข้อมูลจริง, ค่าซ้ำ, ศูนย์/ไม่มีข้อมูล, ink 41 ขั้น, legend 41 ช่อง); harness `ramp` / `chartRamp` |
+| P16 | ทุกสเกลสีใช้ครบ 41 ขั้นของ LDS (กติกาเจ้าของ 22 ต.ค. 2569): `buildScale` แบบ `rank-41` แทน quantile 5 ระดับ, legend 41 ช่อง (`js/ramp-legend.js`) บนแผนที่และใต้ matrix, แผ่นรองตัวเลขในขั้นที่ contrast ไม่ถึง | done (0.2) | `tests/scales.test.js` (rank-41 บนข้อมูลจริง, ค่าซ้ำ, ศูนย์/ไม่มีข้อมูล, ink 41 ขั้น, legend 41 ช่อง), `tests/module-imports.test.js` (โมดูลละ specifier เดียว ติด cache tag); harness `ramp` / `chartRamp` |
 
 ## ผลตรวจเทียบ Luxury Brands 0.5 (22 ต.ค. 2569)
 
@@ -107,7 +107,7 @@ Static HTML/CSS และ JavaScript ES modules ไม่มี build step ไ�
 | G11 | ความครอบคลุมรูปทรงสถานที่ | ศูนย์การค้าในชุดมีอาคารครบ | 29 จาก 3,542 สถานที่มีรูปทรงอ้างอิง | backlog N18 |
 | G12 | ข้อมูลสถานที่ในแผง | ประเภท ICSC, GLA, ลิงก์ศูนย์การค้าใน CityMETER | ชื่อ ประเภท จำนวนสาขา ข้อเท็จจริงอาคาร | backlog N19 |
 | G13 | ทดสอบเบราว์เซอร์อัตโนมัติ | harness นอก repo | harness นอก repo; ไม่มี CI | แก้บางส่วน 0.2: `scripts/qa/` อยู่ใน repo; CI = N20 |
-| G14 | cache ของโมดูล | — | โมดูลที่ import ต่อโดยไม่มี `?v=` อาจค้างใน cache ราว 10 นาทีหลัง deploy | backlog N21 |
+| G14 | cache ของโมดูล | — | โมดูลที่ import ต่อโดยไม่มี `?v=` อาจค้างใน cache ราว 10 นาทีหลัง deploy | backlog N21; 0.2 ติด tag ทุกโมดูลที่แก้และกันด้วย `tests/module-imports.test.js` (เหลือ `model.js` ที่มีสอง specifier) |
 | G15 | เอกสาร | statement / brief / plan / verification ตรงกัน | `037ff18` แก้บางฉบับ: brief JSON ยังบอกว่า `eye` ไม่ใช้, plan JSON ไม่มี J01–J04 / AC25–AC26 | แก้แล้ว 0.2 (P15) |
 | G16 | สเกลสี | `count` equal-interval 5 ระดับ | quantile 5 ระดับ | Grocery แก้แล้ว 0.2 (P16): ครบ 41 ขั้นตามกติกาเจ้าของ; Luxury Brands 0.5 ยังเป็น 5 ระดับ (อยู่นอก repo นี้ ปรับเมื่อเจ้าของสั่ง) |
 
@@ -181,7 +181,7 @@ Static HTML/CSS และ JavaScript ES modules ไม่มี build step ไ�
 
 ```sh
 npm start                  # http://127.0.0.1:4173/
-npm test                   # 150 tests บนข้อมูลจริง (data/*.json) และ fixtures (0.2)
+npm test                   # 151 tests บนข้อมูลจริง (data/*.json) และ fixtures (0.2)
 python scripts/qa/core_qa.py   # rendered harness: เส้นทางหลัก (ดู scripts/qa/README.md)
 python scripts/qa/venue_qa.py  # rendered harness: ระดับสถานที่ + มุมสถาปนิก
 npm run handoff:manifest   # เขียน handoff/handoff-manifest.json จาก bytes จริง (git ls-files)

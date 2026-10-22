@@ -680,7 +680,8 @@
         "js/charts.js",
         "styles.css",
         "tests/scales.test.js",
-        "scripts/qa/core_qa.py"
+        "scripts/qa/core_qa.py",
+        "tests/module-imports.test.js"
       ],
       "status": "done (0.2)"
     }
@@ -887,7 +888,7 @@
   ],
   "developerWorkflow": [
     "Read AGENTS.md, then handoff/README.md, PRODUCT_STATEMENT.md and the paired human/machine briefs",
-    "Run npm test before changes (150 tests on the shipped data); keep the selection model, the three row scopes, the focus modes and the panel action contract",
+    "Run npm test before changes (151 tests on the shipped data); keep the selection model, the three row scopes, the focus modes and the panel action contract",
     "Change one bounded task at a time (pick an agentTaskCards entry); preserve invariant IDs INV01–INV30",
     "Every colour scale uses all 41 LDS samples through js/scales.js#buildScale and js/ramp-legend.js — never a class projection, a CSS gradient or an interpolated colour (owner rule 2026-10-22)",
     "Never assign a store to an area yourself — membership comes from production (rebuild with scripts/build-data.py); never move a coordinate, guess a building or infer tenancy",
@@ -1160,7 +1161,7 @@
         "area": "module cache",
         "luxury": "—",
         "groceryBefore": "modules imported without ?v= may stay cached ~10 min after a deploy",
-        "status": "backlog (0.2 tags every changed module and its importers)",
+        "status": "backlog; 0.2 tags every changed module and guards it with tests/module-imports.test.js (model.js still has two specifiers)",
         "task": "N21"
       },
       {
@@ -1184,7 +1185,7 @@
   "vibeCoding": {
     "startIn10Minutes": [
       "Read AGENTS.md, then handoff/README.md",
-      "npm test must pass 150/150 before any change (Node ≥ 20, no npm install)",
+      "npm test must pass 151/151 before any change (Node ≥ 20, no npm install)",
       "npm start, then open: / (country Aha) · /?province=BKK&district=1007&unit=8d8ed740-cd31-4b6a-859f-096f1f3d0b0e (สยาม: venue buildings) · /?place=GV-eb55a15be512058d (Siam Paragon: eye + x-ray) · /?place=GV-26efea421326c00d (centralwOrld) · /?place=GV-15636684fbc51542 (point building) · /?place=GV-7794cd0558ec8748 (no building)",
       "Take one card from agentTaskCards; change only its files; add the tests it names",
       "Before push: npm test · scripts/qa/ without page errors · bump ?v= and version; after push: wait for Pages → npm run handoff:manifest → npm run verify:live must pass every file"
