@@ -50,7 +50,7 @@ The container cannot reach unpkg.com or tiles.openfreemap.org. The harness serve
 | 390×844 light + dark (touch) | compact Aha card on the map; bottom sheet; province from the sheet (plan); unit (crumbs fold behind “…”); sheet closed → map | pass — no horizontal overflow, no page errors |
 | keyboard | at z15.5 one pin in the tab order (roving), ArrowRight moves focus, Enter opens the store; focus ring visible on toolbar buttons | pass |
 
-Fixed during this pass: a unit straddling a district border showed fewer stores in its district's comparison (label) than in its own panel (เมืองพัทยา 362 vs 364; คลองบางครุ drawn as a measured zero with 5 stores) — units now show their full production count everywhere, while district shares count only the district's own stores (`hierarchy.js#comparisonRows`, `inArea`; tests added).
+Fixed during this pass: a unit straddling a district border showed fewer stores in its district's comparison (label) than in its own panel (เมืองพัทยา 362 vs 364; คลองบางครุ drawn as a measured zero with 5 stores) — units now show their full production count everywhere, while district shares count only the district's own stores (`hierarchy.js#comparisonRows`, `inArea`; tests added). After the first publish, pitched districts and units are framed on their outline vertices (`app.js#currentOutline`): the harness re-run on 40563f9 frames เขตวัฒนา at z13.02 instead of z12.62 at 1280×800, with all other figures above unchanged and no page errors.
 
 ## Live checks (Chrome on macOS, real tiles)
 
@@ -70,6 +70,16 @@ Chrome on macOS, viewport 1710×822 CSS px (DPR 2), OpenFreeMap tiles (`planet/2
 | อโศก-เหนือ (`live-08` dark, `live-09` light) | model preset z15.3; 483 rounded focus buildings + 181 quiet city buildings from real tiles; 22 pins, 12 logos; “76.6 เทียบ 21.2 ต่อ 1 หมื่นคน · 3.6 เท่า”; light paper basemap after the theme switch, same data HEX |
 | Per-capita + chart tray (`live-10`, light) | legend “จังหวัด · สาขาต่อประชากร 10,000 คน” 1.0–2.3 … 4.6–11.3; ranking ภูเก็ต 11.3 · ชลบุรี 10.7 · กรุงเทพมหานคร 9.8 · สมุทรปราการ 8.4 · นนทบุรี 8.1 |
 | Not verified live | mobile width (checked in the harness only; the owner's Chrome window was not resized), Safari, keyboard tour, AC02/AC03/AC05 fault paths |
+
+**40563f9 (outline fit; Pages run 39768527853, success 2026-10-22 11:10:30 UTC).** Loaded with a cache-busting query (Pages and the browser keep `index.html` ~10 min; the entry files carry `?v=20261022-g2`).
+
+| Check | Result |
+|---|---|
+| เขตวัฒนา deep link (`live-11-watthana-outline-fit-dark-40563f9.jpg`) | city preset z13.57 (was z12.67 on the bbox fit at the same viewport); the district band spans the map width, the three focused Locales filled, dots in type colours |
+| First paint (`live-12-country-aha-dark-40563f9.jpg`) | same Aha and fills as 9242f23; core panel immediate, map drawn after its tiles (6–14 s in this Chrome tab, which was not the foreground window) |
+| Console | no errors and no warnings on either load (logo registries complete, no map-resource failures) |
+
+Live byte attestation on 40563f9: `npm run verify:live` — **367 ok, 0 failed** (400-file manifest; `tests/`, `scripts/`, dotfiles and `package.json` are not published files) → `evidence/live-attestation-40563f9.json`. The final documentation commit is attested again in `RELEASE_RECEIPT.json`.
 
 ## Live byte attestation
 
