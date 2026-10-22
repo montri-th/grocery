@@ -1,0 +1,34 @@
+/* Brand identity artwork and the categorical series of the five store types.
+   Logos keep their source bytes (sprite assets/brand-logos.svg) on a neutral
+   backing. Store-type colours are a stable assignment of the LDS categorical
+   series landometer-series-10-v8 (assets/theme.css): convenience = series 7,
+   supermarket = 3, hypermarket = 2, wholesale = 8, pharmacy = 1. The map dots
+   (js/stores-layer.js) read the same custom properties, so pins, swatches, bars
+   and dots always agree. Type labels always travel with the colour. */
+
+:root {
+  --type-c-store: var(--series-7-fill);
+  --type-supermarket: var(--series-3-fill);
+  --type-hypermarket: var(--series-2-fill);
+  --type-wholesale: var(--series-8-fill);
+  --type-pharmacy: var(--series-1-fill);
+}
+
+.brand-logo { display: block; width: 80px; height: 40px; flex: 0 0 auto; border: 0; border-radius: 2px; overflow: hidden; background: transparent; }
+.brand-row { display: flex; align-items: center; gap: 10px; white-space: normal; }
+.brand-row > span { min-width: 0; overflow-wrap: anywhere; }
+.brand-row .brand-logo { width: 64px; height: 32px; }
+.logo-credit { font-size: 12px !important; }
+.row-name.brand-row { max-width: 320px; }
+
+/* Store-type fill variable: pins, swatches and mix bars read --pin-fill. */
+.store-pin[data-type="C_STORE"], .type-C_STORE { --pin-fill: var(--type-c-store); }
+.store-pin[data-type="SUPERMARKET"], .type-SUPERMARKET { --pin-fill: var(--type-supermarket); }
+.store-pin[data-type="HYPERMARKET"], .type-HYPERMARKET { --pin-fill: var(--type-hypermarket); }
+.store-pin[data-type="WHOLESALE"], .type-WHOLESALE { --pin-fill: var(--type-wholesale); }
+.store-pin[data-type="PHARMACY"], .type-PHARMACY { --pin-fill: var(--type-pharmacy); }
+.mix-fill.type-C_STORE { background: var(--type-c-store); }
+.mix-fill.type-SUPERMARKET { background: var(--type-supermarket); }
+.mix-fill.type-HYPERMARKET { background: var(--type-hypermarket); }
+.mix-fill.type-WHOLESALE { background: var(--type-wholesale); }
+.mix-fill.type-PHARMACY { background: var(--type-pharmacy); }

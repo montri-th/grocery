@@ -1,0 +1,184 @@
+{
+ "source": "Landometer DS 0.9.7 (v0.9.7-owner.1) machine/color-srgb-10.scales.json",
+ "sourceSha256": "dc804436c080b5be9125417cacb258b898a679c31f1481973a61f8e8cca4e305",
+ "scales": {
+  "count": {
+   "scaleId": "count",
+   "anchors": [
+    "#F4F0E7",
+    "#7DBAC0",
+    "#213E70"
+   ],
+   "lut": [
+    "#F4F0E7",
+    "#EEEDE5",
+    "#E8EBE3",
+    "#E3E8E1",
+    "#DDE5DF",
+    "#D7E3DD",
+    "#D1E0DB",
+    "#CBDDD9",
+    "#C5DAD7",
+    "#C0D8D6",
+    "#BAD5D4",
+    "#B4D2D2",
+    "#AED0D0",
+    "#A8CDCE",
+    "#A2CACC",
+    "#9CC8CA",
+    "#96C5C8",
+    "#90C2C6",
+    "#8ABFC4",
+    "#83BDC2",
+    "#7DBAC0",
+    "#78B3BC",
+    "#73ADB8",
+    "#6EA7B4",
+    "#69A0B0",
+    "#649AAC",
+    "#5F93A8",
+    "#5A8DA4",
+    "#5587A0",
+    "#50809C",
+    "#4C7A98",
+    "#477494",
+    "#436E90",
+    "#3E688C",
+    "#3A6288",
+    "#355C84",
+    "#315680",
+    "#2D507C",
+    "#294A78",
+    "#254474",
+    "#213E70"
+   ],
+   "classes": {
+    "3": [
+     "#F4F0E7",
+     "#7DBAC0",
+     "#213E70"
+    ],
+    "5": [
+     "#F4F0E7",
+     "#BAD5D4",
+     "#7DBAC0",
+     "#4C7A98",
+     "#213E70"
+    ],
+    "7": [
+     "#F4F0E7",
+     "#CBDDD9",
+     "#A8CDCE",
+     "#7DBAC0",
+     "#5A8DA4",
+     "#3E688C",
+     "#213E70"
+    ],
+    "9": [
+     "#F4F0E7",
+     "#D7E3DD",
+     "#BAD5D4",
+     "#9CC8CA",
+     "#7DBAC0",
+     "#649AAC",
+     "#4C7A98",
+     "#355C84",
+     "#213E70"
+    ]
+   },
+   "noData": "#D5DAD6",
+   "zeroOutline": "#7D877F",
+   "scaleVersion": "4ff5c1fb4be71ecd13c48685b38371b528bcd4ce369ce964a75354c2eb4d0980",
+   "themePolicy": "identical-light-values-on-both-themes"
+  },
+  "density.capita": {
+   "scaleId": "density.capita",
+   "anchors": [
+    "#FFF0ED",
+    "#F3A076",
+    "#B72B63"
+   ],
+   "lut": [
+    "#FFF0ED",
+    "#FFECE7",
+    "#FEE8E1",
+    "#FEE4DB",
+    "#FEE0D5",
+    "#FDDCCF",
+    "#FDD8CA",
+    "#FCD4C4",
+    "#FCD0BE",
+    "#FBCCB8",
+    "#FBC8B2",
+    "#FAC4AC",
+    "#F9C0A6",
+    "#F9BCA0",
+    "#F8B89A",
+    "#F7B494",
+    "#F6B08E",
+    "#F6AC88",
+    "#F5A882",
+    "#F4A47C",
+    "#F3A076",
+    "#F09B75",
+    "#ED9575",
+    "#EB9074",
+    "#E88B73",
+    "#E58572",
+    "#E28072",
+    "#DF7A71",
+    "#DC7570",
+    "#D96F6F",
+    "#D66A6E",
+    "#D3646D",
+    "#D05F6C",
+    "#CD596B",
+    "#CA536A",
+    "#C74D69",
+    "#C44768",
+    "#C14167",
+    "#BD3A65",
+    "#BA3364",
+    "#B72B63"
+   ],
+   "classes": {
+    "3": [
+     "#FFF0ED",
+     "#F3A076",
+     "#B72B63"
+    ],
+    "5": [
+     "#FFF0ED",
+     "#FBC8B2",
+     "#F3A076",
+     "#D66A6E",
+     "#B72B63"
+    ],
+    "7": [
+     "#FFF0ED",
+     "#FCD4C4",
+     "#F9BCA0",
+     "#F3A076",
+     "#DF7A71",
+     "#CD596B",
+     "#B72B63"
+    ],
+    "9": [
+     "#FFF0ED",
+     "#FDDCCF",
+     "#FBC8B2",
+     "#F7B494",
+     "#F3A076",
+     "#E58572",
+     "#D66A6E",
+     "#C74D69",
+     "#B72B63"
+    ]
+   },
+   "noData": "#D5DAD6",
+   "zeroOutline": "#7D877F",
+   "scaleVersion": "0b49c15c6f91e48db79f5c6bd9c729656c95cd6f3162941490c5c125111b4ab1",
+   "themePolicy": "identical-light-values-on-both-themes"
+  }
+ }
+}

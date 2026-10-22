@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Grocery · CityMETER</title>
+  <meta name="description" content="ร้านกระจุกที่ไหนเมื่อเทียบกับคน — แผนที่ร้านสะดวกซื้อ ซูเปอร์มาร์เก็ต ไฮเปอร์มาร์เก็ต ค้าส่ง และร้านขายยา 17 แบรนด์ทั่วไทย ตั้งแต่ระดับประเทศถึง อปท. และย่าน">
+  <meta name="theme-color" content="#F6F7F3" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#11191D" media="(prefers-color-scheme: dark)">
+  <meta property="og:title" content="Grocery · CityMETER">
+  <meta property="og:description" content="ร้านกระจุกที่ไหนเมื่อเทียบกับคน — 27,607 สาขาของ 17 แบรนด์ ตั้งแต่ระดับประเทศถึง อปท. และย่าน">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://montri-th.github.io/grocery/">
+  <style id="launch-critical-styles">
+    #launch-status{position:fixed;inset:48px 0 0;z-index:30;display:grid;place-items:center;padding:20px;background:var(--surface-canvas,#F6F7F3);color:var(--text-primary,#182327);overflow:auto;font:400 14px/1.65 "Bai Jamjuree",sans-serif}
+    #launch-status[hidden]{display:none!important}
+    .launch-card{width:min(560px,100%);padding:24px;background:var(--surface-card,#FCFCFA);border:1px solid var(--border-default,#C9D0CB);border-radius:16px}
+    .launch-card h1{font-size:24px;line-height:1.4;margin:0 0 12px}.launch-card p{margin:12px 0}
+    .launch-card a{color:inherit;overflow-wrap:anywhere;text-underline-offset:3px}
+    .launch-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap}.launch-card button{min-height:44px;padding:8px 16px;font:inherit}
+    .launch-card details{margin-top:16px;font-size:12px}.launch-card summary{cursor:pointer;min-height:44px;display:flex;align-items:center}
+    .launch-card pre{white-space:pre-wrap;overflow-wrap:anywhere;font:400 12px/1.6 "JetBrains Mono",monospace}
+    .launch-card :focus-visible{outline:3px solid var(--interaction-focus-ring,#1D4497);outline-offset:3px}
+    @media(max-width:420px){#launch-status{padding:16px}.launch-card{padding:20px}.launch-card h1{font-size:21px}}
+  </style>
+  <script src="js/launch.js?v=20261022-g1"></script>
+  <link rel="icon" href="assets/icons/icon-portfolio-32.png" sizes="32x32">
+  <link rel="icon" href="assets/icons/icon-portfolio-16.png" sizes="16x16">
+  <link rel="icon" href="assets/icons/icon-portfolio-48.png" sizes="48x48">
+  <link rel="apple-touch-icon" href="assets/icons/icon-portfolio-180.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="stylesheet" href="assets/lds/build-kit/fonts.css?v=20261022-g1">
+  <link rel="stylesheet" href="assets/theme.css?v=20261022-g1">
+  <link rel="stylesheet" href="styles.css?v=20261022-g1">
+  <link rel="stylesheet" href="navigation.css?v=20261022-g1">
+  <link rel="stylesheet" href="logos.css?v=20261022-g1">
+  <link rel="stylesheet" href="grocery.css?v=20261022-g1">
+  <script type="module" src="js/app.js?v=20261022-g1"></script>
+  <script type="module" src="js/navigation.js?v=20261022-g1"></script>
+</head>
+<body>
+<a class="skip" href="#panel">ข้ามไปแผงข้อมูล</a>
+
+<header class="topbar">
+  <a class="brand" href="https://landometer.com/v3/citymeter?d=grocery" aria-label="CityMETER production">
+    <img src="assets/icons/icon-portfolio-32.png" alt="" width="24" height="24"><span>CityMETER</span>
+  </a>
+  <span class="brand-divider" aria-hidden="true">/</span>
+  <span class="product-name">Grocery</span>
+  <div class="top-actions">
+    <a class="text-link" href="PRODUCT_STATEMENT.md" target="_blank" rel="noopener">Product statement</a>
+    <label class="theme-control"><span class="theme-visible-label">ธีม</span>
+      <select id="theme" aria-label="รูปแบบหน้าจอและแผนที่">
+        <option value="auto">Auto</option><option value="light">Light</option><option value="dark">Dark</option>
+      </select>
+    </label>
+  </div>
+</header>
+
+<section id="launch-status" role="status" aria-live="polite" aria-busy="true" aria-labelledby="launch-title">
+  <div class="launch-card">
+    <p class="eyebrow">CITYMETER GROCERY</p>
+    <h1 id="launch-title">กำลังโหลดข้อมูล</h1>
+    <p id="launch-message">กำลังอ่านข้อมูลสาขาและพื้นที่ หากรอนาน เปิดเว็บสาธารณะได้จากลิงก์นี้</p>
+    <p><a id="launch-public" href="https://montri-th.github.io/grocery/">https://montri-th.github.io/grocery/</a></p>
+    <div class="launch-actions"><button id="launch-retry" type="button" hidden>ลองโหลดใหม่</button><a href="https://github.com/montri-th/grocery" target="_blank" rel="noopener">ดูที่มาใน GitHub</a></div>
+    <details id="launch-debug" hidden><summary>รายละเอียดเพื่อแจ้งปัญหา</summary><pre id="launch-diagnostics"></pre></details>
+    <noscript><p>หน้านี้ต้องใช้ JavaScript เพื่ออ่านข้อมูลและแสดงแผนที่ กรุณาเปิด JavaScript แล้วลองใหม่ หรือเปิดลิงก์เว็บสาธารณะด้านบน</p></noscript>
+  </div>
+</section>
+
+<main class="workspace">
+  <div class="map-column">
+    <section class="map-panel" aria-label="แผนที่พื้นที่และสาขา">
+      <div id="map"></div>
+      <div id="map-failure" class="map-failure" hidden></div>
+      <div class="map-toolbar" role="group" aria-label="เครื่องมือแผนที่">
+        <button id="fit-map" type="button">ดูทั้งหมด</button>
+        <button id="country-map" type="button">ประเทศไทย</button>
+        <button id="bangkok-map" type="button">กรุงเทพฯ</button>
+        <button id="toggle-areas" type="button" aria-pressed="true">พื้นที่</button>
+        <button id="toggle-3d" type="button" aria-pressed="true" title="สลับมุมมอง 3 มิติ (อาคารทั้งเมือง) กับแผนผัง 2 มิติ">3D</button>
+        <button id="open-help" type="button" aria-haspopup="dialog" aria-controls="usage-help">วิธีใช้</button>
+        <button id="mobile-panel" type="button" aria-expanded="false" aria-controls="panel">ข้อมูล</button>
+      </div>
+      <section id="map-aha" class="map-aha" aria-label="ข้อค้นพบแรก" hidden></section>
+      <div class="map-legend" id="map-legend" aria-label="คำอธิบายแผนที่">
+        <div class="legend-block" id="legend-areas">
+          <span class="legend-title" id="legend-title">จังหวัด · จำนวนสาขา</span>
+          <span class="legend-steps" id="legend-steps"></span>
+          <div class="metric-switch compact" id="legend-metric" role="group" aria-label="ตัวเลขบนแผนที่">
+            <button type="button" data-action="set-metric" data-value="count" aria-pressed="true">จำนวนสาขา</button>
+            <button type="button" data-action="set-metric" data-value="capita" aria-pressed="false">ต่อ 1 หมื่นคน</button>
+          </div>
+        </div>
+        <div class="legend-block legend-marks">
+          <span><i class="legend-pin" aria-hidden="true"></i>1 จุด = 1 สาขา</span>
+          <span class="legend-context-item"><i class="legend-context" aria-hidden="true"></i>สาขานอกโฟกัส</span>
+          <span class="legend-massing-item is-quiet-item" title="อาคารจาก OpenStreetMap ผ่าน OpenFreeMap แสดงจางเป็นบริบทเมื่อซูมถึงระดับเมือง ความสูงเป็นบริบท ไม่ใช่ผลรังวัด"><i class="legend-massing is-quiet" aria-hidden="true"></i>อาคารบริบท</span>
+          <details id="category-key"><summary>สีประเภทร้าน</summary><div id="category-items"></div></details>
+        </div>
+      </div>
+      <p class="map-status" id="map-status" aria-live="off"></p>
+    </section>
+
+    <section id="insights" class="insights is-collapsed" aria-labelledby="insight-title">
+      <div class="insight-heading">
+        <h2 id="insight-title">เปรียบเทียบจังหวัด</h2>
+        <span id="chart-scope" class="hint"></span>
+        <button id="toggle-insights" type="button" aria-expanded="false" aria-controls="insight-content">เปิดกราฟ</button>
+        <button id="open-table" type="button">รายการ <span id="result-count" class="data-number"></span></button>
+      </div>
+      <div id="insight-content" hidden>
+        <div class="tabs" role="tablist" aria-label="มุมมองกราฟ">
+          <button role="tab" type="button" id="tab-ranking" aria-selected="true" data-view="ranking" aria-controls="chart">สาขาเทียบคน</button>
+          <button role="tab" type="button" id="tab-mix" aria-selected="false" data-view="mix" aria-controls="chart">ประเภทร้าน</button>
+          <button role="tab" type="button" id="tab-brands" aria-selected="false" data-view="brands" aria-controls="chart">แบรนด์</button>
+        </div>
+        <div id="chart" class="chart" role="tabpanel" aria-labelledby="tab-ranking"></div>
+      </div>
+    </section>
+
+    <section id="results" class="results" aria-labelledby="results-title" hidden>
+      <div class="results-heading">
+        <h2 id="results-title">สาขาตามตัวกรอง</h2>
+        <button id="toggle-table" type="button" aria-expanded="true" aria-controls="table-wrap">ปิดตาราง</button>
+      </div>
+      <div id="table-wrap">
+        <p class="hint">กดสาขาเพื่อดูรายละเอียดและที่มา</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th scope="col">แบรนด์ / สาขา</th><th scope="col">ประเภท</th><th scope="col">พื้นที่</th><th scope="col">สถานที่ตามชื่อ</th><th scope="col">พิกัด</th><th scope="col">แหล่งข้อมูล</th></tr></thead>
+            <tbody id="result-rows"></tbody>
+          </table>
+        </div>
+        <div class="pagination"><button id="prev-page" type="button">ก่อนหน้า</button><span id="page-label" class="data-number"></span><button id="next-page" type="button">ถัดไป</button></div>
+      </div>
+    </section>
+  </div>
+
+  <aside id="panel" class="panel" aria-labelledby="dataset-title">
+    <button id="close-mobile-panel" type="button" class="mobile-close">กลับไปแผนที่</button>
+    <div class="panel-top">
+      <nav id="crumbs" class="crumbs-nav" aria-label="เส้นทางพื้นที่: ประเทศไทย › จังหวัด › อำเภอ/เขต › อปท./ย่าน › สถานที่"></nav>
+      <div class="dataset-heading">
+        <p class="eyebrow">CITYMETER · LOCATION</p>
+        <h1 id="dataset-title" tabindex="-1">Grocery</h1>
+        <p class="intro">ร้านกระจุกที่ไหน เมื่อเทียบกับคน</p>
+      </div>
+      <form id="filters" class="filters" autocomplete="off">
+        <label class="search-field">
+          <span class="sr-only">ค้นหาแบรนด์ สาขา สถานที่ หรือพื้นที่</span>
+          <input type="search" id="search" placeholder="ค้นหาแบรนด์ สาขา สถานที่ หรือพื้นที่" autocomplete="off">
+        </label>
+        <details id="filter-details" class="filter-details">
+          <summary><span>ตัวกรองและพื้นที่</span><span id="filter-count" class="filter-count" aria-live="polite"></span></summary>
+          <div class="filter-grid">
+            <label>แบรนด์<select id="brand"><option value="">ทุกแบรนด์</option></select></label>
+            <label>ประเภทร้าน<select id="type"><option value="">ทุกประเภท</option></select></label>
+            <label>จังหวัด<select id="province"><option value="">ทุกจังหวัด</option></select></label>
+            <label><span id="district-label">อำเภอ / เขต</span><select id="district" disabled><option value="">เลือกจังหวัดก่อน</option></select></label>
+            <label><span id="unit-label">อปท. / ย่าน</span><select id="unit" disabled><option value="">เลือกอำเภอก่อน</option></select></label>
+          </div>
+          <div class="filter-actions"><button type="reset" class="btn quiet">ล้างตัวกรอง</button></div>
+        </details>
+      </form>
+      <div id="filter-chips"></div>
+    </div>
+    <div id="panel-view" class="panel-view"></div>
+  </aside>
+</main>
+
+<dialog id="usage-help" class="usage-dialog" aria-labelledby="usage-help-title" aria-describedby="usage-help-intro">
+  <div class="help-heading">
+    <div><p class="eyebrow">CITYMETER GROCERY</p><h2 id="usage-help-title">วิธีใช้</h2></div>
+    <button id="close-help" type="button">ปิดวิธีใช้</button>
+  </div>
+  <p id="usage-help-intro" class="help-intro">หน้าแรกบอกว่าสาขาร้านค้าปลีกอาหารกระจุกอยู่ที่ไหนเมื่อเทียบกับจำนวนคน — เลือกจังหวัด อำเภอ แล้วเจาะลงถึง อปท. ย่าน และสาขา คำถามเดิมจะถูกคิดใหม่ทุกระดับ</p>
+  <ol class="help-steps">
+    <li><strong>ข้อค้นพบแรก</strong><p>“30% ของสาขาอยู่ใน 3 จังหวัดนี้ ซึ่งมีคนแค่ 13% ของประเทศ” — แผนที่โฟกัสพื้นที่เหล่านั้นให้แล้ว · “ดูทุกจังหวัด” เปิดทุกพื้นที่เท่ากัน</p></li>
+    <li><strong>เส้นทาง</strong><p>ประเทศไทย › จังหวัด › อำเภอ/เขต › อปท./ย่าน › สถานที่ — กดระดับใดก็ได้เพื่อย้อนกลับ กดพื้นที่บนแผนที่เพื่อเจาะลง</p></li>
+    <li><strong>สีพื้นที่</strong><p>“จำนวนสาขา” ใช้โทนฟ้า–น้ำเงิน “ต่อ 1 หมื่นคน” ใช้โทนส้มอมชมพู สีเข้ม = มาก ช่วงตัวเลขอยู่ในคำอธิบายมุมล่าง · พื้นที่นอกโฟกัสเหลือเส้นขอบ · ไม่มีข้อมูลประชากรจะเป็นสีเทา ไม่ใช่ศูนย์</p></li>
+    <li><strong>จุดและหมุด</strong><p>1 จุด = 1 สาขา สีตามประเภทร้าน (ดู “สีประเภทร้าน”) · ซูมใกล้จะเห็นโลโก้แบรนด์ กดเพื่อดูที่อยู่ สถานที่ตามชื่อสาขา และแหล่งข้อมูล</p></li>
+    <li><strong>กราฟและตาราง</strong><p>“เปิดกราฟ” เทียบส่วนแบ่งสาขากับส่วนแบ่งประชากร ประเภทร้าน และแบรนด์ของพื้นที่ย่อย · “รายการ” เปิดตารางสาขา</p></li>
+  </ol>
+  <p class="help-keyboard"><strong>คีย์บอร์ด:</strong> Tab ไปยังปุ่ม · ลูกศรเลื่อนระหว่างหมุด · Enter เลือก · Escape ปิด</p>
+  <p class="help-links"><a href="https://montri-th.github.io/grocery/" id="help-public-site">เว็บ Grocery</a> · <a href="https://github.com/montri-th/grocery" target="_blank" rel="noopener">ที่มาใน GitHub</a> · <a href="DATA_METHOD.md" target="_blank" rel="noopener">วิธีจัดทำข้อมูล</a> · <a href="https://landometer.com/v3/citymeter?d=grocery" target="_blank" rel="noopener">CityMETER</a></p>
+</dialog>
+
+<div id="announcement" role="status" class="sr-only"></div>
+</body>
+</html>

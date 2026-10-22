@@ -1,0 +1,2097 @@
+{
+ "checkedOn": "2026-10-22",
+ "source": "CityMETER Grocery Thailand — Source Audit / Refresh Master 2026-10-22, tabs 07_VENUES and 10_VENUE_LOGOS",
+ "status": "complete",
+ "files": [
+  {
+   "path": "assets/venue-logos/maya.png",
+   "key": "VL-044c6cfa77d04799",
+   "sha256": "044c6cfa77d04799d04b062251997ea8467d62665b73b3c570dd285b2764cd7a",
+   "bytes": 9208,
+   "role": "venue_specific",
+   "sourcePage": "https://mayashoppingcenter.com/",
+   "assetURL": "https://mayashoppingcenter.com/api/image/61841058da9e5.png",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "MAYA Lifestyle Shopping Center"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/jas-green-village-khubon.jpg",
+   "key": "VL-0a2bb1f2d8d56fc0",
+   "sha256": "0a2bb1f2d8d56fc0e23132105d8d9eea8a84a389892431977627fcf73691cd03",
+   "bytes": 21128,
+   "role": "venue_specific",
+   "sourcePage": "https://www.facebook.com/JASgreenvillage",
+   "assetURL": "https://scontent.fbkk7-2.fna.fbcdn.net/v/t39.30808-1/762660420_1467497352069264_7677019119034869706_n.jpg?stp=dst-jpg_tt6&cstp=mx960x960&ctp=s720x720&_nc_cat=110&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=3ab345&_nc_ohc=k3XYzvONZsAQ7kNvwHD0H3R&_nc_oc=AdqKsSIXhz5VPTtj-zAq56i5-6U4kFWtBnt1conT8oD1a15rKirNKs9pOSlz1NXBcRE&_nc_zt=24&_nc_ht=scontent.fbkk7-2.fna&_nc_gid=wf51jlWTo_-oFm65y4ZXqQ&_nc_ss=7020f&oh=00_AQP75cHbkVapvYdJhPbRUvcTk78KMgcJf3cgShGZQMSTTg&oe=6ADF67DD",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Jas Green Village Khubon"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/central-udon.png",
+   "key": "VL-12cffc2d06217373",
+   "sha256": "12cffc2d062173735fc6c44cea35b2263c3c216891f9afb501706df75608cb21",
+   "bytes": 9811,
+   "role": "venue_specific",
+   "sourcePage": "https://shoppingcenter.centralpattana.co.th/branch/central-udon/",
+   "assetURL": "https://shoppingcenter.centralpattana.co.th/images/default-source/central-udon/common/032-udon-logo3f17cf31-2815-4098-894c-3feed19a6f5d.png?sfvrsn=1e0641e4_3",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Central Udon"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/sena-fest.jpg",
+   "key": "VL-1565e75bdbd67dc4",
+   "sha256": "1565e75bdbd67dc49038451cee20ca3618b79cabc732f8bfd3445093b7f5a683",
+   "bytes": 3227,
+   "role": "venue_specific",
+   "sourcePage": "https://www.senafest.com/th/",
+   "assetURL": "https://www.senafest.com/img/tp/senafest.jpg",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Sena Fest"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/homepro.svg",
+   "key": "VL-1ace513fde3ee4f3",
+   "sha256": "1ace513fde3ee4f3d152e2030e7d4241d0b0679e95e1ec15128bfdd141448036",
+   "bytes": 3805,
+   "role": "shared_chain_banner",
+   "sourcePage": "https://www.homepro.co.th/",
+   "assetURL": "https://static-hp.gumlet.io/marketplace/icon/Logo-2026.svg",
+   "status": "ใช้โลโก้โครงการ/แบนเนอร์ร่วม",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "HomePro San Sai"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/central-salaya.png",
+   "key": "VL-1b39cffe4ab6c770",
+   "sha256": "1b39cffe4ab6c7707d7e0e2220d9333ca1b991fb9f20339e4ec801787c5b85f9",
+   "bytes": 11120,
+   "role": "venue_specific",
+   "sourcePage": "https://shoppingcenter.centralpattana.co.th/branch/central-salaya/",
+   "assetURL": "https://shoppingcenter.centralpattana.co.th/images/default-source/central-salaya/common/027-salaya-logo.png?sfvrsn=45505a81_2",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Central Salaya"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/the-nine-rama9.png",
+   "key": "VL-1ed9c0282460609b",
+   "sha256": "1ed9c0282460609b2ec082d92760fbf2dddd87a9067053be2f8ad17eca149dc8",
+   "bytes": 7891,
+   "role": "venue_specific",
+   "sourcePage": "https://www.paradisepark.co.th/",
+   "assetURL": "https://www.paradisepark.co.th/img/partners/thenine_rama9.png",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "The Nine Rama 9"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/central-pattaya.png",
+   "key": "VL-1ed9cfc96f7d3e57",
+   "sha256": "1ed9cfc96f7d3e57407b15f682f05a34e6b710d4b6e7b76bb9e90393b3ae1924",
+   "bytes": 9898,
+   "role": "venue_specific",
+   "sourcePage": "https://shoppingcenter.centralpattana.co.th/branch/central-pattaya/",
+   "assetURL": "https://shoppingcenter.centralpattana.co.th/images/default-source/central-pattaya/common/018-pattaya-logo06fbecca-43fd-4166-b401-64315bb82630.png?sfvrsn=5795724c_3",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Central Pattaya"
+   ],
+   "labelCount": 1,
+   "storeRows": 2
+  },
+  {
+   "path": "assets/venue-logos/siam-paragon.svg",
+   "key": "VL-23d26775dffb6c50",
+   "sha256": "23d26775dffb6c5015ab40810622702f0ea757c1aeef2252a0f82ed7e4650504",
+   "bytes": 9927,
+   "role": "venue_specific",
+   "sourcePage": "https://www.siamparagon.co.th/?lang=en",
+   "assetURL": "https://www.siamparagon.co.th/?lang=en#header-inline-logo-svg",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Siam Paragon"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/central-pinklao.svg",
+   "key": "VL-24c15d6d64ba6d33",
+   "sha256": "24c15d6d64ba6d33d3780b504ed50dc9b5bc5a39a1e5ed786256e81b6304093f",
+   "bytes": 3406,
+   "role": "venue_specific",
+   "sourcePage": "https://www.centralpinklao.com/en",
+   "assetURL": "https://www.centralpinklao.com/img/PKO/logo.svg",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Central Pinklao"
+   ],
+   "labelCount": 1,
+   "storeRows": 2
+  },
+  {
+   "path": "assets/venue-logos/central-chonburi.png",
+   "key": "VL-27246fa82872e4f6",
+   "sha256": "27246fa82872e4f6bcc0527c950c6935b0c6a292dab79cfeb6dfd88bff8f2f68",
+   "bytes": 10368,
+   "role": "venue_specific",
+   "sourcePage": "https://shoppingcenter.centralpattana.co.th/branch/central-chonburi/",
+   "assetURL": "https://shoppingcenter.centralpattana.co.th/images/default-source/central-chonburi/common/008-chonburi-logo7ca9913c-a4c2-48ec-b73d-fc9879f5dc3c.png?sfvrsn=7c8cd86c_3",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Central Chonburi"
+   ],
+   "labelCount": 1,
+   "storeRows": 2
+  },
+  {
+   "path": "assets/venue-logos/central-suratthani.png",
+   "key": "VL-27d8f3562a7d8e4c",
+   "sha256": "27d8f3562a7d8e4c29c6a303329cbfd0c2eb3b6835a723f1d214d260a5051c84",
+   "bytes": 9374,
+   "role": "venue_specific",
+   "sourcePage": "https://shoppingcenter.centralpattana.co.th/branch/central-suratthani/",
+   "assetURL": "https://shoppingcenter.centralpattana.co.th/images/default-source/central-suratthani/common/030-suratthani-logof132551a-d825-4f88-a9f5-49c96b9f5934.png?sfvrsn=3c4e001c_3",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Central Surat Thani"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/central-nakhon-sawan.svg",
+   "key": "VL-2b255adc23d3247f",
+   "sha256": "2b255adc23d3247f7259d94e66fcc78af5794ba03f2e084c0308ac4f3093d2fc",
+   "bytes": 3884,
+   "role": "venue_specific",
+   "sourcePage": "https://www.centralnakhonsawan.com",
+   "assetURL": "https://www.centralnakhonsawan.com/img/NKW/logo.svg",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Central Nakhon Sawan"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/suvarnabhumi.svg",
+   "key": "VL-2b9d46a8392d7ded",
+   "sha256": "2b9d46a8392d7dedd2fdf6d208b144efa77687ee5e12303935c73f57a1bcfeb0",
+   "bytes": 11137,
+   "role": "parent_complex",
+   "sourcePage": "https://commons.wikimedia.org/wiki/File:Suvarnabhumi_Airport,_AOT_Logo.svg",
+   "assetURL": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Suvarnabhumi_Airport%2C_AOT_Logo.svg",
+   "status": "ใช้โลโก้โครงการ/แบนเนอร์ร่วม",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Suvarnabhumi Airport"
+   ],
+   "labelCount": 1,
+   "storeRows": 4
+  },
+  {
+   "path": "assets/venue-logos/terminal21-pattaya.png",
+   "key": "VL-2c74555b81bc3894",
+   "sha256": "2c74555b81bc38943c1dd49d7e792172442eea2f683fe425222b73f929910469",
+   "bytes": 8125,
+   "role": "venue_specific",
+   "sourcePage": "https://www.terminal21.co.th/pattaya/en/home-en/",
+   "assetURL": "https://www.terminal21.co.th/pattaya/wp-content/uploads/2016/09/Terminal_pattaya_logo.png",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Terminal21 Pattaya"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/mall-korat.jpeg",
+   "key": "VL-2d5edcb653d30fd4",
+   "sha256": "2d5edcb653d30fd4234305052809fc198a226571ba9b8f9710aa6c33112a6e99",
+   "bytes": 11380,
+   "role": "venue_specific",
+   "sourcePage": "https://page.line.me/uev6131o",
+   "assetURL": "https://profile.line-scdn.net/0he0dA6GCTOh9ZOCYIXEFFSGV9NHIuFjxXIV5yKS47ZCYkAC9NN1oncCgwN30gXCpMYV8hfH9oNnxx/preview",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "The Mall Korat"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/kad-farang-pdf.png",
+   "key": "VL-2e77521bbd471f0b",
+   "sha256": "2e77521bbd471f0bbb93755d25fdda5d437f655807da2e785749ac03c8f1d460",
+   "bytes": 31455,
+   "role": "venue_specific",
+   "sourcePage": "https://www.allyreit.com/en/portfolio/23/kad-farang",
+   "assetURL": "https://hub.optiwise.io/storage/18/annual-report/2021/20220420-ally-ar2021-en.pdf#page=25",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Kad Farang"
+   ],
+   "labelCount": 1,
+   "storeRows": 2
+  },
+  {
+   "path": "assets/venue-logos/little-walk.jpg",
+   "key": "VL-2eaefee93a70a2ad",
+   "sha256": "2eaefee93a70a2ad0f84da81a4215eebe1175ccdeabb1855a456b55444c59594",
+   "bytes": 3410,
+   "role": "shared_chain_banner",
+   "sourcePage": "https://ilm.listedcompany.com/misc/presentation/20230308-ilm-am4q2022.pdf",
+   "assetURL": "https://ilm.listedcompany.com/misc/presentation/20230308-ilm-am4q2022.pdf#page=27",
+   "status": "ใช้โลโก้โครงการ/แบนเนอร์ร่วม",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Little Walk Bangna",
+    "Little Walk Krungthep Kreetha",
+    "Little Walk Lat Krabang",
+    "Little Walk Pattaya"
+   ],
+   "labelCount": 4,
+   "storeRows": 4
+  },
+  {
+   "path": "assets/venue-logos/silom-complex.png",
+   "key": "VL-3777db826c685e0d",
+   "sha256": "3777db826c685e0de5e5cbbb207d63a0cc839a28b9c809524c92276f30b2aa93",
+   "bytes": 1964,
+   "role": "venue_specific",
+   "sourcePage": "https://www.silomcomplex.co.th/en/home",
+   "assetURL": "https://www.silomcomplex.co.th/images/logo/logo.png",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Silom Complex"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/porto-de-phuket.png",
+   "key": "VL-3e03e4f02a503277",
+   "sha256": "3e03e4f02a503277df7ebb60d89bab3531213cd7724c9ecc2ce48af543fd52bb",
+   "bytes": 21596,
+   "role": "venue_specific",
+   "sourcePage": "https://www.portodephuket.com/home.html",
+   "assetURL": "https://www.portodephuket.com/fileadmin/templates/assets/images/portodephuket-logo.png",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Porto de Phuket"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/emporium.png",
+   "key": "VL-40582615aaa65da1",
+   "sha256": "40582615aaa65da1ef560942bb87592837ccb03850ba6a64678aa0b9d26e92f0",
+   "bytes": 3961,
+   "role": "venue_specific",
+   "sourcePage": "https://www.emporium.co.th/",
+   "assetURL": "https://www.emporium.co.th/wp-content/uploads/2025/02/Isolation_Mode-2.png",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Emporium"
+   ],
+   "labelCount": 1,
+   "storeRows": 3
+  },
+  {
+   "path": "assets/venue-logos/gaysorn-village.png",
+   "key": "VL-41f6c18aa0d086c2",
+   "sha256": "41f6c18aa0d086c26843f6710f45611a08f10721920efdbe5515a7f7a48ea845",
+   "bytes": 9711,
+   "role": "parent_complex",
+   "sourcePage": "https://www.gaysornvillage.com/en/",
+   "assetURL": "https://www.gaysornvillage.com/wp-content/uploads/2024/01/logo-footer.webp",
+   "status": "ใช้โลโก้โครงการ/แบนเนอร์ร่วม",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Gaysorn Tower"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/mall-bangkae.jpeg",
+   "key": "VL-4224f1181abdf19c",
+   "sha256": "4224f1181abdf19c762133eaec9f0cb1cb8204f64625c909747982e40d615db7",
+   "bytes": 6641,
+   "role": "venue_specific",
+   "sourcePage": "https://page.line.me/776txukp",
+   "assetURL": "https://profile.line-scdn.net/0hKdhXDl2PFEtVIQhcX7FrHGlkGiYiDxIDLU8JKnUpSnt9RlIUahRSeid1SHx_EAQVa05ceXFyQitw/preview",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "The Mall Lifestore Bangkae"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/the-crystal-sb-ratchaphruek.webp",
+   "key": "VL-4242edf7b179953d",
+   "sha256": "4242edf7b179953dbe7a0c6098788fc3379cfa8ff5cb27d5c41190d8b3bd0909",
+   "bytes": 8088,
+   "role": "venue_specific",
+   "sourcePage": "https://www.allyreit.com/en/portfolio/30/the-crystal-sb-ratchapruek",
+   "assetURL": "https://www.allyreit.com/storage/content/portfolio/logo/the-crystal-sb-ratchapruek.webp",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "The Crystal SB Ratchaphruek"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/jungceylon.png",
+   "key": "VL-44c523460a825c8b",
+   "sha256": "44c523460a825c8b72c9f4185aba8a197d44b7af0a426445f4660a0321174379",
+   "bytes": 23922,
+   "role": "parent_complex",
+   "sourcePage": "https://www.jungceylon.com/en",
+   "assetURL": "https://www.jungceylon.com/images/navbarLogo.png",
+   "status": "ใช้โลโก้โครงการ/แบนเนอร์ร่วม",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Jungceylon"
+   ],
+   "labelCount": 1,
+   "storeRows": 2
+  },
+  {
+   "path": "assets/venue-logos/mall-ngam.jpeg",
+   "key": "VL-45edcb7d24732ff4",
+   "sha256": "45edcb7d24732ff46e433be271c982d680588bc5b8f071fca63088e927c7824b",
+   "bytes": 7480,
+   "role": "venue_specific",
+   "sourcePage": "https://page.line.me/424smzdz",
+   "assetURL": "https://profile.line-scdn.net/0hzDLCttINJWtxOjl8e-JaPE1_KwYGFCMjCV1oC1Y7eggOAzI7RV06BV09KQ5dX2E1RA45WF06eglb/preview",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "The Mall Lifestore Ngamwongwan"
+   ],
+   "labelCount": 1,
+   "storeRows": 2
+  },
+  {
+   "path": "assets/venue-logos/porto-chino.png",
+   "key": "VL-464c1895d1ebbcd7",
+   "sha256": "464c1895d1ebbcd7e19d8fa6b09b9c5a5a7467faa0894ee01fea223119005af1",
+   "bytes": 19026,
+   "role": "venue_specific",
+   "sourcePage": "https://portogo.com/",
+   "assetURL": "https://portogo.com/wp-content/uploads/2022/08/Porto-chino-logo.png",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Porto Chino"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/park-lane-ekamai.png",
+   "key": "VL-4bbdb44d8c8d6fea",
+   "sha256": "4bbdb44d8c8d6feaab5e290d8b20a7f1f9a0d37f0a66cd01394b3ebfebe9f774",
+   "bytes": 83973,
+   "role": "venue_specific",
+   "sourcePage": "https://www.parklanebangkok.com/",
+   "assetURL": "https://www.parklanebangkok.com/images/logo2.png",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Park Lane Ekamai"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/chamchuri-square.svg",
+   "key": "VL-4ced966d078d65ea",
+   "sha256": "4ced966d078d65eaf4730ca8e30908777e7894ac96c3b3932bd5437e8bde0551",
+   "bytes": 11684,
+   "role": "venue_specific",
+   "sourcePage": "https://commons.wikimedia.org/wiki/File:Chamchuri_Square_Logo.svg",
+   "assetURL": "https://upload.wikimedia.org/wikipedia/commons/e/e3/Chamchuri_Square_Logo.svg",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Chamchuri Square"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/ud-town.png",
+   "key": "VL-57e327b9c476a61f",
+   "sha256": "57e327b9c476a61fd75f3c7e0f07913029b3deeeabd7110f482d39650810f2d2",
+   "bytes": 3694,
+   "role": "venue_specific",
+   "sourcePage": "https://www.udtown.com/",
+   "assetURL": "https://www.udtown.com/wp-content/uploads/2026/09/logo-UDTOWN-1.png",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "UD Town"
+   ],
+   "labelCount": 1,
+   "storeRows": 2
+  },
+  {
+   "path": "assets/venue-logos/central-mahachai.png",
+   "key": "VL-59179ce7e39f1837",
+   "sha256": "59179ce7e39f1837d9fe065b753e765af20558fb9eb9f9402f30fecbd96fd1e3",
+   "bytes": 10255,
+   "role": "venue_specific",
+   "sourcePage": "https://shoppingcenter.centralpattana.co.th/branch/central-mahachai/",
+   "assetURL": "https://shoppingcenter.centralpattana.co.th/images/default-source/central-mahachai/common/015-mahachai-logo8d0fda8f-5362-4c73-9236-6cd3274d6f33.png?sfvrsn=85d21110_3",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Central Mahachai"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/seacon-square.svg",
+   "key": "VL-5e4716d582687257",
+   "sha256": "5e4716d582687257c83f134ed4e771b15b1315dc2b394daa7660c5126f767496",
+   "bytes": 9583,
+   "role": "venue_specific",
+   "sourcePage": "https://seaconsquare.com/",
+   "assetURL": "https://seaconsquare.com/media/images/logo/logo-seacon.svg",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Seacon Square Srinakarin"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/thanya-park.png",
+   "key": "VL-617f4ed621e61594",
+   "sha256": "617f4ed621e61594efc0834935e29056c48fd84d42c79247282bd4dacf8a26e2",
+   "bytes": 30327,
+   "role": "venue_specific",
+   "sourcePage": "https://thanyapark.com/index",
+   "assetURL": "https://thanyapark.com/storage/setting/logo_header_1761365237.png",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Thanya Park"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/the-nine-tiwanon.png",
+   "key": "VL-61c084216c6ded62",
+   "sha256": "61c084216c6ded62074388543c14d2d37234fa11dc4ef61da0ea5673616b411b",
+   "bytes": 26621,
+   "role": "venue_specific",
+   "sourcePage": "https://www.paradisepark.co.th/",
+   "assetURL": "https://www.paradisepark.co.th/img/partners/thenine_tiwanon.png",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "The Nine Tiwanon"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/the-promenade.png",
+   "key": "VL-6369e2e564920e0d",
+   "sha256": "6369e2e564920e0d57301d5c07ea602503cf6ae52c8e70407e2afc0d1bf880c7",
+   "bytes": 5164,
+   "role": "venue_specific",
+   "sourcePage": "https://www.thepromenade.co.th/",
+   "assetURL": "https://www.thepromenade.co.th/wp-content/uploads/2021/10/logo_thepromenade-2.png",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "The Promenade"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/central-rayong.png",
+   "key": "VL-65108860287355cd",
+   "sha256": "65108860287355cd89937215decd3b0f3816393837ee7399216815b171f44e22",
+   "bytes": 11821,
+   "role": "venue_specific",
+   "sourcePage": "https://shoppingcenter.centralpattana.co.th/branch/central-rayong/",
+   "assetURL": "https://shoppingcenter.centralpattana.co.th/images/default-source/central-rayong/common/026-rayong-logo31284add-509b-43fc-9819-0c57967c0166.png?sfvrsn=689a0f48_3",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Central Rayong"
+   ],
+   "labelCount": 1,
+   "storeRows": 2
+  },
+  {
+   "path": "assets/venue-logos/the-crystal-chaiyapruek.png",
+   "key": "VL-6528f7c966485158",
+   "sha256": "6528f7c9664851587e4bc3a7277dafd9fb1d96f54663ca362299a83ead484f45",
+   "bytes": 72698,
+   "role": "venue_specific",
+   "sourcePage": "https://thecrystalchaiyapruek.allyglobal.com/",
+   "assetURL": "https://thecrystalchaiyapruek.allyglobal.com/_next/static/css/3c7827569930f5782df331c487ba8bc7b860790e_CSS.31cc16fb.chunk.css",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "The Crystal PTT Chaiyapruek"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/central-chaengwattana.png",
+   "key": "VL-68b350ecebc0bc80",
+   "sha256": "68b350ecebc0bc80ecb2e0206a7f537b523029fa8566eab44168db4252dc2e6f",
+   "bytes": 9480,
+   "role": "venue_specific",
+   "sourcePage": "https://shoppingcenter.centralpattana.co.th/branch/central-chaengwattana/",
+   "assetURL": "https://shoppingcenter.centralpattana.co.th/images/default-source/central-chaengwattana/common/003-chaengwattana-logo.png?sfvrsn=1754ad05_2",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Central Chaengwattana"
+   ],
+   "labelCount": 1,
+   "storeRows": 2
+  },
+  {
+   "path": "assets/venue-logos/mall-site-header.svg",
+   "key": "VL-68ef52be5690270f",
+   "sha256": "68ef52be5690270f255ff360c19a8d6fc6acb7aeb9a74e9323e803bdfafa4601",
+   "bytes": 15755,
+   "role": "shared_chain_banner",
+   "sourcePage": "https://themalllifestore.com/branch/thapra",
+   "assetURL": "https://themalllifestore.com/img/design/site-logo.svg",
+   "status": "ใช้โลโก้โครงการ/แบนเนอร์ร่วม",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "The Mall Lifestore Tha Phra"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/central-westgate.png",
+   "key": "VL-6de57f80a77409ee",
+   "sha256": "6de57f80a77409ee930379ef453b26db11bda6c816d631d7f0e9eaec48774e5f",
+   "bytes": 11088,
+   "role": "venue_specific",
+   "sourcePage": "https://shoppingcenter.centralpattana.co.th/branch/central-westgate/",
+   "assetURL": "https://shoppingcenter.centralpattana.co.th/images/default-source/central-westgate/common/033-westgate.png?sfvrsn=aa875000_2",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Central Westgate"
+   ],
+   "labelCount": 1,
+   "storeRows": 2
+  },
+  {
+   "path": "assets/venue-logos/jj-mall.png",
+   "key": "VL-6ed78593afda9ebd",
+   "sha256": "6ed78593afda9ebd7e1ac73c73df5d990dd3349ee141df605f2ced4dd541cd7f",
+   "bytes": 31462,
+   "role": "venue_specific",
+   "sourcePage": "https://www.jjmall.co.th/",
+   "assetURL": "https://www.jjmall.co.th/wp-content/uploads/2022/01/LOGOJJMALL.png",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "JJ Mall"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/central-department-store.svg",
+   "key": "VL-70d04c26cd9ea94d",
+   "sha256": "70d04c26cd9ea94d674bff0f291741c729c545d9f9df67e79a87f11110d92eaf",
+   "bytes": 6227,
+   "role": "shared_department_store_banner",
+   "sourcePage": "https://www.central.co.th/en/store",
+   "assetURL": "https://www.central.co.th/logo.svg",
+   "status": "ใช้โลโก้โครงการ/แบนเนอร์ร่วม",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Central Megabangna Department Store",
+    "Central Patong"
+   ],
+   "labelCount": 2,
+   "storeRows": 2
+  },
+  {
+   "path": "assets/venue-logos/central-rama-9.png",
+   "key": "VL-70d16b7422c4464d",
+   "sha256": "70d16b7422c4464d33fa551e71b382ca15559440219ca4679be753a70c01f358",
+   "bytes": 11641,
+   "role": "venue_specific",
+   "sourcePage": "https://shoppingcenter.centralpattana.co.th/branch/central-rama-9/",
+   "assetURL": "https://shoppingcenter.centralpattana.co.th/images/default-source/central-rama-9/common/023-rama9-logo0b85d7b9-1331-4a67-b216-700bf93220ce.png?sfvrsn=34c27674_3",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Central Rama 9"
+   ],
+   "labelCount": 1,
+   "storeRows": 2
+  },
+  {
+   "path": "assets/venue-logos/fashion-island.png",
+   "key": "VL-7237b47ac4bd7f68",
+   "sha256": "7237b47ac4bd7f68d5c58eadbc0d970c218fc9eb7a48438e3e4938748a29541b",
+   "bytes": 11020,
+   "role": "venue_specific",
+   "sourcePage": "https://www.fashionisland.co.th/",
+   "assetURL": "https://www.fashionisland.co.th/wp-content/themes/fashion-island/img/FASHION_ISLAND.png",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Fashion Island"
+   ],
+   "labelCount": 1,
+   "storeRows": 3
+  },
+  {
+   "path": "assets/venue-logos/marche-thonglor.jpg",
+   "key": "VL-78aa8dee50d6faf9",
+   "sha256": "78aa8dee50d6faf9570506f13826cd10c93d5cc1b0a67b3c8af05a2973cf050b",
+   "bytes": 19330,
+   "role": "venue_specific",
+   "sourcePage": "https://www.facebook.com/marchethonglor/",
+   "assetURL": "https://scontent.fbkk6-2.fna.fbcdn.net/v/t39.30808-1/490983042_667037086071043_4318863133764919007_n.jpg?stp=dst-jpg_tt6&cstp=mx720x720&ctp=s720x720&_nc_cat=109&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=3ab345&_nc_ohc=5qCyt3qbmRMQ7kNvwElgy6k&_nc_oc=AdrwcFPwU8G_HptXMCavinNYuU6MXKBjYVpceA8-bfzIoh2Xk-g5lN5EYtDtAdu0sjY&_nc_zt=24&_nc_ht=scontent.fbkk6-2.fna&_nc_gid=6zBHkYMHNwUR3x4AmolLJQ&_nc_ss=7020f&oh=00_AQPPlO1OQdRlsZ9h2_C62-kEWhUJ2YCoPGJopj3k3cfI9A&oe=6ADF5E88",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Marche Thonglor"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/the-scene-town-in-town.png",
+   "key": "VL-7d4863b7859f9ea9",
+   "sha256": "7d4863b7859f9ea968ceeadb712b288db1b5bb71a2c3bef9eb72c96685eb20a7",
+   "bytes": 11501,
+   "role": "venue_specific",
+   "sourcePage": "https://thescene.allyglobal.com/",
+   "assetURL": "https://thescene.allyglobal.com/logo/TS%20-02.png",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "The Scene Town in Town"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/central-rama-3.png",
+   "key": "VL-7d4d4aebc089a1fd",
+   "sha256": "7d4d4aebc089a1fdef5860c1a3e12ef28229c821157cc8a15dd5876e616ec2e6",
+   "bytes": 10693,
+   "role": "venue_specific",
+   "sourcePage": "https://shoppingcenter.centralpattana.co.th/branch/central-rama-3/",
+   "assetURL": "https://shoppingcenter.centralpattana.co.th/images/default-source/central-rama-3/common/022-rama3-logo-01.png?sfvrsn=756fc10f_2",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Central Rama 3"
+   ],
+   "labelCount": 1,
+   "storeRows": 2
+  },
+  {
+   "path": "assets/venue-logos/one-bangkok.png",
+   "key": "VL-7dd80f34276c58b5",
+   "sha256": "7dd80f34276c58b51f10c36a915f56d4eee3b1bd04430ebba30e62d305a61d4c",
+   "bytes": 1279,
+   "role": "venue_specific",
+   "sourcePage": "https://www.onebangkok.com/en/",
+   "assetURL": "https://www.onebangkok.com/content/experience-fragments/onebangkok_v2/en/header/master/_jcr_content/root/header/logo.coreimg.png/1710903780913/logo-one-black.png",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "One Bangkok"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/central-phitsanulok.png",
+   "key": "VL-7e4917bb38535b17",
+   "sha256": "7e4917bb38535b17762639ece16922705ac90b1c581fa495fe240bcae90b7663",
+   "bytes": 9332,
+   "role": "venue_specific",
+   "sourcePage": "https://shoppingcenter.centralpattana.co.th/branch/central-phitsanulok/",
+   "assetURL": "https://shoppingcenter.centralpattana.co.th/images/default-source/central-phitsanulok/common/019-phitsanulok-logo0c090687-82bd-4740-8627-22b057b1f9f5.png?sfvrsn=1b3cad39_3",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Central Phitsanulok"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/asiatique.png",
+   "key": "VL-7f87794f491d1d6f",
+   "sha256": "7f87794f491d1d6f3bb0ee913b1d8c56de4e8425ccad75c8bb367dcc459a663b",
+   "bytes": 10373,
+   "role": "venue_specific",
+   "sourcePage": "https://www.asiatiquethailand.com/",
+   "assetURL": "https://www.asiatiquethailand.com/images/logo.png",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Asiatique"
+   ],
+   "labelCount": 1,
+   "storeRows": 2
+  },
+  {
+   "path": "assets/venue-logos/m-park-korat.png",
+   "key": "VL-8199f0fc20f59c51",
+   "sha256": "8199f0fc20f59c5174570c3ebacabe5fb885957b52544ea280c902626ec27327",
+   "bytes": 124851,
+   "role": "venue_specific",
+   "sourcePage": "https://www.mparkmaharat.com/",
+   "assetURL": "https://www.mparkmaharat.com/_astro/mpark-logo.Oe2fyYSw.png",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "M-Park Korat"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/phuket-boat-lagoon.jpg",
+   "key": "VL-83f8e55d926648fb",
+   "sha256": "83f8e55d926648fb8fffd8544c9b239a48c5efb8c04e47ffcf100fff011db2e6",
+   "bytes": 100544,
+   "role": "venue_specific_composite",
+   "sourcePage": "https://www.phuketboatlagoon.com/about/",
+   "assetURL": "https://www.phuketboatlagoon.com/images/logo.jpg",
+   "status": "รอตรวจรูปแบบโลโก้",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Phuket Boat Lagoon"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/people-park.jpg",
+   "key": "VL-85d7985b49bc829d",
+   "sha256": "85d7985b49bc829db582e53973a4175f491c142a9ccb6a2b44c26b033365fd49",
+   "bytes": 4451,
+   "role": "venue_specific",
+   "sourcePage": "https://page.line.me/287desas",
+   "assetURL": "https://profile.line-scdn.net/0hFlSa2uLEGUNuGAqBg5hmFFJdFy4ZNh8LFnoCIBxNQnpDKV8VAnZUJEwYEiRAKlgVWnhTJE0eF3EX/preview",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "People Park On Nut"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/it-square-laksi.jpg",
+   "key": "VL-87829648ac540f2b",
+   "sha256": "87829648ac540f2b2a325155e4fbf76d7fb724e9b35e6224b17bc2f4ccf66b58",
+   "bytes": 21583,
+   "role": "venue_specific",
+   "sourcePage": "https://www.facebook.com/itsquarelaksi",
+   "assetURL": "https://scontent.fbkk7-2.fna.fbcdn.net/v/t39.30808-1/480613534_1132847802184496_3342243887342445430_n.jpg?stp=dst-jpg_tt6&cstp=mx2048x2048&ctp=s720x720&_nc_cat=110&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=3ab345&_nc_ohc=Yfj-XcT595MQ7kNvwEjcbyO&_nc_oc=Adp2VOUysgqPtG7XAmO63BnG_0j6XoEdO_K3Qh9UtJWppl1UWeJNEeVkX_3XJw_C_zY&_nc_zt=24&_nc_ht=scontent.fbkk7-2.fna&_nc_gid=J9sDXBYOTdWjyr_MQ-KMhQ&_nc_ss=7020f&oh=00_AQNqZSxssQbfya-mpOjzH9S-BnFYfUU7QcpXOZhAhYFrDQ&oe=6ADF733B",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "IT Square"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/center-one.jpg",
+   "key": "VL-88b809400ca1deec",
+   "sha256": "88b809400ca1deec4391ceb8aca2943971dacddf5939d112f4fc88de6f5449dc",
+   "bytes": 4235,
+   "role": "venue_specific",
+   "sourcePage": "https://page.line.me/aso1222j",
+   "assetURL": "https://profile.line-scdn.net/0h09M8xM8UbxZwQXGNIjcQQUwEYXsHb2leCHAndFxAZS8JcHhASyUiclxEZiUNcCxBGC4hIFBHM3YN/preview",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Center One"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/meta-mall.webp",
+   "key": "VL-88b8d1cd833ee08e",
+   "sha256": "88b8d1cd833ee08e3e103ccd66951a6ca1e852fb90b61c9e5c5715935db1ecbb",
+   "bytes": 13412,
+   "role": "venue_specific",
+   "sourcePage": "https://metamallofficial.com/",
+   "assetURL": "https://metamallofficial.com/logo.webp",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Meta Mall"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/central-chiangmai.png",
+   "key": "VL-894e587d0e540718",
+   "sha256": "894e587d0e5407183d4ddbe77b0723a196095d3249d72545f2d80b63170a8781",
+   "bytes": 81998,
+   "role": "venue_specific",
+   "sourcePage": "https://shoppingcenter.centralpattana.co.th/branch/central-chiangmai/",
+   "assetURL": "https://shoppingcenter.centralpattana.co.th/images/default-source/central-chiangmai/common/central_chiangmai_logo.png?sfvrsn=4b828f37_0",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Central Chiangmai"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/dusit-central-park.svg",
+   "key": "VL-8a8cd8d752f15540",
+   "sha256": "8a8cd8d752f15540657a4f921d2ab4812d368fc0c23af2d2db99b32c0fcb8b6c",
+   "bytes": 3409,
+   "role": "parent_complex",
+   "sourcePage": "https://dusitcentralpark.com/",
+   "assetURL": "https://dusitcentralpark.com/wp-content/uploads/2024/10/dcp_logo_white.svg",
+   "status": "ใช้โลโก้โครงการ/แบนเนอร์ร่วม",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Central Park Bangkok"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/mall-bangkapi.jpeg",
+   "key": "VL-8d0862e76043aca6",
+   "sha256": "8d0862e76043aca6bb439862bd43a455920f0697d364e7fb8663c208e6082028",
+   "bytes": 7095,
+   "role": "venue_specific",
+   "sourcePage": "https://page.line.me/713peczi",
+   "assetURL": "https://profile.line-scdn.net/0h9D8fqmJBZmsFH3p8D74ZPDlaaAZyMWAjfX4tWnJKbAt6fCJqai5-WXQePl8rLiQ0Oy4hBHQXP1J6/preview",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "The Mall Lifestore Bangkapi"
+   ],
+   "labelCount": 1,
+   "storeRows": 2
+  },
+  {
+   "path": "assets/venue-logos/central-ramindra.png",
+   "key": "VL-8d31b8c822586880",
+   "sha256": "8d31b8c822586880c4d61872dab4bb4f7f53e833e82ecdc5b16c14a6d353953a",
+   "bytes": 10754,
+   "role": "venue_specific",
+   "sourcePage": "https://shoppingcenter.centralpattana.co.th/branch/central-ramindra/",
+   "assetURL": "https://shoppingcenter.centralpattana.co.th/images/default-source/central-ramindra/common/024-ramindra-logo90ec0f9b-eaa4-4072-b4bc-fb105be8e75c.png?sfvrsn=ed214f0b_3",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Central Ramindra"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/terminal21-asok.png",
+   "key": "VL-8e348311ce7f2c40",
+   "sha256": "8e348311ce7f2c40025ff11c1f9fc8bdaaa36668261a337bebe58893edb5a2e0",
+   "bytes": 7237,
+   "role": "venue_specific",
+   "sourcePage": "https://www.terminal21.co.th/asok/",
+   "assetURL": "https://www.terminal21.co.th/asok/includes/images/logo.png",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Terminal21 Asok"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/central-chanthaburi.png",
+   "key": "VL-8f1f55871709826c",
+   "sha256": "8f1f55871709826c729d1368f4b52550cd9d835eecdd21a523b08eb8abdedac5",
+   "bytes": 10259,
+   "role": "venue_specific",
+   "sourcePage": "https://shoppingcenter.centralpattana.co.th/branch/central-chanthaburi/",
+   "assetURL": "https://shoppingcenter.centralpattana.co.th/images/default-source/central-chanthaburi/common/logo-centralchanthaburi2bd54456-cfee-4921-978c-555206f90854.png?sfvrsn=c744c82f_5",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Central Chanthaburi"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/central-bangna.png",
+   "key": "VL-8f8f3cb838c228cc",
+   "sha256": "8f8f3cb838c228cc136e4427a8da7e11498bbe5aa334fe7bc04e944c17c77adf",
+   "bytes": 11840,
+   "role": "venue_specific",
+   "sourcePage": "https://shoppingcenter.centralpattana.co.th/branch/central-bangna/",
+   "assetURL": "https://shoppingcenter.centralpattana.co.th/images/default-source/central-bangna/common/002-bangna-logo8c6667c5-a305-42c8-90f8-27d8495067ff.png?sfvrsn=79e5c4bd_3",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Central Bangna"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/j-park-sriracha.png",
+   "key": "VL-9071849d0a4abb41",
+   "sha256": "9071849d0a4abb412f82cb69a0413b0c7fa5aef28827e4808c78c26266ca6875",
+   "bytes": 66994,
+   "role": "venue_specific",
+   "sourcePage": "https://jparksriracha.com/",
+   "assetURL": "https://jparksriracha.com/images/logo.png",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "J-Park Sriracha"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/central-ladprao.png",
+   "key": "VL-912a70b5a14fb704",
+   "sha256": "912a70b5a14fb704c32b9ada55089afcd71235ab6ef839750c7bd940740a38b2",
+   "bytes": 11496,
+   "role": "venue_specific",
+   "sourcePage": "https://shoppingcenter.centralpattana.co.th/branch/central-ladprao/",
+   "assetURL": "https://shoppingcenter.centralpattana.co.th/images/default-source/central-ladprao/common/013-ladprao-logo549e82d6-91cd-4893-985a-0de602050f5c.png?sfvrsn=1f78bc8e_3",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Central Ladprao"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/laguna-phuket.png",
+   "key": "VL-92c98823de34b44e",
+   "sha256": "92c98823de34b44ed931d8ddadc347cb66b6d36bfaad354ccb9e73780d0cbe0b",
+   "bytes": 35241,
+   "role": "parent_complex",
+   "sourcePage": "https://www.lagunaphuket.com/",
+   "assetURL": "https://www.lagunaphuket.com/wp-content/uploads/2022/10/Laguna-Phuket-Logo.png",
+   "status": "ใช้โลโก้โครงการ/แบนเนอร์ร่วม",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Laguna Phuket"
+   ],
+   "labelCount": 1,
+   "storeRows": 3
+  },
+  {
+   "path": "assets/venue-logos/k-village.png",
+   "key": "VL-95274cfe17bc2888",
+   "sha256": "95274cfe17bc2888524462bc177170b4040cb67ba6c293f8aa4513a8e01cdc9e",
+   "bytes": 5994,
+   "role": "venue_specific",
+   "sourcePage": "https://kvillagebangkok.com/",
+   "assetURL": "https://kvillagebangkok.com/wp-content/uploads/2018/06/K-Village-Logo-black-png.png",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "K Village"
+   ],
+   "labelCount": 1,
+   "storeRows": 2
+  },
+  {
+   "path": "assets/venue-logos/centralworld.svg",
+   "key": "VL-964e9772a643cc1a",
+   "sha256": "964e9772a643cc1a3d26142e525a0fc45d2212db1785339b97cee7281e46af9e",
+   "bytes": 7854,
+   "role": "parent_complex",
+   "sourcePage": "https://www.centralworld.co.th/en",
+   "assetURL": "https://www.centralworld.co.th/images/design/site-logo.svg",
+   "status": "ใช้โลโก้โครงการ/แบนเนอร์ร่วม",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "The Offices at centralwOrld",
+    "centralwOrld"
+   ],
+   "labelCount": 2,
+   "storeRows": 3
+  },
+  {
+   "path": "assets/venue-logos/central-westville.svg",
+   "key": "VL-96b134a4f6fc55f6",
+   "sha256": "96b134a4f6fc55f62a10b77602fe6a83bb04423c45fd3eab4fce322e9f068ef9",
+   "bytes": 2543,
+   "role": "venue_specific",
+   "sourcePage": "https://www.centralwestville.com/en",
+   "assetURL": "https://www.centralwestville.com/img/RCP/logo.svg",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Central Westville"
+   ],
+   "labelCount": 1,
+   "storeRows": 2
+  },
+  {
+   "path": "assets/venue-logos/seacon-bangkae.svg",
+   "key": "VL-97c53ca279a2aea1",
+   "sha256": "97c53ca279a2aea1fc81b2136712fa5b5ed11baa1c9202da9368151482f42801",
+   "bytes": 9842,
+   "role": "venue_specific",
+   "sourcePage": "https://seaconsquare.com/",
+   "assetURL": "https://seaconsquare.com/media/images/logo/logo-seacon-bangkae.svg",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Seacon Bangkae"
+   ],
+   "labelCount": 1,
+   "storeRows": 2
+  },
+  {
+   "path": "assets/venue-logos/central-phuket.svg",
+   "key": "VL-98b18935c14e8f23",
+   "sha256": "98b18935c14e8f234582341c7b3848f65369ca1fe07ba5e34a780a17521986b3",
+   "bytes": 1949,
+   "role": "parent_complex",
+   "sourcePage": "https://www.centralphuket.com/en",
+   "assetURL": "https://www.centralphuket.com/img/logo_b.svg",
+   "status": "ใช้โลโก้โครงการ/แบนเนอร์ร่วม",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Central Phuket",
+    "Central Phuket — Floresta"
+   ],
+   "labelCount": 2,
+   "storeRows": 2
+  },
+  {
+   "path": "assets/venue-logos/jas-green-village-bang-bua-thong.jpg",
+   "key": "VL-9a4d6752778fe1da",
+   "sha256": "9a4d6752778fe1daf97853c032d22f967dc0ed6634689c94a82c6a4e1176e81c",
+   "bytes": 21087,
+   "role": "venue_specific",
+   "sourcePage": "https://www.facebook.com/people/JAS-green-village-Bangbuathong/100085358634814/",
+   "assetURL": "https://scontent.fbkk7-3.fna.fbcdn.net/v/t39.30808-1/306757234_3366649380279330_7151805363878757882_n.jpg?stp=dst-jpg_tt6&cstp=mx800x800&ctp=s720x720&_nc_cat=105&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=3ab345&_nc_ohc=xsbr7_odLh4Q7kNvwFkIDXS&_nc_oc=Adr8YuvXtMFwu95N6jsniYd3P5Hf2br5Tk6fMVWh1qu-Ux-2uM05DxH1sbzLr5sdHxs&_nc_zt=24&_nc_ht=scontent.fbkk7-3.fna&_nc_gid=aYTkRMJN0JvwRoAST_r2Xw&_nc_ss=7020f&oh=00_AQNt-OSWaF74Ef8EfIZzCDb0yoOcGw1CQoLozA7ZVE6Pxg&oe=6ADF84F8",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Jas Green Village Bang Bua Thong"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/emquartier.png",
+   "key": "VL-9cb3ef869b85148c",
+   "sha256": "9cb3ef869b85148c1fe313fbfe01994b446eebe60c37cba4bd652cdc3c446e0d",
+   "bytes": 4393,
+   "role": "venue_specific",
+   "sourcePage": "https://www.emquartier.co.th/",
+   "assetURL": "https://www.emquartier.co.th/wp-content/uploads/2025/01/site-logo-1.webp",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "EmQuartier"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/ptt-station.svg",
+   "key": "VL-9e313fe3caad86a1",
+   "sha256": "9e313fe3caad86a1284ee6ba783049c21e92ac41d80c1e0ee4d6aaef2be83b15",
+   "bytes": 6550,
+   "role": "shared_operator_banner",
+   "sourcePage": "https://investor.pttor.com/en/financial-info/business-highlights",
+   "assetURL": "https://investor.pttor.com/storage/financial-info/business-highlights/seamless-mobility/logo-01.svg",
+   "status": "ใช้โลโก้โครงการ/แบนเนอร์ร่วม",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "PTTOR 304 IP7",
+    "PTTOR 304 ปักธงชัย",
+    "PTTOR 314บายพาส(ฉะเชิงเทรา)",
+    "PTTOR AB -บุรีรัมย์",
+    "PTTOR Active Park (เมืองทองธานี)",
+    "PTTOR Duplex มอเตอร์เวย์(ขาออก)",
+    "PTTOR Duplexมอเตอร์เวย์(ขาเข้า)",
+    "PTTOR IRPC (ท่าเรืออยุธยา)",
+    "PTTOR IRPC (ระยอง)",
+    "PTTOR LPG ดาวเรือง สระบุรี",
+    "PTTOR LPG ท่าขอนยาง",
+    "PTTOR LPG บายพาสบ้านทุ่ม"
+   ],
+   "labelCount": 2254,
+   "storeRows": 2254
+  },
+  {
+   "path": "assets/venue-logos/the-brio-mall.jpg",
+   "key": "VL-a14c08e27a331498",
+   "sha256": "a14c08e27a331498e703aeef0cb8e3e20222342c00d357545aa2a36144026543",
+   "bytes": 6725,
+   "role": "venue_specific",
+   "sourcePage": "https://page.line.me/xuu3618t",
+   "assetURL": "https://profile.line-scdn.net/0hmIovEeTvMmZSDx4KmPJNMW5KPAslITQuKmx7AXMLZAYoOX1jbTwuV3QKOFQrNyFlbTp0AHZcPlcs/preview",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "The Brio Mall"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/central-lampang.png",
+   "key": "VL-a398f7f941968e7f",
+   "sha256": "a398f7f941968e7f9048982d295ecb7de8a4d29f224c28a5fc9c52985e59282c",
+   "bytes": 11345,
+   "role": "venue_specific",
+   "sourcePage": "https://shoppingcenter.centralpattana.co.th/branch/central-lampang/",
+   "assetURL": "https://shoppingcenter.centralpattana.co.th/images/default-source/central-lampang/common/014-lampang-logo40615d39-ae90-41c6-9b40-4563b9389e97.png?sfvrsn=25905ac2_3",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Central Lampang"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/porto-go-tha-chin.png",
+   "key": "VL-a62c299902ac7659",
+   "sha256": "a62c299902ac7659c87f3d76572fd75fd7211dd433540c76a8f0bbde28d4cd0b",
+   "bytes": 23817,
+   "role": "venue_specific",
+   "sourcePage": "https://portogo.com/",
+   "assetURL": "https://portogo.com/wp-content/uploads/2022/08/Porto-chino-logo-Porto-Go-Tha-Chin.png",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Porto Go Tha Chin"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/the-walk-kaset-nawamin.png",
+   "key": "VL-a82673189beba9de",
+   "sha256": "a82673189beba9de88bca8a37ab06d4d666e6fc1265beed137b0c2e820c815c8",
+   "bytes": 22832,
+   "role": "venue_specific",
+   "sourcePage": "https://www.thewalk.co.th/",
+   "assetURL": "https://www.thewalk.co.th/assets/img/logo_kn.png",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "The Walk Kaset Nawamin"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/chic-republic.png",
+   "key": "VL-a899db3fe12c2f75",
+   "sha256": "a899db3fe12c2f75a9c50702a10e184a930ba67c4fe3c7df75d7ba4ecfce44fb",
+   "bytes": 50814,
+   "role": "shared_chain_banner",
+   "sourcePage": "https://www.chicrepublicthai.com/en/living-room",
+   "assetURL": "https://www.chicrepublicthai.com/images/c/logo.png",
+   "status": "ใช้โลโก้โครงการ/แบนเนอร์ร่วม",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Chic Republic Ratchaphruek"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/central-chiangrai.png",
+   "key": "VL-aa091822ffce94a3",
+   "sha256": "aa091822ffce94a33abea054447be874b48e94221619300058e2ba2e461b02d8",
+   "bytes": 10851,
+   "role": "venue_specific",
+   "sourcePage": "https://shoppingcenter.centralpattana.co.th/branch/central-chiangrai/",
+   "assetURL": "https://shoppingcenter.centralpattana.co.th/images/default-source/central-chiangrai/common/007-chiangrai-logo43393f3f-6ede-4f5a-b285-4f9078d19038.png?sfvrsn=50effaa0_3",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Central Chiangrai"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/central-nakhon-pathom.svg",
+   "key": "VL-abf7da9ebfec600a",
+   "sha256": "abf7da9ebfec600ada11a96c696445fd52250ca16b060b027f6607312755ab5a",
+   "bytes": 10545,
+   "role": "venue_specific",
+   "sourcePage": "https://www.centralnakhonpathom.com",
+   "assetURL": "https://www.centralnakhonpathom.com/img/NKT/logo.svg",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Central Nakhon Pathom"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/robinson-lifestyle.png",
+   "key": "VL-aca01da96ad2787b",
+   "sha256": "aca01da96ad2787b6e0c6b3de91fe47fc701ca144508c5ea077489e69be740cb",
+   "bytes": 11921,
+   "role": "shared_chain_banner",
+   "sourcePage": "https://www.centralretail.com/en/brands/115/robinson-lifestyle",
+   "assetURL": "https://www.centralretail.com/storage/brand/property/robinson-lifestyle-center/logo.png",
+   "status": "ใช้โลโก้โครงการ/แบนเนอร์ร่วม",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Robinson Lifestyle Center Buri Ram"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/terminal21-korat.png",
+   "key": "VL-acef56ffd907acfa",
+   "sha256": "acef56ffd907acfaaed37ba1d10162ed36abbc798a03df769e806fd73e4590f4",
+   "bytes": 9013,
+   "role": "venue_specific",
+   "sourcePage": "https://www.terminal21.co.th/korat/en/home-en/",
+   "assetURL": "https://www.terminal21.co.th/korat/wp-content/uploads/2016/09/Terminal_korat_logo.png",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Terminal21 Korat"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/central-krabi.svg",
+   "key": "VL-b30c3d3f340a25ed",
+   "sha256": "b30c3d3f340a25ed8202045ba95029cbb565814931eb80fdda98ba4616257c14",
+   "bytes": 3323,
+   "role": "venue_specific",
+   "sourcePage": "https://www.centralkrabi.com",
+   "assetURL": "https://www.centralkrabi.com/img/logo.svg",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Central Krabi"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/cosmo-bazaar-muang-thong.svg",
+   "key": "VL-b3ce5859f56eceb6",
+   "sha256": "b3ce5859f56eceb6a8e703295ad4aa4091ece9b03bd4098d359f49b8eca95699",
+   "bytes": 9452,
+   "role": "venue_specific",
+   "sourcePage": "https://www.cosmobazaar.biz/en/shops",
+   "assetURL": "https://www.cosmobazaar.biz/images/logo-cosmobazaar.svg",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Cosmo Muang Thong Thani"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/central-ubon.png",
+   "key": "VL-b6325adda59668cc",
+   "sha256": "b6325adda59668cc09ec4b57965f77548e3ebc620f7fc91ea17236342bceb659",
+   "bytes": 9729,
+   "role": "venue_specific",
+   "sourcePage": "https://shoppingcenter.centralpattana.co.th/branch/central-ubon/",
+   "assetURL": "https://shoppingcenter.centralpattana.co.th/images/default-source/central-ubon/common/031-ubon-logo.png?sfvrsn=c1dbf9f4_2",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Central Ubon Ratchathani"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/terminal21-rama3.png",
+   "key": "VL-baecd294f090e923",
+   "sha256": "baecd294f090e9230303be429166d60e89b39aa2db33d01cee1f17d3ebc4c9d9",
+   "bytes": 21605,
+   "role": "venue_specific",
+   "sourcePage": "https://www.terminal21.co.th/rama3/",
+   "assetURL": "https://www.terminal21.co.th/rama3/wp-content/uploads/logo-rama3.png",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Terminal21 Rama 3"
+   ],
+   "labelCount": 1,
+   "storeRows": 2
+  },
+  {
+   "path": "assets/venue-logos/ally-village-amorini.webp",
+   "key": "VL-bb03a703f64a096d",
+   "sha256": "bb03a703f64a096d5abd25fa49020ecdd0421e2e9cac52455d1fdd189a8ba474",
+   "bytes": 3146,
+   "role": "venue_specific",
+   "sourcePage": "https://www.allyreit.com/en/portfolio/19/amorini-mall-ramintra",
+   "assetURL": "https://www.allyreit.com/storage/content/portfolio/logo/ally-amorini.webp",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "ALLY Village Amorini"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/central-hatyai.png",
+   "key": "VL-bce9861b01941e1e",
+   "sha256": "bce9861b01941e1e5e5f780aad85c9f82ccb013ec7716a379d60aae2e73cbfa9",
+   "bytes": 8329,
+   "role": "venue_specific",
+   "sourcePage": "https://shoppingcenter.centralpattana.co.th/branch/central-hatyai/",
+   "assetURL": "https://shoppingcenter.centralpattana.co.th/images/default-source/central-hatyai/common/010-hatyai-logo4e5e21a4-fe0c-48c4-aa83-36d65f9ac04b.png?sfvrsn=3d06e701_3",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Central Hat Yai"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/central-northville.svg",
+   "key": "VL-be23389cdc05277a",
+   "sha256": "be23389cdc05277a4319834b015396203e8c6fb195ff4aebf2cf2d6b3ae9457d",
+   "bytes": 3861,
+   "role": "venue_specific",
+   "sourcePage": "https://www.centralnorthville.com/en",
+   "assetURL": "https://www.centralnorthville.com/img/RTB/logo.svg",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Central Northville"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/future-park-zpell.png",
+   "key": "VL-bf56403c653a14f8",
+   "sha256": "bf56403c653a14f82c29d60026129c2be38f075085ac864fd5d0b157de2ac7d9",
+   "bytes": 7543,
+   "role": "parent_complex",
+   "sourcePage": "https://www.futurepark.co.th/",
+   "assetURL": "https://www.futurepark.co.th/wp-content/uploads/2026/03/cropped-futurepark-_-Zpell.png",
+   "status": "ใช้โลโก้โครงการ/แบนเนอร์ร่วม",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Future Park Rangsit"
+   ],
+   "labelCount": 1,
+   "storeRows": 3
+  },
+  {
+   "path": "assets/venue-logos/gateway-bangsue.jpg",
+   "key": "VL-bf90f7f1cb1bdc94",
+   "sha256": "bf90f7f1cb1bdc94cd91af69685554c53d0f697d3af0d01fc6320bfa6da86e82",
+   "bytes": 4517,
+   "role": "venue_specific",
+   "sourcePage": "https://page.line.me/gatewayatbangsue",
+   "assetURL": "https://profile.line-scdn.net/0hmRs0_ngLMn1OSS4xHzdNKnIMPBA5ZzQ1Nih-H2JIOBgxfHQqcS94GWhKaB5gfHJ8Ii0oS2xJbx1i/preview",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Gateway Bangsue"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/megabangna.png",
+   "key": "VL-c17dd33ce8df782c",
+   "sha256": "c17dd33ce8df782c1725b4d774195d77b1cd371a37ea155fda8b9340d5d5b469",
+   "bytes": 4886,
+   "role": "venue_specific",
+   "sourcePage": "https://www.mega-bangna.com/",
+   "assetURL": "https://www.mega-bangna.com/public/assets/images/logo.png",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Megabangna"
+   ],
+   "labelCount": 1,
+   "storeRows": 2
+  },
+  {
+   "path": "assets/venue-logos/paradise-park.svg",
+   "key": "VL-c1aa205e740f0d7e",
+   "sha256": "c1aa205e740f0d7e6d0ebd578809dda056da9f22855345e914af093d3671650a",
+   "bytes": 53035,
+   "role": "venue_specific",
+   "sourcePage": "https://www.paradisepark.co.th/",
+   "assetURL": "https://www.paradisepark.co.th/img/paradise-park.svg",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Paradise Park"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/the-circle-ratchaphruek.png",
+   "key": "VL-c912f33c179598d8",
+   "sha256": "c912f33c179598d80993a27063507fea46769ca06f750774fb61e990509fcec0",
+   "bytes": 1081594,
+   "role": "venue_specific",
+   "sourcePage": "https://thecircle.co.th/",
+   "assetURL": "https://thecircle.co.th/wp-content/themes/TheCircle/images/logo.png",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "The Circle Ratchaphruek"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/bangchak.svg",
+   "key": "VL-cc3ae44a668627c2",
+   "sha256": "cc3ae44a668627c20d18ef9594fd572e903f939beffa29d1130100b98c401998",
+   "bytes": 10484,
+   "role": "shared_operator_banner",
+   "sourcePage": "https://www.bangchak.co.th/en/download-center/bangchak-logo",
+   "assetURL": "https://www.bangchak.co.th/assets/images/logo.svg",
+   "status": "ใช้โลโก้โครงการ/แบนเนอร์ร่วม",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "บางจาก กาญจนบุรี ขาเข้า,กาญจนบุรี",
+    "บางจาก กิ่งแก้ว",
+    "บางจาก คลองสวนพลู",
+    "บางจาก คีรีมาศ",
+    "บางจาก จรัญสนิทวงศ์ 95/2",
+    "บางจาก ชะอำ พาร์ค",
+    "บางจาก ญาณวิโรจน์ - เมืองจันทบุรี",
+    "บางจาก ดุสิตา, สระบุรี",
+    "บางจาก ทุ่งคอก, สุพรรณบุรี",
+    "บางจาก ทุ่งตะโก",
+    "บางจาก ท่าฉาง- สุราษฎร์ธานี",
+    "บางจาก ท่าชนะ-สุราษฎร์ธานี"
+   ],
+   "labelCount": 132,
+   "storeRows": 132
+  },
+  {
+   "path": "assets/venue-logos/central-korat.png",
+   "key": "VL-cdd4538ef0e0aaed",
+   "sha256": "cdd4538ef0e0aaeda92e6ddc2152942aadc8caf6bdbd331a6d0167f9543a2238",
+   "bytes": 10366,
+   "role": "venue_specific",
+   "sourcePage": "https://shoppingcenter.centralpattana.co.th/branch/central-korat/",
+   "assetURL": "https://shoppingcenter.centralpattana.co.th/images/default-source/central-korat/common/central-korat-logo23385ccf-b885-4791-ade9-1cae5ed5fea3.png?sfvrsn=ae979d9f_3",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Central Korat"
+   ],
+   "labelCount": 1,
+   "storeRows": 2
+  },
+  {
+   "path": "assets/venue-logos/the-street-ratchada-line.jpg",
+   "key": "VL-cf3635904b5641ad",
+   "sha256": "cf3635904b5641ad79d809305fc2cb3a4f17427c16d766636b877a8220a05862",
+   "bytes": 3633,
+   "role": "venue_specific",
+   "sourcePage": "https://page.line.me/dcq8282h",
+   "assetURL": "https://profile.line-scdn.net/0h-MfR2UkJcmJbK2z5dfoNNWdufA8sBXQqI08_VH8vKAF1G2FgYBo9VCp5fAJ2TDNkb0w5VC14fgB_/preview",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "The Street Ratchada"
+   ],
+   "labelCount": 1,
+   "storeRows": 2
+  },
+  {
+   "path": "assets/venue-logos/design-village.png",
+   "key": "VL-cf4b4edd19d64dbf",
+   "sha256": "cf4b4edd19d64dbf7a8a2fd705504639fb013716fac6be526c077e4c3829fb55",
+   "bytes": 5480,
+   "role": "shared_chain_banner",
+   "sourcePage": "https://designvillage.boonthavorn.com/",
+   "assetURL": "https://designvillage.boonthavorn.com/wp-content/uploads/2023/02/Logo.png",
+   "status": "ใช้โลโก้โครงการ/แบนเนอร์ร่วม",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Design Village Bangna",
+    "Design Village Phutthamonthon Sai3"
+   ],
+   "labelCount": 2,
+   "storeRows": 2
+  },
+  {
+   "path": "assets/venue-logos/gateway-ekamai.jpg",
+   "key": "VL-d024b6597fad66f5",
+   "sha256": "d024b6597fad66f5e51a7536f2e7b325c2a3d8dc6e57fcc902b3a61c20689d89",
+   "bytes": 4003,
+   "role": "venue_specific",
+   "sourcePage": "https://page.line.me/gatewayekamai",
+   "assetURL": "https://profile.line-scdn.net/0hQNRnP9pWDmFvFxItBpFxNlNSAAwYOQgpF3hJUxlHV1JEcEpiVXdGAUxCB1kXI01kV3BAAUIfAFRE/preview",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Gateway Ekamai"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/central-rama-2.png",
+   "key": "VL-d39b6051df36a55a",
+   "sha256": "d39b6051df36a55a6c0e5339d423a359f64b5880285da5bf42f6c09cf729bf42",
+   "bytes": 10423,
+   "role": "venue_specific",
+   "sourcePage": "https://shoppingcenter.centralpattana.co.th/branch/central-rama-2/",
+   "assetURL": "https://shoppingcenter.centralpattana.co.th/images/default-source/central-rama-2/common/021-rama2-logo3d4c4a13-e573-42a0-bb70-c875f273dea9.png?sfvrsn=4205a478_3",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Central Rama 2"
+   ],
+   "labelCount": 1,
+   "storeRows": 2
+  },
+  {
+   "path": "assets/venue-logos/all-seasons-place.png",
+   "key": "VL-d3be6fee5837172f",
+   "sha256": "d3be6fee5837172f2d2ed927c592566493b966502a0f49f4cb9b7469711bf331",
+   "bytes": 2790,
+   "role": "venue_specific",
+   "sourcePage": "https://allseasonsplace.th.com/",
+   "assetURL": "https://allseasonsplace.th.com/assets/images/asp-logo-color.png",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "All Seasons Place"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/park-silom.png",
+   "key": "VL-d4cd92657354d209",
+   "sha256": "d4cd92657354d209a9f113598db0e1eb3725016dcc6da19ac600a5a8da47ac0d",
+   "bytes": 8202,
+   "role": "venue_specific",
+   "sourcePage": "https://parksilom.com/",
+   "assetURL": "https://parksilom.com/wp-content/uploads/2020/05/parksilom-png.png",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Park Silom"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/porto-go-bang-pa-in.png",
+   "key": "VL-d5a17dcbe045dd06",
+   "sha256": "d5a17dcbe045dd06a261cf57e2721893f0485987784d380a02b2774b00b51dce",
+   "bytes": 24100,
+   "role": "venue_specific",
+   "sourcePage": "https://portogo.com/",
+   "assetURL": "https://portogo.com/wp-content/uploads/2022/08/Porto-chino-logo-Porto-Go-Bang-Pa-In.png",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Porto Go Bang Pa-In"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/summer-point.png",
+   "key": "VL-d5db48db3251eada",
+   "sha256": "d5db48db3251eada2375f6b3ade8af0965c6324aa53f0b1ac33324cee0555b5b",
+   "bytes": 59006,
+   "role": "venue_specific",
+   "sourcePage": "https://summerpointbkk.com/",
+   "assetURL": "https://summerpointbkk.com/wp-content/uploads/2024/04/cropped-c6a34-6d38b3_cea7a0d0396b4e758594a0b59397ee83mv2.png",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Summer Point"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/plearnary.png",
+   "key": "VL-d5e19997b8f45cd0",
+   "sha256": "d5e19997b8f45cd083746f5a32d45b8c2d1a8cf6fd94672caf980c27d73955f4",
+   "bytes": 5778,
+   "role": "venue_specific",
+   "sourcePage": "https://plearnary.allyglobal.com/",
+   "assetURL": "https://plearnary.allyglobal.com/_next/static/css/7a1d38fd1f7b0d804ae200dc4087fec7c241d750_CSS.f5e7c458.chunk.css",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Plearnary Mall Watcharapol"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/summer-hill.png",
+   "key": "VL-d9a51d4c03f95332",
+   "sha256": "d9a51d4c03f95332cc6718914ec92d71e4e52ad7ec8b14d58ff28a52acc142eb",
+   "bytes": 4414,
+   "role": "venue_specific",
+   "sourcePage": "https://www.stpl.co.th/en/summer-hill-sukhumvit/",
+   "assetURL": "https://www.stpl.co.th/wp-content/uploads/2021/06/logo.png",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Summer Hill"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/the-paseo.jpg",
+   "key": "VL-d9e82a6c52be4e8d",
+   "sha256": "d9e82a6c52be4e8d857d7d520d3ab8234c257a924e57097554940ff792cbf872",
+   "bytes": 6553,
+   "role": "shared_chain_banner",
+   "sourcePage": "https://page.line.me/367innfi",
+   "assetURL": "https://profile.line-scdn.net/0hUzj9042ZClVXQBTOGjd1AmsFBDggbgwdLyESZCFEUjJydhoBaiZMYCZAVmBzeEUAPC5GMXAXVTZ_/preview",
+   "status": "ใช้โลโก้โครงการ/แบนเนอร์ร่วม",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "The Paseo Mall Lat Krabang",
+    "The Paseo Park Kanchanaphisek"
+   ],
+   "labelCount": 2,
+   "storeRows": 2
+  },
+  {
+   "path": "assets/venue-logos/ally-village-ramkamhaeng.webp",
+   "key": "VL-dbd0655aeae13370",
+   "sha256": "dbd0655aeae1337001e69f45dd3582d6975535cc82226d571aff130a902e1ec8",
+   "bytes": 3496,
+   "role": "venue_specific",
+   "sourcePage": "https://www.allyreit.com/en/portfolio/25/sammakorn-place-ramkhamhaeng-west",
+   "assetURL": "https://www.allyreit.com/storage/content/portfolio/logo/ally-ramkamhaeng.webp",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "ALLY Village Ramkamhaeng"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/central-si-racha.png",
+   "key": "VL-dcebd3735d6a3d0e",
+   "sha256": "dcebd3735d6a3d0e5e3bab11c8afdc3aa431d7be63cfca2b3137ac05bcdb6e94",
+   "bytes": 11254,
+   "role": "venue_specific",
+   "sourcePage": "https://shoppingcenter.centralpattana.co.th/branch/central-si-racha/",
+   "assetURL": "https://shoppingcenter.centralpattana.co.th/images/default-source/central-siracha/common/029-siracha-logode505900-6b36-4fb0-baf4-8ddd46e7b1a3.png?sfvrsn=ab597feb_5",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Central Sriracha"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/central-ayutthaya.png",
+   "key": "VL-dd51f18280b2d679",
+   "sha256": "dd51f18280b2d679f6dae5874296dd5f939d50c34460f50c8b801d1347ff985d",
+   "bytes": 11448,
+   "role": "venue_specific",
+   "sourcePage": "https://shoppingcenter.centralpattana.co.th/branch/central-ayutthaya/",
+   "assetURL": "https://shoppingcenter.centralpattana.co.th/images/default-source/central-ayutthaya/tourist/other/ayylogo-2f81cf108-d561-4007-a82d-a9fcb0bed709.png?sfvrsn=2addd094_5",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Central Ayutthaya"
+   ],
+   "labelCount": 1,
+   "storeRows": 2
+  },
+  {
+   "path": "assets/venue-logos/central-nakhon-si.png",
+   "key": "VL-dd9c95604293dff7",
+   "sha256": "dd9c95604293dff78e1607dd180771dcc5765c50bf469d231e954a5d02d114d9",
+   "bytes": 10040,
+   "role": "venue_specific",
+   "sourcePage": "https://shoppingcenter.centralpattana.co.th/branch/central-nakhon-si/",
+   "assetURL": "https://shoppingcenter.centralpattana.co.th/images/default-source/central-nakhon-si/common/017-nakhonsi-logo33509185-e944-45f1-ae7c-e4e0fe32f591.png?sfvrsn=75cdd97a_3",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Central Nakhon Si Thammarat"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/aeon.svg",
+   "key": "VL-de2ebf8e4636093c",
+   "sha256": "de2ebf8e4636093c389c101056131d95faf38997ee45e831db820d83ad5ef511",
+   "bytes": 1873,
+   "role": "shared_operator_banner",
+   "sourcePage": "https://www.aeon.info/en/",
+   "assetURL": "https://www.aeon.info/wp-content/themes/aeon_corp/_assets/ver-r8/common/images/aron_logo02.svg",
+   "status": "ใช้โลโก้โครงการ/แบนเนอร์ร่วม",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "AEON Sriracha Shopping Center"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/tops-plaza.png",
+   "key": "VL-e039c483d4addbbd",
+   "sha256": "e039c483d4addbbd05b929f118439fc3166e3f64b18d58cbe6d499e8b8510d6f",
+   "bytes": 9090,
+   "role": "shared_chain_banner",
+   "sourcePage": "https://www.centralretail.com/en/brands/115/robinson-lifestyle",
+   "assetURL": "https://www.centralretail.com/storage/brand/property/tops-plaza/logo-color.png",
+   "status": "ใช้โลโก้โครงการ/แบนเนอร์ร่วม",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Plaza Phayao"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/samyan-mitrtown.png",
+   "key": "VL-e32cbca6413c2ea9",
+   "sha256": "e32cbca6413c2ea9e2d752b474a88258045571e803a1ffc7013c4c87bda1a809",
+   "bytes": 3902,
+   "role": "venue_specific",
+   "sourcePage": "https://www.samyan-mitrtown.com/home/",
+   "assetURL": "https://www.frasersproperty.com/content/dam/frasersproperty/feature/project/frasers-thailand/samyan-mitrtown/samyan%20logo.png",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Samyan Mitrtown"
+   ],
+   "labelCount": 1,
+   "storeRows": 3
+  },
+  {
+   "path": "assets/venue-logos/robinson-department-store.jpeg",
+   "key": "VL-e561d18348bcce17",
+   "sha256": "e561d18348bcce1774907ea329e102aa989cad06b68ee2b6010ed72e77d8e950",
+   "bytes": 12275,
+   "role": "shared_department_store_banner",
+   "sourcePage": "https://careers.centralgroup.com/content/About-Central/?locale=en_GB",
+   "assetURL": "https://rmkcdn.successfactors.com/6c97357e/db9db648-989f-4584-912d-6.jpg",
+   "status": "ใช้โลโก้โครงการ/แบนเนอร์ร่วม",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Robinson Banchang",
+    "Robinson Bang Rak",
+    "Robinson Chachoengsao",
+    "Robinson Chaiyaphum",
+    "Robinson Chalong",
+    "Robinson Chantaburi",
+    "Robinson Chonburi Amata",
+    "Robinson Hat Yai",
+    "Robinson Kamphaeng Phet",
+    "Robinson Kanchanaburi",
+    "Robinson Lop Buri",
+    "Robinson Mae Sot"
+   ],
+   "labelCount": 28,
+   "storeRows": 29
+  },
+  {
+   "path": "assets/venue-logos/mbk-center.svg",
+   "key": "VL-e58054ac6d586e5d",
+   "sha256": "e58054ac6d586e5d8b7817feee71405d65b1332574e8250f1a031c731f325937",
+   "bytes": 7183,
+   "role": "venue_specific",
+   "sourcePage": "https://www.mbk-center.co.th/",
+   "assetURL": "https://www.mbk-center.co.th/img/logo.svg",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "MBK Center"
+   ],
+   "labelCount": 1,
+   "storeRows": 3
+  },
+  {
+   "path": "assets/venue-logos/fortune-town.png",
+   "key": "VL-e70eeac4cb1c2d24",
+   "sha256": "e70eeac4cb1c2d24b4116b30f32f3b93edc1c36c51299d9f8cbf828a11198c47",
+   "bytes": 3324,
+   "role": "venue_specific",
+   "sourcePage": "https://fortunetown.co.th/en/",
+   "assetURL": "https://fortunetown.co.th/wp-content/uploads/2021/08/cropped-Group-133.png",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Fortune Town"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/central-khonkaen.png",
+   "key": "VL-ec32d46869918c89",
+   "sha256": "ec32d46869918c895019ca46b8d380ae0d74f63e1aad9b7a58bf5773d5f0d1f1",
+   "bytes": 10328,
+   "role": "venue_specific",
+   "sourcePage": "https://shoppingcenter.centralpattana.co.th/branch/central-khonkaen/",
+   "assetURL": "https://shoppingcenter.centralpattana.co.th/images/default-source/central-khonkaen/common/011-khonkaen-logo62c3ed04-528b-44bd-8704-7862a8bb66f1.png?sfvrsn=1cb99f73_3",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Central Khon Kaen"
+   ],
+   "labelCount": 1,
+   "storeRows": 2
+  },
+  {
+   "path": "assets/venue-logos/im-park.png",
+   "key": "VL-ec7493582578cecc",
+   "sha256": "ec7493582578cecc3d7b21d79a4342d92ade102c4dc760ce6a22e98d522a6965",
+   "bytes": 5294,
+   "role": "venue_specific",
+   "sourcePage": "https://iampark.allyglobal.com/",
+   "assetURL": "https://iampark.allyglobal.com/_next/static/css/7a1d38fd1f7b0d804ae200dc4087fec7c241d750_CSS.345fda45.chunk.css",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "I'm Park"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/central-eastville.png",
+   "key": "VL-efd695c415e92556",
+   "sha256": "efd695c415e925566cfc27ecff8e5b5d36171fb48805365cdb4a1aa6324a9929",
+   "bytes": 9591,
+   "role": "venue_specific",
+   "sourcePage": "https://shoppingcenter.centralpattana.co.th/branch/central-eastville/",
+   "assetURL": "https://shoppingcenter.centralpattana.co.th/images/default-source/central-eastville/common/009-eastville-logo.png?sfvrsn=5d605430_2",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Central Eastville"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/central-village.svg",
+   "key": "VL-f219ca8874ce865a",
+   "sha256": "f219ca8874ce865a8158ba5d1babc66f4d31c184abc01b2ec74fd5258a26d76a",
+   "bytes": 10417,
+   "role": "venue_specific",
+   "sourcePage": "https://www.centralvillageoutlet.com/en",
+   "assetURL": "https://www.centralvillageoutlet.com/img/SVB/logo.svg",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Central Village Bangkok Luxury Outlet"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/the-bright-rama2.png",
+   "key": "VL-f509602fdacc7221",
+   "sha256": "f509602fdacc7221ada7c9c19abfc3aa6fa65bc85149266ee48c9e62c3a6fdb2",
+   "bytes": 3934,
+   "role": "venue_specific",
+   "sourcePage": "https://www.thebright.co.th/",
+   "assetURL": "https://www.thebright.co.th/wp-content/themes/bright/images/the-bright-logo.png",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "The Bright Rama2"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/nichada-circle.svg",
+   "key": "VL-f59bbcbb83ba9c39",
+   "sha256": "f59bbcbb83ba9c395676cc78eb04954ed363c844021b4a9fc443a8fa38c20b7b",
+   "bytes": 28383,
+   "role": "parent_complex_symbol",
+   "sourcePage": "https://www.nichada.com/about",
+   "assetURL": "https://cdn.prod.website-files.com/6728b93552954cba31fe0381/672b58735ba075a3095db321_Nichada%20circle.svg",
+   "status": "ใช้โลโก้โครงการ/แบนเนอร์ร่วม",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Nichada Thani"
+   ],
+   "labelCount": 1,
+   "storeRows": 5
+  },
+  {
+   "path": "assets/venue-logos/mixt-chatuchak.png",
+   "key": "VL-f86ebc95925309ea",
+   "sha256": "f86ebc95925309ea07c132d3e87d81d2798d78bfa1e6557391c415b37f0a12aa",
+   "bytes": 5003,
+   "role": "venue_specific",
+   "sourcePage": "https://www.mixtchatuchak.com/",
+   "assetURL": "https://www.mixtchatuchak.com/assets/images/logo.png",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Mixt Chatuchak"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/central-chiangmai-airport.png",
+   "key": "VL-fa30b03f8494a745",
+   "sha256": "fa30b03f8494a74504243e21e7f6b49aa43c04b6feae91deb8e43faa895c00f7",
+   "bytes": 11969,
+   "role": "venue_specific",
+   "sourcePage": "https://shoppingcenter.centralpattana.co.th/branch/central-chiangmai-airport/",
+   "assetURL": "https://shoppingcenter.centralpattana.co.th/images/default-source/central-chiangmai-airport/common/005-chiangmai-airport-logo57218709-2d8c-4415-a6a2-eec0e3494c19.png?sfvrsn=bfc45029_3",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Central Chiangmai Airport"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/emsphere.svg",
+   "key": "VL-fe0d35ecaf8544da",
+   "sha256": "fe0d35ecaf8544da3c45765274dff2fe5a795c1b706ff09afb4411fa14eede9e",
+   "bytes": 1857,
+   "role": "venue_specific",
+   "sourcePage": "https://emsphere.co.th/",
+   "assetURL": "https://emsphere.co.th/wp-content/uploads/2023/12/site-logo.svg",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Emsphere"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/central-samui.png",
+   "key": "VL-ffc18a96ed5c9ca6",
+   "sha256": "ffc18a96ed5c9ca6ed192af50015b2660f87ad99b7ea0350a2cbb5a9238ffda9",
+   "bytes": 9524,
+   "role": "venue_specific",
+   "sourcePage": "https://shoppingcenter.centralpattana.co.th/branch/central-samui/",
+   "assetURL": "https://shoppingcenter.centralpattana.co.th/images/default-source/central-samui/common/028-samui-logo.png?sfvrsn=fe87393f_2",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-22",
+   "labels": [
+    "Central Samui"
+   ],
+   "labelCount": 1,
+   "storeRows": 1
+  }
+ ],
+ "issues": []
+}

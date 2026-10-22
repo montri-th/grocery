@@ -1,0 +1,272 @@
+{
+ "builtFor": "CityMETER · Grocery demo",
+ "asOf": "2026-10-22",
+ "inputs": {
+  "sheetXlsx": {
+   "file": "master.xlsx",
+   "sha256": "31d9c8e915194d4eebe319df14de0e6bd28582b020b23010b8bf5345956c7449",
+   "title": "CityMETER Grocery Thailand — Source Audit / Refresh Master 2026-10-22"
+  },
+  "sheetTabs": {
+   "01_BRANDS.csv": "d4cd99e23a8f296af0e80a50cd2e8cf65d5036621826c91072e9ab3d7bd4cdd5",
+   "02_STORES.csv": "e03aa743ded76ade7d40a67eb8a704a4dc283a1b800e06cf1128a850354aab93",
+   "07_VENUES.csv": "cfcacd95fdd538e26c5a3352ce953609bfb844b1b33c38a38472b82d04c510c1",
+   "10_VENUE_LOGOS.csv": "d662d9917b4b93bca57b7f7b6c32bc54486067f07265851634d583898cef0adc",
+   "12_SOURCE_CATALOG.csv": "2f39efaa1645ee4c68e2b9f1a3c698d6a272d0262c3e2c4fb611011b0a43595a"
+  },
+  "api": {
+   "base-lv0.json": "104fe62715ab6f173b463ab36d0da97fee35c0e056712e737121d139a3bc8902",
+   "grocery-lv0.json": "9e64d3f8f1f43bed688be004b9976446b1695e9479f4cc70d253c972f4464bd3",
+   "fetch-log-catalog.json": "230f092deb86b642f98170af0a1bdfdac8efd2d4c9c5b6209eabfe19bcdbe0f1",
+   "fetch-log-geometry.json": "014f27020a22bc9a3b4b6326f56c9e5f76cd2eb861460fc7f6aca9d61db3b93e",
+   "fetch-log-ml-overlay.json": "5705e37321b3ebe63e2f2de4a42550ca2f66a6a5c63521fdee8f7d2ee6e6033e"
+  },
+  "membership": {
+   "file": "unit-membership.json",
+   "sha256": "5e102cc96911054e92c9362bbe003fa4ed38769374894eec218e4e7ac4f59ce8"
+  },
+  "fetches": {
+   "fetch-log-catalog.json": {
+    "requests": 156,
+    "ok": 156,
+    "firstRetrievedAt": "2026-10-22T08:57:44Z",
+    "lastRetrievedAt": "2026-10-22T08:57:53Z"
+   },
+   "fetch-log-geometry.json": {
+    "requests": 9626,
+    "ok": 9626,
+    "firstRetrievedAt": "2026-10-22T08:58:59Z",
+    "lastRetrievedAt": "2026-10-22T09:07:19Z"
+   },
+   "fetch-log-ml-overlay.json": {
+    "requests": 8896,
+    "ok": 8896,
+    "firstRetrievedAt": "2026-10-22T09:16:56Z",
+    "lastRetrievedAt": "2026-10-22T09:24:59Z"
+   }
+  }
+ },
+ "checks": {
+  "unitParentDistrict": {
+   "member_majority": 681,
+   "geometry_overlap": 166,
+   "dola_code": 7774
+  },
+  "country": {
+   "api": 27608,
+   "rows": 27607,
+   "difference": -1
+  },
+  "provinces": {
+   "total": 77,
+   "equal": 76,
+   "differ": [
+    {
+     "code": "84",
+     "api": 515,
+     "rows": 514
+    }
+   ]
+  },
+  "districts": {
+   "total": 928,
+   "equal": 927,
+   "differ": [
+    {
+     "code": "8405",
+     "name": "เกาะพะงัน",
+     "api": 57,
+     "rows": 56
+    }
+   ]
+  },
+  "units": {
+   "total": 8621,
+   "withStores": 5692,
+   "equal": 8621,
+   "differ": []
+  },
+  "rowsInTwoUnits": 15,
+  "rowsOutsideUnits": [
+   {
+    "key": "1437afed",
+    "name": "Makro Samsen",
+    "district": "1002"
+   },
+   {
+    "key": "26ab802a",
+    "name": "ประชาระบือธรรม",
+    "district": "1002"
+   },
+   {
+    "key": "47f551c9",
+    "name": "พระราม 5 ข.",
+    "district": "1002"
+   },
+   {
+    "key": "50813e7d",
+    "name": "ร้านค้าสวัสดิการ สก.ทบ.",
+    "district": "1002"
+   },
+   {
+    "key": "5102f13b",
+    "name": "ซอยสินทรัพย์",
+    "district": "1002"
+   },
+   {
+    "key": "61d8c996",
+    "name": "หน่วยข่าวกรองทางทหาร",
+    "district": "1002"
+   },
+   {
+    "key": "71fa395a",
+    "name": "กรมสรรพาวุธทหารบก",
+    "district": "1002"
+   },
+   {
+    "key": "7c70d2cf",
+    "name": "ร้านสวัสดิการกลางกองทัพบก(เกียกกาย)",
+    "district": "1002"
+   },
+   {
+    "key": "bce970e9",
+    "name": "ร้านค้าสวัสดิการอาคารรัฐสภา",
+    "district": "1002"
+   },
+   {
+    "key": "ce92845d",
+    "name": "พล.ปตอ.",
+    "district": "1002"
+   },
+   {
+    "key": "e05c0b2c",
+    "name": "ร้านค้าสวัสดิการ ม.พัน 4 พล. 1 รอ.",
+    "district": "1002"
+   },
+   {
+    "key": "eb254288",
+    "name": "กรมช่างอากาศ",
+    "district": "1002"
+   },
+   {
+    "key": "f4dbf855",
+    "name": "ร้านค้าสวัสดิการ กรมการทหารสื่อสาร",
+    "district": "1002"
+   },
+   {
+    "key": "fed38c42",
+    "name": "ร้านค้าสวัสดิการ กรมทหารปืนใหญ่ที่ 1 รอ.",
+    "district": "1002"
+   },
+   {
+    "key": "9c5ccdd9",
+    "name": "พนาสนธิ์ 8 (นิมิตรใหม่ ซ.12 )",
+    "district": "1010"
+   },
+   {
+    "key": "a6ccf510",
+    "name": "Makro Bang Kho Laem",
+    "district": "1031"
+   },
+   {
+    "key": "0bca4d01",
+    "name": "Tops Daily Krungthep Kritha 32",
+    "district": "1032"
+   },
+   {
+    "key": "3bf90db4",
+    "name": "Tops Daily Bangna Naval Flat",
+    "district": "1047"
+   },
+   {
+    "key": "b7f6f581",
+    "name": "ร้านค้าสวัสดิการกรมสวัสดิการทหารเรือ(บางนา)",
+    "district": "1047"
+   }
+  ],
+  "rowDistrictOutsideUnitParent": 69,
+  "populationTotals": {
+   "country": 65723008,
+   "provinces": 65723008,
+   "districts": 65723008,
+   "unitsWithoutPopulation": 163
+  },
+  "typeCounts": {
+   "C_STORE": 26336,
+   "WHOLESALE": 194,
+   "SUPERMARKET": 550,
+   "HYPERMARKET": 377,
+   "PHARMACY": 150
+  },
+  "brandCounts": {
+   "SEVEN_ELEVEN": 16487,
+   "TOOGDEE": 3604,
+   "LOTUSS": 2287,
+   "CJ_MORE": 2207,
+   "BIG_C": 1744,
+   "TOPS": 725,
+   "MAKRO": 168,
+   "PURE": 150,
+   "LAWSON108": 95,
+   "VILLA_MARKET": 35,
+   "FOODLAND": 26,
+   "MAXVALU": 26,
+   "GOURMET_MARKET": 16,
+   "GO_WHOLESALE": 14,
+   "DONKI": 9,
+   "RIMPING": 9,
+   "FUJI": 5
+  }
+ },
+ "notes": [],
+ "issues": {},
+ "geometry": {
+  "tool": "mapshaper -simplify <pct> weighted keep-shapes",
+  "settings": {
+   "provinces": {
+    "retain": "1.5%",
+    "precision": 0.0001
+   },
+   "districts": {
+    "retain": "3%",
+    "precision": 1e-05
+   },
+   "units": {
+    "retain": "3%",
+    "precision": 1e-05
+   }
+  },
+  "log": {
+   "provinces": [
+    "[o] Wrote /tmp/grocery-geo-jibe3km0/provinces.json"
+   ],
+   "districts": [
+    "[simplify] Repaired 1 intersection",
+    "[o] Wrote /tmp/grocery-geo-jibe3km0/districts.json"
+   ],
+   "units": [
+    "[simplify] Repaired 887 intersections; 7,499 intersections could not be repaired",
+    "[o] Wrote /tmp/grocery-geo-jibe3km0/units.json"
+   ]
+  },
+  "source": "https://landometer.com/api/v2/citymeter-v3/grocery/info/geom/<id>/<PROVINCE|DISTRICT|MUNICIPALITY|LOCALE>",
+  "provinceFiles": {
+   "count": 77,
+   "maxBytes": 719182,
+   "totalBytes": 19506400
+  }
+ },
+ "outputs": {
+  "count": 157,
+  "core": {
+   "data/areas.json": {
+    "bytes": 802906,
+    "sha256": "b84aed95f6358ee3c953b41eca1d326e06968d73b55c7720436a438756259418"
+   },
+   "data/grocery.json": {
+    "bytes": 3520761,
+    "sha256": "6535ce226f090d7f1cf72b3391437035c3c8aa4f5d60745560c1b9d737e771bc"
+   }
+  }
+ }
+}

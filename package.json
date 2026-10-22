@@ -1,0 +1,17 @@
+{
+  "name": "citymeter-grocery",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "CityMETER · Grocery — where 27,607 stores of 17 grocery chains concentrate against where people live, from the country down to local administrations and Bangkok Locales",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "start": "python3 -m http.server 4173 --bind 127.0.0.1",
+    "handoff:manifest": "node scripts/build-handoff.mjs",
+    "handoff:bundle": "node scripts/build-handoff.mjs --zip dist/CityMETER-Grocery-Developer-Handoff.zip",
+    "verify:live": "node scripts/verify-live.mjs"
+  }
+}

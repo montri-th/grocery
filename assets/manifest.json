@@ -1,0 +1,386 @@
+{
+  "lds": "0.9.7",
+  "release": "v0.9.7-owner.1",
+  "baseDocumentSha256": "d3085cbc0a50195f1cbf0c77b1d77c0d19b84364daf2948eb367348d65432d96",
+  "files": [
+    {
+      "path": "assets/lds/build-kit/fonts.css",
+      "sha256": "a2564ee20060ac90db6b6ef2b2e18d54671005e4b6736823d2ebb2c0ddb3fbd6",
+      "bytes": 1786
+    },
+    {
+      "path": "assets/lds/build-kit/assets/ibm-plex-sans-thai-looped-thai-700-normal.woff2",
+      "sha256": "fa03fc4dda6a69763997e79d50e0437795d06c02e1798bdacf3a2f5e685cea2c",
+      "bytes": 14176
+    },
+    {
+      "path": "assets/lds/build-kit/assets/ibm-plex-sans-thai-thai-400-normal.woff2",
+      "sha256": "2d66381c26d32bf2a95bfe559d1a5ed5475fcdac3fa128e45a33301010d42056",
+      "bytes": 11804
+    },
+    {
+      "path": "assets/lds/build-kit/assets/material-symbols-rounded-open-in-new-300.woff2",
+      "sha256": "778b29f8befe5ba7a8f0f8188d4c12e3c53d00810dac10337609b04d8506d46e",
+      "bytes": 1124
+    },
+    {
+      "path": "assets/lds/build-kit/assets/arvo-latin-700-normal.woff2",
+      "sha256": "3d908a2c04ec4c59d26d1454008b2d6744480654663a5f88e439f6483976bd37",
+      "bytes": 17348
+    },
+    {
+      "path": "assets/lds/build-kit/assets/jetbrains-mono-latin-400-normal.woff2",
+      "sha256": "14425ba9c695763c1547f48a206b7aa60350a33ae23de09f0407877f3fcd89eb",
+      "bytes": 21168
+    },
+    {
+      "path": "assets/lds/build-kit/assets/bai-jamjuree-thai-600-normal.woff2",
+      "sha256": "547483c6fbedcc13f4c04489c4ec3f6be4c69877ae7cd4cfbf4a0d289889ba32",
+      "bytes": 9808
+    },
+    {
+      "path": "assets/lds/build-kit/assets/bai-jamjuree-latin-600-normal.woff2",
+      "sha256": "5ae338ac0db4222226ad96bf1b4b460030c3af1affabb475c67bf218b2eaa83f",
+      "bytes": 11844
+    },
+    {
+      "path": "assets/lds/build-kit/assets/bai-jamjuree-latin-400-normal.woff2",
+      "sha256": "5200faf54f32adc1dc47b8522adbd1399e739f4ce5c9236866806c04d6397b19",
+      "bytes": 11596
+    },
+    {
+      "path": "assets/lds/build-kit/assets/bai-jamjuree-thai-400-normal.woff2",
+      "sha256": "357f8fe9fd08973568a061a2fc266a07819cdc33e8c9bb2b39985cc4ec49bfa9",
+      "bytes": 9168
+    },
+    {
+      "path": "assets/lds/build-kit/assets/material-symbols-rounded-nav-300.woff2",
+      "sha256": "d7e283106ed2898726b24504c4e0f5ad524292984a90a4d29553c7dcf53b9657",
+      "bytes": 2500
+    },
+    {
+      "path": "assets/lds/build-kit/assets/ibm-plex-sans-thai-looped-latin-700-normal.woff2",
+      "sha256": "47eb0fe82a8b96cc5f1ac057e2edad4d2550d6b73d4aa030697bf1678047c526",
+      "bytes": 18012
+    },
+    {
+      "path": "assets/icons/icon-portfolio-32.png",
+      "sha256": "5cd19dee724f1a72b2bdcd41467a26e03f76a4bc2d7bd1fe12de6b8b5de665c9",
+      "bytes": 1773
+    },
+    {
+      "path": "assets/icons/icon-portfolio-512.png",
+      "sha256": "d8939f6cc7891c47bbb3dce1ddb04d4c30ce4c7e78e29f6fb0061858dafc881f",
+      "bytes": 28124
+    },
+    {
+      "path": "assets/icons/icon-portfolio-192.png",
+      "sha256": "1d8bbd3d8656a83f33c51364d333bba7ca328faf3ae713238fa9450f7810bf8e",
+      "bytes": 11929
+    },
+    {
+      "path": "assets/icons/icon-portfolio-48.png",
+      "sha256": "443857069292f6910b9e5cc0383cab6da4273acf1e18a47745864729fc46e08e",
+      "bytes": 2897
+    },
+    {
+      "path": "assets/icons/icon-portfolio-180.png",
+      "sha256": "41ac1e302345d29d791fcc26a5e7111aeb3a4e222dff63685743b43d0fdd6ef0",
+      "bytes": 8893
+    },
+    {
+      "path": "assets/icons/icon-portfolio-16.png",
+      "sha256": "c100627d5e8fc9d21d168dbf15f9fdab7f5d6931b04df5164e58137df77feca8",
+      "bytes": 768
+    },
+    {
+      "path": "assets/lds/build-kit/assets/ibm-plex-sans-thai-looped-OFL.txt",
+      "sha256": "e3ac4237aef600394644cdab2375d7011b0f80d2229ff05f47df2e61a109ab57",
+      "bytes": 4832
+    },
+    {
+      "path": "assets/lds/build-kit/assets/bai-jamjuree-OFL.txt",
+      "sha256": "74b7deafa632a5ed301dc322fcc2867ac200402e06b6d0b0b01faf09b8514e3e",
+      "bytes": 5487
+    },
+    {
+      "path": "assets/lds/build-kit/assets/jetbrains-mono-OFL.txt",
+      "sha256": "403581b69dac5cff4079205e01c6b467e56af449ecbd7247693ddb1baafa005b",
+      "bytes": 4524
+    },
+    {
+      "path": "assets/lds/build-kit/assets/arvo-OFL.txt",
+      "sha256": "f4f2cb57f7050c4e615863a39bf04811eada567d76d99b10b0f33d1e10e6cccd",
+      "bytes": 4508
+    },
+    {
+      "path": "assets/lds/build-kit/assets/ibm-plex-sans-thai-OFL.txt",
+      "sha256": "1b4f4d1f1463b63f1356e7b6034ad5a94311b35ffb53cc4bf83f2fbda24450e4",
+      "bytes": 4796
+    },
+    {
+      "path": "assets/theme.css",
+      "sha256": "5659ad38710b8804aff11b21e1663fc20ee14b16b654da430f770bc77cd58a4b",
+      "bytes": 1794,
+      "scope": "applied UI and categorical colors for this demo only"
+    },
+    {
+      "path": "assets/brand-logos.svg",
+      "sha256": "ba10353d17fc5f770813a68be6bf22081eadac1d53f340fe306d88af1e3fa576",
+      "bytes": 3939650,
+      "scope": "Brand identity sprite for store pins, lists and details; original approved logo bytes retained"
+    },
+    {
+      "path": "data/brand-logos.json",
+      "sha256": "74cc2ffbe04766bf1198d79a27659df0b09fdea35e25c0f635b6c5fc5abca322",
+      "bytes": 121382,
+      "scope": "Public brand identity registry, source hashes and viewport crops"
+    },
+    {
+      "path": "assets/brand-logos-manifest.json",
+      "sha256": "be65ce92fdc09d37e305e73db0ef21a7bbbd0068b3825de9a250f473a04eabef",
+      "bytes": 222402,
+      "scope": "Public brand asset/source/output/role manifest; publication basis is user-requested identity display"
+    },
+    {
+      "path": "assets/icons/material-nav-300.woff2",
+      "sha256": "d7e283106ed2898726b24504c4e0f5ad524292984a90a4d29553c7dcf53b9657",
+      "bytes": 2500,
+      "scope": "Selected UI navigation and help icons; Material Symbols Rounded, weight 300"
+    },
+    {
+      "path": "assets/icons/material-symbols-Apache-2.0.txt",
+      "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+      "bytes": 11357,
+      "scope": "Apache 2.0 license retained for the Material Symbols navigation/help icon subset"
+    },
+    {
+      "path": "assets/icons/material-pictogram-300.woff2",
+      "sha256": "33d9084bbd26b976d5c42002a0c669618573c21123567247816e9e694671c7b0",
+      "bytes": 1732,
+      "scope": "Metric-tile and heading pictograms (8 glyphs); Material Symbols Rounded, weight 300; test exception to LDS nav-7 approved by the owner 2026-10-22"
+    },
+    {
+      "path": "assets/icons/material-pictogram-300.json",
+      "sha256": "4c11a626e406c14932e620a2b1e85ae8dce3e1caf391d02d59a543f7e63f73e7",
+      "bytes": 1260,
+      "scope": "Pictogram subset manifest: glyph roles, codepoints, axes, source font hash"
+    },
+    {
+      "path": "data/provinces.geojson",
+      "sha256": "3f99aa1b276342d907f8dade4add44f723e9b7c7bbe0cde93de3003fcc34ca96",
+      "bytes": 85619,
+      "scope": "Province frames for the 9 dataset provinces; OpenGISData-Thailand (CC BY 4.0, DOPA-credited); context and drill-down, not an administrative authority"
+    },
+    {
+      "path": "data/venue-logos.json",
+      "sha256": "e967ca7e3f394244facaa50c49da4b017c1ced85fd37841b92727c7b0b8ae9a2",
+      "bytes": 50178,
+      "scope": "Venue (host) logo registry built from the research sheet tab 10_VENUE_LOGOS (checked 2026-10-22): 33 of 50 files verified in 0.5.0, 17 declared in meta.pending; lookup by Shopping Center id then exact label; identity support only, not a trademark licence"
+    },
+    {
+      "path": "assets/venue-logos-manifest.json",
+      "sha256": "75fdcc1abd1e75ba6c475de4ca12e70ac98d77872653a9fa82e75d43b3fb84be",
+      "bytes": 20324,
+      "scope": "Per-file provenance of the venue logos (public source page / asset URL, sha256, status, checkedOn) and the pending list; no Drive links"
+    },
+    {
+      "path": "assets/venue-logos/central-department-store.svg",
+      "sha256": "70d04c26cd9ea94d674bff0f291741c729c545d9f9df67e79a87f11110d92eaf",
+      "bytes": 6227,
+      "scope": "Venue logo VL-70d04c26cd9ea94d (downloaded_official); bytes as recorded in the research sheet; shown only to identify the venue of observed stores"
+    },
+    {
+      "path": "assets/venue-logos/centralworld.svg",
+      "sha256": "964e9772a643cc1a3d26142e525a0fc45d2212db1785339b97cee7281e46af9e",
+      "bytes": 7854,
+      "scope": "Venue logo VL-964e9772a643cc1a (downloaded_official); bytes as recorded in the research sheet; shown only to identify the venue of observed stores"
+    },
+    {
+      "path": "assets/venue-logos/central-embassy.png",
+      "sha256": "30a48c241e543d3429f68ecbd0551c5652a663ca5f87805a63b24c1b6b8ca69d",
+      "bytes": 8882,
+      "scope": "Venue logo VL-30a48c241e543d34 (downloaded_official); bytes as recorded in the research sheet; shown only to identify the venue of observed stores"
+    },
+    {
+      "path": "assets/venue-logos/central-phuket.svg",
+      "sha256": "98b18935c14e8f234582341c7b3848f65369ca1fe07ba5e34a780a17521986b3",
+      "bytes": 1949,
+      "scope": "Venue logo VL-98b18935c14e8f23 (downloaded_official); bytes as recorded in the research sheet; shown only to identify the venue of observed stores"
+    },
+    {
+      "path": "assets/venue-logos/central-pinklao.svg",
+      "sha256": "24c15d6d64ba6d33d3780b504ed50dc9b5bc5a39a1e5ed786256e81b6304093f",
+      "bytes": 3406,
+      "scope": "Venue logo VL-24c15d6d64ba6d33 (downloaded_official); bytes as recorded in the research sheet; shown only to identify the venue of observed stores"
+    },
+    {
+      "path": "assets/venue-logos/central-udon.png",
+      "sha256": "12cffc2d062173735fc6c44cea35b2263c3c216891f9afb501706df75608cb21",
+      "bytes": 9811,
+      "scope": "Venue logo VL-12cffc2d06217373 (downloaded_official); bytes as recorded in the research sheet; shown only to identify the venue of observed stores"
+    },
+    {
+      "path": "assets/venue-logos/central-eastville.png",
+      "sha256": "efd695c415e925566cfc27ecff8e5b5d36171fb48805365cdb4a1aa6324a9929",
+      "bytes": 9591,
+      "scope": "Venue logo VL-efd695c415e92556 (downloaded_official); bytes as recorded in the research sheet; shown only to identify the venue of observed stores"
+    },
+    {
+      "path": "assets/venue-logos/central-rama-2.png",
+      "sha256": "d39b6051df36a55a6c0e5339d423a359f64b5880285da5bf42f6c09cf729bf42",
+      "bytes": 10423,
+      "scope": "Venue logo VL-d39b6051df36a55a (downloaded_official); bytes as recorded in the research sheet; shown only to identify the venue of observed stores"
+    },
+    {
+      "path": "assets/venue-logos/central-pattaya.png",
+      "sha256": "1ed9cfc96f7d3e57407b15f682f05a34e6b710d4b6e7b76bb9e90393b3ae1924",
+      "bytes": 9898,
+      "scope": "Venue logo VL-1ed9cfc96f7d3e57 (downloaded_official); bytes as recorded in the research sheet; shown only to identify the venue of observed stores"
+    },
+    {
+      "path": "assets/venue-logos/central-chaengwattana.png",
+      "sha256": "68b350ecebc0bc80ecb2e0206a7f537b523029fa8566eab44168db4252dc2e6f",
+      "bytes": 9480,
+      "scope": "Venue logo VL-68b350ecebc0bc80 (downloaded_official); bytes as recorded in the research sheet; shown only to identify the venue of observed stores"
+    },
+    {
+      "path": "assets/venue-logos/central-chiangmai.png",
+      "sha256": "894e587d0e5407183d4ddbe77b0723a196095d3249d72545f2d80b63170a8781",
+      "bytes": 81998,
+      "scope": "Venue logo VL-894e587d0e540718 (downloaded_official); bytes as recorded in the research sheet; shown only to identify the venue of observed stores"
+    },
+    {
+      "path": "assets/venue-logos/central-salaya.png",
+      "sha256": "1b39cffe4ab6c7707d7e0e2220d9333ca1b991fb9f20339e4ec801787c5b85f9",
+      "bytes": 11120,
+      "scope": "Venue logo VL-1b39cffe4ab6c770 (downloaded_official); bytes as recorded in the research sheet; shown only to identify the venue of observed stores"
+    },
+    {
+      "path": "assets/venue-logos/central-westville.svg",
+      "sha256": "96b134a4f6fc55f62a10b77602fe6a83bb04423c45fd3eab4fce322e9f068ef9",
+      "bytes": 2543,
+      "scope": "Venue logo VL-96b134a4f6fc55f6 (downloaded_official); bytes as recorded in the research sheet; shown only to identify the venue of observed stores"
+    },
+    {
+      "path": "assets/venue-logos/central-westgate.png",
+      "sha256": "6de57f80a77409ee930379ef453b26db11bda6c816d631d7f0e9eaec48774e5f",
+      "bytes": 11088,
+      "scope": "Venue logo VL-6de57f80a77409ee (downloaded_official); bytes as recorded in the research sheet; shown only to identify the venue of observed stores"
+    },
+    {
+      "path": "assets/venue-logos/central-village.svg",
+      "sha256": "f219ca8874ce865a8158ba5d1babc66f4d31c184abc01b2ec74fd5258a26d76a",
+      "bytes": 10417,
+      "scope": "Venue logo VL-f219ca8874ce865a (downloaded_official); bytes as recorded in the research sheet; shown only to identify the venue of observed stores"
+    },
+    {
+      "path": "assets/venue-logos/megabangna.png",
+      "sha256": "c17dd33ce8df782c1725b4d774195d77b1cd371a37ea155fda8b9340d5d5b469",
+      "bytes": 4886,
+      "scope": "Venue logo VL-c17dd33ce8df782c (downloaded_official); bytes as recorded in the research sheet; shown only to identify the venue of observed stores"
+    },
+    {
+      "path": "assets/venue-logos/mall-ngam.jpeg",
+      "sha256": "45edcb7d24732ff46e433be271c982d680588bc5b8f071fca63088e927c7824b",
+      "bytes": 7480,
+      "scope": "Venue logo VL-45edcb7d24732ff4 (downloaded_official); bytes as recorded in the research sheet; shown only to identify the venue of observed stores"
+    },
+    {
+      "path": "assets/venue-logos/one-nimman.png",
+      "sha256": "3d94a67bd70b6945c12430849aa021fecae43bd067eca5962ee4b77622ed5f33",
+      "bytes": 8446,
+      "scope": "Venue logo VL-3d94a67bd70b6945 (downloaded_official); bytes as recorded in the research sheet; shown only to identify the venue of observed stores"
+    },
+    {
+      "path": "assets/venue-logos/maya.png",
+      "sha256": "044c6cfa77d04799d04b062251997ea8467d62665b73b3c570dd285b2764cd7a",
+      "bytes": 9208,
+      "scope": "Venue logo VL-044c6cfa77d04799 (downloaded_official); bytes as recorded in the research sheet; shown only to identify the venue of observed stores"
+    },
+    {
+      "path": "assets/venue-logos/silom-complex.png",
+      "sha256": "3777db826c685e0de5e5cbbb207d63a0cc839a28b9c809524c92276f30b2aa93",
+      "bytes": 1964,
+      "scope": "Venue logo VL-3777db826c685e0d (downloaded_official); bytes as recorded in the research sheet; shown only to identify the venue of observed stores"
+    },
+    {
+      "path": "assets/venue-logos/mall-bangkae.jpeg",
+      "sha256": "4224f1181abdf19c762133eaec9f0cb1cb8204f64625c909747982e40d615db7",
+      "bytes": 6641,
+      "scope": "Venue logo VL-4224f1181abdf19c (downloaded_official); bytes as recorded in the research sheet; shown only to identify the venue of observed stores"
+    },
+    {
+      "path": "assets/venue-logos/mall-bangkapi.jpeg",
+      "sha256": "8d0862e76043aca6bb439862bd43a455920f0697d364e7fb8663c208e6082028",
+      "bytes": 7095,
+      "scope": "Venue logo VL-8d0862e76043aca6 (downloaded_official); bytes as recorded in the research sheet; shown only to identify the venue of observed stores"
+    },
+    {
+      "path": "assets/venue-logos/siam-paragon.svg",
+      "sha256": "23d26775dffb6c5015ab40810622702f0ea757c1aeef2252a0f82ed7e4650504",
+      "bytes": 9927,
+      "scope": "Venue logo VL-23d26775dffb6c50 (downloaded_official); bytes as recorded in the research sheet; shown only to identify the venue of observed stores"
+    },
+    {
+      "path": "assets/venue-logos/emporium.png",
+      "sha256": "40582615aaa65da1ef560942bb87592837ccb03850ba6a64678aa0b9d26e92f0",
+      "bytes": 3961,
+      "scope": "Venue logo VL-40582615aaa65da1 (downloaded_official); bytes as recorded in the research sheet; shown only to identify the venue of observed stores"
+    },
+    {
+      "path": "assets/venue-logos/emquartier.png",
+      "sha256": "9cb3ef869b85148c1fe313fbfe01994b446eebe60c37cba4bd652cdc3c446e0d",
+      "bytes": 4393,
+      "scope": "Venue logo VL-9cb3ef869b85148c (downloaded_official); bytes as recorded in the research sheet; shown only to identify the venue of observed stores"
+    },
+    {
+      "path": "assets/venue-logos/siam-premium-outlets.svg",
+      "sha256": "05448176db1ec9ec916f1be6f150402981ae996e2a10d7c306421b6c4e80c704",
+      "bytes": 6792,
+      "scope": "Venue logo VL-05448176db1ec9ec (downloaded_official); bytes as recorded in the research sheet; shown only to identify the venue of observed stores"
+    },
+    {
+      "path": "assets/venue-logos/emsphere.svg",
+      "sha256": "fe0d35ecaf8544da3c45765274dff2fe5a795c1b706ff09afb4411fa14eede9e",
+      "bytes": 1857,
+      "scope": "Venue logo VL-fe0d35ecaf8544da (downloaded_official); bytes as recorded in the research sheet; shown only to identify the venue of observed stores"
+    },
+    {
+      "path": "assets/venue-logos/one-bangkok.png",
+      "sha256": "7dd80f34276c58b51f10c36a915f56d4eee3b1bd04430ebba30e62d305a61d4c",
+      "bytes": 1279,
+      "scope": "Venue logo VL-7dd80f34276c58b5 (downloaded_official); bytes as recorded in the research sheet; shown only to identify the venue of observed stores"
+    },
+    {
+      "path": "assets/venue-logos/paragon-department-store.png",
+      "sha256": "cf8cb807541b5f3587e29c96944d720bf4996286b5839504221ea057850d4f49",
+      "bytes": 41709,
+      "scope": "Venue logo VL-cf8cb807541b5f35 (downloaded_official); bytes as recorded in the research sheet; shown only to identify the venue of observed stores"
+    },
+    {
+      "path": "assets/venue-logos/king-power.svg",
+      "sha256": "b4f1270b38aecf50021fabe53808aadbe1edb0caff92aca4037400c11be79ee6",
+      "bytes": 9777,
+      "scope": "Venue logo VL-b4f1270b38aecf50 (downloaded_official); bytes as recorded in the research sheet; shown only to identify the venue of observed stores"
+    },
+    {
+      "path": "assets/venue-logos/dusit-central-park.svg",
+      "sha256": "8a8cd8d752f15540657a4f921d2ab4812d368fc0c23af2d2db99b32c0fcb8b6c",
+      "bytes": 3409,
+      "scope": "Venue logo VL-8a8cd8d752f15540 (downloaded_official); bytes as recorded in the research sheet; shown only to identify the venue of observed stores"
+    },
+    {
+      "path": "assets/venue-logos/gaysorn-village.png",
+      "sha256": "41f6c18aa0d086c26843f6710f45611a08f10721920efdbe5515a7f7a48ea845",
+      "bytes": 9711,
+      "scope": "Venue logo VL-41f6c18aa0d086c2 (downloaded_official); bytes as recorded in the research sheet; shown only to identify the venue of observed stores"
+    },
+    {
+      "path": "assets/venue-logos/prime-mansion-31.jpeg",
+      "sha256": "43f44bcf121da1d65ed273f07cc10cd68871c6c8efac2ec9d87ada9040ac7db9",
+      "bytes": 5681,
+      "scope": "Venue logo VL-43f44bcf121da1d6 (downloaded_other); bytes as recorded in the research sheet; shown only to identify the venue of observed stores"
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+/* CityMETER · Grocery — additions on top of the Luxury Brands 0.5 stylesheet
+   (styles.css, navigation.css, logos.css keep their contracts). Every colour is
+   an LDS 0.9.7 token from assets/theme.css; analytical colours come from
+   js/scales.js and are applied inline with the same HEX on both themes. */
+
+/* ---------- area labels on the map (provinces, districts, local units) ---------- */
+.area-label { position: absolute; transform: translate(-50%, -50%); pointer-events: auto; display: inline-flex; align-items: center; gap: 6px; min-height: 0; padding: 3px 4px 3px 8px; font: 700 12px/1.3 var(--font-display); letter-spacing: 0; color: var(--area-label-ink); background: var(--area-label-bg); border: 1px solid var(--area-label-border); border-radius: 6px; max-width: 200px; white-space: nowrap; box-shadow: none; cursor: pointer; }
+.area-label::before { content: ""; width: 8px; height: 8px; flex: 0 0 8px; border: 1.5px solid var(--area-label-ink); border-radius: 2px; opacity: .85; }
+.pictograms-ready .area-label::before { width: 14px; height: 14px; flex-basis: 14px; border: 0; border-radius: 0; font: 300 14px/1 "LDS Material Symbols Rounded Pictogram"; font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24; opacity: 1; }
+.pictograms-ready .area-label.level-province::before { content: "\E7F1"; }
+.pictograms-ready .area-label.level-district::before { content: "\E7EE"; }
+.pictograms-ready .area-label.level-unit::before { content: "\E55B"; }
+.area-label .label-name { overflow: hidden; text-overflow: ellipsis; }
+.area-label .label-count { font: 400 11px/1.3 var(--font-mono); min-width: 22px; padding: 1px 6px; border-radius: 4px; background: var(--area-label-ink); color: var(--area-label-bg); text-align: center; }
+.area-label.is-zero .label-count { background: transparent; color: var(--area-label-ink); border: 1.5px solid var(--data-zero-outline); }
+.area-label:hover { border-color: var(--map-hover-stroke); }
+.area-label.is-selected { border: 2px solid var(--map-selected-stroke); }
+.area-label:focus-visible { outline: 2px solid var(--interaction-focus-ring); outline-offset: 2px; }
+.area-label.is-quiet { font-weight: 600; font-size: 11px; opacity: .72; box-shadow: none; }
+.area-label.is-quiet .label-count { background: transparent; color: var(--area-label-ink); border: 1px solid var(--area-label-ink); opacity: .8; }
+.area-label.level-unit { font-size: 11px; }
+@media (max-width: 760px) { .area-label { max-width: 150px; font-size: 11px; } }
+
+/* ---------- the Aha: share of stores against share of residents ---------- */
+.aha-compare { margin-top: 6px; font-size: 15px; line-height: 1.5; color: var(--text-secondary); }
+.aha-compare strong { color: var(--text-primary); font-weight: 400; font-size: 17px; }
+.aha-bars { display: grid; gap: 6px; margin-top: 12px; }
+.aha-bar { display: grid; grid-template-columns: 40px minmax(0, 1fr) 46px; align-items: center; gap: 8px; font-size: 12px; color: var(--text-secondary); }
+.aha-bar b { font-weight: 400; font-size: 13px; text-align: right; color: var(--text-primary); }
+.aha-bar-track { height: 12px; background: var(--surface-soft); border: 1px solid var(--border-hairline); border-radius: 3px; overflow: hidden; }
+.aha-bar-fill { display: block; height: 100%; }
+.aha-bar-fill.stores { background: var(--scale-count-4); }
+.aha-bar-fill.people { background: var(--text-muted); }
+.aha .link-button { font-weight: 600; }
+
+/* ---------- metric switch (legend and ranking) ---------- */
+.metric-switch { display: inline-flex; gap: 0; margin: 4px 0 8px; border: 1px solid var(--border-default); border-radius: var(--radius-sm); overflow: hidden; }
+.metric-switch button { min-height: 32px; padding: 4px 10px; border: 0; border-radius: 0; background: var(--surface-card); color: var(--text-secondary); font: 600 12px/1.3 var(--font-body); }
+.metric-switch button + button { border-left: 1px solid var(--border-default); }
+.metric-switch button[aria-pressed="true"] { background: var(--text-primary); color: var(--surface-card); }
+.metric-switch.compact { margin: 6px 0 0; }
+.metric-switch.compact button { min-height: 28px; padding: 3px 8px; font-size: 11px; }
+@media (pointer: coarse) { .metric-switch button { min-height: 44px; } .metric-switch.compact button { min-height: 40px; } }
+
+/* ---------- legend additions ---------- */
+.legend-step .legend-nodata { background: var(--data-no-data); box-shadow: inset 0 0 0 1px var(--border-default); }
+.map-panel.metric-capita .legend-step .legend-zero { background: var(--scale-capita-1); }
+.legend-pin { background: var(--type-c-store); }
+.legend-context { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--text-disabled); margin-right: 6px; vertical-align: 1px; }
+#category-key > div { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 4px 10px; }
+
+/* ---------- panel mixes ---------- */
+.mix-list .mix-button, .brand-mix-row { display: grid; grid-template-columns: minmax(0, 120px) minmax(0, 1fr) 64px; align-items: center; gap: 8px; width: 100%; min-height: 36px; padding: 3px 6px; border: 1px solid transparent; border-radius: var(--radius-sm); background: transparent; color: inherit; font: inherit; font-size: 12px; text-align: left; cursor: pointer; }
+.mix-list li { display: block; }
+.mix-list .mix-button:hover, .brand-mix-row:hover { background: var(--surface-alt); }
+.mix-value { display: grid; justify-items: end; line-height: 1.15; }
+.brand-mix { list-style: none; padding: 0; display: grid; gap: 4px; }
+.brand-mix-row { grid-template-columns: 56px minmax(0, 1fr) minmax(0, 1fr) 64px; }
+.brand-mix-row .mix-logo { width: 56px; height: 28px; }
+.brand-mix-name { font-weight: 600; font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mix-fill.brand-fill { background: var(--scale-count-3); }
+.rank-row.is-quiet .rank-name { color: var(--text-secondary); }
+.btn.more { margin-top: 6px; width: 100%; }
+.unit-compare { margin-top: 10px; padding: 10px 12px; background: var(--surface-alt); border-radius: var(--radius-sm); font-size: 14px; line-height: 1.5; }
+.unit-compare small { display: block; margin-top: 2px; font: 400 12px/1.4 var(--font-mono); color: var(--text-metadata); }
+.unit-compare.is-muted { color: var(--text-secondary); font-size: 13px; }
+.id-text { font-size: 11px; overflow-wrap: anywhere; }
+.fact-address { overflow-wrap: anywhere; }
+.store .eyebrow .category-swatch { vertical-align: -1px; }
+
+/* ---------- chart tray: paired bars (stores vs residents) ---------- */
+.bar-row.paired { grid-template-columns: 20px minmax(90px, 150px) minmax(0, 1fr) 84px; }
+.bar-pair { display: grid; gap: 3px; }
+.bar-pair .bar-track { height: 10px; }
+.bar-track.people { height: 7px; }
+.bar-fill.people { background: var(--text-muted); box-shadow: none; }
+.bar-fill.is-no-data { background: var(--data-no-data) !important; }
+.cue-stores { background: var(--scale-count-4); border: 0; width: 14px; height: 10px; }
+.cue-people { background: var(--text-muted); border: 0; width: 14px; height: 7px; }
+@media (max-width: 760px) { .bar-row.paired { grid-template-columns: 16px minmax(70px, 110px) minmax(0, 1fr) 64px; gap: 6px; } }
+
+/* ---------- store pins: type colours (data-type) ---------- */
+.store-pin { --pin-fill: var(--type-c-store); }
+
+/* Mobile portrait: the legend carries the metric switch, so the compact Aha card sits above both rows. */
+@media (max-width: 760px) and (orientation: portrait) {
+  .map-aha { bottom: calc(var(--bottom-panel-height) + 104px); }
+  .map-legend .legend-block#legend-areas { gap: 4px 8px; }
+  .metric-switch.compact { margin-top: 2px; }
+}

@@ -1,0 +1,724 @@
+{
+  "$schema": "./handoff.schema.json",
+  "schemaVersion": "1.0.0",
+  "documentType": "implementation-plan",
+  "productId": "citymeter-grocery",
+  "productVersion": "0.1.0",
+  "updatedOn": "2026-10-22",
+  "brief": "product-brief.json",
+  "statement": "product-statement.json",
+  "humanPlan": "IMPLEMENTATION_PLAN.md",
+  "architecture": {
+    "runtime": "static HTML/CSS/JavaScript ES modules",
+    "framework": null,
+    "buildStep": null,
+    "nodeEngine": ">=20",
+    "commands": {
+      "start": "npm start",
+      "test": "npm test",
+      "handoffManifest": "npm run handoff:manifest",
+      "handoffBundle": "npm run handoff:bundle",
+      "verifyLive": "npm run verify:live"
+    },
+    "libraries": {
+      "maplibre": "5.6.2"
+    },
+    "externalServices": {
+      "tiles": {
+        "url": "https://tiles.openfreemap.org/planet",
+        "role": "OpenMapTiles vector tiles (basemap + building massing)",
+        "offlineSubstitute": "stub TileJSON with empty tiles via request interception (VERIFICATION.md)"
+      },
+      "glyphs": {
+        "url": "https://tiles.openfreemap.org/fonts/{fontstack}/{range}.pbf",
+        "role": "basemap label glyphs"
+      },
+      "mapLibrary": {
+        "url": "https://unpkg.com/maplibre-gl@5.6.2/dist/maplibre-gl.js (+ .css)",
+        "role": "map rendering; loaded after the core data with timeout and retry"
+      },
+      "productionLinks": {
+        "url": "https://landometer.com/v3/citymeter?d=grocery and /api/v2/citymeter-v3/grocery/overlayMvt (store source tile)",
+        "role": "outgoing links only; the demo never calls the API at runtime"
+      }
+    },
+    "removedFromLuxuryBrands": {
+      "neighborhoodCores": "replaced by the production hierarchy (js/hierarchy.js)",
+      "hostBuildings": "js/buildings.js removed — no confirmed host buildings",
+      "venueXray": "js/venue-xray.js and the vendored earcut removed",
+      "provinceFrames": "js/provinces.js (OpenGISData-Thailand) replaced by production boundaries in js/area-layers.js",
+      "areaInsight": "js/area-insight.js replaced by js/hierarchy.js#buildAha"
+    },
+    "coreDataTimeoutMs": 15000,
+    "optionalVendorTimeoutMs": 20000,
+    "modules": [
+      {
+        "path": "js/app.js",
+        "role": "orchestration: selection {province, district, unit}, filters, row scopes (filtered/scopeRows/rows), focus modes, Aha, panel modes + back stack, URL state, legend, chart tray, table, map lifecycle (stores → areas → massing), camera calls"
+      },
+      {
+        "path": "js/launch.js",
+        "role": "classic boot script: file bridge to the public URL, loading/slow/error overlay, citymeter:ready / citymeter:load-error"
+      },
+      {
+        "path": "js/model.js",
+        "role": "buildModel(grocery, areas), lookups, filterRows (multi-term search, brand, type), perCapita, productionURL, nouns (unitName, districtNoun, unitNoun, withNoun), TYPE_ORDER, flags"
+      },
+      {
+        "path": "js/hierarchy.js",
+        "role": "selection model, areaRows, childrenOf, summarizeChildren, rankChildren, ahaSize, buildAha (union share vs population share), buildUnitInsight, levelNouns, areaKey"
+      },
+      {
+        "path": "js/scales.js",
+        "role": "LDS count and density.capita (41-sample LUTs, five-class tables), buildClasses (quantile on display-rounded values), classify, formatMetric, inkFor, contrastRatio"
+      },
+      {
+        "path": "js/area-layers.js",
+        "role": "province/district/unit choropleth (hit, fill, zero, outline, selected) with feature-state colours, zoom windows, HTML area labels (installAreaLabels), bboxOfFeature"
+      },
+      {
+        "path": "js/stores-layer.js",
+        "role": "every filtered row as a WebGL circle (context / focus / selected), focusExpression, typeColors; click before areas"
+      },
+      {
+        "path": "js/pins.js",
+        "role": "HTML pins with brand logos from zoom 14 (≤ 450 pins, ≤ 250 logos), screen-space slots with leader lines, keyboard tour"
+      },
+      {
+        "path": "js/geo-store.js",
+        "role": "lazy per-province geometry (districts + units) and store details, cached, timeout and retry"
+      },
+      {
+        "path": "js/chart-model.js",
+        "role": "buildRankingModel (storeShare, popShare, perCapita), buildMatrixModel (types | brands)"
+      },
+      {
+        "path": "js/charts.js",
+        "role": "HTML charts: paired stores-vs-people ranking, per-capita ranking, equal-cell matrices; every mark a button"
+      },
+      {
+        "path": "js/profile-model.js",
+        "role": "typeMix, brandMix, venueRanking, describeStatus, describeGeometry, buildUnitProfile, buildVenueProfile, buildStoreDetail"
+      },
+      {
+        "path": "js/panel.js",
+        "role": "HTML strings for overview / unit / venue / store, metric tiles + pictograms, metric switch, filter chips"
+      },
+      {
+        "path": "js/breadcrumb.js",
+        "role": "ประเทศไทย › จังหวัด › อำเภอ/เขต › อปท./ย่าน › สถานที่ crumbs, folding, breadcrumbText"
+      },
+      {
+        "path": "js/brand-logos.js",
+        "role": "brand identity registry (sprite), aliases, safe markup"
+      },
+      {
+        "path": "js/venue-logos.js",
+        "role": "venue logo registry (files), validation, lookup by the venue's VL key, role labels, markup"
+      },
+      {
+        "path": "js/navigation.js",
+        "role": "approved nav-7 glyphs, PICTOGRAM_CONTRACT (9 glyphs), toolbar titles, help dialog"
+      },
+      {
+        "path": "js/map-style.js",
+        "role": "generated paper basemap style v8 from --basemap-* tokens; DATA_FILL_BEFORE = waterway, MASSING_BEFORE = water-name"
+      },
+      {
+        "path": "js/massing.js",
+        "role": "city massing tier + rounded focus tier for a compact unit (decode → offset → fillet → extrude); distance fade"
+      },
+      {
+        "path": "js/mvt.js",
+        "role": "dependency-free MVT reader and tile maths"
+      },
+      {
+        "path": "js/geometry.js",
+        "role": "cleanRing, clipRingToBox, offsetRing, roundRing (enclosing), pointInRing, ringsIntersect"
+      },
+      {
+        "path": "js/camera.js",
+        "role": "presets plan / city / model (eye kept, unused), fitPitched, framePoint, applyPreset"
+      },
+      {
+        "path": "js/vendors.js",
+        "role": "MapLibre JS/CSS loader with timeout and retry"
+      },
+      {
+        "path": "styles.css, grocery.css, logos.css, navigation.css, assets/theme.css",
+        "role": "layout and components; grocery-specific area labels, Aha bars, metric switch, paired bars; type colours; icons/help; LDS tokens + basemap tokens"
+      },
+      {
+        "path": "scripts/build-data.py (+ scripts/data/*)",
+        "role": "sheet + production API → data/grocery.json, data/areas.json, data/geo/, data/detail/, data/build-receipt.json; stops on any reconciliation failure"
+      },
+      {
+        "path": "scripts/build-brand-logos.py, scripts/build-venue-logos.py, scripts/measure-logos.mjs",
+        "role": "sha256-verified logo assets with measured backplates"
+      },
+      {
+        "path": "scripts/build-pictogram-font.py",
+        "role": "9-glyph pictogram subset from npm material-symbols 0.27.0"
+      },
+      {
+        "path": "scripts/build-handoff.mjs, scripts/verify-live.mjs",
+        "role": "manifest + bundle from git ls-files bytes; live byte attestation against GitHub Pages"
+      }
+    ]
+  },
+  "selection": {
+    "filterFields": [
+      "search",
+      "brand",
+      "type"
+    ],
+    "areaFields": [
+      "province",
+      "district",
+      "unit"
+    ],
+    "queryFields": [
+      "search",
+      "brand",
+      "type",
+      "province",
+      "district",
+      "unit",
+      "areas",
+      "metric",
+      "view",
+      "store",
+      "place",
+      "view3d"
+    ],
+    "rowScopes": [
+      "filtered",
+      "scopeRows",
+      "rows"
+    ],
+    "focusModes": [
+      "auto (default, no areas param)",
+      "explicit (areas=k1,k2,k3 ≤ 3 child keys of the current level)",
+      "none (areas=all)"
+    ],
+    "areaQuery": "province=<production abbreviation | 2-digit code>; district=<4-digit code>; unit=<DOLA code | Locale uuid>; a lower level implies the upper ones",
+    "metricQuery": "metric=capita (stores per 10,000 residents); default count",
+    "cameraQuery": "view3d=0 forces the plan preset",
+    "panelQuery": "store=<key8> opens store mode (selection = its first unit, else its district); place=<GV id> opens venue mode; unit=<key> opens unit mode",
+    "chartQuery": "view=ranking | mix | brands",
+    "chartActions": [
+      {
+        "type": "area",
+        "level": "province | district | unit",
+        "index": "child index"
+      }
+    ],
+    "panelActions": [
+      "select-area",
+      "select-store",
+      "select-venue",
+      "filter-brand",
+      "filter-type",
+      "back",
+      "explore-top",
+      "clear-focus",
+      "set-metric",
+      "open-charts",
+      "open-table",
+      "clear-filter",
+      "crumb-country",
+      "crumb-province",
+      "crumb-district",
+      "crumb-unit",
+      "crumb-venue",
+      "crumb-expand"
+    ]
+  },
+  "tasks": [
+    {
+      "id": "P01",
+      "title": "Data pipeline: research sheet + production API → web data + reconciliation receipt",
+      "dependsOn": [],
+      "acceptanceCriteria": [
+        "AC12",
+        "AC18"
+      ],
+      "files": [
+        "scripts/build-data.py",
+        "scripts/data/fetch-catalog.py",
+        "scripts/data/fetch-geometry.py",
+        "scripts/data/assemble-geo.py",
+        "scripts/data/assign-geometry.py",
+        "scripts/data/fetch-unit-membership.py",
+        "scripts/data/merge-unit-membership.mjs",
+        "data/grocery.json",
+        "data/areas.json",
+        "data/geo/",
+        "data/detail/",
+        "data/build-receipt.json",
+        "tests/data.test.js"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "P02",
+      "title": "Area hierarchy and the first Aha (สาขากระจุกเทียบคน) at every level; unit insight",
+      "dependsOn": [
+        "P01"
+      ],
+      "acceptanceCriteria": [
+        "AC06",
+        "AC15",
+        "AC16",
+        "AC19"
+      ],
+      "files": [
+        "js/hierarchy.js",
+        "js/model.js",
+        "tests/hierarchy.test.js",
+        "tests/model.test.js"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "P03",
+      "title": "Metrics count / density.capita with quantile classes on display-rounded values",
+      "dependsOn": [
+        "P02"
+      ],
+      "acceptanceCriteria": [
+        "AC14",
+        "AC17"
+      ],
+      "files": [
+        "js/scales.js",
+        "assets/theme.css",
+        "tests/scales.test.js",
+        "tests/fixtures/lds-0.9.7-scales.json"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "P04",
+      "title": "Area layers for three levels, labels and per-province geometry",
+      "dependsOn": [
+        "P02",
+        "P03"
+      ],
+      "acceptanceCriteria": [
+        "AC13",
+        "AC14",
+        "AC16"
+      ],
+      "files": [
+        "js/area-layers.js",
+        "js/geo-store.js",
+        "grocery.css",
+        "tests/map-style.test.js"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "P05",
+      "title": "Stores layer (WebGL dots) and HTML pins with logos from zoom 14; focus + quiet",
+      "dependsOn": [
+        "P02"
+      ],
+      "acceptanceCriteria": [
+        "AC07",
+        "AC08",
+        "AC13"
+      ],
+      "files": [
+        "js/stores-layer.js",
+        "js/pins.js",
+        "logos.css",
+        "tests/map-style.test.js",
+        "tests/pins.test.js"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "P06",
+      "title": "Panel modes, breadcrumb, URL state and back stack",
+      "dependsOn": [
+        "P02"
+      ],
+      "acceptanceCriteria": [
+        "AC06",
+        "AC11",
+        "AC20",
+        "AC24"
+      ],
+      "files": [
+        "js/app.js",
+        "js/panel.js",
+        "js/profile-model.js",
+        "js/breadcrumb.js",
+        "tests/breadcrumb.test.js",
+        "tests/profile-model.test.js"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "P07",
+      "title": "Charts: paired ranking / per-capita ranking, store-type and brand matrices",
+      "dependsOn": [
+        "P02",
+        "P03"
+      ],
+      "acceptanceCriteria": [
+        "AC21",
+        "AC10"
+      ],
+      "files": [
+        "js/chart-model.js",
+        "js/charts.js",
+        "tests/chart-model.test.js",
+        "docs/CHART_SELECTION.md"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "P08",
+      "title": "Brand (17) and venue (128) logos verified by sha256 with measured backplates",
+      "dependsOn": [
+        "P01"
+      ],
+      "acceptanceCriteria": [
+        "AC23"
+      ],
+      "files": [
+        "scripts/build-brand-logos.py",
+        "scripts/build-venue-logos.py",
+        "scripts/measure-logos.mjs",
+        "assets/brand-logos.svg",
+        "data/brand-logos.json",
+        "assets/venue-logos/",
+        "data/venue-logos.json",
+        "js/brand-logos.js",
+        "js/venue-logos.js",
+        "tests/brand-logos.test.js",
+        "tests/venue-logos.test.js"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "P09",
+      "title": "9-glyph pictogram subset (test exception carried over from Luxury Brands)",
+      "dependsOn": [],
+      "acceptanceCriteria": [
+        "AC09"
+      ],
+      "files": [
+        "scripts/build-pictogram-font.py",
+        "assets/icons/material-pictogram-300.woff2",
+        "assets/icons/material-pictogram-300.json",
+        "js/navigation.js",
+        "styles.css"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "P10",
+      "title": "Product statement, brief, plan, verification and schema 1.0.0",
+      "dependsOn": [
+        "P02",
+        "P07"
+      ],
+      "acceptanceCriteria": [
+        "AC22"
+      ],
+      "files": [
+        "PRODUCT_STATEMENT.md",
+        "DATA_METHOD.md",
+        "docs/AREA_METHOD.md",
+        "docs/CHART_SELECTION.md",
+        "docs/BUILD_CARD.md",
+        "handoff/"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "P11",
+      "title": "Rendered QA at 1280 and 390 in both themes; LDS artifact checker",
+      "dependsOn": [
+        "P04",
+        "P05",
+        "P06",
+        "P07"
+      ],
+      "acceptanceCriteria": [
+        "AC09",
+        "AC10",
+        "AC13",
+        "AC15"
+      ],
+      "files": [
+        "handoff/VERIFICATION.md"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "P12",
+      "title": "GitHub Pages release, live checks, live attestation and bundle",
+      "dependsOn": [
+        "P10",
+        "P11"
+      ],
+      "acceptanceCriteria": [
+        "AC12"
+      ],
+      "files": [
+        ".nojekyll",
+        "scripts/build-handoff.mjs",
+        "scripts/verify-live.mjs",
+        "handoff/VERIFICATION.md"
+      ],
+      "status": "see VERIFICATION.md and RELEASE_RECEIPT.json"
+    }
+  ],
+  "acceptanceCriteria": [
+    {
+      "id": "AC01",
+      "scenario": "HTTP/HTTPS first load",
+      "expected": "Core data and panel ready before the map; citymeter:ready dismisses the launch overlay",
+      "verificationType": "browser"
+    },
+    {
+      "id": "AC02",
+      "scenario": "Local file entry",
+      "expected": "Public link to https://montri-th.github.io/grocery/ preserving query/hash; no origin protection bypassed",
+      "verificationType": "manual-browser"
+    },
+    {
+      "id": "AC03",
+      "scenario": "Core data failure",
+      "expected": "Short message, link and retry; never a blank shell",
+      "verificationType": "fault-injection"
+    },
+    {
+      "id": "AC04",
+      "scenario": "Province geometry / store detail / logo failure",
+      "expected": "Counts, table and charts keep working; short status or field message; no broken image",
+      "verificationType": "fault-injection"
+    },
+    {
+      "id": "AC05",
+      "scenario": "MapLibre timeout then retry",
+      "expected": "Data, table and charts stay; retry works; no duplicate scripts",
+      "verificationType": "fault-injection"
+    },
+    {
+      "id": "AC06",
+      "scenario": "Filters, area selection, focus auto/explicit/none, clear",
+      "expected": "Aha/choropleth/charts recompute from filtered; pins/table/counters use rows; URL restores the state",
+      "verificationType": "unit + browser"
+    },
+    {
+      "id": "AC07",
+      "scenario": "Several stores at one coordinate",
+      "expected": "Every row has a dot and a pin; slots near the anchor; coordinates unchanged",
+      "verificationType": "unit + browser"
+    },
+    {
+      "id": "AC08",
+      "scenario": "Dense logos",
+      "expected": "≤ 450 pins, ≤ 250 logos, only at zoom ≥ 14 and in focus; never over UI or labels",
+      "verificationType": "unit + browser"
+    },
+    {
+      "id": "AC09",
+      "scenario": "Desktop/mobile, light/dark",
+      "expected": "48 px header; panel/sheet per contract; no horizontal overflow at 390 px; generated basemap in both themes",
+      "verificationType": "browser"
+    },
+    {
+      "id": "AC10",
+      "scenario": "Keyboard and reduced motion",
+      "expected": "Visible focus; pins, charts, panel, toolbar and help usable by keyboard; context dots not focusable",
+      "verificationType": "browser"
+    },
+    {
+      "id": "AC11",
+      "scenario": "Dynamic copy",
+      "expected": "No caveat/research badge/CSV; status ‘อยู่ในรายการสาขาของแบรนด์’; sources and dates right; missing never shown as 0",
+      "verificationType": "unit + browser"
+    },
+    {
+      "id": "AC12",
+      "scenario": "Release and handoff",
+      "expected": "Commit, live bytes, manifest hashes and bundle agree; no private Drive/Sheet URL or secret",
+      "verificationType": "live attestation"
+    },
+    {
+      "id": "AC13",
+      "scenario": "Focus + quiet",
+      "expected": "Areas outside the focus outline-only with quiet labels; rows outside the focus grey dots without pins or logos",
+      "verificationType": "browser"
+    },
+    {
+      "id": "AC14",
+      "scenario": "Choropleth",
+      "expected": "Classes match the legend and the ranking; quantile on rounded values; zero outline; no-data neutral; fills off at zoom 9 / 12 / 14.5; same HEX on both themes",
+      "verificationType": "unit + browser"
+    },
+    {
+      "id": "AC15",
+      "scenario": "First Aha",
+      "expected": "First screen ‘30% ของสาขาอยู่ใน 3 จังหวัดนี้ · ซึ่งมีคนแค่ 13% ของประเทศ’ (BKK · CBI · SPK, 8,228 of 27,607); recomputed at every level and filter; ดูทุก… (?areas=all) and เปรียบเทียบ… work; nothing hard-coded",
+      "verificationType": "unit + browser"
+    },
+    {
+      "id": "AC16",
+      "scenario": "Hierarchy drill-down",
+      "expected": "Map area, label, ranking row, chart mark or select → province › district › unit; district/unit geometry loads with the province; URL keeps production codes",
+      "verificationType": "browser"
+    },
+    {
+      "id": "AC17",
+      "scenario": "Metric switch",
+      "expected": "Legend and ranking switch together; capita without population = ไม่มีข้อมูล; ?metric=capita restores; camera unchanged",
+      "verificationType": "unit + browser"
+    },
+    {
+      "id": "AC18",
+      "scenario": "Membership",
+      "expected": "Every unit count equals the API; stores in two units count in both; the Aha share counts them once",
+      "verificationType": "unit"
+    },
+    {
+      "id": "AC19",
+      "scenario": "Incomplete population",
+      "expected": "A district with a child unit lacking population (e.g. เขตดุสิต) shows the store share and says it does not compare with residents",
+      "verificationType": "unit + browser"
+    },
+    {
+      "id": "AC20",
+      "scenario": "Breadcrumb",
+      "expected": "ประเทศไทย › จังหวัด › อำเภอ/เขต › อปท./ย่าน › สถานที่ at the top of the panel; store is the heading; folds to “…” on narrow screens; crumb actions clear the right level; document.title matches",
+      "verificationType": "unit + browser"
+    },
+    {
+      "id": "AC21",
+      "scenario": "Charts",
+      "expected": "Ranking: paired store (class colour) and people (neutral) bars, or per-capita bars; matrices with equal cells, a number in every cell, zero outline; every mark drills down",
+      "verificationType": "unit + browser"
+    },
+    {
+      "id": "AC22",
+      "scenario": "Product statement and machine contracts",
+      "expected": "MD + JSON carry Who/What/Which/How, quality bar, evidence labels and hypotheses; the three JSON documents validate against schema 1.0.0",
+      "verificationType": "schema validation"
+    },
+    {
+      "id": "AC23",
+      "scenario": "Logos",
+      "expected": "Every file matches its registry sha256; no Drive links; operator/chain marks carry their role; no logo = no box; names unchanged",
+      "verificationType": "unit + browser"
+    },
+    {
+      "id": "AC24",
+      "scenario": "Store detail",
+      "expected": "Address/subdistrict/uuid/tile load on open; failure says โหลดที่อยู่ไม่สำเร็จ; source + date + coordinate limit; links to the locator, source, source tile and CityMETER",
+      "verificationType": "browser"
+    }
+  ],
+  "developerWorkflow": [
+    "Read AGENTS.md, then handoff/README.md, PRODUCT_STATEMENT.md and the paired human/machine briefs",
+    "Run npm test before changes; keep the selection model, the three row scopes, the focus modes and the panel action contract",
+    "Change one bounded task at a time; preserve invariant IDs INV01–INV23",
+    "Never assign a store to an area yourself — membership comes from production (rebuild with scripts/build-data.py)",
+    "Never estimate a missing population; never show missing as zero",
+    "Add or adjust tests in tests/ for every behaviour change; tests run on the shipped data",
+    "Check the browser at 390 and 1280 px in light and dark; use the stub-tile harness when the CDN or tiles are blocked, then confirm on the live site",
+    "Bump ?v= in index.html and package.json version for a release; regenerate the manifest on the pushed commit; run npm run verify:live before claiming a release",
+    "Report changed files, checks actually run and what remains unverified"
+  ],
+  "backlog": [
+    {
+      "id": "N01",
+      "title": "Playwright regression in CI with stub tiles and vendored MapLibre, including fault injection",
+      "ownerRole": "frontend developer",
+      "status": "engineering backlog"
+    },
+    {
+      "id": "N02",
+      "title": "Area labels as a MapLibre symbol layer with native collision",
+      "ownerRole": "frontend developer",
+      "status": "engineering backlog"
+    },
+    {
+      "id": "N03",
+      "title": "Stores per resident within walking/driving reach of a point (catchment)",
+      "ownerRole": "product + data",
+      "status": "product decision"
+    },
+    {
+      "id": "N04",
+      "title": "Chain-vs-chain view per area (share of each chain, which chain is absent)",
+      "ownerRole": "product + frontend",
+      "status": "product decision"
+    },
+    {
+      "id": "N05",
+      "title": "Refresh Lotus's from the live site (58 more branches than the legacy data) and set an update cadence for every chain",
+      "ownerRole": "data owner",
+      "status": "data backlog"
+    },
+    {
+      "id": "N06",
+      "title": "Store-by-store open/closed audit (sheet 08_STATUS_AUDIT) before showing any status beyond ‘in the brand's list’",
+      "ownerRole": "data owner",
+      "status": "data backlog"
+    },
+    {
+      "id": "N07",
+      "title": "Production district route; align the demo query with production paths",
+      "ownerRole": "platform",
+      "status": "platform decision"
+    },
+    {
+      "id": "N08",
+      "title": "Mobile performance budget: 27,607-dot source, per-province geometry, MVT decode in a worker",
+      "ownerRole": "frontend developer",
+      "status": "engineering backlog"
+    },
+    {
+      "id": "N09",
+      "title": "Population for the 163 units without it, when production provides it (never estimated)",
+      "ownerRole": "data owner",
+      "status": "data backlog"
+    },
+    {
+      "id": "N10",
+      "title": "Venue candidates beyond name matching (review queue) and venue logos on the map",
+      "ownerRole": "data owner + frontend",
+      "status": "data backlog"
+    },
+    {
+      "id": "N11",
+      "title": "Validate the Who/What/Which/How hypotheses with the three user groups (statement §7)",
+      "ownerRole": "product owner",
+      "status": "research"
+    },
+    {
+      "id": "N12",
+      "title": "Register the pictogram sets (Luxury 8 + Grocery 9) in LDS once approved, then retire the exception",
+      "ownerRole": "design system owner",
+      "status": "design system decision"
+    },
+    {
+      "id": "N13",
+      "title": "Missing point of Ko Pha-ngan (API 57 vs 56 in the tiles)",
+      "ownerRole": "platform",
+      "status": "platform backlog"
+    },
+    {
+      "id": "N14",
+      "title": "Check the rights of the Big C mark from Wikimedia Commons (PD-textlogo vs CC BY-SA 4.0) before any use outside the demo",
+      "ownerRole": "owner / legal",
+      "status": "open question"
+    }
+  ]
+}

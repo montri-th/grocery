@@ -1,0 +1,345 @@
+{
+  "$schema": "./handoff.schema.json",
+  "schemaVersion": "1.0.0",
+  "documentType": "product-statement",
+  "productId": "citymeter-grocery",
+  "productVersion": "0.1.0",
+  "updatedOn": "2026-10-22",
+  "humanDocument": "../PRODUCT_STATEMENT.md",
+  "standard": "Product Brief — CityMETER v6 §1.6.3 metadata block; Master Brand Brief v0.5.3 §7.2 / §3.7 (same structure as CityMETER Luxury Brands 0.5)",
+  "evidenceLabels": {
+    "personas": "hypothesis",
+    "alternatives": "inference",
+    "dataFacts": "observed",
+    "areaUnitAndFirstAha": "owner-stated",
+    "urgency": "inference",
+    "severity": "inference"
+  },
+  "dataset_id": "grocery",
+  "dataset_name_en": "Grocery",
+  "dataset_name_th": "ร้านค้าปลีกอาหาร",
+  "category": "Location",
+  "outcome_layer": "Local Decisions",
+  "status": "prototype",
+  "positioning": {
+    "one_line_highlight": "แผนที่สาขาร้านค้าปลีกอาหาร 17 เชนที่บอกว่าร้านกระจุกที่ไหนเมื่อเทียบกับคน ตั้งแต่ระดับประเทศถึง อปท. และย่าน พร้อมแหล่งข้อมูลรายสาขา",
+    "unique_advantage": "คำถามเดียว (ส่วนแบ่งสาขาของพื้นที่อันดับต้นเทียบส่วนแบ่งประชากร) คำนวณใหม่ได้ทุกระดับด้วยตัวเลขที่ตรงกับ CityMETER production และสลับเป็นสาขาต่อ 1 หมื่นคนได้ในคลิกเดียว",
+    "unique_vs_other_citymeter_datasets": "ชุดเดียวที่ลงถึงสาขาของเชนค้าปลีกอาหารพร้อมแหล่งข้อมูลรายแถว; Population ให้ตัวหาร, Shopping Center ให้สถานที่ แต่ไม่รู้ว่าร้านใดอยู่ที่ไหนเทียบกับคน",
+    "unique_vs_competitors": "locator ทีละเชน, Google Maps ทีละจุด, สถิติราชการระดับจังหวัด — ไม่มีแหล่งใดรวมทุกเชน เทียบกับคน ลงถึง อปท./ย่าน และตรงกับระบบที่ลูกค้าเห็น"
+  },
+  "users": {
+    "primary_users": [
+      "ทีมขยายสาขาของเชนค้าปลีก (network planning / site selection)",
+      "ทีมพัฒนาโครงการ / leasing (คอนโด หมู่บ้าน มิกซ์ยูส ปั๊มน้ำมัน โรงพยาบาล)",
+      "นักวิเคราะห์ ที่ปรึกษา และหน่วยงานเมือง"
+    ],
+    "decision_contexts": [
+      "เปิดสาขาถัดไปที่อำเภอหรือ อปท. ใด และรูปแบบใด",
+      "เชิญร้านสะดวกซื้อหรือซูเปอร์ฯ แบรนด์ใดเข้าโครงการ",
+      "ใช้หลักฐานอะไรใน proposal หรือรายงาน และพื้นที่ไหนควรดูต่อ"
+    ],
+    "functional_needs": [
+      "เห็นพื้นที่ที่คนมากแต่ร้านน้อย และพื้นที่ที่แน่นแล้ว",
+      "เทียบเชนตัวเองกับคู่แข่งในขอบเขตเดียวกัน",
+      "ตัวเลขชุดเดียวกันทุกระดับ ตรงกับ CityMETER",
+      "ตรวจย้อนถึงสาขา แหล่งข้อมูล และวันที่ได้"
+    ],
+    "emotional_needs": [
+      "ไม่อยากเปิดซ้อนแล้วกินยอดตัวเอง",
+      "อยากให้ข้อเสนอดูมีหลักฐาน ไม่ใช่ความรู้สึก",
+      "ไม่อยากถูก challenge เรื่องที่มาและวันที่ของตัวเลข"
+    ],
+    "trigger_voice_in_head": [
+      "อำเภอไหนยังมีคนมากกว่าร้าน?",
+      "ถ้าเราไม่เปิด คู่แข่งเปิดหรือยัง?",
+      "รอบโครงการเรามีร้านพอแล้วหรือยัง?",
+      "ตัวเลขนี้ตรงกับ CityMETER ไหม?",
+      "ประชากรมาจากไหน ปีไหน?"
+    ],
+    "value_proposition": "เติมช่องว่างระหว่าง ‘รู้ว่าร้านสะดวกซื้ออยู่เต็มเมือง’ กับ ‘เห็นว่าร้านกระจุกเกินคนที่ไหน ขาดที่ไหน ในระดับที่ใช้ตัดสินใจได้จริง (อำเภอ อปท. ย่าน) และตรวจย้อนถึงสาขาได้’"
+  },
+  "problem": {
+    "statement": "ก่อนเลือกพื้นที่เปิดสาขาหรือร้านในโครงการ ทีมต้องรู้ว่าร้านค้าปลีกอาหารกระจุกตัวเทียบกับคนอย่างไรในแต่ละระดับพื้นที่ แต่ไม่มีภาพเดียวที่เทียบได้ทุกระดับด้วยตัวเลขชุดเดียวกัน",
+    "urgency": "ทุกรอบวางแผนสาขาและทุกโครงการที่ต้องเลือกร้าน",
+    "severity": "สาขาที่เปิดผิดที่ผูกกับสัญญาและกินยอดสาขาเดิม (ไม่ระบุตัวเลขเพราะยังไม่มีหลักฐานโครงการ)",
+    "out_of_scope": [
+      "ยอดขาย",
+      "ค่าเช่า",
+      "footfall",
+      "กำลังซื้อ",
+      "สถานะเปิด–ปิดรายสาขาที่ตรวจภาคสนาม",
+      "catchment ตามระยะเดินหรือขับรถ"
+    ]
+  },
+  "competitor_landscape": {
+    "present_competitors": [
+      {
+        "name": "หน้าค้นหาสาขาของแต่ละแบรนด์ (7-Eleven, CJ More, Lotus's, Big C, Tops …)",
+        "how_users_use_it": "ดูสาขาทีละเชน",
+        "strength": "ข้อมูลตรงจากเจ้าของ",
+        "gap": "ทีละเชน ไม่เทียบกับคน ไม่รวมเป็นพื้นที่ ส่งออกไม่ได้"
+      },
+      {
+        "name": "Google Maps / แผนที่ทั่วไป",
+        "how_users_use_it": "ค้นร้านรอบจุดหนึ่ง",
+        "strength": "ครอบคลุม ใช้ง่าย",
+        "gap": "นับเป็นพื้นที่ไม่ได้ ไม่มีประชากร ไม่รู้ว่าครบหรือไม่"
+      },
+      {
+        "name": "CityMETER production (หน้า Grocery)",
+        "how_users_use_it": "ดูยอดและความหนาแน่นรายพื้นที่",
+        "strength": "ตัวเลขทางการของ Landometer",
+        "gap": "ยังไม่บอกข้อค้นพบทันที ต้องอ่านเองทีละระดับ"
+      },
+      {
+        "name": "สถิติราชการ / รายงานที่ปรึกษา",
+        "how_users_use_it": "ภาพรวมจังหวัด",
+        "strength": "อ้างอิงได้",
+        "gap": "ไม่ลงถึง อปท./ย่าน ไม่ลงรายสาขา ไม่สด"
+      },
+      {
+        "name": "GIS ภายในองค์กร",
+        "how_users_use_it": "วิเคราะห์เอง",
+        "strength": "ยืดหยุ่น",
+        "gap": "ต้องรวมข้อมูลและขอบเขตเอง ตัวเลขไม่ตรงกับที่ลูกค้าเห็น"
+      }
+    ],
+    "aspirational_competitors": [
+      {
+        "name": "ระบบวิเคราะห์ทำเลค้าปลีกระดับสากล (เช่น Esri Business Analyst, Placer.ai)",
+        "benchmark_quality": "decision-first",
+        "what_to_learn_or_match": "คำตอบที่เริ่มจากคำถามธุรกิจ การเทียบกับประชากร/ตลาด และการส่งต่อเป็นรายงาน"
+      },
+      {
+        "name": "store locator ที่ดีของแบรนด์",
+        "benchmark_quality": "clarity",
+        "what_to_learn_or_match": "รายละเอียดสาขาชัด ที่อยู่ ลิงก์แหล่งข้อมูล"
+      },
+      {
+        "name": "CityMETER production",
+        "benchmark_quality": "consistency",
+        "what_to_learn_or_match": "path ประเทศไทย › จังหวัด › อำเภอ › อปท./Locale, รหัสพื้นที่, ประชากร และยอดรายพื้นที่ชุดเดียวกัน"
+      }
+    ],
+    "expected_quality_bar": [
+      "ข้อค้นพบแรกอ่านจบใน 10 วินาที และบอกทั้งตัวตั้ง ตัวหาร และพื้นที่ที่ถูกนับ",
+      "ตัวเลขทุกพื้นที่ตรงกับ CityMETER production (ต่างได้เฉพาะที่อธิบายไว้)",
+      "ถามคำถามเดิมได้ทุกระดับภายใน 2 คลิก และกลับขึ้นได้จาก breadcrumb",
+      "สลับจำนวน ↔ ต่อคน โดยไม่เสียตำแหน่งที่กำลังดู",
+      "ทุกสาขาตรวจย้อนได้ถึงแหล่งข้อมูล วันที่ และ tile ต้นทาง",
+      "ไม่มีค่า 0 ปลอมแทนข้อมูลที่ไม่มี",
+      "ใช้ได้บนมือถือ 390 px และฉายในห้องประชุมได้ทั้งสองธีม"
+    ]
+  },
+  "winning_strategy": [
+    "คำถามเดียวทุกระดับ: Aha ‘สาขากระจุกเทียบคน’ คำนวณใหม่ตามระดับและตัวกรอง",
+    "ตัวเลขตรงกับ production: membership จาก production เอง ไม่ใช่ point-in-polygon ของเดโม",
+    "ประชากรเป็นตัวเทียบตั้งแต่หน้าแรก และบอกชัดเมื่อไม่มีประชากร (ไม่ประมาณ)",
+    "ลงถึงสาขาจริงพร้อมหลักฐาน: ที่อยู่ ตำบล แหล่งข้อมูล วันที่ tile และลิงก์กลับ production",
+    "พร้อมส่งต่อ: JSON contracts, acceptance criteria, tests และ manifest สำหรับยกเข้า production"
+  ],
+  "primary_decisions": [
+    "screen อำเภอ / อปท. สำหรับสาขาใหม่",
+    "compare ความหนาแน่นของร้านต่อคนข้ามพื้นที่",
+    "prioritize รายการพื้นที่ไปสำรวจ"
+  ],
+  "primary_questions": [
+    "ร้านกระจุกที่ไหนเมื่อเทียบกับคน",
+    "อำเภอ / อปท. ไหนยังมีคนมากกว่าร้าน",
+    "เชน X มีกี่สาขาในพื้นที่นี้ และตรวจจากแหล่งใด"
+  ],
+  "channel_readiness": {
+    "search": {
+      "priority": "P2",
+      "target_queries": [
+        "ร้านสะดวกซื้อ ต่อประชากร จังหวัด",
+        "7-Eleven branches per capita Thailand"
+      ],
+      "required_page_blocks": [
+        "title/meta",
+        "summary",
+        "map",
+        "HTML table",
+        "source/limitation"
+      ],
+      "schema_types": [
+        "Dataset",
+        "Place"
+      ]
+    },
+    "llm": {
+      "priority": "P1",
+      "askable_questions": [
+        "จังหวัดไหนมีร้านสะดวกซื้อต่อคนมากที่สุด",
+        "อำเภอไหนของชลบุรีมีสาขามากที่สุดเมื่อเทียบกับคน"
+      ],
+      "answer_block": "signal → meaning → action → limitation (5–8 บรรทัด)",
+      "citation_note": "อ้าง release, snapshot date และ field path",
+      "freshness_note": "ตรวจถึง 2026-10-22; แหล่งต้นทาง 29–30 ก.ย. 2569 หรือข้อมูลเดิม 12 พ.ค. 2567"
+    },
+    "agent": {
+      "priority": "P1",
+      "actionability_score": 3,
+      "possible_actions": [
+        "compare_locations",
+        "shortlist",
+        "export"
+      ],
+      "required_fields": [
+        "key",
+        "brand",
+        "type",
+        "name",
+        "province",
+        "district",
+        "unit",
+        "latitude",
+        "longitude",
+        "source",
+        "sourceDate"
+      ]
+    }
+  },
+  "primary_decision_actions": [
+    "screen",
+    "compare",
+    "prioritize",
+    "export"
+  ],
+  "data_sources": [
+    {
+      "name": "Research sheet “CityMETER Grocery Thailand — Source Audit & Refresh Master 2026-10-22”",
+      "owner": "Landometer · CityMETER",
+      "url_or_reference": "internal working reference (not published); build input hashed in data/build-receipt.json",
+      "data_type": "derived"
+    },
+    {
+      "name": "Official brand store locators (7-Eleven, CJ More, Tops, Big C, ถูกดี มีมาตรฐาน, Makro, GO Wholesale, Gourmet Market, Rimping, UFM Fuji Super)",
+      "owner": "แต่ละแบรนด์",
+      "url_or_reference": "data/grocery.json → sources[].url (per row)",
+      "data_type": "official"
+    },
+    {
+      "name": "CityMETER Grocery legacy data (imported 2024-05-12)",
+      "owner": "Landometer",
+      "url_or_reference": "data/grocery.json → sources legacy_grocery, lotuss_legacy_checked",
+      "data_type": "derived"
+    },
+    {
+      "name": "CityMETER production API (counts, population, boundaries, unit membership)",
+      "owner": "Landometer",
+      "url_or_reference": "https://landometer.com/api/v2/citymeter-v3/ (base/info, grocery/info, grocery/info/geom, grocery/overlayMvt)",
+      "data_type": "derived"
+    },
+    {
+      "name": "OpenStreetMap via OpenFreeMap (OpenMapTiles)",
+      "owner": "OSM contributors / OpenFreeMap",
+      "url_or_reference": "https://tiles.openfreemap.org/planet",
+      "data_type": "open"
+    }
+  ],
+  "spatial_granularity": "point (vector-tile grid ≈ 10 m) → อปท. / Locale (ย่าน) → อำเภอ / เขต → จังหวัด → ประเทศ",
+  "temporal_coverage": "snapshot 2026-10-22 of what CityMETER production shows; source vintages 2026-09-29/30 (brand locators) or 2024-05-12 (legacy)",
+  "update_frequency": "ad hoc (follows the CityMETER production refresh)",
+  "last_updated": "2026-10-22",
+  "key_metrics": [
+    "stores per area (production counting)",
+    "distinct brands per area",
+    "stores per 10,000 registered residents",
+    "share of stores in the top-k child areas",
+    "share of residents in those areas"
+  ],
+  "visual_layers": [
+    "choropleth",
+    "point",
+    "polygon",
+    "ranking",
+    "matrix",
+    "3d-massing"
+  ],
+  "recommended_pairing_layers": [
+    "Population",
+    "Locale Insight",
+    "Shopping Center",
+    "Transit: Road"
+  ],
+  "data_transparency": {
+    "raw_fields": [
+      "key",
+      "brand",
+      "type",
+      "format",
+      "name",
+      "lon",
+      "lat",
+      "district",
+      "unit",
+      "source",
+      "venue",
+      "flags",
+      "uuid",
+      "address",
+      "subdistrict",
+      "subdistrictCode",
+      "tile",
+      "tileArea"
+    ],
+    "calculated_metrics": [
+      "stores (rows)",
+      "brands (distinct)",
+      "perCapita (stores per 10,000 residents)",
+      "share (top-k stores, union)",
+      "popShare (top-k residents)",
+      "class (quantile, up to 5)"
+    ],
+    "inferred_outputs": [
+      "ranking of child areas",
+      "comparison wording (แค่ when the population share rounds lower)",
+      "venue (name-based, never ‘inside’)"
+    ],
+    "recommended_actions": [
+      "screen",
+      "compare",
+      "prioritize",
+      "export"
+    ],
+    "source_note": "brand locators and legacy data as shown by CityMETER production on 2026-10-22; source and date per row",
+    "calculation_note": "district from the source subdistrict membership, local unit from the production overlay membership; the Aha share counts a store once; population share only when every compared area has a population",
+    "inference_note": "‘กระจุก’ means a higher share of stores than of residents, not saturation or potential; venue is a name a branch refers to",
+    "confidence_note": "coordinates decoded from a z10 vector tile (≈ 9.55 m grid); status ‘in the brand's list’, not re-checked store by store",
+    "limitation_summary": "not a census of grocery stores; Lotus's from legacy positions (site lists 58 more); some locators may keep closed stores; 163 units without population; 19 Bangkok stores outside every Locale"
+  },
+  "known_limitations": [
+    "ไม่ใช่สำมะโนร้านขายของชำทั้งประเทศ — 17 เชนตามที่ CityMETER แสดง",
+    "อยู่ในรายการของแบรนด์ ≠ ยืนยันว่าเปิดอยู่",
+    "Lotus's ใช้ตำแหน่งจากข้อมูลเดิม (เว็บมีมากกว่า 58 สาขา)",
+    "พิกัดจาก vector tile (ตาราง ~10 ม.) ไม่ใช่จุดสำรวจหน้าร้าน",
+    "อปท./ย่าน 163 แห่งไม่มีประชากร — ไม่คิดต่อคนและไม่เทียบประชากร",
+    "ยอดจังหวัดสุราษฎร์ธานีและอำเภอเกาะพะงันต่างจาก API 1 แถว (API 57 แต่มีจุด 56)"
+  ],
+  "methodology_note": "DATA_METHOD.md, docs/AREA_METHOD.md",
+  "example_use_cases": [
+    "คัดอำเภอสำหรับสาขาใหม่ของเชนร้านสะดวกซื้อ",
+    "ดูว่ารอบโครงการมีร้านประเภทใด ต่อคนเท่าไร เทียบย่านข้างเคียง",
+    "อ้างข้อค้นพบระดับจังหวัดพร้อมตัวหารใน proposal"
+  ],
+  "hypotheses_to_validate": [
+    {
+      "hypothesis": "ผู้ใช้เข้าใจ ‘X% ของสาขาอยู่ใน k พื้นที่ ซึ่งมีคน Y%’ โดยไม่ต้องอธิบาย",
+      "test": "ทดสอบ 5 คนจากทีมขยายสาขา/leasing ให้เล่าข้อค้นพบหลังดู 10 วินาที",
+      "criterion": "≥ 4/5 เล่าได้ถูกทั้งสองตัวเลขและพื้นที่"
+    },
+    {
+      "hypothesis": "สาขาต่อคนระดับ อปท./ย่านเปลี่ยนรายชื่อพื้นที่ที่ทีมจะไปสำรวจ",
+      "test": "ให้ทีมขยายสาขาเลือก 5 พื้นที่ก่อนและหลังใช้",
+      "criterion": "≥ 2 พื้นที่เปลี่ยน และเหตุผลอ้างตัวเลขในหน้า"
+    },
+    {
+      "hypothesis": "ความตรงกับ production เป็นเหตุผลที่ทำให้ใช้ต่อ",
+      "test": "สัมภาษณ์ลูกค้า CityMETER 3 ราย",
+      "criterion": "≥ 2 รายระบุว่าความตรงกันสำคัญต่อการนำไปใช้"
+    }
+  ],
+  "owner_team": "Landometer · CityMETER",
+  "last_reviewed": "2026-10-22"
+}

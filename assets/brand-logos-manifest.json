@@ -1,0 +1,358 @@
+{
+ "version": "2026-10-22-r1",
+ "createdOn": "2026-10-22",
+ "count": 17,
+ "publicationBasis": {
+  "kind": "user_requested_brand_identity_display",
+  "scope": "Identify brands in the owner-requested public CityMETER Grocery demo: store pins, lists and details.",
+  "rightsStatement": "Brand marks remain owned by their respective owners. This request and manifest do not grant additional trademark rights, imply endorsement or establish a new image license."
+ },
+ "transformation": "Original approved logo bytes embedded unchanged as SVG image data URI; deterministic viewport trim of transparent or solid-neutral outer whitespace only with safety margin. Added UI backing is LDS surface-soft stone #E5E9E6 for 11 marks, original white #FFFFFF for 3 opaque-white sources and dark #182327 for 1 light marks. No source image recoloring, inversion, ink cropping or tracing.",
+ "sprite": {
+  "path": "assets/brand-logos.svg",
+  "sha256": "f97946f1a7929600bfe9de27cb99881424e5af7c216502a29b5bcf4a2bcff9ae"
+ },
+ "files": [
+  {
+   "brand": "BIG_C",
+   "name": "Big C",
+   "file": "big_c.svg",
+   "sha256": "d36f8c5e4418d041279991646070715bc6ab7671d31f56d37a6ebda67127fe81",
+   "bytes": 17877,
+   "mime": "image/svg+xml",
+   "sourcePage": "https://commons.wikimedia.org/wiki/File:BigCLogo2022.svg",
+   "assetURL": "https://upload.wikimedia.org/wikipedia/commons/e/e3/BigCLogo2022.svg",
+   "status": "ได้ไฟล์จากร้านค้า/แหล่งอื่น",
+   "checkedOn": "2026-10-22",
+   "notes": "Downloaded original SVG under user-approved Commons fallback. Author: Big C; original source https://www.facebook.com/BigCBigService/photos/a.216524578439936/5017458785013134 . Description page displays PD-textlogo; structured data separately lists CC BY-SA 4.0. Preserve attribution and investigate this metadata inconsistency before redistribution under a license claim. Big C official website asset retrieval failed.",
+   "background": "#A0C515",
+   "viewportCrop": {
+    "x": 0,
+    "y": 0,
+    "width": 150.0,
+    "height": 150.0
+   }
+  },
+  {
+   "brand": "CJ_MORE",
+   "name": "CJ More",
+   "file": "cj_more.svg",
+   "sha256": "dda25ae99940fa1971eb4f1ad1a728c2e7a0eb0de126512fccd9021c9760c662",
+   "bytes": 8414,
+   "mime": "image/svg+xml",
+   "sourcePage": "https://www.cjmore.co.th/home",
+   "assetURL": "https://www.cjmore.co.th/img/logo.svg?20251103",
+   "status": "ได้ไฟล์จากแบรนด์",
+   "checkedOn": "2026-10-22",
+   "notes": " Original SVG contains off-canvas Thai usage annotations with font names; visible logo artwork is path based. File preserved byte-for-byte.",
+   "background": "#FFFFFF",
+   "viewportCrop": {
+    "x": 0,
+    "y": 0,
+    "width": 1080.0,
+    "height": 1080.0
+   }
+  },
+  {
+   "brand": "DONKI",
+   "name": "Don Don Donki",
+   "file": "donki.png",
+   "sha256": "f6ee6d32c4fed7da536531a7de544dd7658b4e631cd60f0a3597003c101c132d",
+   "bytes": 1531,
+   "mime": "image/png",
+   "sourcePage": "https://www.dondondonki.com/th/",
+   "assetURL": "https://www.dondondonki.com/th/all_assets/img/common/img_logo01.png",
+   "status": "ได้ไฟล์จากแบรนด์",
+   "checkedOn": "2026-10-22",
+   "notes": " Original wordmark PNG is 178x76; do not upscale for large placement.",
+   "background": "#E5E9E6",
+   "viewportCrop": {
+    "x": 0,
+    "y": 0,
+    "width": 178.0,
+    "height": 76.0
+   }
+  },
+  {
+   "brand": "FOODLAND",
+   "name": "Foodland",
+   "file": "foodland.png",
+   "sha256": "1e37d584ccbf67c3666f941c6bb2591e37a75b0e62eda2c8aadfee2825c8d604",
+   "bytes": 18868,
+   "mime": "image/png",
+   "sourcePage": "https://www.thebright.co.th/tenant/foodland24hours/",
+   "assetURL": "https://www.thebright.co.th/wp-content/uploads/foodland.png",
+   "status": "ได้ไฟล์จากร้านค้า/แหล่งอื่น",
+   "checkedOn": "2026-10-22",
+   "notes": "Official venue tenant directory asset. Foodland corporate site returned 403.",
+   "background": "#E5E9E6",
+   "viewportCrop": {
+    "x": 0.0,
+    "y": 48.03,
+    "width": 300.0,
+    "height": 192.31
+   }
+  },
+  {
+   "brand": "FUJI",
+   "name": "UFM Fuji Super",
+   "file": "fuji.svg",
+   "sha256": "8fc9fddac1a9a1a89cb86a78f6df96468e3d411b5e0b21f69b64bea8ab69e546",
+   "bytes": 5881,
+   "mime": "image/svg+xml",
+   "sourcePage": "https://www.ufmfujisuper.com/",
+   "assetURL": "https://www.ufmfujisuper.com/media/logo.svg",
+   "status": "ได้ไฟล์จากแบรนด์",
+   "checkedOn": "2026-10-22",
+   "notes": "",
+   "background": "#E5E9E6",
+   "viewportCrop": {
+    "x": 0.0,
+    "y": 0.0,
+    "width": 300.0,
+    "height": 115.0
+   }
+  },
+  {
+   "brand": "GOURMET_MARKET",
+   "name": "Gourmet Market",
+   "file": "gourmet_market.svg",
+   "sha256": "ba656eae95117a83a89205ea12a29615d99d866b59cbeb21eb105ea446b2e4dc",
+   "bytes": 20357,
+   "mime": "image/svg+xml",
+   "sourcePage": "https://gourmetmarketthailand.com/",
+   "assetURL": "https://gourmetmarketthailand.com/images/navbar/logo-gourmetmarketthailand.svg",
+   "status": "ได้ไฟล์จากแบรนด์",
+   "checkedOn": "2026-10-22",
+   "notes": "",
+   "background": "#E5E9E6",
+   "viewportCrop": {
+    "x": 0.0,
+    "y": 0.0,
+    "width": 296.06,
+    "height": 63.0
+   }
+  },
+  {
+   "brand": "GO_WHOLESALE",
+   "name": "GO Wholesale",
+   "file": "go_wholesale.png",
+   "sha256": "6300f8f31cb5bd2b45b8b4d34b4626ac6892a9afa7f87fe4edabecec15c1504f",
+   "bytes": 21853,
+   "mime": "image/png",
+   "sourcePage": "https://www.centralretail.com/en/brands/669/go-wholesale",
+   "assetURL": "https://www.centralretail.com/storage/brand/food/go-wholesale/logo-color.png",
+   "status": "ได้ไฟล์จากแบรนด์",
+   "checkedOn": "2026-10-22",
+   "notes": "Official Central Retail brand logo.",
+   "background": "#E5E9E6",
+   "viewportCrop": {
+    "x": 237.02,
+    "y": 70.93,
+    "width": 502.96,
+    "height": 408.92
+   }
+  },
+  {
+   "brand": "LAWSON108",
+   "name": "Lawson 108",
+   "file": "lawson108.jpg",
+   "sha256": "2f841ad2f139f95f7fe5a539b4009d5c2dcadfd07cf2c7fc0e6d46645caec79b",
+   "bytes": 71233,
+   "mime": "image/jpeg",
+   "sourcePage": "https://www.qsncc.com/th/visit/food-and-retail/promotion/lawson108/",
+   "assetURL": "https://images.prismic.io/qsncc/dfeea4ab-d985-4e7e-bb45-b2cda6bd51e5_Lawson-10.jpg",
+   "status": "ได้ไฟล์จากร้านค้า/แหล่งอื่น",
+   "checkedOn": "2026-10-22",
+   "notes": " Official QSNCC tenant logo; original white square JPEG, 609x609.",
+   "background": "#FFFFFF",
+   "viewportCrop": {
+    "x": 14.36,
+    "y": 249.59,
+    "width": 579.13,
+    "height": 109.06
+   }
+  },
+  {
+   "brand": "LOTUSS",
+   "name": "Lotus's",
+   "file": "lotuss.svg",
+   "sha256": "88c9bfd02d75ea889881e7664a6271431079360a516a92538e985ecf98a909a7",
+   "bytes": 3416,
+   "mime": "image/svg+xml",
+   "sourcePage": "https://www.lotuss.com/th",
+   "assetURL": "https://o2o-static.lotuss.com/media/logo/lotus-logo-primary.svg",
+   "status": "ได้ไฟล์จากแบรนด์",
+   "checkedOn": "2026-10-22",
+   "notes": "Original primary SVG referenced by brand website app bundle; URL resolver uses official o2o-static.lotuss.com/media.",
+   "background": "#E5E9E6",
+   "viewportCrop": {
+    "x": 0.0,
+    "y": 0.0,
+    "width": 156.0,
+    "height": 34.0
+   }
+  },
+  {
+   "brand": "MAKRO",
+   "name": "Makro",
+   "file": "makro.webp",
+   "sha256": "4d4e4b96261a2b992d7b201fbb5984ba45c6589bbe675d0cd85d559c08c18eda",
+   "bytes": 28644,
+   "mime": "image/webp",
+   "sourcePage": "https://www.makro.co.th/th/index",
+   "assetURL": "https://www.makro.co.th/makro-2023/th/assets/logo-no-bg.webp",
+   "status": "ได้ไฟล์จากแบรนด์",
+   "checkedOn": "2026-10-22",
+   "notes": "",
+   "background": "#E5E9E6",
+   "viewportCrop": {
+    "x": 0.0,
+    "y": 0.0,
+    "width": 838.0,
+    "height": 226.0
+   }
+  },
+  {
+   "brand": "MAXVALU",
+   "name": "MaxValu",
+   "file": "maxvalu-profile.jpg",
+   "sha256": "04d4926d8eba2817bbf9d34eaeaf8edc62e52b89705f92183d477906962f682b",
+   "bytes": 5304,
+   "mime": "image/jpeg",
+   "sourcePage": "https://page.line.me/nye1064h",
+   "assetURL": "https://profile.line-scdn.net/0h_6QY61toABlsIBwH6QN_TlBlDnQbDgZRFEMfeUAjVixARE9IVUMfdkEmVnlCEEFOUEVGfk0lViBJ/preview",
+   "status": "ได้ไฟล์จากแบรนด์",
+   "checkedOn": "2026-10-22",
+   "notes": "Official MaxValuThailand LINE profile; preserve as source brand identity, not evidence of current store operations. Corporate page currently displayed placeholder images, rejected. Lifecycle/rebrand should be rechecked separately. Low-resolution original 200x200; suitable for small UI only.",
+   "background": "#B32054",
+   "viewportCrop": {
+    "x": 0,
+    "y": 0,
+    "width": 200.0,
+    "height": 200.0
+   }
+  },
+  {
+   "brand": "PURE",
+   "name": "Pure",
+   "file": "pure.png",
+   "sha256": "d81f4a75fd7b92bbf0f7f2311d2defd35d9f360a9e75d43931b9d807af79b5bc",
+   "bytes": 6173,
+   "mime": "image/png",
+   "sourcePage": "https://bjc.listedcompany.com/misc/PRESN/20220328-bjc-entering-the-next-phase-of-growth.pdf",
+   "assetURL": "https://bjc.listedcompany.com/misc/PRESN/20220328-bjc-entering-the-next-phase-of-growth.pdf#page=8",
+   "status": "ได้ไฟล์จากแบรนด์",
+   "checkedOn": "2026-10-22",
+   "notes": "Exact embedded retail-logo bitmap extracted without redrawing from BJC official presentation, PDF page8 XObject Image170. Lockup reads pure Pharmacy with Thai เพรียว. Original embedded dimensions170x69: use small UI; do not upscale. Public corporate.bigc.co.th retail asset returned403; Pure Pharma app artwork was rejected as a substitute. File depicts source-era retail identity, not proof of any individual branch current operation.",
+   "background": "#FFFFFF",
+   "viewportCrop": {
+    "x": 0.0,
+    "y": 2.21,
+    "width": 170.0,
+    "height": 64.59
+   }
+  },
+  {
+   "brand": "RIMPING",
+   "name": "Rimping",
+   "file": "rimping.png",
+   "sha256": "4404cb491f5e74436327736dac481ddd260a03d2a13b2982d784849adbab9fd5",
+   "bytes": 27622,
+   "mime": "image/png",
+   "sourcePage": "https://www.rimping.com/",
+   "assetURL": "https://image.makewebeasy.net/makeweb/0/vq7Oemz1i/DefaultData/Rimping_Logo_PNG_W.png?v=202405291424",
+   "status": "ได้ไฟล์จากแบรนด์",
+   "checkedOn": "2026-10-22",
+   "notes": " Original white reverse logo on transparent background; use on dark/contrasting background, not white.",
+   "background": "#182327",
+   "viewportCrop": {
+    "x": 44.78,
+    "y": 1.32,
+    "width": 1099.14,
+    "height": 1063.64
+   }
+  },
+  {
+   "brand": "SEVEN_ELEVEN",
+   "name": "7-Eleven",
+   "file": "seven_eleven.svg",
+   "sha256": "704286f27b063dcd83f934a20211615b4f63f5072d31e58edee18ec28e48bfda",
+   "bytes": 41422,
+   "mime": "image/svg+xml",
+   "sourcePage": "https://www.7eleven.co.th/",
+   "assetURL": "https://www.7eleven.co.th/static/imgs/711-logo-2026.svg",
+   "status": "ได้ไฟล์จากแบรนด์",
+   "checkedOn": "2026-10-22",
+   "notes": "",
+   "background": "#E5E9E6",
+   "viewportCrop": {
+    "x": 0.0,
+    "y": 0.0,
+    "width": 1152.0,
+    "height": 1152.0
+   }
+  },
+  {
+   "brand": "TOOGDEE",
+   "name": "ถูกดี มีมาตรฐาน",
+   "file": "toogdee.png",
+   "sha256": "a55a08791f8f09c8ec1518efbb4bc5ed2acc7283563f00556c349f4157ae619c",
+   "bytes": 5097,
+   "mime": "image/png",
+   "sourcePage": "https://www.td.co.th/",
+   "assetURL": "https://www.td.co.th/wp-content/uploads/2022/09/TD-Logo.png",
+   "status": "ได้ไฟล์จากแบรนด์",
+   "checkedOn": "2026-10-22",
+   "notes": "",
+   "background": "#E5E9E6",
+   "viewportCrop": {
+    "x": 0.0,
+    "y": 0.0,
+    "width": 400.0,
+    "height": 170.0
+   }
+  },
+  {
+   "brand": "TOPS",
+   "name": "Tops",
+   "file": "tops.svg",
+   "sha256": "ac44418daef4d641acaca1c5a97450d096e9ddc7b8c938dab57ca743b5f771d5",
+   "bytes": 1963,
+   "mime": "image/svg+xml",
+   "sourcePage": "https://corporate.tops.co.th/th/",
+   "assetURL": "https://corporate.tops.co.th/wp-content/uploads/2026/04/topslogo.svg",
+   "status": "ได้ไฟล์จากแบรนด์",
+   "checkedOn": "2026-10-22",
+   "notes": "",
+   "background": "#E5E9E6",
+   "viewportCrop": {
+    "x": 0.0,
+    "y": 9.56,
+    "width": 300.0,
+    "height": 130.69
+   }
+  },
+  {
+   "brand": "VILLA_MARKET",
+   "name": "Villa Market",
+   "file": "villa_market.svg",
+   "sha256": "9de97588ca5f36e8f7945c25fdfd1ee08dad962a633195cc9502e2044de61d3b",
+   "bytes": 54719,
+   "mime": "image/svg+xml",
+   "sourcePage": "https://shop.villamarket.com/",
+   "assetURL": "https://shop.villamarket.com/img/logo-villa-desktop.9c87a5da.svg",
+   "status": "ได้ไฟล์จากแบรนด์",
+   "checkedOn": "2026-10-22",
+   "notes": "Original desktop wordmark referenced by official storefront app bundle.",
+   "background": "#E5E9E6",
+   "viewportCrop": {
+    "x": 0.0,
+    "y": 0.0,
+    "width": 220.0,
+    "height": 19.0
+   }
+  }
+ ],
+ "issues": []
+}

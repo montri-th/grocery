@@ -1,0 +1,80 @@
+{
+  "artifact": "CityMETER Grocery — where grocery stores concentrate against where people live, from the country down to local administrations and Bangkok Locales",
+  "productVersion": "0.1.0",
+  "updatedOn": "2026-10-22",
+  "derivedFrom": "CityMETER Luxury Brands 0.5.0 (same layout, design system and handoff structure)",
+  "ldsVersion": "0.9.7",
+  "release": "v0.9.7-owner.1",
+  "revision": "standalone-0.9.7-r1",
+  "colorSetId": "color-srgb-10",
+  "baseDocumentSha256": "d3085cbc0a50195f1cbf0c77b1d77c0d19b84364daf2948eb367348d65432d96",
+  "layoutReference": "https://landometer.com/v3/citymeter?d=grocery",
+  "fontRoles": {
+    "body": "Bai Jamjuree 400/600",
+    "thaiHeadings": "IBM Plex Sans Thai Looped 700",
+    "latinHeadings": "Arvo 700",
+    "dataAndMetrics": "JetBrains Mono 400; tabular numerals; normal tracking",
+    "navigation": "Material Symbols Rounded approved nav-7 subset; FILL 0 / wght 300 / GRAD 0 / opsz 24",
+    "pictograms": "Material Symbols Rounded 9-glyph pictogram subset (assets/icons/material-pictogram-300.woff2); FILL 0 / wght 300 / GRAD 0 / opsz 24; test exception to nav-7 approved by the owner 2026-10-22 (Luxury Brands), carried over"
+  },
+  "colors": {
+    "applied": "assets/theme.css — foundation pairs, semantic states, map roles (activeLayer, selectedStroke, markerHalo, markerStroke), data states (noData, zero), categorical series 1–10 (landometer-series-10-v8 soft), count and density.capita five-class tables with ink, basemap-only tokens (--basemap-*)",
+    "analytical": "js/scales.js — count (scaleVersion 4ff5c1fb4be71ecd13c48685b38371b528bcd4ce369ce964a75354c2eb4d0980) and density.capita (scaleVersion 0b49c15c6f91e48db79f5c6bd9c729656c95cd6f3162941490c5c125111b4ab1), 41-sample LUTs, identical HEX on both themes; the legend states the denominator (ต่อ 1 หมื่นคน)",
+    "categorical": "store types: C_STORE series-7, SUPERMARKET series-3, HYPERMARKET series-2, WHOLESALE series-8, PHARMACY series-1 (logos.css --type-*)",
+    "notDistributed": "full LDS library, other analytical families, Location Intelligence profile scales"
+  },
+  "firstAha": "share of the area's stores held by its top children against their share of registered residents — ‘30% ของสาขาอยู่ใน 3 จังหวัดนี้ ซึ่งมีคนแค่ 13% ของประเทศ’ by default — recomputed at every drill level and filter; the map focuses those children automatically and keeps the rest quiet",
+  "areaUnit": "production hierarchy (owner choice ‘A+อปท’ 2026-10-22): ประเทศไทย › จังหวัด › อำเภอ/เขต › อปท./ย่าน; DOLA local administrations outside Bangkok, CityMETER Locales inside; membership, boundaries and population from production",
+  "focusAndQuiet": {
+    "ownerInstruction": "carried over from Luxury Brands (2026-10-22): show detail only for the focused part; keep the rest quiet",
+    "implementation": "app.js focus modes (auto/explicit/none) and fixed focus (unit, venue); area-layers.js focused/quiet fills, outlines and labels; stores-layer.js focus vs grey context dots; pins.js only for rows in focus from zoom 14"
+  },
+  "geometryAndMetricContract": "one source row per dot; production membership for every area; distinct brands never summed across areas; the Aha share is a union; missing population is no data, never zero",
+  "accessibility": [
+    "native form labels and disclosure",
+    "visible focus on every control including pins, chart marks and area labels",
+    "keyboard pin tour (arrow keys) excluding quiet context dots",
+    "reduced motion respected",
+    "table equivalent for every map view",
+    "empty, map-failure, geometry-failure and load-error paths with actions"
+  ],
+  "validation": {
+    "status": "release 0.1 verification recorded in handoff/VERIFICATION.md",
+    "unitTests": 65,
+    "renderedHarness": "Playwright + vendored MapLibre 5.6.2 + stub TileJSON with empty tiles; 1280×800 and 390×844; light and dark",
+    "liveChecks": "see handoff/VERIFICATION.md — the real-tile look is confirmed only there",
+    "scope": "Applied LDS assets, fonts and actual rendered interfaces. No blanket LDS, CVD, native-device or market-completeness claim."
+  },
+  "layoutContract": {
+    "headerPx": 48,
+    "readingPanelWidth": "min(max(300px, 28%), 440px)",
+    "map": "full remaining viewport below header",
+    "chartTray": "collapsible bottom overlay, 52 px collapsed",
+    "mobilePortrait": "full map, bottom sheet ≤ 64dvh with sticky close, compact Aha card with the breadcrumb on the map while the sheet is closed"
+  },
+  "mapContract": {
+    "basemap": "generated at runtime by js/map-style.js on https://tiles.openfreemap.org/planet (OpenMapTiles) with --basemap-* tokens; labels name:th first; no POI/housenumber/boundary labels",
+    "layerOrder": "landcover/water → area fills (before waterway) → 2D footprints → roads → massing (before water-name) → labels → area outlines / selection → store dots → HTML labels and pins",
+    "choropleth": "count or density.capita, quantile up to five classes over the compared children on display-rounded values; fills stop at zoom 9 (provinces), 12 (districts), 14.5 (units); EVID-05 measured / measured_zero / no_data / out_of_scope",
+    "stores": "every filtered row a WebGL dot fading in at zoom 7–8; focus = store-type colour to zoom 14, context = small grey; from zoom 14 rows in focus become HTML pins with brand logos (≤ 450 pins, ≤ 250 logos)",
+    "massing": "city tier (OSM heights, quiet, 3D only) and a rounded focus tier for a compact open unit; context only, never data",
+    "camera": "plan for anything wider than 0.3°, on mobile portrait and with 3D off · city (pitch 56, bearing 28) for a compact district · model (pitch 60, FOV 14) for a unit, store or venue",
+    "breadcrumb": "ประเทศไทย › จังหวัด › อำเภอ/เขต › อปท./ย่าน › สถานที่ with production keys (abbr, district code, DOLA code / Locale uuid); store is the heading, not a crumb; production links go out",
+    "areaLabels": "ink chips (--area-label-* tokens, display font, level pictogram, value badge) distinct from logo boxes; quiet labels faded"
+  },
+  "brandIdentity": {
+    "sources": "17 brands: 14 official sources, 3 retailer/reference; source artwork embedded unchanged, outer whitespace cropped in viewport only; backplates measured from the artwork",
+    "fallback": "visible brand names and accessible marker labels retained; logos are identity, not a metric or endorsement",
+    "manifest": "assets/brand-logos-manifest.json"
+  },
+  "venueLogos": "128 sha256-verified files for 2,547 of 3,437 venue names (mostly shared operator banners with a role caption); a venue is a name a branch refers to, never a confirmed host",
+  "chartContract": {
+    "ranking": "paired bars: share of stores (class colour) and share of residents (neutral) per child; or stores per 10,000 residents",
+    "matrix": "table-layout fixed with a colgroup; every cell the same size; tint = count class of the cell"
+  },
+  "copy": "short natural Thai without on-screen caveats: สาขา (one source row) / แบรนด์ / สถานที่ตามชื่อสาขา / อปท. / ย่าน / ประชากร / ต่อ 1 หมื่นคน; status ‘อยู่ในรายการสาขาของแบรนด์’",
+  "knownExceptions": [
+    "assets/theme.css keeps 24 basemap-only literal HEX values (declared once per theme, never data colours), reported by the LDS artifact checker as in Luxury Brands",
+    "pictogram subset is a declared test exception to nav-7"
+  ]
+}

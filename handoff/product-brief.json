@@ -1,0 +1,879 @@
+{
+  "$schema": "./handoff.schema.json",
+  "schemaVersion": "1.0.0",
+  "documentType": "product-brief",
+  "productId": "citymeter-grocery",
+  "productVersion": "0.1.0",
+  "updatedOn": "2026-10-22",
+  "datasetCheckedOn": "2026-10-22",
+  "language": "th-TH",
+  "productName": "CityMETER · Grocery",
+  "repository": "https://github.com/montri-th/grocery",
+  "liveUrl": "https://montri-th.github.io/grocery/",
+  "derivedFrom": {
+    "product": "CityMETER · Luxury Brands 0.5.0",
+    "repository": "https://github.com/montri-th/luxurybrands",
+    "ownerInstruction": "2026-10-22: do the same for CityMETER: Grocery and publish at github.com/montri-th/grocery, using the Grocery research sheet"
+  },
+  "productStatement": {
+    "human": "../PRODUCT_STATEMENT.md",
+    "machine": "product-statement.json",
+    "framework": "MBB v0.5.3 §7.2 + CityMETER Product Brief v6 §1.6 (Who → What → Which → How)"
+  },
+  "job": "ร้านกระจุกที่ไหนเมื่อเทียบกับคน — อ่านจากประเทศลงจังหวัด อำเภอ และ อปท./ย่าน ด้วยคำถามเดียวกันทุกระดับ แล้วเจาะลงถึงสาขาพร้อมแหล่งข้อมูล",
+  "audiences": [
+    "ทีมขยายสาขาของเชนค้าปลีก",
+    "ทีมพัฒนาโครงการ / leasing",
+    "นักวิเคราะห์ ที่ปรึกษา และหน่วยงานเมือง"
+  ],
+  "journey": [
+    "เห็นข้อค้นพบ ‘X% ของสาขาอยู่ใน k พื้นที่นี้ ซึ่งมีคน[แค่] Y%’ บนแผนที่ที่โฟกัส k พื้นที่นั้นทันที ไม่ต้องตั้งค่าตัวกรอง",
+    "สลับสีแผนที่และอันดับเป็นสาขาต่อ 1 หมื่นคนในคลิกเดียว หรือดูทุกพื้นที่ (ดูทุก…)",
+    "กดจังหวัด → อำเภอ/เขต → อปท./ย่าน: คำถามเดิมคำนวณใหม่ทุกระดับ; ที่ อปท./ย่านเทียบสาขาต่อคนกับค่าเฉลี่ยของอำเภอ",
+    "เจาะสาขา: สถานะ ที่อยู่ ตำบล สถานที่ตามชื่อ พิกัดและความแม่น แหล่งข้อมูลและวันที่ tile ต้นทาง ลิงก์ CityMETER",
+    "เปรียบเทียบพื้นที่ด้วยกราฟสาขาเทียบคน / ประเภทร้าน / แบรนด์ และตาราง แล้วคัดพื้นที่ไปสำรวจ"
+  ],
+  "ownerDecisions": [
+    {
+      "date": "2026-10-22",
+      "topic": "area unit",
+      "choice": "A+อปท",
+      "meaning": "ประเทศไทย › จังหวัด › อำเภอ/เขต › อปท./ย่าน — the production hierarchy; outside Bangkok the finest level is the local administration (เทศบาล/อบต., DOLA code), inside Bangkok the CityMETER Locale (847 ย่าน)",
+      "rejected": [
+        "a single Locale level only",
+        "Luxury-style analytical neighborhood cores"
+      ]
+    },
+    {
+      "date": "2026-10-22",
+      "topic": "first Aha",
+      "choice": "สาขากระจุกเทียบคน",
+      "meaning": "share of the area's stores held by its top children against their share of residents, recomputed at every drill level; the map colours by store count with a switch to stores per 10,000 residents as in production"
+    },
+    {
+      "date": "2026-10-22",
+      "topic": "logo files",
+      "choice": "download both folders the sheet references (brand and venue logos)",
+      "meaning": "17 brand files and 128 venue files, each verified by sha256 against the sheet before use"
+    }
+  ],
+  "changesSince": {
+    "from": "Luxury Brands 0.5.0 (architecture)",
+    "items": [
+      "analytical neighborhood cores → production administrative hierarchy (js/hierarchy.js); no area, boundary or id is invented",
+      "first Aha: share of distinct brands in 3 neighborhoods → share of stores in the top-k children vs their share of residents, at every level",
+      "choropleth: count equal-interval → count or density.capita quantile classes with an on-map metric switch",
+      "pins: every row a WebGL dot (js/stores-layer.js); HTML pins with logos only from zoom 14 inside the focus",
+      "host buildings, venue x-ray and the eye preset removed (no venue is a confirmed host of a store); city massing kept, rounded focus massing only for compact local units",
+      "province frames: OpenGISData-Thailand (9) → production boundaries of all 77 provinces; districts and units loaded per province",
+      "charts: ranking/mix/compare → paired stores-vs-people ranking (or per-capita), store-type matrix, brand matrix",
+      "status: one honest status for every row (อยู่ในรายการสาขาของแบรนด์); no closure taxonomy in this dataset",
+      "pictogram subset re-cut with 9 glyphs (npm material-symbols 0.27.0)",
+      "venue logos: 128 files for 2,547 venue names (mostly shared operator banners, role caption shown)"
+    ]
+  },
+  "hierarchyContract": {
+    "module": "js/hierarchy.js (NO_SELECTION, normalizeSelection, levelOf, CHILD_LEVEL, areaRows, childrenOf, summarizeChildren, rankChildren, ahaSize, buildAha, buildUnitInsight, levelNouns, areaKey)",
+    "levels": [
+      {
+        "level": "country",
+        "name": "ประเทศไทย",
+        "children": "77 provinces"
+      },
+      {
+        "level": "province",
+        "name": "จังหวัด",
+        "children": "its districts (อำเภอ; เขต in Bangkok)",
+        "count": 77
+      },
+      {
+        "level": "district",
+        "name": "อำเภอ / เขต",
+        "children": "the local units whose parent is that district (อปท.; ย่าน in Bangkok)",
+        "count": 928
+      },
+      {
+        "level": "unit",
+        "name": "อปท. / ย่าน",
+        "children": null,
+        "count": 8621,
+        "kinds": "7,774 local administrations (DOLA code; prefix ทน./ทม./ทต./อบต./เมืองพัทยา) + 847 Bangkok Locales (uuid)"
+      }
+    ],
+    "selection": "{province, district, unit} as indexes (-1 = none); a unit implies its district and province (normalizeSelection)",
+    "keys": {
+      "province": "production abbreviation (BKK, CBI …); the 2-digit code also resolves",
+      "district": "4-digit district code (1039, 2004 …)",
+      "unit": "DOLA code (04200103 …) or Locale uuid",
+      "store": "first 8 hex characters of the source uuid (unique, asserted by build-data.py)",
+      "venue": "GV-… id from the sheet tab 07_VENUES"
+    },
+    "membership": {
+      "district": "source subdistrict membership (sheet district_code, from the SUBDISTRICT tile the row came in) — sums equal the API for 927 of 928 districts",
+      "unit": "production overlay membership (grocery/overlayMvt inTileType MUNICIPALITY | LOCALE) — equals the API for all 5,692 units with stores",
+      "twoUnits": "15 stores sit in two overlapping units and count in both, as in production; the Aha share counts each store once",
+      "outsideUnits": "19 Bangkok stores lie outside every Locale (13 in ดุสิต); their finest level is the district",
+      "unitParent": "DOLA code digits (7,774), majority of a Locale's stores within Bangkok (681), largest overlap for Locales without stores (166)",
+      "districtMismatch": "69 stores carry a subdistrict district other than their unit's parent (25 units straddle a district border, e.g. ทน.แหลมฉบัง 152 members, 130 in ศรีราชา). Rule: an area's count is the same everywhere — a district counts by subdistrict (= API), a unit counts all its production members (= API), also inside its district's comparison (hierarchy.js#comparisonRows); shares of a district (Aha numerator, ranking storeShare) count only the district's own stores (summarizeChildren inArea), so a numerator never takes stores outside its denominator"
+    },
+    "children": "summarizeChildren returns every child, including measured zeros, with count, distinct brands, population and stores per 10,000; rankChildren sorts by the metric, then count, then Thai name, then key",
+    "nouns": "levelNouns: country → จังหวัด / ประเทศ; province → อำเภอ (เขต in Bangkok) / จังหวัด; district → อปท. (ย่าน in Bangkok) / อำเภอ; an abbreviated noun takes a space (js/model.js#withNoun → ‘ดูทุก อปท.’)"
+  },
+  "rowScopes": {
+    "filtered": {
+      "definition": "all rows after the search / brand / type filters",
+      "consumers": [
+        "stores layer (focus = colour, rest = grey context dots)",
+        "aha and choropleth (through summarizeChildren of the compared area)",
+        "charts",
+        "same-brand list of a store"
+      ]
+    },
+    "scopeRows": {
+      "definition": "filtered rows inside the selected area (unit = its production members)",
+      "consumers": [
+        "metric tiles of the area",
+        "store-type bars",
+        "brand rows"
+      ]
+    },
+    "rows": {
+      "definition": "scopeRows narrowed by the focus (auto top-k, explicit ?areas=, the open unit) — or the rows of the open venue",
+      "consumers": [
+        "HTML pins and logos (zoom ≥ 14)",
+        "table",
+        "result counter and ‘ในโฟกัส’ status"
+      ]
+    },
+    "focusModes": {
+      "auto": {
+        "default": true,
+        "focusIds": "aha.top (k children) at country / province / district level",
+        "url": "no areas parameter",
+        "state": "state.autoFocus = true, state.focusKeys = []"
+      },
+      "explicit": {
+        "focusIds": "user-chosen child keys (≤ 3) valid at the current level only",
+        "url": "?areas=BKK,CBI",
+        "state": "state.focusKeys non-empty"
+      },
+      "none": {
+        "focusIds": "[] — every child equal, no quiet",
+        "url": "?areas=all",
+        "state": "state.autoFocus = false, state.focusKeys = []"
+      }
+    },
+    "fixedFocus": "unit level → that unit; venue panel → that venue's rows; a store keeps the focus of its unit",
+    "visibleCue": "map status line ‘N สาขาในโฟกัส · M สาขาตามตัวกรอง’ below zoom 14, ‘N สาขาในจอ · โลโก้ a/b’ from zoom 14; explicit focus shows ‘กำลังสำรวจ k …’"
+  },
+  "firstAha": {
+    "scope": "filtered rows of the current area (country, province or district); recomputed for every filter and selection",
+    "ranking": "children by store count, then Thai name, then key; k = 3 with ≥ 9 children, 2 with ≥ 4, else 1; only children with stores",
+    "headlineTemplate": "{share}% ของสาขา[ใน{areaName}]อยู่ใน[ {k} ]{childNoun}นี้",
+    "comparisonTemplate": "ซึ่งมีคน[แค่] {popShare}% ของ{areaNoun}",
+    "numerator": "stores of the current area that belong to any of the k children (union — a store in two units counts once)",
+    "denominator": "all stores of the current area in the filter",
+    "populationComparison": {
+      "rule": "popShare = population of the k children ÷ population of all children of the current area, shown only when every child has a registered population",
+      "word": "แค่ when round(popShare) < round(share)",
+      "missing": "any child without population → ‘ยังไม่มีข้อมูลประชากรครบทุก… จึงไม่เทียบกับจำนวนคน’; never estimated",
+      "source": "registered population (ทะเบียนราษฎร พ.ค. 2569) as used by CityMETER"
+    },
+    "defaultFocus": "auto",
+    "defaultCamera": "plan preset fitted to Thailand (wider than 0.3°)",
+    "action": "ดูทุก{childNoun} (clears auto focus → ?areas=all); เปรียบเทียบ{childNoun} (opens the chart tray); area names in the Aha are drill-down buttons",
+    "explicitAction": "โฟกัส {k} {childNoun}นี้ (shown when focus mode is none)",
+    "model": "js/hierarchy.js#buildAha",
+    "renderers": "js/panel.js#renderOverview, js/app.js#renderMapAha (compact card on mobile portrait while the sheet is closed)",
+    "leaf": "unit level has no Aha: js/hierarchy.js#buildUnitInsight compares the unit's stores per 10,000 with its district (≥ 1.15× มากกว่า, ≤ 0.87× น้อยกว่า, else ใกล้ค่าเฉลี่ย) and ranks it among the district's units",
+    "fallbacks": {
+      "noRows": "ไม่พบสาขาตามตัวกรองนี้ + ล้างตัวกรอง",
+      "noChildWithStores": "the panel shows the store count only (no Aha, no focus)",
+      "missingPopulation": "share without population comparison (see populationComparison.missing)"
+    },
+    "defaultSnapshot": {
+      "level": "country",
+      "areas": [
+        "BKK",
+        "CBI",
+        "SPK"
+      ],
+      "areaNames": [
+        "กรุงเทพมหานคร",
+        "ชลบุรี",
+        "สมุทรปราการ"
+      ],
+      "topCount": 8228,
+      "total": 27607,
+      "share": 29.8,
+      "shareDisplayed": 30,
+      "populationTop": 8445076,
+      "populationTotal": 65723008,
+      "popShare": 12.85,
+      "popShareDisplayed": 13,
+      "comparison": "less"
+    },
+    "otherSnapshots": [
+      {
+        "area": "ชลบุรี (CBI)",
+        "top": [
+          "บางละมุง",
+          "ศรีราชา",
+          "เมืองชลบุรี"
+        ],
+        "share": 78.76,
+        "popShare": 63.35
+      },
+      {
+        "area": "เขตวัฒนา (1039)",
+        "top": [
+          "อโศก-เหนือ",
+          "พร้อมพงษ์-เหนือ",
+          "นานา-เหนือ"
+        ],
+        "share": 38.1,
+        "popShare": 16.04
+      },
+      {
+        "area": "อำเภอเมืองชลบุรี (2001)",
+        "top": [
+          "ทม.แสนสุข",
+          "ทม.บ้านสวน",
+          "ทต.นาป่า"
+        ],
+        "share": 43.4,
+        "popShare": 42.82,
+        "comparison": "equal"
+      },
+      {
+        "area": "เขตดุสิต (1002)",
+        "share": 31.25,
+        "popShare": null,
+        "note": "one Locale without population → no comparison"
+      },
+      {
+        "area": "ภูเก็ต (PKT)",
+        "top": [
+          "เมืองภูเก็ต"
+        ],
+        "share": 51.53,
+        "popShare": 58.4,
+        "comparison": "more"
+      }
+    ],
+    "requirements": [
+      "No login, sharing or geolocation prerequisite",
+      "Core data (data/grocery.json + data/areas.json) enables the Aha; the map, boundaries and store details load separately and are retryable",
+      "Snapshot values are regression fixtures (tests/hierarchy.test.js), never UI constants",
+      "ดูทุก… clears only the area focus; filters stay",
+      "The metric switch never changes the Aha (which is about stores and residents), only the map colour, labels and ranking"
+    ]
+  },
+  "metricContract": {
+    "module": "js/scales.js (COUNT_SCALE, CAPITA_SCALE, SCALES, METRICS, buildClasses, classify, displayValue, formatMetric, inkFor, contrastRatio)",
+    "metrics": {
+      "count": {
+        "label": "จำนวนสาขา",
+        "legend": "จำนวนสาขา",
+        "value": "stores per area (production counting)",
+        "scaleId": "count",
+        "scaleVersion": "4ff5c1fb4be71ecd13c48685b38371b528bcd4ce369ce964a75354c2eb4d0980",
+        "anchors": [
+          "#F4F0E7",
+          "#7DBAC0",
+          "#213E70"
+        ],
+        "default": true
+      },
+      "capita": {
+        "label": "ต่อ 1 หมื่นคน",
+        "legend": "สาขาต่อ 1 หมื่นคน",
+        "value": "stores ÷ registered residents × 10,000; null without population",
+        "scaleId": "density.capita",
+        "scaleVersion": "0b49c15c6f91e48db79f5c6bd9c729656c95cd6f3162941490c5c125111b4ab1",
+        "anchors": [
+          "#FFF0ED",
+          "#F3A076",
+          "#B72B63"
+        ],
+        "denominator": "registered population (legend and tooltips say ต่อ 1 หมื่นคน)",
+        "url": "?metric=capita"
+      }
+    },
+    "classification": "quantile, up to 5 classes over the compared children, on display-rounded values (integers / one decimal, ‘<0.1’ below 0.1) so the number and its colour always agree; ties reduce the class count; the top class runs to the maximum",
+    "lut": "41 exact LDS samples per family; class HEX from the LDS five-class tables (assets/theme.css --scale-count-*, --scale-capita-*), identical on both themes",
+    "evidenceStates": {
+      "measured": "class fill",
+      "measured_zero": "lowest class fill + zero outline (#7D877F)",
+      "no_data": "neutral #D5DAD6, legend ‘ไม่มีข้อมูล’ (capita without population)",
+      "out_of_scope": "not drawn"
+    },
+    "switches": [
+      "#legend-metric on the map",
+      "metric switch above the panel ranking"
+    ],
+    "policy": "density.capita is a per-resident ratio, never a claim about demand, spending or behaviour; the Location Intelligence profile is not applied"
+  },
+  "mapFocusContract": {
+    "principle": "Show detail only for the focused part; keep everything else visible but quiet (carried over from Luxury Brands, owner instruction 2026-10-22)",
+    "states": {
+      "countryAuto": {
+        "focus": "top-3 provinces: class fill, ink-chip labels with the value; store dots fade in at zoom 7–8 in their type colour",
+        "quiet": "other provinces outline-only with quiet labels; their rows are small grey dots"
+      },
+      "all": {
+        "focus": "every child filled by class (?areas=all); every dot in its type colour",
+        "quiet": "none"
+      },
+      "provinceOrDistrict": {
+        "focus": "top-k children of the level: class fill (district < zoom 12, unit < zoom 14.5), labels, coloured dots, HTML pins from zoom 14",
+        "quiet": "other children outline-only; other provinces outline-only; rows outside the focus grey"
+      },
+      "unit": {
+        "focus": "the unit's selected outline, its members' dots and pins; rounded focus massing in 3D when its bbox is < 0.08°",
+        "quiet": "sibling units outline-only, quiet labels"
+      },
+      "venue": {
+        "focus": "only the rows whose name or address names the venue",
+        "quiet": "every other row is a grey dot"
+      },
+      "store": {
+        "focus": "selected ring on the dot / pin, desktop popup with the brand logo",
+        "quiet": "inherits the focus of the store's unit"
+      }
+    },
+    "choropleth": {
+      "module": "js/area-layers.js#installAreaLayers → {update({province, district, unit}), dispose}",
+      "layers": "per level: hit · fill · zero outline · outline · selected; sources areas-province / areas-district / areas-unit with promoteId key",
+      "paint": "feature-state colours with 'transparent' as off (MapLibre 5.6.2 cannot read feature-state inside fill-opacity / line-opacity); states re-applied on sourcedata after re-tiling",
+      "zoomWindows": {
+        "fill": "province < 9, district < 12, unit < 14.5 (hard switch, DATAVIZ-03)",
+        "labels": "province < 9.5, district < 12.5, unit < 16.5"
+      },
+      "order": "fills before the basemap's first line layer (waterway); outlines and selection below the store dots (linesBefore = stores-context)",
+      "model": "js/app.js#comparisonModel, #areaLayerModel, #labelModel"
+    },
+    "areaLabels": "js/area-layers.js#installAreaLabels — HTML ink chips (--area-label-*), name + value of the current metric, rank-ordered collision layout, quiet = faded, clickable drill-down",
+    "geometry": "data/geo/provinces.json at start; data/geo/p/<code>.json (districts + units) when a province opens (js/geo-store.js, cached, retry on failure); simplified for display, never an administrative claim"
+  },
+  "storesLayerContract": {
+    "module": "js/stores-layer.js#installStoresLayer(map, {onSelect}) → {update(rows), setFocus(focus), select(key), retheme, dispose}",
+    "dots": {
+      "source": "GeoJSON of the filtered rows (properties k, t, p, d, u0, u1, v), promoteId k; uploaded only when the filters change",
+      "context": "stores-context: every filtered row outside the focus, --text-disabled, radius 0.6 → 2.6 px, at every zoom",
+      "focusLayer": "stores-focus: rows in the focus, store-type colour (logos.css --type-*), up to zoom 14",
+      "fade": "both fade in between zoom 7 and 8, so the country reads as a choropleth first",
+      "selected": "stores-selected ring (--map-selected-stroke)",
+      "click": "registered before the area layers so a dot wins over the area under it"
+    },
+    "focus": "focusExpression({level: all | province | district | unit | venue | none, ids}) swaps filter expressions only (no data upload)",
+    "pins": {
+      "module": "js/pins.js#installStorePins",
+      "fromZoom": 14,
+      "maxPins": 450,
+      "maxLogos": 250,
+      "selection": "rows in the focus inside the padded viewport, nearest the centre first; the open store always included",
+      "layout": "screen-space slots near the source point with leader lines; never over the toolbar, legend, status, Aha card, map controls or area labels; source coordinates unchanged",
+      "keyboard": "arrow-key pin tour; context dots are not focusable"
+    },
+    "typeColours": {
+      "C_STORE": "series-7 (#49C0BC light)",
+      "SUPERMARKET": "series-3 (#EAC578)",
+      "HYPERMARKET": "series-2 (#E39B6E)",
+      "WHOLESALE": "series-8 (#6196D1)",
+      "PHARMACY": "series-1 (#D88381)"
+    }
+  },
+  "basemapContract": {
+    "generator": "js/map-style.js#buildMapStyle(theme, {palette, tileJSON, glyphs}) — MapLibre style v8 built at runtime; no hosted style URL (unchanged from Luxury Brands)",
+    "tiles": {
+      "tileJson": "https://tiles.openfreemap.org/planet",
+      "schema": "OpenMapTiles (OpenFreeMap build)",
+      "sourceId": "openmaptiles",
+      "maxzoom": 14,
+      "buildingLayer": "building (render_height, render_min_height, hide_3d; z13–14)",
+      "glyphs": "https://tiles.openfreemap.org/fonts/{fontstack}/{range}.pbf",
+      "attribution": "© OpenMapTiles © OpenStreetMap contributors (OpenFreeMap)",
+      "labels": "name:th preferred, then name; no POI, housenumber or basemap boundary labels"
+    },
+    "palette": {
+      "source": "assets/theme.css --basemap-* tokens (basemap-only, never data colours)",
+      "resolver": "js/map-style.js#basemapPalette(theme)",
+      "light": {
+        "ground": "#EEF1EE",
+        "water": "#E2E9ED",
+        "park": "#DCE6D4",
+        "building": "#DFE2DD",
+        "massingQuiet": "#ECEDE8",
+        "massingFocus": "#D9D7CD",
+        "road": "#FFFFFF",
+        "roadCasing": "#DCE1DD",
+        "label": "#5F635A",
+        "halo": "#F6F7F3",
+        "sky": "#F6F7F3",
+        "fog": "#EEF1EE"
+      },
+      "dark": {
+        "ground": "#11191D",
+        "water": "#18333E",
+        "park": "#16251F",
+        "building": "#1C262B",
+        "massingQuiet": "#2A343A",
+        "massingFocus": "#4A5760",
+        "road": "#293337",
+        "roadCasing": "#33403D",
+        "label": "#A6B5B1",
+        "halo": "#11191D",
+        "sky": "#0D1418",
+        "fog": "#11191D"
+      }
+    },
+    "layerOrder": [
+      "background / landcover / park / water",
+      "area fills (before DATA_FILL_BEFORE = waterway)",
+      "2D building footprints",
+      "roads, rail, paths",
+      "massing (before MASSING_BEFORE = water-name)",
+      "labels",
+      "area outlines / selection, store dots, selected ring",
+      "HTML area labels and pins (DOM overlay)"
+    ],
+    "themeSwitch": "map.setStyle(buildMapStyle(theme)) then re-install stores, areas and massing; data layers keep the same HEX on both themes"
+  },
+  "massingContract": {
+    "module": "js/massing.js#installMassing(map, {beforeId, colors, tileUrl}) → {update, retheme, dispose}",
+    "cityTier": {
+      "layer": "city-massing (fill-extrusion from the building source-layer, minzoom 13)",
+      "colour": "--basemap-massing-quiet, fades to the ground tone with distance from the focus anchor (500 → 2200 m)",
+      "visibility": "3D only"
+    },
+    "focusTier": {
+      "when": "only when a local unit whose bbox is smaller than 0.08° is open (the decoder is capped at nine z14 tiles)",
+      "source": "the same tile URLs MapLibre loads (TileJSON template), decoded by js/mvt.js; buildings overlapping the unit, offset outward and corner-rounded (js/geometry.js), lifted 0.35 m",
+      "colour": "--basemap-massing-focus"
+    },
+    "hostTier": "none — no venue is a confirmed host of a store in this dataset",
+    "provenance": "heights and footprints are OSM via OpenFreeMap (defaults when untagged); context only, never a dataset claim"
+  },
+  "cameraContract": {
+    "module": "js/camera.js (CAMERA, presetFor, applyPreset, fitPitched, framePoint) — unchanged from Luxury Brands",
+    "presets": {
+      "plan": {
+        "pitch": 0,
+        "bearing": 0,
+        "fov": 36.87,
+        "when": "3D off (toggle / ?view3d=0), any area wider than 0.3° (country, provinces, 473 of 928 districts; no Bangkok เขต), mobile portrait"
+      },
+      "city": {
+        "pitch": 56,
+        "bearing": 28,
+        "fov": 36.87,
+        "when": "overview of a compact district in 3D"
+      },
+      "model": {
+        "pitch": 60,
+        "bearing": 28,
+        "fov": 14,
+        "when": "unit, store and venue in 3D (near-axonometric, verticals upright)"
+      },
+      "eye": {
+        "status": "kept in the module, not used (no host buildings)"
+      }
+    },
+    "fitting": {
+      "function": "fitPitched(map, bounds, {preset, padding, maxZoom 16, minZoom 4, shift})",
+      "areas": "app.js#fitBBox on the bbox of the current area (unit bbox from its geometry file, else the district's); waits for the province geometry before fitting a unit",
+      "points": "framePoint(zoom 16) for a store or venue, offset upward on mobile portrait",
+      "padding": "pitched: toolbar to the chart tray; plan: toolbar to the Aha card or legend"
+    },
+    "constraint": "keep any 3D preset at pitch ≤ 90 − fov/2 − 3° (MapLibre 5.6.2 fill-extrusion horizon defect, found live in Luxury Brands 2026-10-22)"
+  },
+  "breadcrumbContract": {
+    "module": "js/breadcrumb.js (buildBreadcrumb, renderBreadcrumb, breadcrumbText)",
+    "levels": [
+      "ประเทศไทย",
+      "จังหวัด (Thai name; abbreviation in the URL)",
+      "อำเภอ / เขต (district code in the URL)",
+      "อปท. / ย่าน (DOLA code or Locale uuid in the URL)",
+      "สถานที่ (venue named by the branch; GV id in ?place=)"
+    ],
+    "productionPath": {
+      "observed": "https://landometer.com/v3/citymeter?d=grocery · /v3/citymeter/{ABBR}?d=grocery · /v3/citymeter/{ABBR}/M/{DOLA code}?d=grocery · /v3/citymeter/{ABBR}/L/{locale uuid}?d=grocery (observed 2026-10-22; production has no district path)",
+      "use": "outgoing links only (unit panel ‘ดูพื้นที่นี้ใน CityMETER’, store ‘ดูใน CityMETER’); never parsed as input"
+    },
+    "demoQuery": "?province=CBI&district=2004&unit=<DOLA|uuid>&store=<key8>&place=<GV id>&areas=<keys|all>&metric=capita&view=<ranking|mix|brands>&view3d=0",
+    "actions": [
+      "crumb-country",
+      "crumb-province (data-id abbr)",
+      "crumb-district (data-id code)",
+      "crumb-unit (data-id key)",
+      "crumb-venue (data-id GV id)",
+      "crumb-expand (unfold collapsed levels on narrow screens)"
+    ],
+    "rules": [
+      "a store is never a crumb — the panel heading names it; its trail ends at its first unit (or its district when it has none) and its venue",
+      "four or more levels fold the upper ones behind “…” on narrow screens; the last two stay visible",
+      "document.title = breadcrumbText(crumbs) · Grocery · CityMETER (a store prefixes brand and name)"
+    ]
+  },
+  "panel": {
+    "modes": [
+      "overview",
+      "unit",
+      "venue",
+      "store"
+    ],
+    "navigation": "back stack (≤ 30); state restored from the URL (province, district, unit, store, place, areas, metric, view, view3d, search, brand, type)",
+    "actions": [
+      "select-area",
+      "select-store",
+      "select-venue",
+      "filter-brand",
+      "filter-type",
+      "back",
+      "explore-top",
+      "clear-focus",
+      "set-metric",
+      "open-charts",
+      "open-table",
+      "clear-filter",
+      "crumb-country",
+      "crumb-province",
+      "crumb-district",
+      "crumb-unit",
+      "crumb-venue",
+      "crumb-expand"
+    ],
+    "models": {
+      "overview": "js/hierarchy.js#buildAha + js/app.js#areaSummary, #comparisonModel; js/profile-model.js#typeMix, #brandMix",
+      "unit": "js/profile-model.js#buildUnitProfile (+ hierarchy.js#buildUnitInsight, venueRanking)",
+      "venue": "js/profile-model.js#buildVenueProfile",
+      "store": "js/profile-model.js#buildStoreDetail (+ describeStatus, describeGeometry); address/subdistrict/uuid/tile from data/detail/<code>.json on demand"
+    },
+    "renderer": "js/panel.js (pure HTML strings, delegated data-action clicks); breadcrumb first in .panel-top",
+    "copy": "สาขา = one source row; แบรนด์ = distinct brands; ประชากร = registered residents; ต่อ 1 หมื่นคน; สถานที่ตามชื่อสาขา; status ‘อยู่ในรายการสาขาของแบรนด์’"
+  },
+  "data": {
+    "observationGrain": "one source row of a chain as shown by CityMETER production; never merged, moved or clustered",
+    "core": "data/grocery.json (rows [key8, brand, type, format, name, lon, lat, district, unit (int | [a, b] | -1), source, venue?, flags?]; brands, types, formats, sources, venues, meta)",
+    "areas": "data/areas.json (country, provinces, districts, units: codes, names, population, km², API counts, bbox, label point)",
+    "geometry": "data/geo/provinces.json; data/geo/p/<code>.json (districts 'd'+code, units 'u'+key)",
+    "detail": "data/detail/<code>.json (uuid, address, subdistrict, subdistrictCode, tile, tileArea)",
+    "receipt": "data/build-receipt.json (input hashes without private URLs, fetch windows, reconciliation at every level)",
+    "snapshot": {
+      "rows": 27607,
+      "apiTotal": 27608,
+      "brands": 17,
+      "types": 5,
+      "provinces": 77,
+      "districts": 928,
+      "units": 8621,
+      "localAdministrations": 7774,
+      "bangkokLocales": 847,
+      "venues": 3437,
+      "rowsWithVenue": 3493,
+      "rowsInTwoUnits": 15,
+      "rowsOutsideUnits": 19,
+      "rowsWithoutAddress": 178,
+      "rowsFlaggedOnline": 4,
+      "unitsWithoutPopulation": 163,
+      "population": 65723008,
+      "storesPer10k": 4.2,
+      "typeCounts": {
+        "C_STORE": 26336,
+        "SUPERMARKET": 550,
+        "HYPERMARKET": 377,
+        "WHOLESALE": 194,
+        "PHARMACY": 150
+      }
+    },
+    "reconciliation": "units 8,621/8,621 equal the API; districts 927/928 (ko Pha-ngan 8405: API 57, 56 points); provinces 76/77 (Surat Thani 84: API 515, 514 points); population totals equal at country, province and district level",
+    "statusPolicy": "every row is not_revalidated → ‘อยู่ในรายการสาขาของแบรนด์’; 4 rows named ‘ออนไลน์’ are flagged, never removed; no closure is invented",
+    "coordinatePolicy": "decoded from the public z10 vector tile (extent 4096, ≈ 9.55 m grid), stored to 5 decimals; source-specific limits (legacy Lotus's positions, manual Tops/Makro/GO points) in sources[].limitation",
+    "estimates": "sale area / visits per day in the sheet are production defaults per store type, kept in meta.estimates and never shown as store facts",
+    "brandLogos": "data/brand-logos.json + assets/brand-logos.svg (17 brands, sprite revision f97946f1a792)",
+    "venueLogos": "data/venue-logos.json (128 assets, status complete) + assets/venue-logos/; venue → logo/role in data/grocery.json venues[]"
+  },
+  "visualSystem": {
+    "release": "LDS 0.9.7",
+    "releaseId": "v0.9.7-owner.1",
+    "revision": "standalone-0.9.7-r1",
+    "colorSetId": "color-srgb-10",
+    "normativeSha256": "d3085cbc0a50195f1cbf0c77b1d77c0d19b84364daf2948eb367348d65432d96",
+    "appliedTokens": "assets/theme.css (foundation pairs, semantic states, map roles, data states, series 1–10 v8, count and density.capita classes + ink, basemap-only tokens)",
+    "analyticalScales": [
+      {
+        "family": "count",
+        "lutSamples": 41,
+        "scaleVersion": "4ff5c1fb4be71ecd13c48685b38371b528bcd4ce369ce964a75354c2eb4d0980"
+      },
+      {
+        "family": "density.capita",
+        "lutSamples": 41,
+        "scaleVersion": "0b49c15c6f91e48db79f5c6bd9c729656c95cd6f3162941490c5c125111b4ab1"
+      }
+    ],
+    "scaleFixture": "tests/fixtures/lds-0.9.7-scales.json (copied from the LDS package; tests compare every sample)",
+    "categoricalSeries": {
+      "registry": "landometer-series-10-v8",
+      "variant": "soft",
+      "assignment": "C_STORE series-7 · SUPERMARKET series-3 · HYPERMARKET series-2 · WHOLESALE series-8 · PHARMACY series-1 (logos.css --type-*)"
+    },
+    "locationProfile": {
+      "applied": false,
+      "reason": "the dataset carries no demand/supply/market metrics; density.capita is a ratio, not a behaviour claim"
+    },
+    "fonts": {
+      "body": "Bai Jamjuree 400/600",
+      "headingLatin": "Arvo 700",
+      "headingThai": "IBM Plex Sans Thai Looped 700",
+      "numbers": "JetBrains Mono 400 tabular"
+    },
+    "icons": {
+      "asset": "assets/icons/material-nav-300.woff2 (sha256 d7e28310…9657, unchanged)",
+      "axes": {
+        "FILL": 0,
+        "wght": 300,
+        "GRAD": 0,
+        "opsz": 24
+      },
+      "allowed": [
+        "open_in_new",
+        "menu",
+        "close",
+        "light_mode",
+        "dark_mode",
+        "contrast",
+        "groups"
+      ],
+      "fallback": "visible semantic text labels (3D, พื้นที่, ดูทั้งหมด use text)"
+    },
+    "iconSet": "iconset.landometer.portfolio.symbol.01 (16/32/48/180/192/512) + site.webmanifest",
+    "layout": {
+      "headerPx": 48,
+      "desktopPanel": "min(max(300px,28%),440px)",
+      "chartTrayCollapsedPx": 52,
+      "mobileSheetMaxHeight": "64dvh",
+      "toolbar": [
+        "ดูทั้งหมด",
+        "ประเทศไทย",
+        "กรุงเทพฯ",
+        "พื้นที่",
+        "3D",
+        "วิธีใช้",
+        "ข้อมูล (mobile)"
+      ]
+    },
+    "knownCheckerException": "assets/theme.css keeps 24 basemap-only literal HEX values (declared once per theme, never data colours) — reported by the LDS artifact checker and accepted as in Luxury Brands"
+  },
+  "invariants": [
+    {
+      "id": "INV01",
+      "rule": "One source row owns one dot (and one pin from zoom 14); no clustering, aggregation or moved coordinates — context dots included"
+    },
+    {
+      "id": "INV02",
+      "rule": "450 pins and 250 logos are ceilings, never quotas; pins and logos only at zoom ≥ 14 and only for rows in focus"
+    },
+    {
+      "id": "INV03",
+      "rule": "Preserve original logo artwork (verified bytes, outer whitespace cropped only); backplates follow the measured artwork"
+    },
+    {
+      "id": "INV04",
+      "rule": "The first Aha compares the share of stores with the share of residents of the same children; it is recomputed for every level and filter and never hard-coded"
+    },
+    {
+      "id": "INV05",
+      "rule": "Never sum distinct brands across areas; the Aha numerator is a union (a store in two units counts once)"
+    },
+    {
+      "id": "INV06",
+      "rule": "Membership comes from production (subdistrict for district, overlay for unit); the demo never assigns a store to an area by its own point-in-polygon"
+    },
+    {
+      "id": "INV07",
+      "rule": "Never invent an area, boundary, population or id; production codes are the keys"
+    },
+    {
+      "id": "INV08",
+      "rule": "Missing population is no data, never zero; a comparison that needs it is omitted, not estimated"
+    },
+    {
+      "id": "INV09",
+      "rule": "Analytical colours keep the approved LDS HEX on both themes (count, density.capita); contrast is solved with ink, outlines and backplates, never by recolouring data"
+    },
+    {
+      "id": "INV10",
+      "rule": "Classes are computed on display-rounded values; the legend states the metric and its denominator; measured_zero ≠ no_data ≠ out_of_scope"
+    },
+    {
+      "id": "INV11",
+      "rule": "Detail only for the focused part; everything else stays visible but quiet (outline-only areas, quiet labels, grey dots without logos and outside the tab order)"
+    },
+    {
+      "id": "INV12",
+      "rule": "Keep generic caveats and workflow notes out of the UI; provenance, limits and status live in the store facts, help and docs"
+    },
+    {
+      "id": "INV13",
+      "rule": "Status is ‘อยู่ในรายการสาขาของแบรนด์’ — never ‘open’; no closure is invented"
+    },
+    {
+      "id": "INV14",
+      "rule": "No CSV download UI"
+    },
+    {
+      "id": "INV15",
+      "rule": "No decorative bracket or coloured left rail; visible focus on every control"
+    },
+    {
+      "id": "INV16",
+      "rule": "Basemap and massing colours come only from --basemap-* tokens; massing is OSM context and never encodes a metric"
+    },
+    {
+      "id": "INV17",
+      "rule": "Breadcrumb levels are ประเทศไทย › จังหวัด › อำเภอ/เขต › อปท./ย่าน › สถานที่; a store is never a crumb; production links go out, never in"
+    },
+    {
+      "id": "INV18",
+      "rule": "Matrix cells are equal in size; only the number and its class carry meaning"
+    },
+    {
+      "id": "INV19",
+      "rule": "The population bar of the ranking is neutral (never a data colour) and always labelled"
+    },
+    {
+      "id": "INV20",
+      "rule": "Camera presets never move or scale data; every 3D preset keeps the horizon outside the frame"
+    },
+    {
+      "id": "INV21",
+      "rule": "A venue is a name a branch refers to — never say a store is inside it; the venue name stays the identity and shared marks carry their role"
+    },
+    {
+      "id": "INV22",
+      "rule": "Pictograms are decorative: every tile and heading keeps its text label; the nav-7 subset stays byte-identical and the pictogram subset is a declared test exception"
+    },
+    {
+      "id": "INV23",
+      "rule": "The core panel, Aha, charts and table work without the map; every optional resource (map library, tiles, boundaries, store details, logos) fails soft with a retry or a quiet fallback"
+    }
+  ],
+  "chartContracts": [
+    {
+      "viewKey": "ranking",
+      "title": "สาขาเทียบคน",
+      "question": "พื้นที่ใดมีส่วนแบ่งสาขามากกว่าส่วนแบ่งคน (count) / พื้นที่ใดมีสาขาต่อคนมากที่สุด (capita)",
+      "encoding": "count: paired horizontal bars per child — share of the area's stores (class colour) and share of residents (neutral bar); capita: one bar of stores per 10,000 residents with the store count; ranks, values and names as text",
+      "metric": "chart-model.js#buildRankingModel — storeShare, popShare (only when every child has population), perCapita",
+      "scope": "children of the compared area (unit level → siblings in the district) within the filtered rows",
+      "action": {
+        "type": "area",
+        "level": "child level",
+        "index": "child index"
+      }
+    },
+    {
+      "viewKey": "mix",
+      "title": "ประเภทร้าน",
+      "question": "ประเภทร้านใดอยู่ในพื้นที่ใด",
+      "encoding": "numeric heat table: top 12 children with stores × the store types present; table-layout fixed + <colgroup>, equal cells; tint = count class of the cell (quantile over the cells); 0 = zero outline",
+      "metric": "chart-model.js#buildMatrixModel(columns 'types')",
+      "scope": "children of the compared area within the filtered rows",
+      "action": {
+        "type": "area",
+        "level": "child level",
+        "index": "child index"
+      }
+    },
+    {
+      "viewKey": "brands",
+      "title": "แบรนด์",
+      "question": "เชนใดอยู่ในพื้นที่ใด",
+      "encoding": "numeric heat table: top 12 children × the leading 8 brands of the compared rows; equal cells; tint = count class of the cell",
+      "metric": "chart-model.js#buildMatrixModel(columns 'brands')",
+      "scope": "children of the compared area within the filtered rows",
+      "action": {
+        "type": "area",
+        "level": "child level",
+        "index": "child index"
+      }
+    }
+  ],
+  "pictogramContract": {
+    "status": "test exception to LDS nav-7 approved by the owner 2026-10-22 for Luxury Brands, carried over and re-cut for Grocery; nav-7 subset bytes unchanged",
+    "font": "assets/icons/material-pictogram-300.woff2 (1936 bytes, sha256 6a7584bdd72ea1d1c95af1f098661eff4a2c51c5eec6a911f9b3913228792c9f), manifest assets/icons/material-pictogram-300.json, built by scripts/build-pictogram-font.py from npm material-symbols@0.27.0 material-symbols-rounded.woff2 (sha256 a8284249…71d2, Apache-2.0)",
+    "axes": {
+      "FILL": 0,
+      "wght": 300,
+      "GRAD": 0,
+      "opsz": 24
+    },
+    "glyphs": {
+      "brand": "shopping_basket U+E8CB",
+      "store": "storefront U+EA12",
+      "venue": "pin_drop U+E55E",
+      "area": "map U+E55B",
+      "province": "location_city U+E7F1",
+      "district": "domain U+E7EE",
+      "population": "groups U+F233",
+      "capita": "person U+E7FD",
+      "type": "category U+E574"
+    },
+    "usage": "metric tiles (js/panel.js#metricTile) and section headings (#heading); CSS .pictogram / .pic-<role>",
+    "accessibility": "aria-hidden decorative glyphs; the text label is the meaning; hidden until document.fonts reports the face (pictograms-ready)"
+  },
+  "brandLogoContract": {
+    "module": "js/brand-logos.js#configureBrandLogos(catalog, rows) → coverage; getBrandLogo(name); brandLogoMarkup(name, {className, decorative})",
+    "registry": "data/brand-logos.json (17 brands, 14 official sources, 3 retailer/reference) + assets/brand-logos.svg (symbols 320×160, sha256 f97946f1…f9ae)",
+    "lookup": "exact brand name or declared alias (Lotuss, Seven Eleven, ถูกดี); never fuzzy",
+    "backing": "transparent marks → #E5E9E6; light marks → #182327; opaque files keep their own background (e.g. Big C #A0C515, MaxValu #B32054)",
+    "provenance": "every file verified by sha256 against the sheet; Big C from Wikimedia Commons (owner-approved; Commons lists PD-textlogo while its structured data says CC BY-SA 4.0 — kept as recorded, to be checked before any rights claim)"
+  },
+  "venueLogoContract": {
+    "module": "js/venue-logos.js#configureVenueLogos(catalog) → coverage; getVenueLogo({name, logo, role}); venueLogoMarkup(venue, {size, className, decorative})",
+    "registry": "data/venue-logos.json — assets[] {key VL-…, file, mime, bytes, sha256, width, height, background, role, sourcePage, assetURL, sourceKind}; meta.status complete (128 of 128)",
+    "binding": "data/grocery.json venues[] = [GV id, name, type, typeTh, VL key | '', role]; 2,547 of 3,437 venue names carry a logo",
+    "roles": {
+      "venue_specific": "no caption (106)",
+      "venue_specific_composite": "no caption (1)",
+      "parent_complex": "โลโก้โครงการแม่ (9)",
+      "parent_complex_symbol": "สัญลักษณ์โครงการแม่ (1)",
+      "shared_department_store_banner": "โลโก้ห้างสรรพสินค้าในเครือ (30)",
+      "shared_chain_banner": "โลโก้เครือ (13)",
+      "shared_operator_banner": "โลโก้ผู้ให้บริการ (2,387 — mostly fuel-station operators)"
+    },
+    "placement": "venue heading (lg, alt โลโก้ <name>, role in the eyebrow), unit venue rows (sm, decorative), store facts สถานที่ (md, decorative)",
+    "backing": "scripts/build-venue-logos.py measures each file (scripts/measure-logos.mjs: transparency, luminance, light share) → stone #E5E9E6, dark #182327 or the file's own background; override all-seasons-place.png → dark",
+    "invariants": "the venue name stays the identity; a logo never changes a row, label, coordinate or status; a missing registry only removes the boxes; collecting files is not a trademark licence"
+  },
+  "delivery": {
+    "human": [
+      "README.md",
+      "PRODUCT_BRIEF.md",
+      "IMPLEMENTATION_PLAN.md",
+      "VERIFICATION.md",
+      "START_HERE.md",
+      "../PRODUCT_STATEMENT.md",
+      "../DATA_METHOD.md",
+      "../docs/AREA_METHOD.md",
+      "../docs/CHART_SELECTION.md",
+      "../docs/BUILD_CARD.md"
+    ],
+    "machine": [
+      "product-statement.json",
+      "product-brief.json",
+      "implementation-plan.json",
+      "handoff-manifest.json",
+      "handoff.schema.json",
+      "../data/build-receipt.json"
+    ],
+    "start": "npm start",
+    "test": "npm test",
+    "handoff": "npm run handoff:bundle",
+    "verifyLive": "npm run verify:live",
+    "localUrl": "http://127.0.0.1:4173/",
+    "devHook": "window.__citymeter (state, map, update, fitCurrent, updateSpatialLayers, selectArea, selectStore, applyPreset, fitPitched, cameraPadding, buildMapStyle) — console tuning only, not an API"
+  }
+}

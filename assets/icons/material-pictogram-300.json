@@ -1,0 +1,54 @@
+{
+  "family": "LDS Material Symbols Rounded Pictogram",
+  "file": "material-pictogram-300.woff2",
+  "bytes": 1936,
+  "sha256": "6a7584bdd72ea1d1c95af1f098661eff4a2c51c5eec6a911f9b3913228792c9f",
+  "source": "npm material-symbols@0.27.0 package/material-symbols-rounded.woff2 (variable FILL/GRAD/opsz/wght)",
+  "sourceSha256": "a828424970612036db40dd7d01d4597200635fa948c55fae447df878ed8d71d2",
+  "license": "Apache-2.0 (assets/icons/material-symbols-Apache-2.0.txt)",
+  "axes": {
+    "FILL": 0,
+    "wght": 300,
+    "GRAD": 0,
+    "opsz": 24
+  },
+  "glyphs": {
+    "brand": {
+      "name": "shopping_basket",
+      "codepoint": "U+E8CB"
+    },
+    "store": {
+      "name": "storefront",
+      "codepoint": "U+EA12"
+    },
+    "venue": {
+      "name": "pin_drop",
+      "codepoint": "U+E55E"
+    },
+    "area": {
+      "name": "map",
+      "codepoint": "U+E55B"
+    },
+    "province": {
+      "name": "location_city",
+      "codepoint": "U+E7F1"
+    },
+    "district": {
+      "name": "domain",
+      "codepoint": "U+E7EE"
+    },
+    "population": {
+      "name": "groups",
+      "codepoint": "U+F233"
+    },
+    "capita": {
+      "name": "person",
+      "codepoint": "U+E7FD"
+    },
+    "type": {
+      "name": "category",
+      "codepoint": "U+E574"
+    }
+  },
+  "status": "test exception to LDS nav-7 (owner 2026-10-22, CityMETER Luxury Brands; re-cut for Grocery); nav-7 subset unchanged"
+}
