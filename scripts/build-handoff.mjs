@@ -75,6 +75,7 @@ if (zipPath) {
   const startHere = opt('--start-here') || join(root, 'handoff/START_HERE.md');
   if (existsSync(startHere)) cpSync(resolve(startHere), join(stage, 'START_HERE.md'));
   const out = resolve(zipPath);
+  mkdirSync(dirname(out), {recursive: true});
   rmSync(out, {force: true});
   execFileSync('zip', ['-qr', '-X', out, '.'], {cwd: stage});
   rmSync(stage, {recursive: true, force: true});
