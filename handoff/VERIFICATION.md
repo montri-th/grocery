@@ -4,7 +4,7 @@ Dataset snapshot: 2026-10-22 (what CityMETER production shows). Levels are repor
 
 ## Release 0.2 — venue level, two-point view, 41-sample colour scales (owner, 22 Oct 2026, second round)
 
-Commits: `46b4bb5` venue level + two-point view · the commit after it: colour scales on all 41 LDS samples + 0.2 handoff (schema 1.1.0, task cards, `scripts/qa/`). Each line names what it ran on; the release receipt binds the final commit.
+Commits: `46b4bb5` venue level + two-point view · `f5db660` colour scales on all 41 LDS samples + 0.2 handoff (schema 1.1.0, task cards, `scripts/qa/`) · `77ac6f7` empty rebuild trigger · `cd9f074` cache tag of the legend's `scales.js` import + `tests/module-imports.test.js` · the commit after it: this live record. Each line names what it ran on; the release receipt binds the final commit.
 
 | Level | Result |
 |---|---|
@@ -12,8 +12,8 @@ Commits: `46b4bb5` venue level + two-point view · the commit after it: colour s
 | Machine contracts | `product-statement.json`, `product-brief.json`, `implementation-plan.json` valid against `handoff.schema.json` **1.1.0** (ajv 8.17.1, draft 2020-12). Negative checks: the schema rejects `metricContract.method = quantile` / `steps = 5` and a plan without `agentTaskCards` |
 | LDS | package `verify.mjs` — PASS 9,769 / 9,769 (65 package-level warnings, not caused by this artifact); `check-artifact.mjs index.html` — FAIL only for the same 24 basemap-only literals as 0.1 (127 unique colours, identical literal set) + the scripts-need-rendered-review warning |
 | Rendered harness | `scripts/qa/core_qa.py` (33 views, 10 console sections) and `venue_qa.py` (14 views, 7 console sections), Chromium + vendored MapLibre 5.6.2 + stub tiles — **0 page errors** |
-| Live browser | Chrome on macOS, real tiles: venue level on `46b4bb5` below; colour scales — recorded after their deploy |
-| Live bytes | `npm run verify:live` on the final commit — `RELEASE_RECEIPT.json` |
+| Live browser | Chrome on macOS, real tiles: venue level on `46b4bb5` and again on `cd9f074`; colour scales on `cd9f074` — below |
+| Live bytes | `npm run verify:live` on `cd9f074`: **457 ok, 0 failed** (`evidence/live-attestation-cd9f074.json`); the final commit is attested again in `RELEASE_RECEIPT.json` |
 
 ### Colour scales on all 41 LDS samples (owner rule “Color scale ขอให้ใช้ 41 scales ตาม LDS เสมอ”)
 
@@ -21,11 +21,31 @@ Commits: `46b4bb5` venue level + two-point view · the commit after it: colour s
 - **Harness** (state per screenshot: `ramp`, `compare`, `chartRamp`): every view with a choropleth shows 41 swatches and every area fill is an exact LUT sample (`allFillsExact`). Country count 41 samples in use (ticks 39 · 230 · 5,310); country per-capita 31 (1.0 · 2.9 · 11.3); Bangkok districts 39 (20 · 95 · 211); ชลบุรี districts 11 (1 · 70 · 592); store-type matrix of ชลบุรี 18 samples with 2 numbers on a backplate, brand matrix 24 / 4, Bangkok store types (dark) 17 / 4. 390×844 light and dark: legend title + switch on the first row, the ramp on the second, no overlap with the compact Aha card, no horizontal overflow.
 - **Found and fixed in this pass:** the first legend layout let its flex row shrink the ramp to its min-content width (≈ 0 px) — seen in the screenshots, not in the state log; the area legend is now a two-row grid (`#legend-areas`). Re-checked at 1280 and 390 px in both themes: ramp 320 px (desktop) / 271–320 px (390 px), swatches 7.8 / 6.6 px, ticks never overlap. Before its deploy, `js/ramp-legend.js` imported `./scales.js` without the cache tag the other importers use — a browser holding the cached 0.1–0.2 `scales.js` (no `STEPS` export) would have stopped the app for up to 10 minutes; fixed and guarded by `tests/module-imports.test.js`.
 
+### Live checks of the colour scales (`cd9f074`)
+
+**Deploy.** GitHub recorded the pushes of `f5db660` and `77ac6f7` about 40 minutes late (repository activity backfilled at 16:34 and 16:56 UTC); no Pages run existed until 17:22 UTC. Run 39822044409 was cancelled by run **39822115600** (pages build and deployment, head `cd9f074`, success 17:24:23 UTC). Before checking, Chrome's cache was refreshed with `fetch(…, {cache: 'reload'})`: `index.html` carries the `?v=20261022-v3` tags (9), `js/scales.js` declares `rank-41`, `js/ramp-legend.js` is served.
+
+Chrome on macOS, 1710×909 CSS px (DPR 2), OpenFreeMap tiles; the 1280×800 and 390×844 views run in a same-origin frame scaled to the window (so the 390 px view is the app's real narrow layout in desktop Chrome, not a phone). Area colours are read from what MapLibre renders (`queryRenderedFeatures` → feature-state `fill`), not only from the model.
+
+| View | Result |
+|---|---|
+| Country, first paint (dark; `live-0.2-01`) | Aha 30% / 13% unchanged; model `rank-41`, 41 samples in use, every fill an exact LUT sample; legend 41 swatches, ticks 39 · 230 · 5,310; the three focused provinces render samples 40 / 39 |
+| ดูทุกจังหวัด `?areas=all` (dark; `live-0.2-02`) | 77 provinces render **41 distinct fills, all exact LUT samples** |
+| ต่อ 1 หมื่นคน, country | 31 rendered samples (ties at one decimal), ticks 1.0 · 2.9 · 11.3 |
+| Bangkok districts + store-type matrix (dark; `live-0.2-03`) | 39 distinct rendered fills; matrix 12 × 5 cells, its own 41-swatch legend (17 samples in use, 1 · 3 · 204), numbers 8 · 27 · 10 · 8 on a backplate |
+| ชลบุรี per-capita (light; `live-0.2-06`) | 11 districts render 10 samples (one tie), ticks 2.1 · 6.2 · 16.7; same HEX as dark |
+| Siam Paragon (dark; `live-0.2-04`) | `eye` pitch 75 / FOV 24 / z17.58, x-ray 795 vertices, 7 see-through occluders from real tiles, crumbs end at Siam Paragon — unchanged from `46b4bb5` |
+| 390×844 frame (dark; `live-0.2-05`) | narrow layout; legend title + switch on one row, ramp 271 px below with ticks apart; Aha card ends at y 692, legend starts at 706; no horizontal overflow |
+| Native 1710 px (dark; `live-0.2-07`, `-08`) | ramp 320 px, swatches 7.75–7.76 px; Bangkok per-capita renders every district |
+| Console | no messages on two native loads (`?areas=all`, `?province=BKK&areas=all&metric=capita`) |
+
+The owner's theme preference (`auto`) was restored after the light-theme check.
+
 ### Venue level and two-point view
 
 - **Harness** (`venue_qa.py`; stub tiles draw no massing, so occluders stay 0 here): unit สยาม lists “สถานที่ตามชื่อสาขา 4 แห่ง” first and draws 8 venue buildings (legend อาคารของสถานที่, the มุมสถาปนิก toggle disabled outside venue level); Siam Paragon from the list → crumbs end at Siam Paragon, `eye` pitch 75 / FOV 24 / z17.58, x-ray 795 vertices; toggle off → `cam=model`, pitch 60 / FOV 14, on again → `eye`; a store in Siam Paragon keeps `eye`, a click on the x-ray solid (340, 264) opens the venue; 2D → pitch 0, x-ray off; centralwOrld 16 buildings, z16.59, x-ray 2,949; Central Ramindra 1 point building (legend อาคารตามพิกัดสาขา), x-ray 363; สามเสน (สถานีรถไฟ) no building, `eye` on the store point at z16; dark crumb ย่าน returns to the unit with the venue buildings still drawn; 390×844 light/dark: sheet open = plan (pitch 0, z15.72), sheet closed = `eye` z16. No horizontal overflow anywhere.
 - **Live on `46b4bb5`** (Chrome on macOS, OpenFreeMap tiles; desktop 1280×800 through a scaled same-origin frame, narrow 606×717): Siam Paragon `eye` pitch 75 / FOV 24 / z17.58, x-ray 795 vertices, 7 see-through occluders from real tiles, crumbs end at Siam Paragon (dark); unit สยาม draws Paragon blue with the venue list first, a building click opens the venue in `eye`; centralwOrld (light) z16.59, x-ray 2,949, 12 occluders; store `6823e48d` → x-ray click → venue; Central Ramindra point building with “อาคารตามพิกัดสาขา”, x-ray 363; 606 px: sheet open = plan, sheet closed = `eye` z16 with 11 occluders; no console errors; the owner's theme preference restored to `auto`.
-- **Not verified:** a phone at 390 px on the live site (the Chrome window could not be narrowed below 606 px), Safari/iOS, the keyboard tour on the live site.
+- **Not verified:** a real phone (390 px was checked live only in a same-origin frame in desktop Chrome), Safari/iOS, the keyboard tour on the live site, AC02 / AC03 / AC05 fault paths.
 
 ## Data reconciliation (build)
 
