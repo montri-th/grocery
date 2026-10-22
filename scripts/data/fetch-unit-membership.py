@@ -6,7 +6,7 @@ import requests
 RAW = sys.argv[1]
 OUT = os.path.join(RAW, 'ml-overlay'); os.makedirs(OUT, exist_ok=True)
 B = 'https://landometer.com/api/v2/citymeter-v3/grocery/overlayMvt/10/{x}/{y}?inTileType={t}&inTileId={id}'
-S = requests.Session(); S.headers['User-Agent'] = 'CityMETER-Grocery-demo-build (montri@landometer.com)'
+S = requests.Session(); S.headers['User-Agent'] = 'CityMETER-Grocery-demo-build (+https://github.com/montri-th/grocery)'
 R = 6378137
 def lonlat(x, y): return (x / R * 180 / math.pi, (2 * math.atan(math.exp(y / R)) - math.pi / 2) * 180 / math.pi)
 def tile(lon, lat, z=10):

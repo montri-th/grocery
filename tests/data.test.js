@@ -50,7 +50,7 @@ test('pictogram and nav-7 icon fonts are the files their contracts name', () => 
   for (const [role, g] of Object.entries(manifest.glyphs)) assert.equal(PICTOGRAM_CONTRACT.glyphs[role].codePointAt(0).toString(16).toUpperCase(), g.codepoint.slice(2), role);
 });
 
-test('no private Drive or Sheet link is shipped (data, docs, handoff, code)', () => {
+test('no private Drive or Sheet link and no email address is shipped (data, docs, handoff, code)', () => {
   const root = new URL('../', import.meta.url);
   const skip = new Set(['node_modules', '.git', 'dist', 'evidence', '.handoff-stage']);
   const files = [];
@@ -66,5 +66,11 @@ test('no private Drive or Sheet link is shipped (data, docs, handoff, code)', ()
   assert.ok(files.length > 50);
   // Actual links only (the logo build scripts keep a bare-domain guard list that rejects such URLs).
   const privateLink = /https?:\/\/(docs\.google\.com\/(spreadsheets|document|file)|drive\.google\.com\/|drive\.usercontent\.google\.com\/|sheets\.google\.com\/)/i;
-  for (const f of files) assert.doesNotMatch(fs.readFileSync(new URL(f, root), 'utf8'), privateLink, f);
+  // Request headers name the repository, never a person.
+  const email = /[A-Za-z0-9._%+-]+@[A-Za-z][A-Za-z0-9-]*(?:\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}/;
+  for (const f of files) {
+    const text = fs.readFileSync(new URL(f, root), 'utf8');
+    assert.doesNotMatch(text, privateLink, f);
+    assert.doesNotMatch(text, email, f);
+  }
 });

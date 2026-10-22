@@ -10,7 +10,7 @@ BASE = 'https://landometer.com/api/v2/citymeter-v3'
 OUT = sys.argv[1]
 os.makedirs(OUT, exist_ok=True)
 S = requests.Session()
-S.headers['User-Agent'] = 'CityMETER-Grocery-demo-build (montri@landometer.com)'
+S.headers['User-Agent'] = 'CityMETER-Grocery-demo-build (+https://github.com/montri-th/grocery)'
 LOG = []
 
 def get(url, path):
