@@ -12,7 +12,7 @@
  * Used by the map legend (app.js renderLegend) and the matrix legend
  * (charts.js). Pure: returns an HTML string; tested in tests/scales.test.js.
  */
-import {STEPS} from './scales.js?v=20261025-fp1';
+import {STEPS} from './scales.js?v=20261025-fp2';
 
 const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
 const ROLE = {min: 'น้อยสุด', median: 'ค่ากลาง', max: 'มากสุด', only: 'ทุกพื้นที่'};

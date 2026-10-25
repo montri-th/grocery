@@ -1,0 +1,158 @@
+{
+  "schema": "citymeter-retail-followup-evidence-v1",
+  "checkedOn": "2026-10-25",
+  "baselineRevision": "99082f7c07a75c42c5e6ef5bdc114a457def5362",
+  "countUnit": "One retained outlet observation; no new branch rows or brands in this follow-up.",
+  "yaowarat": {
+    "mapStoreKey": "9f9a188a",
+    "canonicalOutletId": "9f9a188a-6a85-4adc-8900-aaea7b49f310",
+    "decision": "excluded_mini_confirmed",
+    "selectedFormat": "Big C Mini",
+    "selectedType": "C_STORE",
+    "exactMapsURL": "https://maps.app.goo.gl/KZdtdqisasM1Gn2T8",
+    "mapsName": "mini Big C Yaowarat",
+    "mapsFeatureId": "0x30e29944b3e8a2bb:0x209b92a8b9f7f5a9",
+    "mapsObservationPoint": [
+      100.5083307,
+      13.7409705
+    ],
+    "mapsPointRole": "corroboration_only_not_selected_point",
+    "officialBranchCode": "22301",
+    "officialBranchUUID": "315bc049-501c-4296-abd9-a69435150a18",
+    "officialContactRecordUUID": "a414f16e-1589-4b71-9794-9b374fa1162b",
+    "officialSourceURL": "https://cloud-api-cs.bigc.co.th/company/v1/branch/search/frontend?uuids%5B%5D=315bc049-501c-4296-abd9-a69435150a18&extend%5B%5D=branch_config&offset=0&limit=1",
+    "officialResponseSHA256": "c1afc5cb83c9988b8392ec87b364904373140a49476f03ead38b75a0d66b7c5e",
+    "officialEditorialUpdatedAt": "2023-02-17T03:25:19.638Z",
+    "officialFormatName": "Big C Mini ทีซีซี เยาวราช, กรุงเทพฯ",
+    "sourcePointPreserved": true,
+    "sourceUUIDPreserved": true,
+    "operation": "not_independently_verified",
+    "note": "Explicit owner correction and exact Mini listing corroborated by official Mini name/address. No Foodplace addition, logo attachment, point replacement or proximity deduplication."
+  },
+  "mahatun": {
+    "mapStoreKey": "bigc-official-15070",
+    "venueId": "SC-001266",
+    "officialBranchCode": "15070",
+    "operationalEvidence": {
+      "kind": "employer_recruitment_listing",
+      "url": "https://www.jobthai.com/th/company/job/1644838",
+      "sourcePublishedOn": "2026-10-22",
+      "sourceKind": "retailer_employer_attributed",
+      "sourceSnippet": "บริษัท บิ๊กซีฯ ประกาศรับสมัครหัวหน้าแคชเชียร์ประจำสาขา Foodplace มหาทุนพลาซ่า",
+      "sourceSnapshotSHA256": "0b44a4d6ca383b7ee1daea42ea9e06ef0be3d5dcb6085fa39eb1c4d2fa2385c3"
+    },
+    "operation": "not_independently_verified",
+    "contactStatusType": "inactive",
+    "contactRecordUpdatedAt": "2024-12-02T10:57:15.486Z",
+    "historicalOpeningEventOn": "2024-12-04",
+    "historicalOpeningPublicationOn": "2024-12-17",
+    "historicalOpeningSourceURL": "https://corporate.bigc.co.th/news/616/บิ๊กซี-ลุยเปิด-บิ๊กซี-ฟู้ดเพลส-มหาทุน-พลาซ่า-เจาะกลุ่มลูกค้าโซนสำนักงาน",
+    "currentHours": null,
+    "venueLogo": "not_found",
+    "rejectedLogoIdentity": "MS SIAM TOWER is a different venue and is not a Mahatun mark.",
+    "note": "ประกาศรับสมัครของนายจ้าง ไม่ใช่การตรวจยืนยันการเปิดหน้าร้าน; คงสถานะรอยืนยันและค่า inactive ของระบบติดต่อเดิม"
+  },
+  "buildingFollowup": {
+    "checkedOn": "2026-10-25",
+    "coordinateChanges": 0,
+    "oneBangkok": {
+      "buildingIds": [
+        "followup:osm:way/1264152504"
+      ],
+      "sourceVenueId": "17f44c5c-de52-4d42-bfba-2b160c8bb2e6",
+      "status": "venue_reference",
+      "method": "official_branch_address_and_venue_guide_with_osm_building",
+      "relation": "named_host_context",
+      "appliesToStoreKeys": [
+        "bigc-official-15068"
+      ],
+      "qualifiedHostName": "Forum · One Bangkok",
+      "checkedOn": "2026-10-25",
+      "identityEvidenceURLs": [
+        "https://www.onebangkok.com/en/press-media/one-bangkok-newest-neighbourhood/",
+        "https://www.onebangkok.com/en/blog/one-bangkok-forum-location-travel-guide/"
+      ],
+      "officialAddressEvidence": "Branch15068: Forum Bldg., RoomFG01, FloorG.",
+      "pointBasis": "retailer_published_store_point",
+      "pointRelation": "outside",
+      "pointDistanceM": 135.418,
+      "coordinateChanges": 0,
+      "poiCorroboration": {
+        "osmNodeId": "12648108132",
+        "name": "BigC Bangkok Marche",
+        "point": [
+          100.548074,
+          13.72783
+        ],
+        "relation": "inside_Forum",
+        "sourceTimestamp": "2025-03-09T18:15:29Z",
+        "independence": "Node and way share editor/changeset/timestamp; separate records, not an independent survey."
+      },
+      "limits": [
+        "A named-host reference does not promote the selected point to inside.",
+        "Forum context is not a campus footprint, shop unit or floor boundary.",
+        "Selected height is unknown. The 3m extrusion is display-only; the native35floor/98.83m model estimate is held."
+      ]
+    },
+    "parc": {
+      "buildingIds": [
+        "followup:cmv4-70aa2830ff1ea4b186f1a46b94fa"
+      ],
+      "sourceVenueId": null,
+      "status": "accepted_owner_qualified_named_host_context",
+      "method": "owner_store_listing_frontage_and_native_building",
+      "relation": "named_host_context",
+      "appliesToStoreKeys": [
+        "bigc-official-15073"
+      ],
+      "qualifiedHostName": "อาคารจอดรถ · PARC Bangna",
+      "checkedOn": "2026-10-25",
+      "identityEvidenceURLs": [
+        "https://maps.app.goo.gl/JDaMRUZfW2wBfVhZ9"
+      ],
+      "ownerEvidence": {
+        "selectedStoreFloor": "Ground",
+        "hostBuildingUse": "parking_building",
+        "ownerReportedStoreys": 3,
+        "imageSHA256": "868226fa696bdd186b59d1cf0d89d402df8918432fe373e819be18e1556ed98f"
+      },
+      "pointBasis": "retailer_published_store_point",
+      "pointRelation": "outside",
+      "pointDistanceM": 64.954,
+      "coordinateChanges": 0,
+      "separateGoogleObservation": {
+        "point": [
+          100.6477432,
+          13.6671705
+        ],
+        "relation": "inside_boundary_review",
+        "edgeClearanceM": 4.851,
+        "pointReviewGuardM": 10,
+        "selectedAsStorePoint": false
+      },
+      "limits": [
+        "The anonymous native source component has no provider building UUID or name; do not manufacture a provider identity.",
+        "This is original model footprint context, not surveyed/as-built wall geometry or complete campus coverage. Adjacent AIA tower and landuse are excluded.",
+        "The separate Google observation is an edge-review hit and does not replace the official selected point.",
+        "Selected height remains unknown. Raw 16.75 m / estimated 4 floors are held separately; owner-reported 3 storeys do not imply 9 m.",
+        "Do not assign other PARC stores, roof parts or parking floor area to this host without their own evidence.",
+        "The private owner photo is identity evidence; public raster rights are not asserted."
+      ],
+      "sourceGeometryLimit": "Complete original quantized model component preserved; exact full-precision/native-detail footprint equivalence is not established and no geometry is scaled to match the reported area.",
+      "selectedPointJoin": "no_building",
+      "height": {
+        "selectedM": null,
+        "displayFallbackM": 3,
+        "ownerReportedStoreys": 3,
+        "rawProviderModelHeightM": 16.75,
+        "rawProviderEstimatedFloors": 4,
+        "role": "Source model and owner storey observations remain separate; neither supplies measured metre height."
+      }
+    }
+  },
+  "limits": [
+    "Retrieval date is not a new source editorial date.",
+    "Contact active/inactive and recruitment are not proof of current walk-in operation.",
+    "Logo availability, named venue identity and geometric containment remain separate."
+  ]
+}

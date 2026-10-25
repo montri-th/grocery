@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {readJSON} from './helpers.js';
 import {buildModel, filterRows, brandCount} from '../js/model.js';
 import {buildStoreDetail} from '../js/profile-model.js';
-import {configureBrandLogos, getBrandLogo, getFormatLogo} from '../js/brand-logos.js?v=20261025-fp1';
+import {configureBrandLogos, getBrandLogo, getFormatLogo} from '../js/brand-logos.js?v=20261025-fp2';
 
 const grocery = readJSON('data/grocery.json'), areas = readJSON('data/areas.json'), refresh = readJSON('data/retail-refresh.json');
 const expected = {
@@ -23,7 +23,7 @@ test('shipped retail overlay keeps all source point facts and API totals while a
   assert.equal(filterRows(model.rows, {brand: 'BIG_C'}).length, 1749);
   assert.equal(filterRows(model.rows, {format: 'BIG_C_FOODPLACE'}).length, 17);
   assert.equal(model.brandById.get('BIG_C').api, 1744);
-  assert.equal(refresh.existing.length, 12); assert.equal(refresh.supplemental.length, 5);
+  assert.equal(refresh.existing.length, 13); assert.equal(refresh.supplemental.length, 5);
   for (const raw of grocery.rows) {
     const row = model.rowByKey.get(raw[0]), source = row.sourceFacts;
     assert.equal(row.b, raw[1]); assert.equal(row.t, raw[2]); assert.equal(row.name, raw[4]);
@@ -53,6 +53,11 @@ test('shipped supplemental points match official coordinate checkpoints and revi
   const one = model.rowByKey.get('bigc-official-15068');
   assert.equal(model.formats[one.format], 'Big C Foodplace · Bangkok Marché');
   assert.equal(one.v, model.venues.find(v => v.id === 'GV-a6836f91efc61a13').index);
+  const mini = model.rowByKey.get('9f9a188a');
+  assert.equal(model.formats[mini.format], 'Big C Mini'); assert.equal(mini.type, 'C_STORE');
+  assert.equal(mini.refresh.evidence.decision, 'excluded_mini_confirmed');
+  assert.equal(mini.formatFamilyId, undefined); assert.equal(mini.formatLogoKey, undefined);
+  assert.deepEqual([mini.lon, mini.lat], [100.50825, 13.74097]);
   assert.equal(model.rowByKey.get('c1901a70').brandId, 'PURE');
   assert.equal(model.rowByKey.get('29055ba4').brandId, 'SEVEN_ELEVEN');
 });

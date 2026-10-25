@@ -11,13 +11,15 @@
  *
  * Evidence stays separate (js/spatial-store.js, data/venue-joins.json):
  *   venue_reference — a footprint linked to the venue by exact name/source id
- *                     (data/venue-reference-buildings.json, 29 venues);
+ *                     (data/venue-reference-buildings.json), limited to the
+ *                     qualified branch keys when a scope is supplied;
  *   point_inside    — a footprint the store's plotted point falls inside
  *                     (data/spatial/<province>.json).
  * Neither is a tenancy claim, a height measurement or a reason to move a point.
  * Pure functions: no DOM, no map — tested in tests/venue-level.test.js.
  */
-import {outerRings} from './massing.js?v=20261025-fp1';
+import {outerRings} from './massing.js?v=20261025-fp2';
+import {referenceStoreKeys} from './spatial-store.js?v=20261025-fp2';
 
 export const EVIDENCE = Object.freeze({reference: 'venue_reference', point: 'point_inside'});
 /** Display-only height for an extruded footprint without a source height (never quoted as a fact). */
@@ -36,9 +38,10 @@ export function venueOf(model, panel, rowByKey) {
 /** Venue level = a venue panel, or a store whose branch name names a venue. */
 export const isVenueLevel = (panel, venue) => panel?.mode === 'venue' || (panel?.mode === 'store' && Boolean(venue));
 
-/** Reference ids of a venue (empty unless the reference is an accepted venue_reference). */
-export function referenceIds(references, venueId) {
+/** Accepted reference ids; a scoped reference also requires qualifying selected row keys. */
+export function referenceIds(references, venueId, rowKeys) {
   const ref = references?.venues?.[venueId];
+  if (ref && Object.hasOwn(ref, 'appliesToStoreKeys') && !referenceStoreKeys(ref, rowKeys).length) return [];
   return ref?.status === EVIDENCE.reference ? (ref.buildingIds || []).map(String) : [];
 }
 
@@ -59,12 +62,13 @@ export function areaVenueBuildings(model, rows, references) {
   for (const [index, keys] of keysByVenue) {
     const venue = model.venues[index];
     if (!venue) continue;
-    for (const id of referenceIds(references, venue.id)) {
+    const eligibleKeys = referenceStoreKeys(references.venues?.[venue.id], keys);
+    for (const id of referenceIds(references, venue.id, keys)) {
       const f = references.byId.get(id);
       if (!f) continue;
       if (!features.has(id)) features.set(id, {...f, id, properties: {...f.properties, storeKeys: [], venueIndexes: [], evidence: EVIDENCE.reference}});
       const p = features.get(id).properties;
-      for (const k of keys) if (!p.storeKeys.includes(k)) p.storeKeys.push(k);
+      for (const k of eligibleKeys) if (!p.storeKeys.includes(k)) p.storeKeys.push(k);
       if (!p.venueIndexes.includes(index)) p.venueIndexes.push(index);
     }
   }
@@ -79,20 +83,31 @@ export function areaVenueBuildings(model, rows, references) {
 export function tagVenueFeatures(collection, model, references, rows = []) {
   const features = collection?.features || [];
   if (!features.length) return empty();
-  const venueByBuilding = new Map();
+  const venueByBuilding = new Map(), keysByBuilding = new Map();
+  const scopedIds = scopedBuildingIds(references);
   for (const index of new Set(rows.filter(r => r.v >= 0).map(r => r.v))) {
     const venue = model.venues[index];
     if (!venue) continue;
-    for (const id of referenceIds(references, venue.id)) {
+    const keys = rows.filter(r => r.v === index).map(r => r.key);
+    const eligibleKeys = referenceStoreKeys(references?.venues?.[venue.id], keys);
+    for (const id of referenceIds(references, venue.id, keys)) {
       if (!venueByBuilding.has(id)) venueByBuilding.set(id, []);
       venueByBuilding.get(id).push(index);
+      if (!keysByBuilding.has(id)) keysByBuilding.set(id, new Set());
+      eligibleKeys.forEach(key => keysByBuilding.get(id).add(key));
     }
   }
-  return {type: 'FeatureCollection', features: features.map(f => {
+  return {type: 'FeatureCollection', features: features.flatMap(f => {
     const id = String(f.id ?? f.properties?.buildingId ?? '');
     const venues = venueByBuilding.get(id) || [];
-    return {...f, properties: {...f.properties, venueIndexes: venues, evidence: venues.length ? EVIDENCE.reference : EVIDENCE.point}};
+    if (scopedIds.has(id) && !venues.length) return [];
+    return [{...f, properties: {...f.properties, ...(scopedIds.has(id) ? {storeKeys: [...keysByBuilding.get(id)]} : {}), venueIndexes: venues, evidence: venues.length ? EVIDENCE.reference : EVIDENCE.point}}];
   })};
+}
+
+function scopedBuildingIds(references) {
+  return new Set(Object.values(references?.venues || {}).filter(ref => ref && Object.hasOwn(ref, 'appliesToStoreKeys'))
+    .flatMap(ref => Array.isArray(ref.buildingIds) ? ref.buildingIds.map(String) : []));
 }
 
 /** Which kinds of building the legend has to name. */
@@ -103,17 +118,21 @@ export function buildingKinds(collection) {
 
 /**
  * The current venue's own buildings in the displayed collection: its accepted
- * reference footprints/parts; without a reference, the footprints that its rows'
- * plotted points fall inside.
+ * reference footprints/parts; rows outside a branch-qualified scope retain their
+ * own point buildings. Without a reference, use only the rows' point buildings.
  */
 export function venueHostFeatures(collection, {venue, references, rowKeys = []} = {}) {
   const features = collection?.features || [];
   if (!venue || !features.length) return [];
-  const ids = new Set(referenceIds(references, venue.id));
+  const ref = references?.venues?.[venue.id];
+  const ids = new Set(referenceIds(references, venue.id, rowKeys));
   const own = features.filter(f => ids.has(String(f.id ?? f.properties?.buildingId ?? '')));
-  if (own.length) return own;
-  const keys = new Set(rowKeys);
-  return features.filter(f => f.properties?.evidence !== EVIDENCE.reference && list(f.properties?.storeKeys).some(k => keys.has(k)));
+  if (own.length && !Object.hasOwn(ref, 'appliesToStoreKeys')) return own;
+  // A branch-qualified host does not replace other stores' own point buildings.
+  const qualified = new Set(own.length ? referenceStoreKeys(ref, rowKeys) : []);
+  const keys = new Set(rowKeys.filter(key => !qualified.has(key))), scopedIds = scopedBuildingIds(references);
+  const points = features.filter(f => !scopedIds.has(String(f.id ?? f.properties?.buildingId ?? '')) && f.properties?.evidence !== EVIDENCE.reference && list(f.properties?.storeKeys).some(k => keys.has(k)));
+  return [...own.map(f => ({...f, properties: {...f.properties, storeKeys: referenceStoreKeys(ref, rowKeys)}})), ...points];
 }
 
 /** Display height of a building: an outline parent lies flat; an extrusion without a source height uses the display fallback. */

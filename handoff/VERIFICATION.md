@@ -2,7 +2,25 @@
 
 Dataset snapshot: 2026-10-22 (what CityMETER production shows). Levels are reported separately: data reconciliation, unit tests, machine contracts, LDS checks, rendered harness, live browser checks and live byte attestation. None of them is a blanket LDS, accessibility or market-completeness certificate.
 
-## Foodplace refresh — 25 Oct 2026
+## Follow-up — Forum, PARC, Yaowarat and Mahatun (25 Oct 2026)
+
+This section records the prepared follow-up independently of the released Foodplace baseline and the 22 Oct evidence below. The release owner reports the current local suite at **183/183 passed** and actual local PARC/Mahatun views checked at 1280 px and 390 px in light/dark themes. The source-point result and named-host fact were inspected separately. A Pure branch in One Bangkok does not receive the Forum fact. One temporary local fetch failure recovered on reload; this is not a fault-path certification. The current preparation checks are recorded in `data/build-receipt.json → targetedFollowup`. Exact source commit, provider delivery and matching live bytes are bound by the external release receipt; this preparation record does not attest a future deployment.
+
+| Check | Prepared follow-up result |
+|---|---|
+| Count and format invariants | 27,612 rows / 17 brands / Big C 1,749 / Foodplace family 17; five supplements remain five. Thirteen existing-row observations comprise 12 Foodplace rows plus one unchanged Mini. |
+| Yaowarat identity | Official branch 22301 resolves to existing canonical outlet `9f9a188a-6a85-4adc-8900-aaea7b49f310`; map key `9f9a188a`, Big C Mini / `C_STORE`, source point and UUID retained; excluded from Foodplace. |
+| Mahatun operation and logo | Employer recruitment evidence is dated 22 Oct 2026. Contact status remains inactive; recruitment is not current walk-in confirmation. Review status retained, current hours unverified, verified venue logo still not found. |
+| Named host scope | 31 venues / 78 features / 46 qualified rows: original 29 / 76 / 44 preserved, plus Forum only for `bigc-official-15068` and PARC parking only for `bigc-official-15073`. Other tenants receive neither fact by campus name alone. |
+| Point invariants | Both official points remain unchanged and `no_building`: Forum outside by 135.418 m; PARC outside by 64.954 m. Totals remain 808 inside / 9,329 boundary / 17,475 no-hit, with no promotion from the host reference. |
+| Forum identity | Official branch address, official venue guide and original OSM way `1264152504` support the narrow Forum context. OSM shop node and way share editor/changeset/time and are not an independent survey. No campus landuse or adjacent tower substituted. |
+| PARC geometry | Independent raw-MVT decoder and GEOS review reproduced the original 11-vertex component, no holes, including negative tile-Y coordinates; all six cached source receipts verified. Official point stays outside. Separate Google observation is 4.851 m from the inside edge (4.849 m in independent AEQD), never selected as the official point or a strict-inside result. |
+| Source and height | Original geometries/holes preserved; no nearest assignment, scaling or coordinate repair. Selected heights unknown; 3 m is display-only. Owner-reported Ground / 3 storeys is separate from held PARC model 16.75 m / estimated 4 floors; no 9 m conversion. Forum model 98.83 m / 35 floors also held. |
+| Evidence and rights | Follow-up sources and caveats are in `data/retail-followup-evidence.json`. Forum uses OSM/ODbL; PARC preserves mixed-source CityMETER V4 attribution. Owner frontage imagery is private identity evidence, not a public image license. |
+
+The independent PARC geometry audit accepted only the owner-qualified parking-host context, not a surveyed footprint, complete campus model, floor-area measurement or verified metre height. Source retrieval/check dates do not replace editorial dates. The following sections preserve historical results at their stated versions and do not attest publication of this follow-up.
+
+## Foodplace refresh — 25 Oct 2026 (released baseline)
 
 Local suite: **165/165 passed**, 0 failed/skipped; full transcript SHA-256 `6a6da6e1fdd4f909905cada1bec744796d5879f454c3fa0e36e19a09cd96ab8c`. Frozen data hashes were rechecked after the run. Source `grocery.json` and `areas.json` remain byte-identical to base `74d214a`; all 27,607 original point facts, all 77 provincial decision dictionaries and the original 128 venue asset records/bytes remain unchanged. Effective data adds five official branch records and three format reclassifications: 27,612 rows, 17 brands, Big C 1,749, Foodplace family 17. The family count is bounded coverage, not a national inventory or operating-status census.
 
@@ -75,7 +93,7 @@ The owner's theme preference (`auto`) was restored after the light-theme check.
 | Keys | 27,607 unique 8-character keys (asserted) |
 | Logos | 17 brand files and 128 venue files byte-identical to the sheet's sha256 |
 
-## Venue/building join update — local verification
+## Venue/building join update — local verification (22 Oct historical baseline)
 
 The expanded prepared join artifacts are recorded in `data/build-receipt.json → joinRefresh` and `data/building-sources.json`. Every source row has been evaluated against pinned footprint snapshots. This is dataset processing coverage, not proof that every physical building exists in the snapshots. Historical release 0.1 browser/live evidence below does not attest this update; the final published commit still needs its own release receipt and live byte check.
 

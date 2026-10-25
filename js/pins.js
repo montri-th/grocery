@@ -9,8 +9,8 @@
  * every other pin, label and UI obstacle (placeBrandLogos). Hidden logos never
  * hide a pin: the store-type-coloured dot always remains.
  */
-import {hasPoint} from './model.js?v=20261025-fp1';
-import {brandLogoMarkup, getBrandLogo, getFormatLogo} from './brand-logos.js?v=20261025-fp1';
+import {hasPoint} from './model.js?v=20261025-fp2';
+import {brandLogoMarkup, getBrandLogo, getFormatLogo} from './brand-logos.js?v=20261025-fp2';
 
 export const MAX_LOGOS = 250;
 /** Logos (and full-size pins) only from this zoom: the 3D overview stays calm. */

@@ -8,8 +8,8 @@
  * - a unit's stores are its source members (production overlay membership)
  * - population is the registered population the production uses; missing stays missing
  */
-import {TYPE_ORDER, FLAG_ONLINE, FLAG_NO_ADDRESS, unitName, unitKind, perCapita, brandCount, productionURL, hasPoint} from './model.js?v=20261025-fp1';
-import {buildUnitInsight} from './hierarchy.js?v=20261025-fp1';
+import {TYPE_ORDER, FLAG_ONLINE, FLAG_NO_ADDRESS, unitName, unitKind, perCapita, brandCount, productionURL, hasPoint} from './model.js?v=20261025-fp2';
+import {buildUnitInsight} from './hierarchy.js?v=20261025-fp2';
 
 /** Store-type mix in the fixed series order (types with no store are left out). */
 export function typeMix(model, rows) {
@@ -45,6 +45,43 @@ export function describeStatus(row = {}) {
   if (row.supplemental) return {tone: 'listed', label: 'อยู่ในรายการสาขาของแบรนด์', detail: 'รายการจากทำเนียบสาขาของแบรนด์ ยังไม่ได้ตรวจยืนยันการเปิดให้บริการที่หน้างาน'};
   if (row.flags & FLAG_ONLINE) return {tone: 'neutral', label: 'ชื่อสาขามีคำว่าออนไลน์', detail: 'แหล่งข้อมูลตั้งชื่อสาขาด้วยคำว่าออนไลน์ อาจเป็นช่องทางขายมากกว่าหน้าร้าน'};
   return {tone: 'listed', label: 'อยู่ในรายการสาขาของแบรนด์', detail: 'รายการตามแหล่งข้อมูลของแบรนด์ที่ CityMETER ใช้ ยังไม่ได้ตรวจสถานะเปิด–ปิดทีละสาขา'};
+}
+
+function validEvidenceDate(value) {
+  if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  const date = new Date(`${value}T00:00:00Z`);
+  return Number.isFinite(date.getTime()) && date.toISOString().slice(0, 10) === value;
+}
+
+function publicEvidenceURL(value) {
+  if (typeof value !== 'string') return null;
+  let url;
+  try { url = new URL(value); } catch { return null; }
+  // Public source pages use a domain; local hosts, IP literals and credentials are withheld.
+  const host = url.hostname.toLowerCase();
+  if (url.protocol !== 'https:' || url.username || url.password || !host.includes('.') ||
+    /^[\d.]+$/.test(host) || host.includes(':') || /(^|\.)(localhost|local|internal|test|invalid)$/.test(host) ||
+    /(^|\.)(drive\.google\.com|docs\.google\.com|drive\.usercontent\.google\.com|googleusercontent\.com)$/.test(host)) return null;
+  return url.href;
+}
+
+/** A dated activity observation is a source fact, never an opening-status override. */
+export function readOperationalEvidence(value) {
+  if (!value || value.kind !== 'employer_recruitment_listing' || !validEvidenceDate(value.sourcePublishedOn)) return null;
+  const url = publicEvidenceURL(value.url);
+  return url ? Object.freeze({kind: value.kind, url, sourcePublishedOn: value.sourcePublishedOn}) : null;
+}
+
+/** Owner-reported floor/storeys remain separate from raw directory fields and measured height. */
+export function readHostLocationEvidence(value) {
+  if (!value || value.kind !== 'owner_reported_host_location' || value.selectedStoreFloor !== 'Ground' ||
+    value.hostBuildingUse !== 'parking_building' || !Number.isSafeInteger(value.ownerReportedStoreys) ||
+    value.ownerReportedStoreys < 1 || !validEvidenceDate(value.checkedOn) ||
+    typeof value.sourceImageSHA256 !== 'string' || !/^[a-f0-9]{64}$/i.test(value.sourceImageSHA256)) return null;
+  const sourceURL = publicEvidenceURL(value.sourceURL);
+  return sourceURL ? Object.freeze({kind: value.kind, selectedStoreFloor: value.selectedStoreFloor,
+    hostBuildingUse: value.hostBuildingUse, ownerReportedStoreys: value.ownerReportedStoreys,
+    checkedOn: value.checkedOn, sourceURL, sourceImageSHA256: value.sourceImageSHA256.toLowerCase()}) : null;
 }
 
 /** Thai reading of the coordinate: decoded from the production vector tile, never a surveyed door point. */
@@ -104,6 +141,8 @@ export function buildStoreDetail(model, row, rows = []) {
     brandInProvince: sameBrand.filter(r => r.p === row.p).length, coLocated,
     noAddress: Boolean(row.flags & FLAG_NO_ADDRESS),
     formatEvidence: row.refresh && !row.supplemental ? {name: model.formats[row.format], ...row.refresh.evidence, sourceFormat: row.sourceFacts?.format} : null,
+    operationalEvidence: row.supplemental ? readOperationalEvidence(row.localDetail?.operationalEvidence) : null,
+    hostLocationEvidence: row.supplemental ? readHostLocationEvidence(row.localDetail?.hostLocationEvidence) : null,
     production: row.supplemental ? '' : units.length ? productionURL(model, {unit: units[0].index}) : productionURL(model, {province: province.index}),
     estimate: model.meta?.estimates?.[row.type] || null,
   };

@@ -17,7 +17,7 @@
  *   - a Bangkok store outside every Locale skips the ย่าน crumb (เขต is its finest level);
  *   - with four or more crumbs the upper levels fold behind “…” on narrow screens.
  */
-import {unitName, districtNoun} from './model.js?v=20261025-fp1';
+import {unitName, districtNoun} from './model.js?v=20261025-fp2';
 
 const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
 

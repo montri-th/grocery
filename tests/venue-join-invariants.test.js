@@ -54,6 +54,31 @@ test('venue reference buildings require an accepted source crosswalk and retain 
   const buildingById = new Map(references.buildings.features.map(f => [f.id, f]));
   for (const row of joins.rows.filter(r => r.status !== 'name_and_source_point')) assert.equal(row.sourceVenueId, null, row.key);
   for (const [venueId, reference] of Object.entries(references.venues)) {
+    if (Object.hasOwn(reference, 'appliesToStoreKeys')) {
+      const expected = {
+        'GV-a6836f91efc61a13': {key: 'bigc-official-15068', sourceVenueId: '17f44c5c-de52-4d42-bfba-2b160c8bb2e6', method: 'official_branch_address_and_venue_guide_with_osm_building', buildingId: 'followup:osm:way/1264152504'},
+        'SC-000977': {key: 'bigc-official-15073', sourceVenueId: null, method: 'owner_store_listing_frontage_and_native_building', buildingId: 'followup:cmv4-70aa2830ff1ea4b186f1a46b94fa'}
+      }[venueId];
+      assert.ok(expected, 'only the two specifically reviewed supplemental hosts may be appended');
+      assert.equal(reference.sourceVenueId, expected.sourceVenueId);
+      assert.deepEqual(reference.appliesToStoreKeys, [expected.key]);
+      assert.equal(reference.method, expected.method);
+      assert.equal(reference.relation, 'named_host_context');
+      assert.equal(reference.status, 'venue_reference');
+      assert.deepEqual(reference.buildingIds, [expected.buildingId]);
+      assert.equal(reference.coordinateChanges, 0);
+      assert.equal(reference.pointRelation, 'outside');
+      if (venueId === 'GV-a6836f91efc61a13') {
+        assert.ok(reference.identityEvidenceURLs.length >= 2 && reference.identityEvidenceURLs.every(url => new URL(url).hostname === 'www.onebangkok.com'));
+      } else {
+        assert.deepEqual(reference.identityEvidenceURLs, ['https://maps.app.goo.gl/JDaMRUZfW2wBfVhZ9']);
+        assert.equal(reference.ownerEvidence.selectedStoreFloor, 'Ground');
+        assert.equal(reference.ownerEvidence.ownerReportedStoreys, 3);
+        assert.equal(reference.separateGoogleObservation.selectedAsStorePoint, false);
+      }
+      assert.ok(buildingById.has(reference.buildingIds[0]));
+      continue;
+    }
     assert.ok(accepted.has(`${venueId}|${reference.sourceVenueId}`), `${venueId} uses an accepted source identity`);
     assert.equal(reference.status, 'venue_reference');
     for (const id of reference.buildingIds) {

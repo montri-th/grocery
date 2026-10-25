@@ -54,6 +54,17 @@ export function validBuilding(f) {
     Array.isArray(f.geometry.coordinates) && f.geometry.coordinates.length > 0 && Boolean(f.id ?? f.properties?.buildingId);
 }
 
+/** An explicit scope is a closed allow-list; an absent scope retains legacy venue-wide use. */
+export function referenceStoreKeys(reference, rowKeys = []) {
+  if (reference?.status !== 'venue_reference' || !Array.isArray(rowKeys)) return [];
+  const keys = [...new Set(rowKeys.filter(key => typeof key === 'string' && key.length > 0))];
+  if (!Object.hasOwn(reference, 'appliesToStoreKeys')) return keys;
+  const scope = reference.appliesToStoreKeys;
+  if (!Array.isArray(scope) || !scope.length || scope.some(key => typeof key !== 'string' || !key.trim() || key !== key.trim()) || new Set(scope).size !== scope.length) return [];
+  const allowed = new Set(scope);
+  return keys.filter(key => allowed.has(key));
+}
+
 /** Only a strict, unambiguous interior match may colour a building on the map. */
 export function selectSpatialBuildings(model, rows, peek, references = null) {
   const features = new Map(), links = [], counts = {matched: 0, boundary: 0, ambiguous: 0, noBuilding: 0, unavailable: 0};
@@ -73,20 +84,24 @@ export function selectSpatialBuildings(model, rows, peek, references = null) {
     else counts.unavailable++;
     links.push({key: row.key, status: feature ? 'point_inside' : match?.status || 'unavailable', buildingId: feature ? String(feature.id ?? feature.properties.buildingId) : null});
   }
-  const referenceFeatures = new Map(), referenceVenues = new Set(), referencedRows = new Set();
+  const referenceFeatures = new Map(), referenceVenues = new Set(), referencedRows = new Set(), qualifiedFeatureIds = new Set(), qualifiedHostNames = new Set();
   for (const row of rows) {
     const venue = row.v >= 0 ? model.venues[row.v] : null;
     const reference = venue && references?.venues?.[venue.id];
-    if (reference?.status !== 'venue_reference') continue;
+    if (!referenceStoreKeys(reference, [row.key]).length) continue;
     let found = false;
     for (const id of reference.buildingIds || []) {
       const f = references.byId.get(String(id));
       if (!f) continue;
       if (!referenceFeatures.has(String(id))) referenceFeatures.set(String(id), {...f, id: String(id), properties: {...f.properties, storeKeys: []}});
       referenceFeatures.get(String(id)).properties.storeKeys.push(row.key);
+      if (Object.hasOwn(reference, 'appliesToStoreKeys')) qualifiedFeatureIds.add(String(id));
       found = true;
     }
-    if (found) { referenceVenues.add(venue.id); referencedRows.add(row.key); }
+    if (found) {
+      referenceVenues.add(venue.id); referencedRows.add(row.key);
+      if (Object.hasOwn(reference, 'appliesToStoreKeys') && typeof reference.qualifiedHostName === 'string' && reference.qualifiedHostName.trim()) qualifiedHostNames.add(reference.qualifiedHostName.trim());
+    }
   }
   // A named venue reference may be shown without a point-in-polygon match. It
   // never upgrades that point's status or changes its location.
@@ -95,6 +110,7 @@ export function selectSpatialBuildings(model, rows, peek, references = null) {
   return {total: rows.length, ...counts, buildingCount: features.size, links,
     pointBuildings: pointFeatures,
     referenceCount: referenceFeatures.size, referenceVenueCount: referenceVenues.size,
+    qualifiedHostNames: [...qualifiedHostNames], qualifiedReferenceBuildings: [...qualifiedFeatureIds].map(id => referenceFeatures.get(id)),
     collection: {type: 'FeatureCollection', features: [...selectedPoints, ...referenceFeatures.values()]}};
 }
 
@@ -103,6 +119,8 @@ function footprintSource(properties) {
   let label = '', fallbackURL = '';
   if (/verified_reference/.test(provider)) {
     label = 'OpenStreetMap / CityMETER'; fallbackURL = 'https://www.openstreetmap.org/copyright';
+  } else if (/openstreetmap|^osm$/.test(provider)) {
+    label = 'OpenStreetMap'; fallbackURL = 'https://www.openstreetmap.org/copyright';
   } else if (/citymeter/.test(provider) || /^citymeter_/.test(p.heightRole || '')) {
     label = 'CityMETER'; fallbackURL = 'https://landometer.com/v3/citymeter?d=building';
   } else if (/microsoft|msml|globalml/.test(provider)) {
@@ -128,8 +146,8 @@ function hasSourceHeight(properties) {
   return Boolean(role) && Number.isFinite(Number(p.height)) && Number(p.height) > 0;
 }
 
-function pointBuildingEvidence(summary) {
-  const buildings = summary.pointBuildings || [], sources = new Map();
+function buildingEvidence(buildings = []) {
+  const sources = new Map();
   for (const feature of buildings) {
     const source = footprintSource(feature.properties);
     if (source) sources.set(`${source.label}/${source.url}`, source);
@@ -144,10 +162,14 @@ function pointBuildingEvidence(summary) {
 export function buildingFact(summary, loading = false) {
   if (loading) return {label: 'กำลังโหลดข้อมูลอาคาร…', state: 'loading'};
   if (!summary || (!summary.total || summary.unavailable === summary.total)) return {label: 'ยังไม่มีข้อมูลอาคารสำหรับพิกัดนี้', state: 'unavailable'};
-  if (summary.matched) return {label: `${summary.buildingCount.toLocaleString('th-TH')} อาคารตามพิกัดสาขา`, detail: summary.total > 1 ? `จับคู่ได้ ${summary.matched.toLocaleString('th-TH')} จาก ${summary.total.toLocaleString('th-TH')} สาขา` : 'พิกัดอยู่ภายในขอบเขตอาคาร', state: 'matched', ...pointBuildingEvidence(summary)};
+  if (summary.matched) return {label: `${summary.buildingCount.toLocaleString('th-TH')} อาคารตามพิกัดสาขา`, detail: summary.total > 1 ? `จับคู่ได้ ${summary.matched.toLocaleString('th-TH')} จาก ${summary.total.toLocaleString('th-TH')} สาขา` : 'พิกัดอยู่ภายในขอบเขตอาคาร', state: 'matched', ...buildingEvidence(summary.pointBuildings)};
   if (summary.boundary || summary.ambiguous) return {label: 'ยังระบุอาคารไม่ได้แน่ชัด', detail: 'พิกัดใกล้ขอบอาคารหรือมีอาคารซ้อนกัน', state: 'uncertain'};
   return {label: 'ไม่พบขอบเขตอาคารที่ครอบพิกัด', state: 'unmatched'};
 }
 
-export const referenceBuildingFact = summary => summary?.referenceCount
-  ? {label: 'อาคารของสถานที่ตามชื่อสาขา', state: 'reference'} : null;
+export function referenceBuildingFact(summary) {
+  if (!summary?.referenceCount) return null;
+  const fact = {label: 'อาคารของสถานที่ตามชื่อสาขา', state: 'reference'};
+  if (!summary.qualifiedHostNames?.length) return fact;
+  return {...fact, detail: summary.qualifiedHostNames.join(' · '), ...buildingEvidence(summary.qualifiedReferenceBuildings)};
+}

@@ -16,7 +16,7 @@
  * Counting units: สาขา = one source row; แบรนด์ = distinct brands (never summed
  * across areas); population is the registered population the production uses.
  */
-import {applyRetailRefresh} from './retail-refresh.js?v=20261025-fp1';
+import {applyRetailRefresh} from './retail-refresh.js?v=20261025-fp2';
 
 export const TYPE_ORDER = Object.freeze(['C_STORE', 'SUPERMARKET', 'HYPERMARKET', 'WHOLESALE', 'PHARMACY']);
 /** Short Thai labels for dense surfaces (matrix columns, chips). */

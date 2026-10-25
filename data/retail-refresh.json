@@ -294,6 +294,29 @@
         "contactStatusType": "active",
         "directorySnapshotSHA256": "df7a7e8093ea0a26bf3efba56421e11c8415d1d47b2a3ebbf196de19a9ec5b4b"
       }
+    },
+    {
+      "mapKey": "9f9a188a",
+      "sourceOutletId": "9f9a188a-6a85-4adc-8900-aaea7b49f310",
+      "expectedSourceBrandId": "BIG_C",
+      "expectedSourceTypeId": "C_STORE",
+      "expectedSourceFormat": "Big C Mini",
+      "brandId": "BIG_C",
+      "format": "Big C Mini",
+      "evidence": {
+        "url": "https://maps.app.goo.gl/KZdtdqisasM1Gn2T8",
+        "checkedOn": "2026-10-25",
+        "classificationBasis": "owner_confirmed_exact_place_and_official_mini_record",
+        "branchCode": "22301",
+        "officialBranchUUID": "315bc049-501c-4296-abd9-a69435150a18",
+        "officialSourceURL": "https://cloud-api-cs.bigc.co.th/company/v1/branch/search/frontend?uuids%5B%5D=315bc049-501c-4296-abd9-a69435150a18&extend%5B%5D=branch_config&offset=0&limit=1",
+        "directorySnapshotSHA256": "c1afc5cb83c9988b8392ec87b364904373140a49476f03ead38b75a0d66b7c5e",
+        "sourceEditorialUpdatedAt": "2023-02-17T03:25:19.638Z",
+        "sourceVintage": "Official Mini record updated2023-02-17, freshly retrieved2026-10-25; source MVT Mini identity and coordinates retained.",
+        "contactStatusType": "active",
+        "decision": "excluded_mini_confirmed",
+        "coordinateChanges": 0
+      }
     }
   ],
   "supplemental": [
@@ -375,9 +398,17 @@
         "sourceContactStatus": "inactive",
         "operatingStatus": "not_revalidated",
         "sourceAddressMissing": false,
-        "note": "ระบบติดต่อระบุ inactive; ยังไม่ได้ยืนยันว่าร้านปิด",
+        "note": "ระบบติดต่อระบุ inactive ตั้งแต่ก่อนประกาศเปิดสาขา; พบประกาศรับสมัครงานสาขานี้ลงวันที่ 22 ต.ค. 2569 แต่ยังไม่ได้ยืนยันการเปิดหน้าร้านปัจจุบัน",
         "officialContactRecordUUID": "1061cd39-ddd6-4cd6-ac05-715342afe9d8",
-        "officialContactRecordId": "2004"
+        "officialContactRecordId": "2004",
+        "operationalEvidence": {
+          "kind": "employer_recruitment_listing",
+          "url": "https://www.jobthai.com/th/company/job/1644838",
+          "sourcePublishedOn": "2026-10-22",
+          "sourceKind": "retailer_employer_attributed",
+          "sourceSnippet": "บริษัท บิ๊กซีฯ ประกาศรับสมัครหัวหน้าแคชเชียร์ประจำสาขา Foodplace มหาทุนพลาซ่า",
+          "sourceSnapshotSHA256": "0b44a4d6ca383b7ee1daea42ea9e06ef0be3d5dcb6085fa39eb1c4d2fa2385c3"
+        }
       },
       "evidence": {
         "url": "https://corporate.bigc.co.th/news/616/บิ๊กซี-ลุยเปิด-บิ๊กซี-ฟู้ดเพลส-มหาทุน-พลาซ่า-เจาะกลุ่มลูกค้าโซนสำนักงาน",
@@ -432,7 +463,16 @@
         "sourceAddressMissing": true,
         "note": "",
         "officialContactRecordUUID": "3ded79e2-e69e-468f-a039-3037e7610bfd",
-        "officialContactRecordId": "2011"
+        "officialContactRecordId": "2011",
+        "hostLocationEvidence": {
+          "kind": "owner_reported_host_location",
+          "selectedStoreFloor": "Ground",
+          "hostBuildingUse": "parking_building",
+          "ownerReportedStoreys": 3,
+          "checkedOn": "2026-10-25",
+          "sourceURL": "https://maps.app.goo.gl/JDaMRUZfW2wBfVhZ9",
+          "sourceImageSHA256": "868226fa696bdd186b59d1cf0d89d402df8918432fe373e819be18e1556ed98f"
+        }
       },
       "evidence": {
         "url": "https://market.sec.or.th/public/idisc/Download?FILEID=dat%2Fnews%2F202602%2F0002NWS240220262107149590E.pdf",
@@ -577,18 +617,28 @@
     "qualifiedRequestedFoodplaceFamily": 14,
     "additionalPreservedSourceFoodplace": 3,
     "familyMappedRows": 17,
-    "unresolved": [
-      "Yaowarat Food Place: official Mini TCC record is not an accepted Foodplace identity"
-    ],
+    "unresolved": [],
     "excluded": [
       "Big C Supercenter Rama2 Branch1",
       "Big C Supercenter Kanlapaphruek",
-      "three food-court listings"
+      "three food-court listings",
+      "Yaowarat requested listing: confirmed Big C Mini, not Foodplace; existing outlet retained"
     ],
     "operationReview": [
-      "Mahatun contact system inactive; physical closure unverified"
+      "Mahatun contact flag predates opening; recent employer recruitment dated2026-10-22 corroborates activity, not independently verified walk-in operation"
     ],
     "nationalCompleteness": false,
     "ownerDecision": "Foodplace is a subformat of BIG_C; a separate format logo is retained. No new retail brand is created."
+  },
+  "followup": {
+    "checkedOn": "2026-10-25",
+    "baselineRevision": "99082f7c07a75c42c5e6ef5bdc114a457def5362",
+    "evidenceURL": "data/retail-followup-evidence.json",
+    "yaowaratDecision": "excluded_mini_confirmed",
+    "mahatunOperation": "recent_employer_activity_not_walk_in_verified",
+    "mahatunVenueLogo": "not_found",
+    "sourcePointChanges": 0,
+    "sourceRowCountChanges": 0,
+    "foodplaceFamilyCountChanges": 0
   }
 }
