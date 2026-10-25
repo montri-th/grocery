@@ -13,10 +13,10 @@
  * Metric tiles and section headings carry pictograms (Material Symbols Rounded
  * subset, js/navigation.js PICTOGRAM_CONTRACT); the text is the meaning.
  */
-import {safeURL, withNoun} from './model.js';
-import {brandLogoMarkup, getBrandLogo} from './brand-logos.js';
-import {venueLogoMarkup, getVenueLogo} from './venue-logos.js';
-import {formatMetric} from './scales.js?v=20261022-v3';
+import {safeURL, withNoun} from './model.js?v=20261025-fp1';
+import {brandLogoMarkup, getBrandLogo} from './brand-logos.js?v=20261025-fp1';
+import {venueLogoMarkup, getVenueLogo} from './venue-logos.js?v=20261025-fp1';
+import {formatMetric} from './scales.js?v=20261025-fp1';
 
 const NUMBER = new Intl.NumberFormat('th-TH', {maximumFractionDigits: 0});
 const DEC1 = new Intl.NumberFormat('th-TH', {minimumFractionDigits: 1, maximumFractionDigits: 1});
@@ -152,7 +152,8 @@ export function renderOverview(ctx) {
   </section>` : '';
   const types = `<section class="panel-section"><div class="section-heading">${heading('type', 'ประเภทร้าน')}<span class="hint">สาขา · สัดส่วน</span></div>${typeBars(ctx.typeMix)}</section>`;
   const brands = ctx.brandMix.length ? `<section class="panel-section"><div class="section-heading">${heading('brand', 'แบรนด์')}<span class="hint">${num(ctx.brandMix.length)} แบรนด์</span></div>${brandRows(ctx.brandMix)}</section>` : '';
-  return `${ahaHTML}${metrics}${rankList}${types}${brands}<p class="hint panel-foot">CityMETER Grocery · ข้อมูล ${esc(thaiDate(ctx.asOf))} · ${num(ctx.apiTotal)} สาขาตามยอดใน CityMETER</p>`;
+  const sourceCount = ctx.supplementalPointRows ? ` · ${num(ctx.sourcePointRows)} จุดจาก CityMETER + ${num(ctx.supplementalPointRows)} สาขาเพิ่มจากแบรนด์ (${esc(thaiDate(ctx.refreshCheckedOn))})` : '';
+  return `${ahaHTML}${metrics}${rankList}${types}${brands}<p class="hint panel-foot">CityMETER Grocery · ข้อมูล ${esc(thaiDate(ctx.asOf))}${sourceCount} · ${num(ctx.apiTotal)} สาขาตามยอดใน CityMETER</p>`;
 }
 
 /* ---------- Local unit (อปท. / ย่าน) ---------- */
@@ -207,7 +208,7 @@ function buildingFactMarkup(fact) {
 export function renderVenue(v, extra = {}) {
   if (!v) return '';
   const logo = getVenueLogo(v.venue);
-  const rows = v.rows.map(r => `<li><button type="button" class="brand-row" data-action="select-store" data-id="${esc(r.key)}">${brandLogoMarkup(r.brand)}<span><strong>${esc(r.brand)}</strong><br><span class="small muted">${esc(r.name)}</span></span></button></li>`).join('');
+  const rows = v.rows.map(r => `<li><button type="button" class="brand-row" data-action="select-store" data-id="${esc(r.key)}">${brandLogoMarkup(r.brand, {formatLogoKey: r.formatLogoKey})}<span><strong>${esc(r.brand)}</strong><br><span class="small muted">${esc(r.name)}</span></span></button></li>`).join('');
   return `<section class="detail-head venue${logo ? ' has-venue-logo' : ''}">
       <button type="button" class="btn quiet back" data-action="back">กลับ</button>
       ${logo ? venueLogoMarkup(v.venue, {size: 'lg', className: 'detail-venue-logo', decorative: false}) : ''}
@@ -240,7 +241,7 @@ export function renderStore(d, extra = {}) {
   const nearbyTitle = d.nearbyScope === 'unit' ? `${r.brand} อื่นในพื้นที่เดียวกัน` : `${r.brand} อื่นในอำเภอเดียวกัน`;
   return `<section class="detail-head store">
       <button type="button" class="btn quiet back" data-action="back">กลับ</button>
-      ${logo ? brandLogoMarkup(r.brand, {className: 'detail-logo', decorative: false}) : ''}
+      ${logo ? brandLogoMarkup(r.brand, {className: 'detail-logo', decorative: false, formatLogoKey: r.formatLogoKey}) : ''}
       <p class="eyebrow"><i class="category-swatch type-${esc(r.type)}" aria-hidden="true"></i> ${esc(d.type.th)}${d.format ? ` · ${esc(d.format)}` : ''}</p>
       <h2>${esc(r.brand)}</h2>
       <p class="subtle">${esc(r.name)}</p>
@@ -253,6 +254,8 @@ export function renderStore(d, extra = {}) {
         ${extra.building ? `<dt>อาคารตามพิกัด</dt><dd>${buildingFactMarkup(extra.building)}</dd>` : ''}
         <dt>พิกัด</dt><dd><span class="data-number">${esc(coords)}</span><br><span class="hint" title="${esc(d.geometry.note)}">${esc(d.geometry.label)}${d.coLocated ? ` · ร่วมพิกัดกับอีก ${num(d.coLocated)} สาขา` : ''}</span></dd>
         <dt>แหล่งข้อมูล</dt><dd>${esc(d.source?.label || '')}${d.source?.date ? `<br><span class="hint">${esc(d.source.date)}</span>` : ''}</dd>
+        ${d.formatEvidence ? `<dt>ข้อมูลรูปแบบร้าน</dt><dd>${link(d.formatEvidence.url, d.formatEvidence.name)} · ${esc(thaiDate(d.formatEvidence.checkedOn))}${d.formatEvidence.sourceFormat && d.formatEvidence.sourceFormat !== d.format ? `<br><span class="hint">รูปแบบในข้อมูลเดิม: ${esc(d.formatEvidence.sourceFormat)}</span>` : ''}</dd>` : ''}
+        ${r.supplemental && r.refresh?.evidence?.contactStatusType === 'inactive' ? `<dt>สถานะในแหล่งข้อมูล</dt><dd>${esc(d.status.detail)}</dd>` : ''}
         ${extra.detail?.uuid ? `<dt>รหัส</dt><dd><span class="data-number id-text">${esc(extra.detail.uuid)}</span></dd>` : ''}
       </dl>
       <p class="links">${link(d.brand.locatorURL, 'ค้นหาสาขาของแบรนด์')} ${link(d.source?.url && d.source.url !== d.brand.locatorURL ? d.source.url : '', 'แหล่งข้อมูล')} ${link(tile, 'tile ต้นทาง')} ${link(d.production, 'ดูใน CityMETER')}</p>
@@ -271,5 +274,6 @@ export function renderFilterChips(values, labels) {
   if (values.search) push('search', `ค้นหา “${values.search}”`);
   if (values.brand) push('brand', labels.brand[values.brand] || values.brand);
   if (values.type) push('type', labels.type[values.type] || values.type);
+  if (values.format) push('format', labels.format?.[values.format] || values.format);
   return chips.length ? `<ul class="filter-chips" aria-label="ตัวกรองที่ใช้อยู่">${chips.join('')}<li><button type="button" class="filter-chip clear-all" data-action="clear-filter" data-id="all">ล้างทั้งหมด</button></li></ul>` : '';
 }

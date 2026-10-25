@@ -2091,6 +2091,63 @@
    ],
    "labelCount": 1,
    "storeRows": 1
+  },
+  {
+   "path": "assets/venue-logos/old-siam.webp",
+   "key": "VL-48cc1ab9b18e83f3",
+   "sha256": "48cc1ab9b18e83f397726b0017e0f3c494f77eabdc25327f3a4f26321f11a2ac",
+   "bytes": 8702,
+   "role": "venue_specific",
+   "sourcePage": "https://theoldsiam.co.th/en",
+   "assetURL": "https://theoldsiam.co.th/assets/OSP-Logo-W.webp",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-25",
+   "labels": [
+    "The Old Siam Plaza"
+   ],
+   "labelCount": 1,
+   "storeRows": 1,
+   "notes": "Exact official venue header WebP. White building illustration and Thai/English wordmark retained; use dark backing. Original200x92 supports compact UI, not large display."
+  },
+  {
+   "path": "assets/venue-logos/parc-bangna.png",
+   "key": "VL-aec3daf50bb5aa94",
+   "sha256": "aec3daf50bb5aa943abba31f791792878a463769fe1c75d16621937511861b2c",
+   "bytes": 29905,
+   "role": "venue_specific",
+   "sourcePage": null,
+   "assetURL": null,
+   "status": "owner_supplied_reused",
+   "checkedOn": "2026-10-25",
+   "labels": [
+    "PARC Bangna"
+   ],
+   "labelCount": 1,
+   "storeRows": 1,
+   "notes": "Reuses existing owner-supplied PARC_Logo.png byte-for-byte. Public identity evidence is separate; artwork was not downloaded from LinkedIn. Original geometry, colors, white background and padding retained. No new Drive upload needed.",
+   "sourceKind": "owner_supplied",
+   "identityEvidenceURLs": [
+    "https://www.linkedin.com/company/j-lifestyle-center-co-ltd",
+    "https://www.facebook.com/profile.php?id=61560849335807"
+   ],
+   "artworkSource": "existing_owner_supplied_library"
+  },
+  {
+   "path": "assets/venue-logos/pantip-ngamwongwan.png",
+   "key": "VL-3acd00100f2a26e8",
+   "sha256": "3acd00100f2a26e8b9e800528b99be00c4260c99cb91f1bbf354e44c1cc2d140",
+   "bytes": 5304,
+   "role": "venue_specific",
+   "sourcePage": "https://www.assetworldcorp-th.com/en/portfolio/retails-and-wholesales/82/the-pantip-at-ngamwongwan",
+   "assetURL": "https://www.assetworldcorp-th.com/storage/portfolio/retail/pantip-ngamwongwan/logo.png",
+   "status": "ได้โลโก้สถานที่",
+   "checkedOn": "2026-10-25",
+   "labels": [
+    "The Pantip at Ngamwongwan"
+   ],
+   "labelCount": 1,
+   "storeRows": 1,
+   "notes": "Exact branch-specific logo from official AWC owner property page. Full The Pantip at Ngamwongwan lockup retained. Maps only to selected commonregistry primarySC-006578; alternateSC-C0584 remains unmerged and is not resolved by matching artwork."
   }
  ],
  "issues": []

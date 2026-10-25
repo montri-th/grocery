@@ -1,4 +1,7 @@
 {
+ "formatTransformation": "Foodplace is a subformat under BIG_C, with separate artwork: official-source SVG derivative from the 2023 presentation, embedded byte-for-byte with light #FFFFFF backing and its full untrimmed viewBox. The 17 baseline brand artworks, records and definitions are unchanged.",
+ "formatCount": 1,
+ "formatsUpdatedOn": "2026-10-25",
  "version": "2026-10-22-r1",
  "createdOn": "2026-10-22",
  "count": 17,
@@ -10,7 +13,7 @@
  "transformation": "Original approved logo bytes embedded unchanged as SVG image data URI; deterministic viewport trim of transparent or solid-neutral outer whitespace only with safety margin. Added UI backing is LDS surface-soft stone #E5E9E6 for 11 marks, original white #FFFFFF for 3 opaque-white sources and dark #182327 for 1 light marks. No source image recoloring, inversion, ink cropping or tracing.",
  "sprite": {
   "path": "assets/brand-logos.svg",
-  "sha256": "f97946f1a7929600bfe9de27cb99881424e5af7c216502a29b5bcf4a2bcff9ae"
+  "sha256": "e42afbcda381dbece81eefe447691d7378cc4ae8a646cef4e3f274a7611cdbc3"
  },
  "files": [
   {
@@ -354,5 +357,76 @@
    }
   }
  ],
- "issues": []
+ "issues": [],
+ "formatFiles": [
+  {
+   "format": "BIG_C_FOODPLACE",
+   "parentBrandId": "BIG_C",
+   "name": "Big C Foodplace",
+   "file": "big_c_foodplace.svg",
+   "localPath": "assets/brand-logos/big_c_foodplace.svg",
+   "sha256": "cd5bcbf04287ab56f1b6d8dd4f05c69e26f0d19c5c97f2f0051e0fe99bf1ff63",
+   "bytes": 11535,
+   "mime": "image/svg+xml",
+   "sourcePage": "https://api.lcp.setgroup.or.th/file/presentation/6180",
+   "assetURL": "https://api.lcp.setgroup.or.th/file/presentation/6180#page=35",
+   "status": "official_source_derivative",
+   "checkedOn": "2026-10-25",
+   "notes": "Original Foodplace vector Form from the official BJC presentation published on the SET platform. Preserve the 2023 source date. SVG derivative hash is distinct from the original PDF hash. Public presentation has a Confidential footer; no independent trademark or redistribution license inferred.",
+   "background": "#FFFFFF",
+   "viewportCrop": {
+    "x": 0,
+    "y": 0,
+    "width": 73.56,
+    "height": 30
+   },
+   "artifactKind": "official_source_derivative",
+   "sourceKind": "official_brand",
+   "sourceDocumentPeriod": "3Q2023",
+   "artworkSourceDate": "2023-09 snapshot",
+   "retrievedOn": "2026-10-25",
+   "sourceDocumentSHA256": "28db6a6108833e36c0637341dcb5d733024a1a86d6decd2534ca9116b400a860",
+   "derivativeSHA256": "cd5bcbf04287ab56f1b6d8dd4f05c69e26f0d19c5c97f2f0051e0fe99bf1ff63",
+   "extraction": {
+    "page": 35,
+    "locator": "Resources/XObject/Meta978",
+    "sourceFormContentSHA256": "a2bc56cd07acfc8c370a7c9ec9c546669f04b513eb90e9065f7caf9a4e8fe6f0",
+    "sourceFormBBox": [
+     0,
+     0,
+     238.3,
+     96.449
+    ],
+    "sourceFormMatrix": [
+     0.30214,
+     0,
+     0,
+     0.74651,
+     0,
+     0
+    ],
+    "sourcePageClip": [
+     298.68,
+     314.4,
+     73.56,
+     30
+    ],
+    "sourcePageCTM": [
+     1.0217,
+     -3.77e-7,
+     -3.77e-7,
+     0.41667,
+     298.68,
+     314.4
+    ],
+    "method": "Isolate exact original PDF vector Form, retaining its matrix and source page linear placement/clip; remove page translation only. Export standalone PDF to self-contained SVG using pdftocairo -svg. No tracing, redrawing, recoloring or ink cropping."
+   },
+   "variantNote": "Exact official 2023 source variant. Retrieval in 2026 does not establish a 2026 artwork release or current brand guideline. Newer official social lockups were observed only in seasonal or branch-labeled originals and were not substituted.",
+   "visualQA": {
+    "status": "passed",
+    "checkedOn": "2026-10-25",
+    "result": "Compared original source page and complete standalone light/dark renders. Use light backing for black place lettering."
+   }
+  }
+ ]
 }

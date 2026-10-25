@@ -2,8 +2,8 @@
  "meta": {
   "asOf": "2026-10-22",
   "version": "2026-10-22-r1",
-  "count": 128,
-  "expected": 128,
+  "count": 131,
+  "expected": 131,
   "folder": "assets/venue-logos/",
   "registry": "CityMETER Grocery Thailand — Source Audit / Refresh Master 2026-10-22, tabs 07_VENUES and 10_VENUE_LOGOS",
   "status": "complete",
@@ -19,7 +19,13 @@
   "identityRole": "Help recognise the place a branch name refers to (venue candidates); the venue name stays the record of identity",
   "backgroundRule": "transparent marks on #E5E9E6 (LDS surface-soft stone), light transparent marks on #182327, opaque files on their own background; artwork bytes unchanged",
   "licenseNote": "การรวบรวมไฟล์ไม่ใช่ใบอนุญาตเครื่องหมายการค้า สิทธิ์ยังเป็นของเจ้าของ; แสดงเพื่อช่วยจำสถานที่ที่ชื่อสาขาอ้างถึงเท่านั้น",
-  "venueLink": "venue candidates come from an explicit phrase in the branch name or address (name_based_needs_review); not a confirmed inside relationship"
+  "venueLink": "venue candidates come from an explicit phrase in the branch name or address (name_based_needs_review); not a confirmed inside relationship",
+  "retailRefresh": {
+   "checkedOn": "2026-10-25",
+   "addedAssets": 3,
+   "ownerArtworkReused": 1,
+   "unresolvedVenue": "Mahatun Plaza"
+  }
  },
  "assets": [
   {
@@ -1812,6 +1818,55 @@
    "role": "venue_specific",
    "sourcePage": "https://shoppingcenter.centralpattana.co.th/branch/central-samui/",
    "assetURL": "https://shoppingcenter.centralpattana.co.th/images/default-source/central-samui/common/028-samui-logo.png?sfvrsn=fe87393f_2",
+   "sourceKind": "official_venue"
+  },
+  {
+   "key": "VL-48cc1ab9b18e83f3",
+   "file": "assets/venue-logos/old-siam.webp",
+   "mime": "image/webp",
+   "bytes": 8702,
+   "sha256": "48cc1ab9b18e83f397726b0017e0f3c494f77eabdc25327f3a4f26321f11a2ac",
+   "width": 200,
+   "height": 92,
+   "background": "#182327",
+   "role": "venue_specific",
+   "sourcePage": "https://theoldsiam.co.th/en",
+   "assetURL": "https://theoldsiam.co.th/assets/OSP-Logo-W.webp",
+   "sourceKind": "official_venue"
+  },
+  {
+   "key": "VL-aec3daf50bb5aa94",
+   "file": "assets/venue-logos/parc-bangna.png",
+   "mime": "image/png",
+   "bytes": 29905,
+   "sha256": "aec3daf50bb5aa943abba31f791792878a463769fe1c75d16621937511861b2c",
+   "width": 1592,
+   "height": 745,
+   "background": "#FFFFFF",
+   "role": "venue_specific",
+   "sourcePage": null,
+   "assetURL": null,
+   "sourceKind": "owner_supplied",
+   "identityEvidenceURLs": [
+    "https://www.linkedin.com/company/j-lifestyle-center-co-ltd",
+    "https://www.facebook.com/profile.php?id=61560849335807"
+   ],
+   "sourceNote": "Reuses existing owner-supplied PARC_Logo.png byte-for-byte. Public identity evidence is separate; artwork was not downloaded from LinkedIn. Original geometry, colors, white background and padding retained. No new Drive upload needed.",
+   "artworkSource": "existing_owner_supplied_library",
+   "sourcePageRole": "no_public_download_source; identityEvidenceURLs_only"
+  },
+  {
+   "key": "VL-3acd00100f2a26e8",
+   "file": "assets/venue-logos/pantip-ngamwongwan.png",
+   "mime": "image/png",
+   "bytes": 5304,
+   "sha256": "3acd00100f2a26e8b9e800528b99be00c4260c99cb91f1bbf354e44c1cc2d140",
+   "width": 300,
+   "height": 250,
+   "background": "#E5E9E6",
+   "role": "venue_specific",
+   "sourcePage": "https://www.assetworldcorp-th.com/en/portfolio/retails-and-wholesales/82/the-pantip-at-ngamwongwan",
+   "assetURL": "https://www.assetworldcorp-th.com/storage/portfolio/retail/pantip-ngamwongwan/logo.png",
    "sourceKind": "official_venue"
   }
  ],

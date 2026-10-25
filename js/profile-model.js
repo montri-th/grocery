@@ -8,8 +8,8 @@
  * - a unit's stores are its source members (production overlay membership)
  * - population is the registered population the production uses; missing stays missing
  */
-import {TYPE_ORDER, FLAG_ONLINE, FLAG_NO_ADDRESS, unitName, unitKind, perCapita, brandCount, productionURL, hasPoint} from './model.js';
-import {buildUnitInsight} from './hierarchy.js';
+import {TYPE_ORDER, FLAG_ONLINE, FLAG_NO_ADDRESS, unitName, unitKind, perCapita, brandCount, productionURL, hasPoint} from './model.js?v=20261025-fp1';
+import {buildUnitInsight} from './hierarchy.js?v=20261025-fp1';
 
 /** Store-type mix in the fixed series order (types with no store are left out). */
 export function typeMix(model, rows) {
@@ -41,6 +41,8 @@ export function venueRanking(model, rows) {
 
 /** Thai reading of the status every row carries in this snapshot (no branch was re-checked one by one). */
 export function describeStatus(row = {}) {
+  if (row.supplemental && row.refresh?.evidence?.contactStatusType === 'inactive') return {tone: 'neutral', label: 'รอยืนยันสถานะสาขา', detail: 'ระบบติดต่อระบุ inactive; ไม่ได้ยืนยันว่าปิด'};
+  if (row.supplemental) return {tone: 'listed', label: 'อยู่ในรายการสาขาของแบรนด์', detail: 'รายการจากทำเนียบสาขาของแบรนด์ ยังไม่ได้ตรวจยืนยันการเปิดให้บริการที่หน้างาน'};
   if (row.flags & FLAG_ONLINE) return {tone: 'neutral', label: 'ชื่อสาขามีคำว่าออนไลน์', detail: 'แหล่งข้อมูลตั้งชื่อสาขาด้วยคำว่าออนไลน์ อาจเป็นช่องทางขายมากกว่าหน้าร้าน'};
   return {tone: 'listed', label: 'อยู่ในรายการสาขาของแบรนด์', detail: 'รายการตามแหล่งข้อมูลของแบรนด์ที่ CityMETER ใช้ ยังไม่ได้ตรวจสถานะเปิด–ปิดทีละสาขา'};
 }
@@ -49,6 +51,7 @@ export function describeStatus(row = {}) {
 export function describeGeometry(model, row = {}) {
   const source = model.sources[row.s];
   if (!hasPoint(row)) return {level: 'none', label: 'ยังไม่มีพิกัด', note: 'รายการยังอยู่ในตารางและจำนวน'};
+  if (row.supplemental) return {level: 'official', label: 'พิกัดจากทำเนียบสาขาของแบรนด์', note: 'เก็บค่าพิกัดที่แหล่งข้อมูลส่งคืน ไม่ใช่พิกัดสำรวจหน้าร้าน'};
   return {level: 'tile', label: 'ตำแหน่งตามที่แบรนด์ประกาศ ถอดจากแผนที่ CityMETER',
     note: `${source?.limitation || ''}${source?.limitation ? ' · ' : ''}ถอดจาก vector tile z10 ตารางประมาณ 10 ม. ไม่ใช่พิกัดสำรวจหน้าร้าน`};
 }
@@ -100,7 +103,8 @@ export function buildStoreDetail(model, row, rows = []) {
     nearby: nearby.slice(0, 12), nearbyCount: nearby.length, nearbyScope: row.u.length ? 'unit' : 'district',
     brandInProvince: sameBrand.filter(r => r.p === row.p).length, coLocated,
     noAddress: Boolean(row.flags & FLAG_NO_ADDRESS),
-    production: units.length ? productionURL(model, {unit: units[0].index}) : productionURL(model, {province: province.index}),
+    formatEvidence: row.refresh && !row.supplemental ? {name: model.formats[row.format], ...row.refresh.evidence, sourceFormat: row.sourceFacts?.format} : null,
+    production: row.supplemental ? '' : units.length ? productionURL(model, {unit: units[0].index}) : productionURL(model, {province: province.index}),
     estimate: model.meta?.estimates?.[row.type] || null,
   };
 }

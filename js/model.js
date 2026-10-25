@@ -9,11 +9,14 @@
  *   data/areas.json   — country → 77 provinces → 928 districts → 8,621 local units
  *                        (เทศบาล/อบต. outside Bangkok, Locale ย่าน inside Bangkok) with
  *                        registered population and the production API counts.
+ *   data/retail-refresh.json — reviewed format observations and separately sourced
+ *                        supplemental points; original source rows/metadata retained.
  *
  * Nothing here mutates a row after the model is built; filters return new arrays.
  * Counting units: สาขา = one source row; แบรนด์ = distinct brands (never summed
  * across areas); population is the registered population the production uses.
  */
+import {applyRetailRefresh} from './retail-refresh.js?v=20261025-fp1';
 
 export const TYPE_ORDER = Object.freeze(['C_STORE', 'SUPERMARKET', 'HYPERMARKET', 'WHOLESALE', 'PHARMACY']);
 /** Short Thai labels for dense surfaces (matrix columns, chips). */
@@ -54,7 +57,7 @@ export const districtNoun = province => (province?.code === '10' ? 'เขต' :
  * Build the model. Returns plain objects with direct index links:
  * row.b/t/d/p/u/v/s are indexes into brands/types/districts/provinces/units/venues/sources.
  */
-export function buildModel(grocery, areas) {
+export function buildModel(grocery, areas, refresh = null) {
   const brands = grocery.brands.map((b, i) => ({...b, index: i}));
   const types = grocery.types.map((t, i) => ({...t, index: i}));
   const sources = grocery.sources.map((s, i) => ({...s, index: i}));
@@ -71,19 +74,24 @@ export function buildModel(grocery, areas) {
     return {key, id: key, b, t, format, name, lon, lat, d, p: districts[d].p, u, s, v, flags,
       brand: brands[b].name, brandId: brands[b].id, type: types[t].id};
   });
-  for (const r of rows) {
-    const venue = r.v >= 0 ? venues[r.v] : null;
-    r.text = lower([r.brand, r.name, venue?.name || '', ...(venue?.aliases || []), districts[r.d].name, provinces[r.p].name, ...r.u.map(i => unitName(units[i]))].join(' '));
+  const base = {meta: grocery.meta, brands, types, formats: grocery.formats, sources, venues, rows,
+    country: {...areas.country, level: 'country'}, provinces, districts, units, districtsOf, unitsOf};
+  const model = refresh ? applyRetailRefresh(base, refresh) : base;
+  for (const r of model.rows) {
+    const venue = r.v >= 0 ? model.venues[r.v] : null;
+    const parent = model.brands.find(b => b.id === r.parentBrandId);
+    r.text = lower([r.brand, parent?.name || '', r.name, ...(r.aliases || []), model.formats[r.format] || '', venue?.name || '', ...(venue?.aliases || []),
+      districts[r.d].name, provinces[r.p].name, ...r.u.map(i => unitName(units[i]))].join(' '));
+    r.formatFilterId = r.formatFamilyId || (r.format >= 0 ? `format-${r.format}` : '');
   }
-  const rowByKey = new Map(rows.map(r => [r.key, r]));
+  const groupedFormats = new Set((model.formatFamilies || []).flatMap(f => f.formats));
+  const formatOptions = [...(model.formatFamilies || []).map(f => ({id: f.id, name: f.name})),
+    ...model.formats.flatMap((name, i) => groupedFormats.has(name) ? [] : [{id: `format-${i}`, name}])];
   const index = (list, key) => new Map(list.map(x => [x[key], x]));
-  return {
-    meta: grocery.meta, brands, types, formats: grocery.formats, sources, venues, rows, rowByKey,
-    country: {...areas.country, level: 'country'}, provinces, districts, units, districtsOf, unitsOf,
+  return {...model, formatOptions, formatOptionById: index(formatOptions, 'id'), rowByKey: index(model.rows, 'key'),
     provinceByCode: index(provinces, 'code'), provinceByAbbr: index(provinces, 'abbr'),
     districtByCode: index(districts, 'code'), unitByKey: index(units, 'key'),
-    brandById: index(brands, 'id'), typeById: index(types, 'id'),
-  };
+    brandById: index(model.brands, 'id'), typeById: index(types, 'id')};
 }
 
 /** A usable source coordinate inside Thailand's bounding box. */
@@ -99,6 +107,7 @@ export function filterRows(rows, f = {}) {
   return rows.filter(r => {
     if (f.brand && r.brandId !== f.brand) return false;
     if (f.type && r.type !== f.type) return false;
+    if (f.format && r.formatFilterId !== f.format) return false;
     return !terms.length || terms.every(t => r.text.includes(t));
   });
 }

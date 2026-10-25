@@ -4,6 +4,7 @@ import {existsSync, readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {ringLocation, polygonHit, polygonComponents, chooseHit, buildingComponentId, assertServiceLimits, PUBLIC_SERVICE_LIMITS} from '../scripts/build-spatial-joins.mjs';
 import {referenceHit, chooseReferenceHit} from '../scripts/build-reference-spatial-joins.mjs';
+import {buildModel} from '../js/model.js';
 
 const outer = [[0, 0], [100, 0], [100, 100], [0, 100], [0, 0]];
 const hole = [[40, 40], [40, 60], [60, 60], [60, 40], [40, 40]];
@@ -62,9 +63,20 @@ const manifestURL = new URL('../data/spatial-joins.json', import.meta.url);
 test('generated spatial artifacts account for every store and resolve every candidate geometry', {skip: !existsSync(manifestURL)}, () => {
   const manifest = JSON.parse(readFileSync(manifestURL));
   const grocery = JSON.parse(readFileSync(new URL('../data/grocery.json', import.meta.url)));
+  const areas = JSON.parse(readFileSync(new URL('../data/areas.json', import.meta.url)));
+  const refreshBytes = readFileSync(new URL('../data/retail-refresh.json', import.meta.url));
+  const refresh = JSON.parse(refreshBytes), model = buildModel(grocery, areas, refresh);
+  const sourceKeys = new Set(grocery.rows.map(r => r[0]));
+  const baseline = JSON.parse(readFileSync(new URL('./fixtures/spatial-stores-baseline-74d214a.json', import.meta.url)));
+  const canonical = value => Array.isArray(value) ? value.map(canonical) : value && typeof value === 'object'
+    ? Object.fromEntries(Object.keys(value).sort().map(key => [key, canonical(value[key])])) : value;
   const referenceBytes = readFileSync(new URL('../data/venue-reference-buildings.json', import.meta.url));
   const reference = JSON.parse(referenceBytes), referenceById = new Map(reference.buildings.features.map(f => [f.id, f]));
-  const wanted = new Set(grocery.rows.map(r => r[0])), seen = new Set(), counts = {};
+  const wanted = new Set(model.rows.map(r => r.key)), seen = new Set(), counts = {};
+  assert.equal(manifest.meta.inputRows, wanted.size);
+  assert.equal(manifest.meta.sourceInputRows, grocery.rows.length);
+  assert.equal(manifest.meta.supplementalInputRows, refresh.supplemental.length);
+  assert.equal(manifest.meta.inputRetailRefreshSha256, createHash('sha256').update(refreshBytes).digest('hex'));
   assert.equal(Object.keys(manifest.provinces).length, 77);
   assert.equal(manifest.meta.processingComplete, true);
   assert.ok(manifest.meta.coverage);
@@ -79,6 +91,10 @@ test('generated spatial artifacts account for every store and resolve every cand
     assert.equal(createHash('sha256').update(bytes).digest('hex'), item.sha256);
     assert.equal(data.meta.provinceCode, provinceCode);
     assert.equal(Object.keys(data.stores).length, item.stores);
+    const protectedStores = Object.fromEntries(Object.entries(data.stores).filter(([key]) => sourceKeys.has(key)));
+    assert.equal(Object.keys(protectedStores).length, baseline.provinces[provinceCode].sourceStores);
+    assert.equal(createHash('sha256').update(JSON.stringify(canonical(protectedStores))).digest('hex'), baseline.provinces[provinceCode].storesCanonicalSHA256,
+      `${provinceCode}: original source-point spatial decisions must remain unchanged`);
     const byId = new Map(data.buildings.features.map(f => [f.id, f]));
     assert.equal(byId.size, data.buildings.features.length);
     for (const feature of byId.values()) {
@@ -115,6 +131,7 @@ test('generated spatial artifacts account for every store and resolve every cand
     }
     for (const [key, row] of Object.entries(data.stores)) {
       assert.ok(wanted.has(key) && !seen.has(key)); seen.add(key);
+      assert.equal(model.provinces[model.rowByKey.get(key).p].code, provinceCode, `${key}: province must match its recorded admin membership`);
       counts[row.status] = (counts[row.status] || 0) + 1;
       for (const id of row.candidateIds) assert.ok(byId.has(id), `${key} candidate geometry missing`);
       assert.equal(new Set(row.candidateIds).size, row.candidateIds.length);

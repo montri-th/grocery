@@ -17,7 +17,7 @@
  * Neither is a tenancy claim, a height measurement or a reason to move a point.
  * Pure functions: no DOM, no map — tested in tests/venue-level.test.js.
  */
-import {outerRings} from './massing.js?v=20261022-j1';
+import {outerRings} from './massing.js?v=20261025-fp1';
 
 export const EVIDENCE = Object.freeze({reference: 'venue_reference', point: 'point_inside'});
 /** Display-only height for an extruded footprint without a source height (never quoted as a fact). */

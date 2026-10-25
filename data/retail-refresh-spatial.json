@@ -1,0 +1,453 @@
+{
+  "checkedOn": "2026-10-25",
+  "guardMetres": 10,
+  "points": [
+    {
+      "key": "bigc-official-15069",
+      "code": "15069",
+      "point": [
+        100.5000923,
+        13.74584843
+      ]
+    },
+    {
+      "key": "bigc-official-15070",
+      "code": "15070",
+      "point": [
+        100.5489759,
+        13.74268075
+      ]
+    },
+    {
+      "key": "bigc-official-15073",
+      "code": "15073",
+      "point": [
+        100.64690561279112,
+        13.666999737741738
+      ]
+    },
+    {
+      "key": "bigc-official-15066",
+      "code": "15066",
+      "point": [
+        100.5370458,
+        13.85787881
+      ]
+    },
+    {
+      "key": "bigc-official-15068",
+      "code": "15068",
+      "point": [
+        100.546693,
+        13.727357
+      ]
+    }
+  ],
+  "stores": {
+    "bigc-official-15069": {
+      "status": "boundary_candidate",
+      "buildingId": null,
+      "candidateIds": [
+        "msml-20260813:8f6268ec293c1e3fdb37"
+      ],
+      "boundaryDistanceM": 4.041,
+      "sourceURL": "https://bfppub.blob.core.windows.net/%24web/2026-08-13/dataset-links.csv",
+      "queryCoverage": "complete_cached_point_partitions_132203310_132203311",
+      "provider": "microsoft_ml",
+      "decisionSource": "microsoft",
+      "decisionRule": "supplemental_retailer_point_cached_microsoft_query",
+      "nativeStatus": "unavailable",
+      "nativeCoverage": "not_queried_for_new_official_points",
+      "microsoftStatus": "boundary_candidate",
+      "referenceStatus": "unavailable",
+      "sourceConflict": null,
+      "pointRole": "official_public_contact_directory_branch_point",
+      "checkedOn": "2026-10-25"
+    },
+    "bigc-official-15070": {
+      "status": "point_inside",
+      "buildingId": "msml-20260813:f937e7ae35dc0eb72398",
+      "candidateIds": [
+        "msml-20260813:f937e7ae35dc0eb72398"
+      ],
+      "boundaryDistanceM": 14.12,
+      "sourceURL": "https://bfppub.z5.web.core.windows.net/2026-08-13/global-buildings.geojsonl/RegionName=Thailand/quadkey=132203311/part-00138-110f5303-ff85-4c71-a2bf-c6070024fec8.c000.csv.gz",
+      "queryCoverage": "complete_cached_point_partitions_132203310_132203311",
+      "provider": "microsoft_ml",
+      "decisionSource": "microsoft",
+      "decisionRule": "supplemental_retailer_point_cached_microsoft_query",
+      "nativeStatus": "unavailable",
+      "nativeCoverage": "not_queried_for_new_official_points",
+      "microsoftStatus": "point_inside",
+      "referenceStatus": "unavailable",
+      "sourceConflict": null,
+      "pointRole": "official_public_contact_directory_branch_point",
+      "checkedOn": "2026-10-25"
+    },
+    "bigc-official-15073": {
+      "status": "no_building",
+      "buildingId": null,
+      "candidateIds": [],
+      "boundaryDistanceM": null,
+      "sourceURL": "https://bfppub.blob.core.windows.net/%24web/2026-08-13/dataset-links.csv",
+      "queryCoverage": "complete_cached_point_partitions_132203310_132203311",
+      "provider": "microsoft_ml",
+      "decisionSource": "microsoft",
+      "decisionRule": "supplemental_retailer_point_cached_microsoft_query",
+      "nativeStatus": "unavailable",
+      "nativeCoverage": "not_queried_for_new_official_points",
+      "microsoftStatus": "no_building",
+      "referenceStatus": "unavailable",
+      "sourceConflict": null,
+      "pointRole": "official_public_contact_directory_branch_point",
+      "checkedOn": "2026-10-25"
+    },
+    "bigc-official-15066": {
+      "status": "point_inside",
+      "buildingId": "msml-20260813:93c17b9ce0b3f932bd55",
+      "candidateIds": [
+        "msml-20260813:93c17b9ce0b3f932bd55"
+      ],
+      "boundaryDistanceM": 24.21,
+      "sourceURL": "https://bfppub.z5.web.core.windows.net/2026-08-13/global-buildings.geojsonl/RegionName=Thailand/quadkey=132203310/part-00000-110f5303-ff85-4c71-a2bf-c6070024fec8.c000.csv.gz",
+      "queryCoverage": "complete_cached_point_partitions_132203310_132203311",
+      "provider": "microsoft_ml",
+      "decisionSource": "microsoft",
+      "decisionRule": "supplemental_retailer_point_cached_microsoft_query",
+      "nativeStatus": "unavailable",
+      "nativeCoverage": "not_queried_for_new_official_points",
+      "microsoftStatus": "point_inside",
+      "referenceStatus": "unavailable",
+      "sourceConflict": null,
+      "pointRole": "official_public_contact_directory_branch_point",
+      "checkedOn": "2026-10-25"
+    },
+    "bigc-official-15068": {
+      "status": "no_building",
+      "buildingId": null,
+      "candidateIds": [],
+      "boundaryDistanceM": null,
+      "sourceURL": "https://bfppub.blob.core.windows.net/%24web/2026-08-13/dataset-links.csv",
+      "queryCoverage": "complete_cached_point_partitions_132203310_132203311",
+      "provider": "microsoft_ml",
+      "decisionSource": "microsoft",
+      "decisionRule": "supplemental_retailer_point_cached_microsoft_query",
+      "nativeStatus": "unavailable",
+      "nativeCoverage": "not_queried_for_new_official_points",
+      "microsoftStatus": "no_building",
+      "referenceStatus": "unavailable",
+      "sourceConflict": null,
+      "pointRole": "official_public_contact_directory_branch_point",
+      "checkedOn": "2026-10-25"
+    }
+  },
+  "buildings": {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "id": "msml-20260813:8f6268ec293c1e3fdb37",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                100.49986483525689,
+                13.745693019267392
+              ],
+              [
+                100.50008908269311,
+                13.745649128018712
+              ],
+              [
+                100.50016023664476,
+                13.745992139573886
+              ],
+              [
+                100.49993598920854,
+                13.746036030758304
+              ],
+              [
+                100.49986483525689,
+                13.745693019267392
+              ]
+            ]
+          ]
+        },
+        "properties": {
+          "buildingId": "msml-20260813:8f6268ec293c1e3fdb37",
+          "provider": "microsoft",
+          "sourceLabel": "Microsoft",
+          "sourcePageURL": "https://github.com/microsoft/GlobalMLBuildingFootprints",
+          "sourceRelease": "2026-08-13",
+          "sourcePartition": "132203310",
+          "sourceURL": "https://bfppub.z5.web.core.windows.net/2026-08-13/global-buildings.geojsonl/RegionName=Thailand/quadkey=132203310/part-00000-110f5303-ff85-4c71-a2bf-c6070024fec8.c000.csv.gz",
+          "sourceFileSHA256": "1629f85f5125caa547c2794be670ab02c7ea5ce979c5ff38de255ae90fb68848",
+          "indexSHA256": "de61b569b0c23c364d61173632d8c5487ea30bf20912c55b9fa1ab4a89d01148",
+          "sourceGeometrySHA256": "8f6268ec293c1e3fdb37643cf007afd38f0256e8cc19fb67612a919bfe8db061",
+          "sourceLineSHA256": "9f978c52721073c29f798d2895fb52052b617842f379cf1691c73ee056104a25",
+          "sourceFeatureId": null,
+          "height": 3,
+          "base": 0,
+          "sourceHeightM": null,
+          "rawHeight": -1.0,
+          "heightRole": "unknown_display_fallback",
+          "confidence": null,
+          "rawConfidence": -1.0,
+          "confidenceRole": "footprint_detection_only",
+          "geometryRole": "ml_roofprint",
+          "license": "CDLA-Permissive-2.0"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": "msml-20260813:93c17b9ce0b3f932bd55",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                100.53677364195546,
+                13.857416152858022
+              ],
+              [
+                100.53698070766224,
+                13.857426114757189
+              ],
+              [
+                100.537018971365,
+                13.857439377794819
+              ],
+              [
+                100.53717330781566,
+                13.857446813384357
+              ],
+              [
+                100.53717125904795,
+                13.857486955750673
+              ],
+              [
+                100.53721863966142,
+                13.857503378904838
+              ],
+              [
+                100.53723340841576,
+                13.857463207486816
+              ],
+              [
+                100.5372001011138,
+                13.857451664710808
+              ],
+              [
+                100.53722184790249,
+                13.85739251283185
+              ],
+              [
+                100.53731500604601,
+                13.857424803488556
+              ],
+              [
+                100.53731844832132,
+                13.85735745265012
+              ],
+              [
+                100.53740564193464,
+                13.857361653447484
+              ],
+              [
+                100.537399715576,
+                13.857477771104342
+              ],
+              [
+                100.53745436910263,
+                13.85732911195744
+              ],
+              [
+                100.5375744114899,
+                13.857334887180372
+              ],
+              [
+                100.53757103905038,
+                13.85740087163434
+              ],
+              [
+                100.53752555349841,
+                13.857398680240394
+              ],
+              [
+                100.53752236702292,
+                13.857461026143483
+              ],
+              [
+                100.53748013694792,
+                13.857458991591827
+              ],
+              [
+                100.53746827943507,
+                13.85749123803123
+              ],
+              [
+                100.53762236796246,
+                13.85749865120414
+              ],
+              [
+                100.53761121525957,
+                13.857716862453714
+              ],
+              [
+                100.53757535561536,
+                13.857715137253962
+              ],
+              [
+                100.53757147222267,
+                13.85779122610299
+              ],
+              [
+                100.53726964849626,
+                13.858612192401921
+              ],
+              [
+                100.53671856509554,
+                13.858421175714213
+              ],
+              [
+                100.53673693743579,
+                13.858061199938348
+              ],
+              [
+                100.5368209332431,
+                13.858065246660146
+              ],
+              [
+                100.53682788788129,
+                13.857929174018253
+              ],
+              [
+                100.53674761898208,
+                13.857925312302328
+              ],
+              [
+                100.53677364195546,
+                13.857416152858022
+              ]
+            ]
+          ]
+        },
+        "properties": {
+          "buildingId": "msml-20260813:93c17b9ce0b3f932bd55",
+          "provider": "microsoft",
+          "sourceLabel": "Microsoft",
+          "sourcePageURL": "https://github.com/microsoft/GlobalMLBuildingFootprints",
+          "sourceRelease": "2026-08-13",
+          "sourcePartition": "132203310",
+          "sourceURL": "https://bfppub.z5.web.core.windows.net/2026-08-13/global-buildings.geojsonl/RegionName=Thailand/quadkey=132203310/part-00000-110f5303-ff85-4c71-a2bf-c6070024fec8.c000.csv.gz",
+          "sourceFileSHA256": "1629f85f5125caa547c2794be670ab02c7ea5ce979c5ff38de255ae90fb68848",
+          "indexSHA256": "de61b569b0c23c364d61173632d8c5487ea30bf20912c55b9fa1ab4a89d01148",
+          "sourceGeometrySHA256": "93c17b9ce0b3f932bd55755e201e8e3cd041c7201a23937ab771c3a2288c58c5",
+          "sourceLineSHA256": "a42d1818e354678e7d6da580810382b0ac75e79284f948e3b865e90e1a991e35",
+          "sourceFeatureId": null,
+          "height": 3,
+          "base": 0,
+          "sourceHeightM": null,
+          "rawHeight": -1.0,
+          "heightRole": "unknown_display_fallback",
+          "confidence": null,
+          "rawConfidence": -1.0,
+          "confidenceRole": "footprint_detection_only",
+          "geometryRole": "ml_roofprint",
+          "license": "CDLA-Permissive-2.0"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": "msml-20260813:f937e7ae35dc0eb72398",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                100.54919592471917,
+                13.742829309913446
+              ],
+              [
+                100.54887272484112,
+                13.742874551887539
+              ],
+              [
+                100.54879487462664,
+                13.742349791787404
+              ],
+              [
+                100.54876071495242,
+                13.742354571194568
+              ],
+              [
+                100.54875601732958,
+                13.742322906183347
+              ],
+              [
+                100.54888118911875,
+                13.742305384419794
+              ],
+              [
+                100.54889178659197,
+                13.74237685294159
+              ],
+              [
+                100.54912397906219,
+                13.742344350244466
+              ],
+              [
+                100.54919592471917,
+                13.742829309913446
+              ]
+            ]
+          ]
+        },
+        "properties": {
+          "buildingId": "msml-20260813:f937e7ae35dc0eb72398",
+          "provider": "microsoft",
+          "sourceLabel": "Microsoft",
+          "sourcePageURL": "https://github.com/microsoft/GlobalMLBuildingFootprints",
+          "sourceRelease": "2026-08-13",
+          "sourcePartition": "132203311",
+          "sourceURL": "https://bfppub.z5.web.core.windows.net/2026-08-13/global-buildings.geojsonl/RegionName=Thailand/quadkey=132203311/part-00138-110f5303-ff85-4c71-a2bf-c6070024fec8.c000.csv.gz",
+          "sourceFileSHA256": "8a868e7616f6610d2b4ccae9a0b0b0e1811b1e5724717f311dd524505ef54915",
+          "indexSHA256": "de61b569b0c23c364d61173632d8c5487ea30bf20912c55b9fa1ab4a89d01148",
+          "sourceGeometrySHA256": "f937e7ae35dc0eb723986a13215eae384603aeaf7861eef35d398606300d1273",
+          "sourceLineSHA256": "a48412e2fd04cde199a241240a985b0c86c499c76f89ad229c4d9611cad4ab03",
+          "sourceFeatureId": null,
+          "height": 3,
+          "base": 0,
+          "sourceHeightM": null,
+          "rawHeight": -1.0,
+          "heightRole": "unknown_display_fallback",
+          "confidence": null,
+          "rawConfidence": -1.0,
+          "confidenceRole": "footprint_detection_only",
+          "geometryRole": "ml_roofprint",
+          "license": "CDLA-Permissive-2.0"
+        }
+      }
+    ]
+  },
+  "partitionReceipts": [
+    {
+      "quadkey": "132203310",
+      "sourceURL": "https://bfppub.z5.web.core.windows.net/2026-08-13/global-buildings.geojsonl/RegionName=Thailand/quadkey=132203310/part-00000-110f5303-ff85-4c71-a2bf-c6070024fec8.c000.csv.gz",
+      "sourceFileSHA256": "1629f85f5125caa547c2794be670ab02c7ea5ce979c5ff38de255ae90fb68848",
+      "bytes": 113469104,
+      "sourceFeatures": 1363208,
+      "bboxCandidates": 3
+    },
+    {
+      "quadkey": "132203311",
+      "sourceURL": "https://bfppub.z5.web.core.windows.net/2026-08-13/global-buildings.geojsonl/RegionName=Thailand/quadkey=132203311/part-00138-110f5303-ff85-4c71-a2bf-c6070024fec8.c000.csv.gz",
+      "sourceFileSHA256": "8a868e7616f6610d2b4ccae9a0b0b0e1811b1e5724717f311dd524505ef54915",
+      "bytes": 110546703,
+      "sourceFeatures": 1318422,
+      "bboxCandidates": 3
+    }
+  ],
+  "queryLimit": "Two complete pinned official partitions containing the five points; not a new national building census. Native and named reference sources not queried for these new points. Original27607 decisions remain unchanged."
+}

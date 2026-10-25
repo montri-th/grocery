@@ -1,0 +1,145 @@
+{
+  "sourceDate": "2026-10-22",
+  "count": 17,
+  "spriteSHA256": "f97946f1a7929600bfe9de27cb99881424e5af7c216502a29b5bcf4a2bcff9ae",
+  "catalogVersion": "2026-10-22-r1",
+  "manifestVersion": "2026-10-22-r1",
+  "brands": [
+    {
+      "id": "BIG_C",
+      "spriteId": "logo-big_c",
+      "sourceSHA256": "d36f8c5e4418d041279991646070715bc6ab7671d31f56d37a6ebda67127fe81",
+      "catalogRecordSHA256": "3641922fa0627b40a1f83e7c91020f721197b15f6653e01dc0385a86230fab63",
+      "manifestRecordSHA256": "dfbdde7e10f2073094ce4834f24a4c9c122c60c4531be0b19787832170b90f15",
+      "symbolSHA256": "7f5f399f843b4b8e2f5ab25ee0cd34ae9fbb1acc61f4086223e9932f0fd32410"
+    },
+    {
+      "id": "CJ_MORE",
+      "spriteId": "logo-cj_more",
+      "sourceSHA256": "dda25ae99940fa1971eb4f1ad1a728c2e7a0eb0de126512fccd9021c9760c662",
+      "catalogRecordSHA256": "0aae52cf14ea6a0367f672a5a2836190b22eeef1b96a8b11ad29677d9d5d8fb8",
+      "manifestRecordSHA256": "12663c7a7e310766107b36a5f8d3f2f0732321a267ed527987e0b668a64a4e25",
+      "symbolSHA256": "5c5a70add4de2bb8166761b46e43a5a1c813c9486f8264d3d7515040b2ec3e07"
+    },
+    {
+      "id": "DONKI",
+      "spriteId": "logo-donki",
+      "sourceSHA256": "f6ee6d32c4fed7da536531a7de544dd7658b4e631cd60f0a3597003c101c132d",
+      "catalogRecordSHA256": "05bbde7d705aa66a7e893af614e1e096d75cd1bba3654acfaa4c3e21411bcadb",
+      "manifestRecordSHA256": "738be678ac30b56e686d1b77f4437dd7c256ac06765a99736c54a4031af46a75",
+      "symbolSHA256": "d4c86825efbb398f9575b13f39a6d7298354cc2c42b970efb22dea80e91d09c4"
+    },
+    {
+      "id": "FOODLAND",
+      "spriteId": "logo-foodland",
+      "sourceSHA256": "1e37d584ccbf67c3666f941c6bb2591e37a75b0e62eda2c8aadfee2825c8d604",
+      "catalogRecordSHA256": "8ce356efce46789253224c692c7e94511aeac15579bc7d234c77bb4cbc12ac7a",
+      "manifestRecordSHA256": "201dda88341d0918fe5f326882e9f78ee3f469b7f165f67e0e7fd3b16a1deea9",
+      "symbolSHA256": "1af06e65e6f30b7bb46dde361e5728467ec2cfabb560ec908127ebbc30de3a6a"
+    },
+    {
+      "id": "FUJI",
+      "spriteId": "logo-fuji",
+      "sourceSHA256": "8fc9fddac1a9a1a89cb86a78f6df96468e3d411b5e0b21f69b64bea8ab69e546",
+      "catalogRecordSHA256": "ed6923a4b511e9d315393fa8bd8b26b489758a1adbd663f251ba73d6e0799693",
+      "manifestRecordSHA256": "04ea00d8a0266acc58bf08fe011cd85ecf1616594953f29968ced46f82c96609",
+      "symbolSHA256": "6fc27d5b3af9b1c953b70469fded48c486ac4162c8a563637b07b08e8061534c"
+    },
+    {
+      "id": "GOURMET_MARKET",
+      "spriteId": "logo-gourmet_market",
+      "sourceSHA256": "ba656eae95117a83a89205ea12a29615d99d866b59cbeb21eb105ea446b2e4dc",
+      "catalogRecordSHA256": "04b82fce7007fc485490ff78bcffcab6a22a1ea7e0ca7ba5d808536db7a91cd0",
+      "manifestRecordSHA256": "b67147f393f9fdc525ab1f3e0804b9cbde93a561c8802df16021caf08c6eb4f1",
+      "symbolSHA256": "da83d4627dc6b68d8b08445cf789d58d41afb79c5bc99d077640ca06b22df192"
+    },
+    {
+      "id": "GO_WHOLESALE",
+      "spriteId": "logo-go_wholesale",
+      "sourceSHA256": "6300f8f31cb5bd2b45b8b4d34b4626ac6892a9afa7f87fe4edabecec15c1504f",
+      "catalogRecordSHA256": "25c9c01ac4fc08a2ef1b2f2d46afbe4cf580b4e93989de116b34b7137e2bd937",
+      "manifestRecordSHA256": "39bc73dd468d22b993bcf785a164c68fa9c317e00ec32b7dded2993fe9bdf1fb",
+      "symbolSHA256": "0a8b5cb0a41ad4b9fa8ee7cd37fe15e8cd6131489ffa5980ecefc58288a8508e"
+    },
+    {
+      "id": "LAWSON108",
+      "spriteId": "logo-lawson108",
+      "sourceSHA256": "2f841ad2f139f95f7fe5a539b4009d5c2dcadfd07cf2c7fc0e6d46645caec79b",
+      "catalogRecordSHA256": "48736552ca574377ab2a918b17c7a7950e821e5bd4baa177fdd07a470f80df1e",
+      "manifestRecordSHA256": "b599852a3fbcf3c0cd84ce58eeb86cc5385be6d88097a93bef4e5e8ce2232906",
+      "symbolSHA256": "f5026fdb9f46985f6f46895f27084c636d3810b0ae4f13b7f8b2ee60f5e308d8"
+    },
+    {
+      "id": "LOTUSS",
+      "spriteId": "logo-lotuss",
+      "sourceSHA256": "88c9bfd02d75ea889881e7664a6271431079360a516a92538e985ecf98a909a7",
+      "catalogRecordSHA256": "def53ca3d20fe3deb176429bee82a36f73d02b967a9238e412996a4f503b82ba",
+      "manifestRecordSHA256": "78452196fc2d13da0c1896873ee6107f8f64ad29cd76ee50214f4b6eda463855",
+      "symbolSHA256": "12cb247f86e32eddd4a4012e22de408e2037a1880f652e40f473e35ac1931206"
+    },
+    {
+      "id": "MAKRO",
+      "spriteId": "logo-makro",
+      "sourceSHA256": "4d4e4b96261a2b992d7b201fbb5984ba45c6589bbe675d0cd85d559c08c18eda",
+      "catalogRecordSHA256": "1f6312c5f3b435ac09adb91046ba3812e1bf3d41ad93317069c5c28e7fbe3a4b",
+      "manifestRecordSHA256": "e3d5d0a5727e0662a8bca4824fb6f6cb479fdc65aae9e9fc9feff71304d0f482",
+      "symbolSHA256": "c599ad9f99929235f1b3ef9285b1f94612a7139eb470608d71be1b68ec837df0"
+    },
+    {
+      "id": "MAXVALU",
+      "spriteId": "logo-maxvalu",
+      "sourceSHA256": "04d4926d8eba2817bbf9d34eaeaf8edc62e52b89705f92183d477906962f682b",
+      "catalogRecordSHA256": "74e04d98e48bb89d424cf06173b04f26a62f4c073ed5450f2db782b7f029f3b1",
+      "manifestRecordSHA256": "3d2d7e9748f9d62326aa195e4978b0e858cd6255ee0388f0a96b36621d26d22d",
+      "symbolSHA256": "a639717e2b2ee04b917505fc5fd13c58030ad2ff4822f74617189dbe6b770dc4"
+    },
+    {
+      "id": "PURE",
+      "spriteId": "logo-pure",
+      "sourceSHA256": "d81f4a75fd7b92bbf0f7f2311d2defd35d9f360a9e75d43931b9d807af79b5bc",
+      "catalogRecordSHA256": "3ee74f50900fd230edef7ebe2081de027ff1a13d4c87d3074d079df94285bbf9",
+      "manifestRecordSHA256": "16d4ebe8c513adcc2ea8388ffed3ce7b47ae2e167bed406316ebd2cca7d09555",
+      "symbolSHA256": "07a55d5dd527e683acfeeede1785c55c52e09d059f4c937d90a73baace5aa0c2"
+    },
+    {
+      "id": "RIMPING",
+      "spriteId": "logo-rimping",
+      "sourceSHA256": "4404cb491f5e74436327736dac481ddd260a03d2a13b2982d784849adbab9fd5",
+      "catalogRecordSHA256": "972f0ee5dc9d893e19da073784a8016f958f533e074e7fa7ec9b5968dd07f13a",
+      "manifestRecordSHA256": "45003c78ca201f87d47f44dbbe42970668ff2534dc0231adf3fa3e14b61a5263",
+      "symbolSHA256": "6ea9569dc38ca717e2c074818d2e356fa080102960e4fb04ee2edcc01fa00427"
+    },
+    {
+      "id": "SEVEN_ELEVEN",
+      "spriteId": "logo-seven_eleven",
+      "sourceSHA256": "704286f27b063dcd83f934a20211615b4f63f5072d31e58edee18ec28e48bfda",
+      "catalogRecordSHA256": "a1a904e3a1d60a604ebe73cdc75837af15359ced6000f07d52e2d29095f161da",
+      "manifestRecordSHA256": "afb434ffdee247bef1d9544af783705c1d482fa74627bc386a27841c581b214f",
+      "symbolSHA256": "ed606d94d23d5894f04645c674181a7852b708f60d4dc49b5d888d40704c4d45"
+    },
+    {
+      "id": "TOOGDEE",
+      "spriteId": "logo-toogdee",
+      "sourceSHA256": "a55a08791f8f09c8ec1518efbb4bc5ed2acc7283563f00556c349f4157ae619c",
+      "catalogRecordSHA256": "2e4267bab4a75e173ed5a2cc0aa00f1914ef8601ff57e2024e7bb4c97b3e4fa2",
+      "manifestRecordSHA256": "e8a033b39430c880e6e6d8c211a31ffd2aee82a75485d08fc832c733bcc29adf",
+      "symbolSHA256": "0aa353c859ed98c1c16f2bcac218b895bdeee2e8d14745af4532bae697e43343"
+    },
+    {
+      "id": "TOPS",
+      "spriteId": "logo-tops",
+      "sourceSHA256": "ac44418daef4d641acaca1c5a97450d096e9ddc7b8c938dab57ca743b5f771d5",
+      "catalogRecordSHA256": "b984f335c8c0639ac4ff95bc4a90873e724b5184b48843b858fca8ce7ca94cde",
+      "manifestRecordSHA256": "2481b43a8f2ff99ab43ac2969eb107ed7ae43763fdcfdb56467661cb878061fd",
+      "symbolSHA256": "bc380a87b0aa4ee7b76c114a0c18f99d78610ba7037a74a284206e32cf5d70f2"
+    },
+    {
+      "id": "VILLA_MARKET",
+      "spriteId": "logo-villa_market",
+      "sourceSHA256": "9de97588ca5f36e8f7945c25fdfd1ee08dad962a633195cc9502e2044de61d3b",
+      "catalogRecordSHA256": "3994e90fad247f4ff0cce7531e93a31dda3c6d57f247d34ea61d14cc0277daa5",
+      "manifestRecordSHA256": "fae9547a4c9d9b903bcd312f8f610e4ceef9f6596768563f73f8d4905ae3c011",
+      "symbolSHA256": "97c8adff2d91f0cd756e00ec39bddad4bd879b4ff635d7757789cf86a8f0a1af"
+    }
+  ]
+}

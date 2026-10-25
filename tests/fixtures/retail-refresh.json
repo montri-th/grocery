@@ -1,0 +1,358 @@
+{
+  "schema": "citymeter-retail-refresh-v1",
+  "checkedOn": "2026-10-25",
+  "baseline": {
+    "pointRows": 27607,
+    "apiTotal": 27608
+  },
+  "brands": [],
+  "formats": [
+    "Big C Foodplace · Bangkok Marché"
+  ],
+  "sources": [
+    {
+      "key": "foodplace-test-official-directory",
+      "label": "Big C public branch directory",
+      "date": "25 ต.ค. 2569",
+      "url": "https://cloud-api-cs.bigc.co.th/company/v1/branch/search/frontend?extend%5B%5D=branch_config&offset=0&limit=2000",
+      "limitation": "Official source point, accuracy not stated."
+    }
+  ],
+  "existing": [
+    {
+      "mapKey": "2884f676",
+      "sourceOutletId": "2884f676-888a-4431-8cf2-8b394c0c7a12",
+      "expectedSourceBrandId": "BIG_C",
+      "expectedSourceTypeId": "SUPERMARKET",
+      "expectedSourceFormat": "Big C Foodplace",
+      "brandId": "BIG_C",
+      "format": "Big C Foodplace",
+      "evidence": {
+        "url": "https://corporate.bigc.co.th/find-a-store",
+        "checkedOn": "2026-10-25"
+      }
+    },
+    {
+      "mapKey": "04046358",
+      "sourceOutletId": "04046358-57f9-4619-b640-8b4544c36550",
+      "expectedSourceBrandId": "BIG_C",
+      "expectedSourceTypeId": "SUPERMARKET",
+      "expectedSourceFormat": "Big C Foodplace",
+      "brandId": "BIG_C",
+      "format": "Big C Foodplace",
+      "evidence": {
+        "url": "https://corporate.bigc.co.th/find-a-store",
+        "checkedOn": "2026-10-25"
+      }
+    },
+    {
+      "mapKey": "6601719d",
+      "sourceOutletId": "6601719d-8bd2-4a85-938e-b71c5b5bc87c",
+      "expectedSourceBrandId": "BIG_C",
+      "expectedSourceTypeId": "SUPERMARKET",
+      "expectedSourceFormat": "Big C Foodplace",
+      "brandId": "BIG_C",
+      "format": "Big C Foodplace",
+      "evidence": {
+        "url": "https://corporate.bigc.co.th/find-a-store",
+        "checkedOn": "2026-10-25"
+      }
+    },
+    {
+      "mapKey": "2b6f09b7",
+      "sourceOutletId": "2b6f09b7-d9ca-4ad2-9925-d1392da5ac6f",
+      "expectedSourceBrandId": "BIG_C",
+      "expectedSourceTypeId": "SUPERMARKET",
+      "expectedSourceFormat": "Big C Foodplace",
+      "brandId": "BIG_C",
+      "format": "Big C Foodplace",
+      "evidence": {
+        "url": "https://corporate.bigc.co.th/find-a-store",
+        "checkedOn": "2026-10-25"
+      }
+    },
+    {
+      "mapKey": "ab73ac78",
+      "sourceOutletId": "ab73ac78-ae1a-4873-81c7-52d3e3e87d75",
+      "expectedSourceBrandId": "BIG_C",
+      "expectedSourceTypeId": "SUPERMARKET",
+      "expectedSourceFormat": "Big C Foodplace",
+      "brandId": "BIG_C",
+      "format": "Big C Foodplace",
+      "evidence": {
+        "url": "https://corporate.bigc.co.th/find-a-store",
+        "checkedOn": "2026-10-25"
+      }
+    },
+    {
+      "mapKey": "1fe2199d",
+      "sourceOutletId": "1fe2199d-f833-4a9a-af42-df185ee69e67",
+      "expectedSourceBrandId": "BIG_C",
+      "expectedSourceTypeId": "SUPERMARKET",
+      "expectedSourceFormat": "Big C Foodplace",
+      "brandId": "BIG_C",
+      "format": "Big C Foodplace",
+      "evidence": {
+        "url": "https://corporate.bigc.co.th/find-a-store",
+        "checkedOn": "2026-10-25"
+      }
+    },
+    {
+      "mapKey": "9ce9bcd5",
+      "sourceOutletId": "9ce9bcd5-05df-4fc0-992f-3f407b0e08a4",
+      "expectedSourceBrandId": "BIG_C",
+      "expectedSourceTypeId": "SUPERMARKET",
+      "expectedSourceFormat": "Big C Foodplace",
+      "brandId": "BIG_C",
+      "format": "Big C Foodplace",
+      "evidence": {
+        "url": "https://corporate.bigc.co.th/find-a-store",
+        "checkedOn": "2026-10-25"
+      }
+    },
+    {
+      "mapKey": "9be9a642",
+      "sourceOutletId": "9be9a642-e884-407c-a7f5-4027d4523ec0",
+      "expectedSourceBrandId": "BIG_C",
+      "expectedSourceTypeId": "SUPERMARKET",
+      "expectedSourceFormat": "Big C Foodplace",
+      "brandId": "BIG_C",
+      "format": "Big C Foodplace",
+      "evidence": {
+        "url": "https://corporate.bigc.co.th/find-a-store",
+        "checkedOn": "2026-10-25"
+      }
+    },
+    {
+      "mapKey": "fd22da76",
+      "sourceOutletId": "fd22da76-d3a0-47f0-979d-8c57301c4c9d",
+      "expectedSourceBrandId": "BIG_C",
+      "expectedSourceTypeId": "SUPERMARKET",
+      "expectedSourceFormat": "Big C Foodplace",
+      "brandId": "BIG_C",
+      "format": "Big C Foodplace",
+      "evidence": {
+        "url": "https://corporate.bigc.co.th/find-a-store",
+        "checkedOn": "2026-10-25"
+      }
+    },
+    {
+      "mapKey": "a1d87c5b",
+      "sourceOutletId": "a1d87c5b-e815-4506-892a-923d812259db",
+      "expectedSourceBrandId": "BIG_C",
+      "expectedSourceTypeId": "SUPERMARKET",
+      "expectedSourceFormat": "Big C Market",
+      "brandId": "BIG_C",
+      "format": "Big C Foodplace",
+      "evidence": {
+        "url": "https://corporate.bigc.co.th/find-a-store",
+        "checkedOn": "2026-10-25"
+      }
+    },
+    {
+      "mapKey": "4a9f2806",
+      "sourceOutletId": "4a9f2806-ec1c-4b6e-ae90-44fdd20fe7b6",
+      "expectedSourceBrandId": "BIG_C",
+      "expectedSourceTypeId": "SUPERMARKET",
+      "expectedSourceFormat": "Big C Market",
+      "brandId": "BIG_C",
+      "format": "Big C Foodplace",
+      "evidence": {
+        "url": "https://corporate.bigc.co.th/find-a-store",
+        "checkedOn": "2026-10-25"
+      }
+    },
+    {
+      "mapKey": "9335bd72",
+      "sourceOutletId": "9335bd72-4d31-4c2a-b7df-ae835bcd9a01",
+      "expectedSourceBrandId": "BIG_C",
+      "expectedSourceTypeId": "SUPERMARKET",
+      "expectedSourceFormat": "Big C Market",
+      "brandId": "BIG_C",
+      "format": "Big C Foodplace",
+      "evidence": {
+        "url": "https://corporate.bigc.co.th/find-a-store",
+        "checkedOn": "2026-10-25"
+      }
+    }
+  ],
+  "supplemental": [
+    {
+      "key": "bigc-official-15069",
+      "sourceId": "15069",
+      "brandId": "BIG_C",
+      "typeId": "SUPERMARKET",
+      "format": "Big C Foodplace",
+      "name": "Big C Foodplace The Old Siam Plaza",
+      "longitude": 100.5000923,
+      "latitude": 13.74584843,
+      "districtCode": "1001",
+      "unitKeys": [
+        "b3221f7e-f41c-43b0-b8b9-24e9ba4884de"
+      ],
+      "sourceKey": "foodplace-test-official-directory",
+      "venueId": null,
+      "coordinateRole": "official_public_contact_directory_branch_point",
+      "detail": {
+        "address": "เลขที่ 10 ถนน บูรพา แขวง วังบูรพาภิรมย์ เขต พระนคร จังหวัด กรุงเทพมหานคร 10200",
+        "sourceRecordId": "15069"
+      },
+      "evidence": {
+        "url": "https://corporate.bigc.co.th/news/627/บิ๊กซี-ฟู้ดเพลส-เดินหน้าเปิดบริการสาขา-ดิ-โอลด์-สยาม-พลาซ่า-ยกระดับประสบการณ์ชอปปิงตอบโจทย์ลูกค้าและนักท่องเที่ยว?lang=th",
+        "checkedOn": "2026-10-25",
+        "branchCode": "15069",
+        "contactStatusType": "active",
+        "officialBranchUUID": "4a893164-83f9-4e2b-9cb6-2bf76b8bdaf1",
+        "contactRecordUUID": "2fe3082c-7c37-4b6e-a14b-a8b5ea36b5a8"
+      },
+      "aliases": [],
+      "administrativeEvidence": {
+        "method": "test-fixture_existing_registry_codes_not_a_geometry_verification_claim"
+      }
+    },
+    {
+      "key": "bigc-official-15070",
+      "sourceId": "15070",
+      "brandId": "BIG_C",
+      "typeId": "SUPERMARKET",
+      "format": "Big C Foodplace",
+      "name": "Big C Foodplace Mahatun Plaza",
+      "longitude": 100.5489759,
+      "latitude": 13.74268075,
+      "districtCode": "1007",
+      "unitKeys": [
+        "23b4b88f-a1ac-4a41-a3e8-3253bddc3547"
+      ],
+      "sourceKey": "foodplace-test-official-directory",
+      "venueId": null,
+      "coordinateRole": "official_public_contact_directory_branch_point",
+      "detail": {
+        "address": "เลขที่ 888/36-39 ถนน เพลินจิต แขวง ลุมพินี เขต ปทุมวัน จังหวัด กรุงเทพมหานคร 10330",
+        "sourceRecordId": "15070"
+      },
+      "evidence": {
+        "url": "https://corporate.bigc.co.th/news/616/บิ๊กซี-ลุยเปิด-บิ๊กซี-ฟู้ดเพลส-มหาทุน-พลาซ่า-เจาะกลุ่มลูกค้าโซนสำนักงาน",
+        "checkedOn": "2026-10-25",
+        "branchCode": "15070",
+        "contactStatusType": "inactive",
+        "officialBranchUUID": "797995fd-78dd-4efb-810d-899cf0b0adb2",
+        "contactRecordUUID": "1061cd39-ddd6-4cd6-ac05-715342afe9d8"
+      },
+      "aliases": [],
+      "administrativeEvidence": {
+        "method": "test-fixture_existing_registry_codes_not_a_geometry_verification_claim"
+      }
+    },
+    {
+      "key": "bigc-official-15073",
+      "sourceId": "15073",
+      "brandId": "BIG_C",
+      "typeId": "SUPERMARKET",
+      "format": "Big C Foodplace",
+      "name": "Big C Foodplace PARC Bangna",
+      "longitude": 100.64690561279112,
+      "latitude": 13.666999737741738,
+      "districtCode": "1047",
+      "unitKeys": [
+        "7430567c-5878-422e-97ba-2dbad5f0d9fe"
+      ],
+      "sourceKey": "foodplace-test-official-directory",
+      "venueId": null,
+      "coordinateRole": "official_public_contact_directory_branch_point",
+      "detail": {
+        "address": null,
+        "sourceRecordId": "15073"
+      },
+      "evidence": {
+        "url": "https://market.sec.or.th/public/idisc/Download?FILEID=dat%2Fnews%2F202602%2F0002NWS240220262107149590E.pdf",
+        "checkedOn": "2026-10-25",
+        "branchCode": "15073",
+        "contactStatusType": "active",
+        "officialBranchUUID": "479f6251-bcbd-488b-b483-87a473e91cd4",
+        "contactRecordUUID": "3ded79e2-e69e-468f-a039-3037e7610bfd"
+      },
+      "aliases": [],
+      "administrativeEvidence": {
+        "method": "test-fixture_existing_registry_codes_not_a_geometry_verification_claim"
+      }
+    },
+    {
+      "key": "bigc-official-15066",
+      "sourceId": "15066",
+      "brandId": "BIG_C",
+      "typeId": "SUPERMARKET",
+      "format": "Big C Foodplace",
+      "name": "Big C Foodplace Pantip Ngamwongwan",
+      "longitude": 100.5370458,
+      "latitude": 13.85787881,
+      "districtCode": "1201",
+      "unitKeys": [],
+      "sourceKey": "foodplace-test-official-directory",
+      "venueId": null,
+      "coordinateRole": "official_public_contact_directory_branch_point",
+      "detail": {
+        "address": "ห้องเลขที่ 1006 ชั้นที่ 1 เลขที่ 217 ถนน งามวงศ์วาน ตำบล บางเขน อำเภอ เมืองนนทบุรี จังหวัด นนทบุรี 11000",
+        "sourceRecordId": "15066"
+      },
+      "evidence": {
+        "url": "https://bjc.listedcompany.com/misc/PRESN/20231115-bjc-am-3q2023.pdf",
+        "checkedOn": "2026-10-25",
+        "branchCode": "15066",
+        "contactStatusType": "active",
+        "officialBranchUUID": "578b3ea0-2afe-4894-8510-7c8176005320",
+        "contactRecordUUID": "9eb5efaa-fe49-47c1-be1e-cccf9e53188c"
+      },
+      "aliases": [],
+      "administrativeEvidence": {
+        "method": "test-fixture_existing_registry_codes_not_a_geometry_verification_claim"
+      }
+    },
+    {
+      "key": "bigc-official-15068",
+      "sourceId": "15068",
+      "brandId": "BIG_C",
+      "typeId": "SUPERMARKET",
+      "format": "Big C Foodplace · Bangkok Marché",
+      "name": "Big C Foodplace Bangkok Marché — One Bangkok",
+      "longitude": 100.546693,
+      "latitude": 13.727357,
+      "districtCode": "1007",
+      "unitKeys": [],
+      "sourceKey": "foodplace-test-official-directory",
+      "venueId": null,
+      "coordinateRole": "official_public_contact_directory_branch_point",
+      "detail": {
+        "address": "อาคาร ฟอรัม ห้องเลขที่ FG01 ชั้นที่ G เลขที่ 197 ถนน วิทยุ แขวง ลุมพินี เขต ปทุมวัน กรุงเทพมหานคร 10330",
+        "sourceRecordId": "15068"
+      },
+      "evidence": {
+        "url": "https://www.onebangkok.com/en/press-media/one-bangkok-a-new-global-landmark/",
+        "checkedOn": "2026-10-25",
+        "branchCode": "15068",
+        "contactStatusType": "active",
+        "officialBranchUUID": "6fab4c5c-6736-4ce6-b0e5-dd2e18fcbfd8",
+        "contactRecordUUID": "2b9af7d3-3e70-4370-9a84-ac77923bb285"
+      },
+      "aliases": [
+        "Bangkok Marche",
+        "Bangkok Marché",
+        "One Bangkok"
+      ],
+      "administrativeEvidence": {
+        "method": "test-fixture_existing_registry_codes_not_a_geometry_verification_claim"
+      }
+    }
+  ],
+  "formatFamilies": [
+    {
+      "id": "BIG_C_FOODPLACE",
+      "name": "Big C Foodplace",
+      "parentBrandId": "BIG_C",
+      "formats": [
+        "Big C Foodplace",
+        "Big C Foodplace · Bangkok Marché"
+      ],
+      "logoKey": "BIG_C_FOODPLACE"
+    }
+  ]
+}

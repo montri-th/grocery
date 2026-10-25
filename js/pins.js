@@ -9,8 +9,8 @@
  * every other pin, label and UI obstacle (placeBrandLogos). Hidden logos never
  * hide a pin: the store-type-coloured dot always remains.
  */
-import {hasPoint} from './model.js';
-import {brandLogoMarkup, getBrandLogo} from './brand-logos.js';
+import {hasPoint} from './model.js?v=20261025-fp1';
+import {brandLogoMarkup, getBrandLogo, getFormatLogo} from './brand-logos.js?v=20261025-fp1';
 
 export const MAX_LOGOS = 250;
 /** Logos (and full-size pins) only from this zoom: the 3D overview stays calm. */
@@ -197,7 +197,8 @@ export function installStorePins(map, container, {onSelect, onLayout, reservedBo
     const focusIds = new Set(rows.map(r => r.key));
     const all = [...rows.filter(hasPoint), ...contextRows.filter(r => hasPoint(r) && !focusIds.has(r.key)).map(r => ({...r, __context: true}))];
     for (const row of all) {
-      const logo = row.__context ? null : getBrandLogo(row.brand);
+      const formatLogo = getFormatLogo(row.formatLogoKey);
+      const logo = row.__context ? null : formatLogo && formatLogo.parentBrandId === row.brandId ? formatLogo : getBrandLogo(row.brand);
       const button = document.createElement('button'), label = document.createElement('span'), dot = document.createElement('span');
       button.type = 'button';
       button.className = `store-pin${row.__context ? ' is-context' : ''}`;
@@ -211,7 +212,7 @@ export function installStorePins(map, container, {onSelect, onLayout, reservedBo
       label.className = 'pin-brand-label';
       label.hidden = true;
       label.setAttribute('aria-hidden', 'true');
-      label.innerHTML = row.__context ? '' : brandLogoMarkup(row.brand);
+      label.innerHTML = row.__context ? '' : brandLogoMarkup(row.brand, {formatLogoKey: row.formatLogoKey});
       button.append(dot, label);
       overlay.append(button);
       button.classList.toggle('is-selected', selectedId === row.key);

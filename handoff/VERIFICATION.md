@@ -2,6 +2,18 @@
 
 Dataset snapshot: 2026-10-22 (what CityMETER production shows). Levels are reported separately: data reconciliation, unit tests, machine contracts, LDS checks, rendered harness, live browser checks and live byte attestation. None of them is a blanket LDS, accessibility or market-completeness certificate.
 
+## Foodplace refresh — 25 Oct 2026
+
+Local suite: **165/165 passed**, 0 failed/skipped; full transcript SHA-256 `6a6da6e1fdd4f909905cada1bec744796d5879f454c3fa0e36e19a09cd96ab8c`. Frozen data hashes were rechecked after the run. Source `grocery.json` and `areas.json` remain byte-identical to base `74d214a`; all 27,607 original point facts, all 77 provincial decision dictionaries and the original 128 venue asset records/bytes remain unchanged. Effective data adds five official branch records and three format reclassifications: 27,612 rows, 17 brands, Big C 1,749, Foodplace family 17. The family count is bounded coverage, not a national inventory or operating-status census.
+
+Independent geometry review rescanned both complete cached Microsoft partitions (2,681,630 raw features). Hole-aware containment and segment-distance calculations agreed with GEOS: five new points yield two inside / one boundary candidate / two without a containing roof. No nearest assignment, coordinate movement, geometry repair, extra country download or invented measured height was applied. Invalid display-unit candidates stay held; supplemental display membership is explicitly inferred rather than original production membership.
+
+Native Sheet verification compares all 28 planned ranges, 1,621 entered cells, 66 native date cells, both count formulas and all protected existing store fields. Counts resolve to Big C 1,749 and Foodplace 17; native types, table identities and the original 83 column definitions are preserved, with four format columns appended. Existing date display patterns may normalize under native Tables; checked dates remain readable native DATE values.
+
+Rendered local browser checks use actual map tiles and application code, at desktop 1280 px and narrow 390×844 in light/dark themes. Foodplace is a format option under the existing Big C brand; clearing/restoring it updates the URL and returns 17 family rows / one brand. PARC's missing source address, Mahatun's contact-inactive review fact and One Bangkok's long Marché name were inspected without overlap. New details use local official-source records. Foodplace and venue logos render; no console errors were observed in checked states. These are desktop-browser responsive checks, not physical-phone testing. Native Sheets' changed tables, new format/review tabs, dictionary, README and source catalog were inspected at 100%; table header contrast was corrected after actual rendering.
+
+Publication is recorded separately by the release receipt and exact-commit live byte attestation supplied with the scoped audit package. This checked-in record does not predict a provider result.
+
 ## Release 0.2 — venue level, two-point view, 41-sample colour scales (owner, 22 Oct 2026, second round)
 
 Commits: `46b4bb5` venue level + two-point view · `f5db660` colour scales on all 41 LDS samples + 0.2 handoff (schema 1.1.0, task cards, `scripts/qa/`) · `77ac6f7` empty rebuild trigger · `cd9f074` cache tag of the legend's `scales.js` import + `tests/module-imports.test.js` · the commit after it: this live record. Each line names what it ran on; the release receipt binds the final commit.

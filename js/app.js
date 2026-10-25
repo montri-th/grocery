@@ -2,7 +2,7 @@
  * CityMETER · Grocery — application orchestration.
  *
  * One committed selection drives everything:
- *   filters  — search · brand · store type (js/model.js filterRows)
+ *   filters  — search · brand · store type · format (js/model.js filterRows)
  *   sel      — {province, district, unit}: ประเทศไทย › จังหวัด › อำเภอ/เขต › อปท./ย่าน
  *   panel    — overview (country/province/district) | unit | venue | store, with a back stack
  *   metric   — count | capita (stores per 10,000 registered residents)
@@ -31,36 +31,36 @@
  * SCENE.eye) and the venue's buildings are drawn by the x-ray (venue-xray.js) so
  * they stay visible and clickable. Evidence rules: js/venue-level.js.
  *
- * URL state: search, brand, type, province, district, unit, areas, metric, view,
+ * URL state: search, brand, type, format, province, district, unit, areas, metric, view,
  * store, place, view3d, cam (cam=model turns the two-point view off) — restored
  * on load. Core data first; the map (MapLibre from a CDN), province geometry,
  * building joins and store details are independent and retryable.
  */
-import {buildModel, filterRows, hasPoint, unitName, districtNoun, unitNoun, perCapita, brandCount, withNoun} from './model.js?v=20261022-j1';
-import {NO_SELECTION, normalizeSelection, levelOf, parentSelection, areaRows, childrenOf, summarizeChildren, rankChildren, buildAha, levelNouns, areaKey, CHILD_LEVEL} from './hierarchy.js';
-import {buildScale, classify, formatMetric, METRICS} from './scales.js?v=20261022-v3';
-import {rampHTML} from './ramp-legend.js?v=20261022-v3';
-import {renderInsightChart} from './charts.js?v=20261022-v3';
-import {loadMapLibrary} from './vendors.js';
-import {installStorePins, LOGO_MIN_ZOOM, MAX_PINS} from './pins.js';
-import {installStoresLayer, STORE_LAYERS} from './stores-layer.js';
-import {installAreaLayers, installAreaLabels, FILL_MAX_ZOOM, LABEL_MAX_ZOOM, bboxOfFeature} from './area-layers.js';
-import {configureBrandLogos, brandLogoMarkup} from './brand-logos.js';
-import {configureVenueLogos} from './venue-logos.js';
-import {typeMix, brandMix, buildUnitProfile, buildVenueProfile, buildStoreDetail} from './profile-model.js';
-import {renderOverview, renderUnit, renderVenue, renderStore, renderFilterChips, link, esc, num} from './panel.js?v=20261022-v3';
-import {buildMapStyle, basemapPalette, TILEJSON_URL, MASSING_BEFORE} from './map-style.js';
-import {installMassing, outerRings} from './massing.js?v=20261022-j1';
-import {presetFor, applyPreset, fitPitched, framePoint} from './camera.js';
-import {buildBreadcrumb, renderBreadcrumb, breadcrumbText} from './breadcrumb.js';
-import {fetchJSON, ensureProvinceGeo, provinceGeoNow, loadProvinceDetail} from './geo-store.js';
-import {createSpatialStore, selectSpatialBuildings, buildingFact, referenceBuildingFact} from './spatial-store.js?v=20261022-j1';
-import {installSpatialBuildings, BUILDING_LAYERS} from './spatial-layer.js?v=20261022-v2';
-import {installVenueXray} from './venue-xray.js?v=20261022-v2';
-import {isVenueLevel, areaVenueBuildings, tagVenueFeatures, buildingKinds, venueHostFeatures, venueTargets, xrayFeatures, venueFramePoints, buildingClickTarget} from './venue-level.js?v=20261022-v2';
+import {buildModel, filterRows, hasPoint, unitName, districtNoun, unitNoun, perCapita, brandCount, withNoun} from './model.js?v=20261025-fp1';
+import {NO_SELECTION, normalizeSelection, levelOf, parentSelection, areaRows, childrenOf, summarizeChildren, rankChildren, buildAha, levelNouns, areaKey, CHILD_LEVEL} from './hierarchy.js?v=20261025-fp1';
+import {buildScale, classify, formatMetric, METRICS} from './scales.js?v=20261025-fp1';
+import {rampHTML} from './ramp-legend.js?v=20261025-fp1';
+import {renderInsightChart} from './charts.js?v=20261025-fp1';
+import {loadMapLibrary} from './vendors.js?v=20261025-fp1';
+import {installStorePins, LOGO_MIN_ZOOM, MAX_PINS} from './pins.js?v=20261025-fp1';
+import {installStoresLayer, STORE_LAYERS} from './stores-layer.js?v=20261025-fp1';
+import {installAreaLayers, installAreaLabels, FILL_MAX_ZOOM, LABEL_MAX_ZOOM, bboxOfFeature} from './area-layers.js?v=20261025-fp1';
+import {configureBrandLogos, brandLogoMarkup} from './brand-logos.js?v=20261025-fp1';
+import {configureVenueLogos} from './venue-logos.js?v=20261025-fp1';
+import {typeMix, brandMix, buildUnitProfile, buildVenueProfile, buildStoreDetail} from './profile-model.js?v=20261025-fp1';
+import {renderOverview, renderUnit, renderVenue, renderStore, renderFilterChips, link, esc, num} from './panel.js?v=20261025-fp1';
+import {buildMapStyle, basemapPalette, TILEJSON_URL, MASSING_BEFORE} from './map-style.js?v=20261025-fp1';
+import {installMassing, outerRings} from './massing.js?v=20261025-fp1';
+import {presetFor, applyPreset, fitPitched, framePoint} from './camera.js?v=20261025-fp1';
+import {buildBreadcrumb, renderBreadcrumb, breadcrumbText} from './breadcrumb.js?v=20261025-fp1';
+import {fetchJSON, ensureProvinceGeo, provinceGeoNow, loadProvinceDetail} from './geo-store.js?v=20261025-fp1';
+import {createSpatialStore, selectSpatialBuildings, buildingFact, referenceBuildingFact} from './spatial-store.js?v=20261025-fp1';
+import {installSpatialBuildings, BUILDING_LAYERS} from './spatial-layer.js?v=20261025-fp1';
+import {installVenueXray} from './venue-xray.js?v=20261025-fp1';
+import {isVenueLevel, areaVenueBuildings, tagVenueFeatures, buildingKinds, venueHostFeatures, venueTargets, xrayFeatures, venueFramePoints, buildingClickTarget} from './venue-level.js?v=20261025-fp1';
 
 const $ = id => document.getElementById(id);
-const FIELDS = ['search', 'brand', 'type'];
+const FIELDS = ['search', 'brand', 'type', 'format'];
 const THAILAND = [97.34, 5.61, 105.64, 20.46];
 const BANGKOK = [100.33, 13.49, 100.94, 13.96];
 const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -71,7 +71,7 @@ const theme = () => document.documentElement.dataset.theme;
 
 const state = {
   model: null, provinceGeo: null,
-  filters: {search: '', brand: '', type: ''}, filtered: [], filterKey: null,
+  filters: {search: '', brand: '', type: '', format: ''}, filtered: [], filterKey: null,
   sel: {...NO_SELECTION}, metric: 'count',
   focusKeys: [], autoFocus: true, focus: {level: 'all', ids: []},
   panel: {mode: 'overview', id: ''}, history: [],
@@ -154,6 +154,7 @@ function restoreFromURL() {
   for (const k of FIELDS) if (p.has(k)) state.filters[k] = p.get(k) || '';
   if (state.filters.brand && !m.brandById.has(state.filters.brand)) state.filters.brand = '';
   if (state.filters.type && !m.typeById.has(state.filters.type)) state.filters.type = '';
+  if (state.filters.format && !m.formatOptionById?.has(state.filters.format)) state.filters.format = '';
   let sel = {...NO_SELECTION};
   const prov = m.provinceByAbbr.get((p.get('province') || '').toUpperCase()) || m.provinceByCode.get(p.get('province') || '');
   if (prov) sel.province = prov.index;
@@ -262,7 +263,7 @@ function update({fit = false} = {}) {
   $('result-count').textContent = num(state.rows.length);
   const active = FIELDS.filter(k => state.filters[k]).length;
   $('filter-count').textContent = active ? String(active) : '';
-  $('filter-chips').innerHTML = renderFilterChips(state.filters, {brand: Object.fromEntries(m.brands.map(b => [b.id, b.name])), type: Object.fromEntries(m.types.map(t => [t.id, t.th]))});
+  $('filter-chips').innerHTML = renderFilterChips(state.filters, {brand: Object.fromEntries(m.brands.map(b => [b.id, b.name])), type: Object.fromEntries(m.types.map(t => [t.id, t.th])), format: Object.fromEntries(m.formatOptions.map(f => [f.id, f.name]))});
   syncAreaSelects();
   prepareSpatialSelection();
   deferredSelectionFit.reconcile();
@@ -355,7 +356,7 @@ function renderPanel() {
     const r = rowByKey(state.panel.id);
     const d = buildStoreDetail(m, r, state.filtered);
     if (d) {
-      const detail = state.storeDetail?.key === r.key ? state.storeDetail : null;
+      const detail = r.supplemental ? {key: r.key, value: r.localDetail} : state.storeDetail?.key === r.key ? state.storeDetail : null;
       html = renderStore(d, {detail: detail?.value, detailError: detail?.error, building: buildingFact(state.spatial.summary, state.spatial.loading), buildingReference: referenceBuildingFact(state.spatial.summary), districtLabel: districtLabel(d.district), unitLabel, placeOf});
       if (!detail) loadStoreDetail(r);
     }
@@ -370,6 +371,7 @@ function renderPanel() {
       summary: {...summary, focusCount: focusRows.length, focusBrands: brandCount(focusRows)},
       ranking: state.compare.ranked, nouns: {...nouns, childPictogram: {province: 'province', district: 'district', unit: 'area'}[state.compare.childLevel] || 'area'},
       typeMix: typeMix(m, state.scopeRows), brandMix: brandMix(m, state.scopeRows), asOf: m.meta?.asOf || '', apiTotal: m.meta?.apiTotal || m.rows.length,
+      refreshCheckedOn: m.meta?.retailRefreshCheckedOn, sourcePointRows: m.meta?.sourcePointRows, supplementalPointRows: m.meta?.supplementalPointRows,
     });
     renderMapAha();
   } else {
@@ -414,6 +416,10 @@ function prepareSpatialSelection({retry = false} = {}) {
 }
 
 function loadStoreDetail(r) {
+  if (r.supplemental) {
+    state.storeDetail = {key: r.key, value: r.localDetail};
+    return;
+  }
   const code = M().provinces[r.p].code;
   loadProvinceDetail(code).then(map => {
     state.storeDetail = {key: r.key, value: map.get(r.key) || {address: ''}};
@@ -486,7 +492,7 @@ function selectStore(key, {fly = true, showPopup = false, fromPin = false} = {})
     state.popup?.remove(); state.popup = null;
     if (showPopup && !mobilePortrait()) {
       const wrap = document.createElement('div'), h = document.createElement('h3'), p = document.createElement('p');
-      wrap.innerHTML = brandLogoMarkup(r.brand, {className: 'popup-logo'});
+      wrap.innerHTML = brandLogoMarkup(r.brand, {className: 'popup-logo', formatLogoKey: r.formatLogoKey});
       h.textContent = r.brand;
       p.textContent = r.name;
       wrap.append(h, p);
@@ -650,7 +656,7 @@ function renderTable() {
   $('result-rows').innerHTML = rs.map(r => {
     const v = r.v >= 0 ? m.venues[r.v] : null;
     const src = m.sources[r.s];
-    return `<tr><td><button type="button" class="row-name brand-row" data-id="${esc(r.key)}">${brandLogoMarkup(r.brand)}<span>${esc(r.brand)}</span></button><small>${esc(r.name)}</small></td>
+    return `<tr><td><button type="button" class="row-name brand-row" data-id="${esc(r.key)}">${brandLogoMarkup(r.brand, {formatLogoKey: r.formatLogoKey})}<span>${esc(r.brand)}</span></button><small>${esc(r.name)}</small></td>
       <td><i class="category-swatch type-${esc(r.type)}" aria-hidden="true"></i> ${esc(m.types[r.t].th)}</td>
       <td>${esc(placeOf(r))}</td>
       <td>${v ? esc(v.name) : '<span class="hint">—</span>'}</td>
@@ -1110,10 +1116,10 @@ function wireEvents() {
 
 async function init() {
   try {
-    const resources = ['data/grocery.json', 'data/areas.json', 'data/geo/provinces.json', 'data/brand-logos.json', 'data/venue-logos.json'];
+    const resources = ['data/grocery.json', 'data/areas.json', 'data/geo/provinces.json', 'data/brand-logos.json', 'data/venue-logos.json', 'data/retail-refresh.json'];
     const results = await Promise.allSettled(resources.map(r => fetchJSON(r)));
-    for (const i of [0, 1]) if (results[i].status === 'rejected') throw results[i].reason;
-    state.model = buildModel(results[0].value, results[1].value);
+    for (const i of [0, 1, 5]) if (results[i].status === 'rejected') throw results[i].reason;
+    state.model = buildModel(results[0].value, results[1].value, results[5].value);
     if (results[2].status === 'fulfilled' && validProvinceFrames(results[2].value)) state.provinceGeo = results[2].value;
     else { state.provinceGeo = {type: 'FeatureCollection', features: []}; console.warn('Province frames unavailable', results[2].reason || 'invalid'); }
     const coverage = configureBrandLogos(results[3].status === 'fulfilled' ? results[3].value : {brands: []}, state.model.brands.map(b => ({brand: b.name})));
@@ -1124,6 +1130,7 @@ async function init() {
     const m = state.model;
     fillSelect('brand', m.brands.map(b => [b.id, b.name]), 'ทุกแบรนด์');
     fillSelect('type', m.types.map(t => [t.id, t.th]), 'ทุกประเภท');
+    fillSelect('format', m.formatOptions.map(f => [f.id, f.name]), 'ทุกรูปแบบ');
     fillSelect('province', [...m.provinces].sort((a, b) => a.name.localeCompare(b.name, 'th')).map(p => [p.abbr, p.name]), 'ทุกจังหวัด');
     $('category-items').innerHTML = m.types.map(t => `<span><i class="category-swatch type-${esc(t.id)}" aria-hidden="true"></i>${esc(t.th)}</span>`).join('');
 

@@ -17,10 +17,10 @@
  * a real <button>, so keyboard and screen-reader users get the same drill-down
  * as pointer users; every click emits {type: 'area', level, index}.
  */
-import {buildRankingModel, buildMatrixModel} from './chart-model.js';
-import {buildScale, classify, formatMetric, STEPS} from './scales.js?v=20261022-v3';
-import {rampHTML} from './ramp-legend.js?v=20261022-v3';
-import {TYPE_SHORT} from './model.js';
+import {buildRankingModel, buildMatrixModel} from './chart-model.js?v=20261025-fp1';
+import {buildScale, classify, formatMetric, STEPS} from './scales.js?v=20261025-fp1';
+import {rampHTML} from './ramp-legend.js?v=20261025-fp1';
+import {TYPE_SHORT} from './model.js?v=20261025-fp1';
 
 const NUMBER = new Intl.NumberFormat('th-TH', {maximumFractionDigits: 0});
 const PCT = new Intl.NumberFormat('th-TH', {maximumFractionDigits: 1, minimumFractionDigits: 1});
