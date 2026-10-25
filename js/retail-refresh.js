@@ -13,6 +13,32 @@ function publicURL(value) {
   try { const url = new URL(value); return url.protocol === 'https:' && !url.username && !url.password; }
   catch { return false; }
 }
+function selectedCoordinate(value, item) {
+  const fields = ['kind', 'longitude', 'latitude', 'sourceURL', 'checkedOn', 'decision', 'pointRole', 'sourcePoint', 'reason'];
+  requireValue(value && typeof value === 'object' && !Array.isArray(value) &&
+    Object.keys(value).length === fields.length && fields.every(key => own(value, key)) &&
+    value.kind === 'owner_confirmed_maps_point' && value.decision === 'owner_requested_coordinate_correction' &&
+    value.pointRole === 'owner_confirmed_maps_store_point', 'invalid selected coordinate schema/decision');
+  requireValue(Number.isFinite(value.longitude) && Number.isFinite(value.latitude) &&
+    value.longitude >= 97 && value.longitude <= 106 && value.latitude >= 5 && value.latitude <= 21,
+  'invalid selected coordinate point');
+  requireValue(Array.isArray(value.sourcePoint) && value.sourcePoint.length === 2 &&
+    value.sourcePoint[0] === item.longitude && value.sourcePoint[1] === item.latitude,
+  'selected coordinate source point is stale');
+  const date = isoDate(value.checkedOn) ? new Date(`${value.checkedOn}T00:00:00Z`) : null;
+  requireValue(date && Number.isFinite(date.getTime()) && date.toISOString().slice(0, 10) === value.checkedOn,
+    'invalid selected coordinate date');
+  let url;
+  try { url = new URL(value.sourceURL); } catch { /* Rejected below. */ }
+  const host = url?.hostname.toLowerCase() || '';
+  requireValue(typeof value.sourceURL === 'string' && publicURL(value.sourceURL) && host.includes('.') &&
+    !/^[\d.]+$/.test(host) && !host.includes(':') &&
+    !/(^|\.)(localhost|local|internal|test|invalid)$/.test(host) &&
+    !/(^|\.)(drive\.google\.com|docs\.google\.com|drive\.usercontent\.google\.com|googleusercontent\.com)$/.test(host),
+  'selected coordinate requires a public source URL');
+  requireValue(typeof value.reason === 'string' && value.reason.trim(), 'missing selected coordinate reason');
+  return Object.freeze({...clone(value), sourcePoint: Object.freeze([...value.sourcePoint])});
+}
 function checkedEvidence(value) {
   requireValue(value && publicURL(value.url) && isoDate(value.checkedOn), 'missing dated source evidence');
   return Object.freeze(clone(value));
@@ -85,7 +111,7 @@ export function applyRetailRefresh(base, refresh) {
       patch.sourceOutletId.split('-')[0] === row.key, 'source UUID does not match map key');
     requireValue(row.brandId === patch.expectedSourceBrandId && row.type === patch.expectedSourceTypeId &&
       base.formats[row.format] === patch.expectedSourceFormat, `source identity guard failed for ${row.key}`);
-    requireValue(!['longitude', 'latitude', 'lon', 'lat', 'districtCode', 'unitKeys', 'name', 'typeId'].some(key => own(patch, key)), 'a format patch cannot change source location/name/type');
+    requireValue(!['longitude', 'latitude', 'lon', 'lat', 'districtCode', 'unitKeys', 'name', 'typeId', 'selectedCoordinate'].some(key => own(patch, key)), 'a format patch cannot change source location/name/type');
     const evidence = checkedEvidence(patch.evidence), display = displayFields(patch.brandId, patch.format);
     requireValue(patch.brandId === row.brandId && brands[display.b].types.includes(row.type), 'a format patch cannot change source brand/type');
     reserveOfficialId(display.parentBrandId, evidence.branchCode);
@@ -122,6 +148,11 @@ export function applyRetailRefresh(base, refresh) {
       refresh: Object.freeze({checkedOn: refresh.checkedOn, evidence})};
     row.sourceFacts = Object.freeze({...sourceFacts(row, {formats, sources}), sourceId: item.sourceId,
       layer: 'official_verified_supplement', coordinateRole: item.coordinateRole});
+    if (own(item, 'selectedCoordinate')) {
+      const selection = selectedCoordinate(item.selectedCoordinate, item);
+      row.lon = selection.longitude; row.lat = selection.latitude;
+      row.coordinateRole = selection.pointRole; row.coordinateSelection = selection;
+    }
     rowIndex.set(row.key, rows.length); rows.push(row);
   }
   for (const row of rows) {

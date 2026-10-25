@@ -22,6 +22,11 @@
       "key": "bigc-official-15073",
       "code": "15073",
       "point": [
+        100.6477432,
+        13.6671705
+      ],
+      "pointRole": "owner_confirmed_maps_store_point",
+      "rawOfficialPoint": [
         100.64690561279112,
         13.666999737741738
       ]
@@ -85,22 +90,34 @@
       "checkedOn": "2026-10-25"
     },
     "bigc-official-15073": {
-      "status": "no_building",
+      "status": "boundary_candidate",
       "buildingId": null,
-      "candidateIds": [],
-      "boundaryDistanceM": null,
-      "sourceURL": "https://bfppub.blob.core.windows.net/%24web/2026-08-13/dataset-links.csv",
-      "queryCoverage": "complete_cached_point_partitions_132203310_132203311",
-      "provider": "microsoft_ml",
-      "decisionSource": "microsoft",
-      "decisionRule": "supplemental_retailer_point_cached_microsoft_query",
-      "nativeStatus": "unavailable",
-      "nativeCoverage": "not_queried_for_new_official_points",
-      "microsoftStatus": "no_building",
-      "referenceStatus": "unavailable",
+      "candidateIds": [
+        "cmv4-70aa2830ff1ea4b186f1a46b94fa"
+      ],
+      "boundaryDistanceM": 4.851,
+      "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/detailMvt/14/12772/7564?inTileType=SUBDISTRICT&inTileId=14647959-5caa-475b-a165-213e6a4f87fc&version=V4&hideWithParts=false",
+      "queryCoverage": "complete_six_cached_native_scopes_with_1000m_halo",
+      "provider": "citymeter_native",
+      "decisionSource": "citymeter_native",
+      "decisionRule": "owner_selected_point_native_boundary",
+      "nativeStatus": "boundary_candidate",
+      "nativeCoverage": "complete_six_cached_native_scopes_with_1000m_halo",
+      "nativeQueryContextComplete": true,
+      "nativeQueryURL": "https://landometer.com/api/v2/citymeter-v3/building/detailMvt/14/12772/7564?inTileType=SUBDISTRICT&inTileId=14647959-5caa-475b-a165-213e6a4f87fc&version=V4&hideWithParts=false",
+      "nativeQuerySha256": "b04f089d790eeea244d082437873ed98763456a122bb082ac50d9ae6a5251153",
+      "microsoftStatus": "boundary_candidate",
+      "referenceStatus": "boundary_candidate",
       "sourceConflict": null,
-      "pointRole": "official_public_contact_directory_branch_point",
-      "checkedOn": "2026-10-25"
+      "pointRole": "owner_confirmed_maps_store_point",
+      "checkedOn": "2026-10-25",
+      "selectedPoint": [
+        100.6477432,
+        13.6671705
+      ],
+      "coordinateEvidence": "data/parc-coordinate-correction.json",
+      "referenceComparison": "Same source component as the named host; not an additional independent building.",
+      "microsoftComparison": "Complete two cached partitions rechecked at selected point; boundary4.601m. Native boundary retained."
     },
     "bigc-official-15066": {
       "status": "point_inside",
@@ -428,6 +445,159 @@
           "geometryRole": "ml_roofprint",
           "license": "CDLA-Permissive-2.0"
         }
+      },
+      {
+        "type": "Feature",
+        "id": "cmv4-70aa2830ff1ea4b186f1a46b94fa",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                100.64766705036163,
+                13.667411238225972
+              ],
+              [
+                100.64780652523041,
+                13.667364323430313
+              ],
+              [
+                100.64780116081238,
+                13.667348685165093
+              ],
+              [
+                100.64784407615662,
+                13.667333046899873
+              ],
+              [
+                100.64774751663208,
+                13.667041132615777
+              ],
+              [
+                100.64778506755829,
+                13.667030707105631
+              ],
+              [
+                100.64775288105011,
+                13.666942090269387
+              ],
+              [
+                100.64769923686981,
+                13.666957728534607
+              ],
+              [
+                100.6476616859436,
+                13.666843047922999
+              ],
+              [
+                100.64749538898468,
+                13.666889962718656
+              ],
+              [
+                100.64766705036163,
+                13.667411238225972
+              ]
+            ]
+          ]
+        },
+        "properties": {
+          "buildingId": "cmv4-70aa2830ff1ea4b186f1a46b94fa",
+          "nativeBuildingId": null,
+          "sourceFeatureId": null,
+          "sourceFeatureIndex": 51,
+          "sourceComponent": 0,
+          "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/detailMvt/14/12772/7564?inTileType=SUBDISTRICT&inTileId=14647959-5caa-475b-a165-213e6a4f87fc&version=V4&hideWithParts=false",
+          "sourceSnapshotSHA256": "b04f089d790eeea244d082437873ed98763456a122bb082ac50d9ae6a5251153",
+          "sourceRetrievedAtUTC": "2026-10-22T13:06:26.935821+00:00",
+          "sourceAreaId": "14647959-5caa-475b-a165-213e6a4f87fc",
+          "tile": "14/12772/7564",
+          "sourceExtent": 4096,
+          "rawTileRings": [
+            [
+              [
+                2405,
+                -14
+              ],
+              [
+                2431,
+                -5
+              ],
+              [
+                2430,
+                -2
+              ],
+              [
+                2438,
+                1
+              ],
+              [
+                2420,
+                57
+              ],
+              [
+                2427,
+                59
+              ],
+              [
+                2421,
+                76
+              ],
+              [
+                2411,
+                73
+              ],
+              [
+                2404,
+                95
+              ],
+              [
+                2373,
+                86
+              ],
+              [
+                2405,
+                -14
+              ]
+            ]
+          ],
+          "sourceGeometrySHA256": "2fe21de9f293d9f811dd0a40db3237ff08f57c6c99ef135553828b3d77aa592b",
+          "geometryRole": "source_affine_quantized_building_footprint",
+          "sourceCoordinateTransform": "EPSG4326_affine_tile_bounds",
+          "sourceHeightM": null,
+          "rawSourceProperties": {
+            "height_m": "16.75",
+            "estimated_floor": 4,
+            "height_class_code": "H3"
+          },
+          "estimatedFloor": 4,
+          "heightRole": "unknown_display_fallback",
+          "sourceLicenses": [
+            "ODbL-1.0",
+            "CC-BY-4.0"
+          ],
+          "attribution": "CityMETER V4; ©OpenStreetMap contributors;3D-GloBFP(Che etal.);Google OpenBuildings",
+          "provider": "citymeter_native",
+          "sourceLabel": "CityMETER",
+          "sourcePageURL": "https://landometer.com/v3/citymeter?d=building",
+          "height": 3,
+          "base": 0,
+          "measuredHeightM": null,
+          "ownerObservedStoreys": 3,
+          "sourceEstimatedFloor": 4,
+          "ownerStoreysRole": "direct_owner_statement_current_parking_building_not_metre_height",
+          "sourceModelHeightM": 16.75,
+          "sourceHeightRole": "raw_provider_model_observation_held_not_selected",
+          "hostKind": "parking_building_with_ground_floor_grocery",
+          "referenceRole": "named_host_context",
+          "scopeStoreKey": "bigc-official-15073",
+          "heightFloorReview": "Owner reports 3 storeys; native estimated_floor=4 is a separate model observation. Do not convert 3 storeys to 9 m or label estimated 4 as observed.",
+          "rawHeight": 16.75,
+          "selectedHeightDecision": "Hold model height pending corroboration; raw 16.75 m / estimated 4 floors remain separate from owner-reported 3 storeys. The 3 m display fallback is not an observed height or floor count.",
+          "sourceSnapshotSha256": "b04f089d790eeea244d082437873ed98763456a122bb082ac50d9ae6a5251153",
+          "geometrySha256": "2fe21de9f293d9f811dd0a40db3237ff08f57c6c99ef135553828b3d77aa592b",
+          "coordinateCorrectionScope": "bigc-official-15073",
+          "pointRole": "owner_confirmed_maps_store_point"
+        }
       }
     ]
   },
@@ -449,5 +619,31 @@
       "bboxCandidates": 3
     }
   ],
-  "queryLimit": "Two complete pinned official partitions containing the five points; not a new national building census. Native and named reference sources not queried for these new points. Original27607 decisions remain unchanged."
+  "queryLimit": "Original five official-point Microsoft observations remain historical. Only the selected PARC point is revised by owner request and tested against six complete cached native scopes and both complete pinned Microsoft partitions. The other four supplemental points and original27607 decisions are unchanged.",
+  "priorPARCPointObservation": {
+    "baselineRevision": "194c118a8920aafda8da452f59bcbed746bf6e4a",
+    "point": [
+      100.64690561279112,
+      13.666999737741738
+    ],
+    "decision": {
+      "status": "no_building",
+      "buildingId": null,
+      "candidateIds": [],
+      "boundaryDistanceM": null,
+      "sourceURL": "https://bfppub.blob.core.windows.net/%24web/2026-08-13/dataset-links.csv",
+      "queryCoverage": "complete_cached_point_partitions_132203310_132203311",
+      "provider": "microsoft_ml",
+      "decisionSource": "microsoft",
+      "decisionRule": "supplemental_retailer_point_cached_microsoft_query",
+      "nativeStatus": "unavailable",
+      "nativeCoverage": "not_queried_for_new_official_points",
+      "microsoftStatus": "no_building",
+      "referenceStatus": "unavailable",
+      "sourceConflict": null,
+      "pointRole": "official_public_contact_directory_branch_point",
+      "checkedOn": "2026-10-25"
+    }
+  },
+  "coordinateCorrection": "data/parc-coordinate-correction.json"
 }

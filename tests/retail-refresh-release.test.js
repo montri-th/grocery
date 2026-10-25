@@ -3,13 +3,13 @@ import assert from 'node:assert/strict';
 import {readJSON} from './helpers.js';
 import {buildModel, filterRows, brandCount} from '../js/model.js';
 import {buildStoreDetail} from '../js/profile-model.js';
-import {configureBrandLogos, getBrandLogo, getFormatLogo} from '../js/brand-logos.js?v=20261025-fp2';
+import {configureBrandLogos, getBrandLogo, getFormatLogo} from '../js/brand-logos.js?v=20261025-fp3';
 
 const grocery = readJSON('data/grocery.json'), areas = readJSON('data/areas.json'), refresh = readJSON('data/retail-refresh.json');
 const expected = {
   '15069': {lat: 13.74584843, lon: 100.5000923, district: '1001', unit: 'b3221f7e-f41c-43b0-b8b9-24e9ba4884de'},
   '15070': {lat: 13.74268075, lon: 100.5489759, district: '1007', unit: '23b4b88f-a1ac-4a41-a3e8-3253bddc3547'},
-  '15073': {lat: 13.666999737741738, lon: 100.64690561279112, district: '1047', unit: '7430567c-5878-422e-97ba-2dbad5f0d9fe'},
+  '15073': {lat: 13.666999737741738, lon: 100.64690561279112, selected: [100.6477432, 13.6671705], district: '1047', unit: '7430567c-5878-422e-97ba-2dbad5f0d9fe'},
   '15066': {lat: 13.85787881, lon: 100.5370458, district: '1201', unit: null},
   '15068': {lat: 13.727357, lon: 100.546693, district: '1007', unit: 'b252deaa-c659-4b80-8672-a53ceca7f1bb'},
 };
@@ -34,12 +34,25 @@ test('shipped retail overlay keeps all source point facts and API totals while a
   assert.equal(JSON.stringify({grocery, areas, refresh}), before);
 });
 
-test('shipped supplemental points match official coordinate checkpoints and reviewed admin IDs without copying venue centroids', () => {
+test('shipped points retain official source checkpoints and only PARC selects the exact owner-confirmed Maps point', () => {
   const model = buildModel(grocery, areas, refresh);
   assert.deepEqual(refresh.supplemental.map(r => r.sourceId).sort(), Object.keys(expected).sort());
   for (const [id, gold] of Object.entries(expected)) {
     const row = model.rowByKey.get(`bigc-official-${id}`), item = refresh.supplemental.find(r => r.sourceId === id);
-    assert.equal(row.lon, gold.lon); assert.equal(row.lat, gold.lat);
+    assert.deepEqual([item.longitude, item.latitude], [gold.lon, gold.lat], 'raw official overlay point is preserved');
+    assert.deepEqual([row.sourceFacts.longitude, row.sourceFacts.latitude], [gold.lon, gold.lat], 'frozen source facts retain the official point');
+    assert.deepEqual([row.lon, row.lat], gold.selected || [gold.lon, gold.lat], 'one selected override never changes another supplemental point');
+    if (gold.selected) {
+      assert.equal(item.selectedCoordinate.kind, 'owner_confirmed_maps_point');
+      assert.equal(item.selectedCoordinate.decision, 'owner_requested_coordinate_correction');
+      assert.deepEqual(item.selectedCoordinate.sourcePoint, [gold.lon, gold.lat]);
+      assert.equal(row.coordinateSelection.pointRole, 'owner_confirmed_maps_store_point');
+      assert.equal(row.coordinateRole, 'owner_confirmed_maps_store_point');
+      assert.ok(Object.isFrozen(row.sourceFacts) && Object.isFrozen(row.coordinateSelection));
+    } else {
+      assert.equal(item.selectedCoordinate, undefined);
+      assert.equal(row.coordinateSelection, undefined);
+    }
     assert.equal(model.districts[row.d].code, gold.district);
     assert.deepEqual(row.u.map(i => model.units[i].key), gold.unit ? [gold.unit] : []);
     assert.match(row.administrativeEvidence.method, /inferred supplemental membership/);

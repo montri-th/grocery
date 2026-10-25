@@ -9,8 +9,8 @@
  * Shares use the same counting as the Aha (hierarchy.js); population shares are
  * given only when every child has a registered population.
  */
-import {TYPE_ORDER} from './model.js?v=20261025-fp2';
-import {summarizeChildren, rankChildren, areaRows, comparisonRows, CHILD_LEVEL, levelOf} from './hierarchy.js?v=20261025-fp2';
+import {TYPE_ORDER} from './model.js?v=20261025-fp3';
+import {summarizeChildren, rankChildren, areaRows, comparisonRows, CHILD_LEVEL, levelOf} from './hierarchy.js?v=20261025-fp3';
 
 export function buildRankingModel(model, rows, compareSel, metric = 'count') {
   const summary = summarizeChildren(model, rows, compareSel);

@@ -1,0 +1,162 @@
+{
+  "schema": "citymeter-owner-coordinate-correction-v1",
+  "checkedOn": "2026-10-25",
+  "baselineRevision": "194c118a8920aafda8da452f59bcbed746bf6e4a",
+  "storeKey": "bigc-official-15073",
+  "branchCode": "15073",
+  "canonicalOutletId": "479f6251-bcbd-488b-b483-87a473e91cd4",
+  "selection": {
+    "kind": "owner_confirmed_maps_point",
+    "longitude": 100.6477432,
+    "latitude": 13.6671705,
+    "sourceURL": "https://maps.app.goo.gl/JDaMRUZfW2wBfVhZ9",
+    "checkedOn": "2026-10-25",
+    "decision": "owner_requested_coordinate_correction",
+    "pointRole": "owner_confirmed_maps_store_point",
+    "sourcePoint": [
+      100.64690561279112,
+      13.666999737741738
+    ],
+    "reason": "User explicitly requested selecting the exact confirmed Maps store point on the PARC parking building. Keep the official directory point as a raw observation; no centroid/snapping or surveyed accuracy claim."
+  },
+  "rawOfficialObservation": {
+    "point": [
+      100.64690561279112,
+      13.666999737741738
+    ],
+    "pointRole": "retailer_published_store_point",
+    "sourceKey": "bigc_official_contact_20261025",
+    "sourceURL": "https://cloud-api-cs.bigc.co.th/company/v1/branch/search/frontend?extend%5B%5D=branch_config&offset=0&limit=2000",
+    "sourceSnapshotSHA256": "df7a7e8093ea0a26bf3efba56421e11c8415d1d47b2a3ebbf196de19a9ec5b4b",
+    "priorDecision": {
+      "status": "no_building",
+      "buildingId": null,
+      "candidateIds": [],
+      "boundaryDistanceM": null,
+      "sourceURL": "https://bfppub.blob.core.windows.net/%24web/2026-08-13/dataset-links.csv",
+      "queryCoverage": "complete_cached_point_partitions_132203310_132203311",
+      "provider": "microsoft_ml",
+      "decisionSource": "microsoft",
+      "decisionRule": "supplemental_retailer_point_cached_microsoft_query",
+      "nativeStatus": "unavailable",
+      "nativeCoverage": "not_queried_for_new_official_points",
+      "microsoftStatus": "no_building",
+      "referenceStatus": "unavailable",
+      "sourceConflict": null,
+      "pointRole": "official_public_contact_directory_branch_point",
+      "checkedOn": "2026-10-25"
+    }
+  },
+  "authority": "The owner explicitly requested moving the selected PARC point to the confirmed Maps parking-building listing and updating Sheet/map.",
+  "mapsEvidence": {
+    "requested_url": "https://maps.app.goo.gl/JDaMRUZfW2wBfVhZ9",
+    "http_status": 200,
+    "content_type": "text/html; charset=UTF-8",
+    "sha256": "d2efc8c259c7ed4361a34fd7db367cbd326d1a0cf9764af06f8963b9062eb610",
+    "retrieved_at_utc": "2026-10-25T09:37:49.154931+00:00",
+    "listing_latitude": 13.6671705,
+    "listing_longitude": 100.6477432,
+    "coordinate_role": "Google selected listing !3d/!4d point; not the viewport @ coordinate"
+  },
+  "displacementM": 92.56511746658862,
+  "selectedSpatialDecision": {
+    "status": "boundary_candidate",
+    "buildingId": null,
+    "candidateIds": [
+      "cmv4-70aa2830ff1ea4b186f1a46b94fa"
+    ],
+    "boundaryDistanceM": 4.851,
+    "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/detailMvt/14/12772/7564?inTileType=SUBDISTRICT&inTileId=14647959-5caa-475b-a165-213e6a4f87fc&version=V4&hideWithParts=false",
+    "queryCoverage": "complete_six_cached_native_scopes_with_1000m_halo",
+    "provider": "citymeter_native",
+    "decisionSource": "citymeter_native",
+    "decisionRule": "owner_selected_point_native_boundary",
+    "nativeStatus": "boundary_candidate",
+    "nativeCoverage": "complete_six_cached_native_scopes_with_1000m_halo",
+    "nativeQueryContextComplete": true,
+    "nativeQueryURL": "https://landometer.com/api/v2/citymeter-v3/building/detailMvt/14/12772/7564?inTileType=SUBDISTRICT&inTileId=14647959-5caa-475b-a165-213e6a4f87fc&version=V4&hideWithParts=false",
+    "nativeQuerySha256": "b04f089d790eeea244d082437873ed98763456a122bb082ac50d9ae6a5251153",
+    "microsoftStatus": "boundary_candidate",
+    "referenceStatus": "boundary_candidate",
+    "sourceConflict": null,
+    "pointRole": "owner_confirmed_maps_store_point",
+    "checkedOn": "2026-10-25",
+    "selectedPoint": [
+      100.6477432,
+      13.6671705
+    ],
+    "coordinateEvidence": "data/parc-coordinate-correction.json",
+    "referenceComparison": "Same source component as the named host; not an additional independent building.",
+    "microsoftComparison": "Complete two cached partitions rechecked at selected point; boundary4.601m. Native boundary retained."
+  },
+  "nativeEvidence": {
+    "sourceURL": "https://landometer.com/api/v2/citymeter-v3/building/detailMvt/14/12772/7564?inTileType=SUBDISTRICT&inTileId=14647959-5caa-475b-a165-213e6a4f87fc&version=V4&hideWithParts=false",
+    "sourceSnapshotSHA256": "b04f089d790eeea244d082437873ed98763456a122bb082ac50d9ae6a5251153",
+    "sourceGeometrySHA256": "2fe21de9f293d9f811dd0a40db3237ff08f57c6c99ef135553828b3d77aa592b",
+    "queryCoverage": {
+      "retrievalHaloM": 1000,
+      "requiredScopes": 6,
+      "cachedRequiredScopes": 6,
+      "missingScopeIds": [],
+      "complete": true
+    },
+    "coverageReceiptSHA256": "0fab8a4f2d39ec1e29c011c01d238aa9f784bd3063dbc158fb8f30eb3803ef49"
+  },
+  "microsoftComparison": {
+    "status": "boundary_candidate",
+    "coverage": "Both COMPLETE pinned raw partitions containing the new point, not prior source-point candidate files.",
+    "rawFeaturesScanned": 2681630,
+    "sourcePartitions": [
+      {
+        "quadkey": "132203310",
+        "sourceURL": "https://bfppub.z5.web.core.windows.net/2026-08-13/global-buildings.geojsonl/RegionName=Thailand/quadkey=132203310/part-00000-110f5303-ff85-4c71-a2bf-c6070024fec8.c000.csv.gz",
+        "sourceFileSHA256": "1629f85f5125caa547c2794be670ab02c7ea5ce979c5ff38de255ae90fb68848",
+        "compressedBytes": 113469104,
+        "completeRawPartitionScanned": true
+      },
+      {
+        "quadkey": "132203311",
+        "sourceURL": "https://bfppub.z5.web.core.windows.net/2026-08-13/global-buildings.geojsonl/RegionName=Thailand/quadkey=132203311/part-00138-110f5303-ff85-4c71-a2bf-c6070024fec8.c000.csv.gz",
+        "sourceFileSHA256": "8a868e7616f6610d2b4ccae9a0b0b0e1811b1e5724717f311dd524505ef54915",
+        "compressedBytes": 110546703,
+        "completeRawPartitionScanned": true
+      }
+    ],
+    "candidateIds": [
+      "msml-20260813:5829dcb6686a7b77733b"
+    ],
+    "boundaryDistanceM": [
+      4.6007693074833975
+    ]
+  },
+  "administrativeRecheck": {
+    "districtCode": "1047",
+    "unitKeys": [
+      "7430567c-5878-422e-97ba-2dbad5f0d9fe"
+    ],
+    "membershipChanges": 0
+  },
+  "height": {
+    "selectedMetres": null,
+    "displayFallbackMetres": 3,
+    "ownerReportedStoreys": 3,
+    "heldModelMetres": 16.75,
+    "heldModelFloors": 4
+  },
+  "counts": {
+    "stores": 27612,
+    "brands": 17,
+    "BigC": 1749,
+    "Foodplace": 17,
+    "selectedPointChanges": 1,
+    "sourcePointChanges": 0,
+    "otherPointDecisionChanges": 0,
+    "sourceGeometryChanges": 0
+  },
+  "limits": [
+    "The selected point is the exact Maps place location, not a centroid or snapped interior point.",
+    "The native edge clearance4.851m is below the unchanged10m guard; boundary_candidate is retained.",
+    "Coordinate selection does not confirm metre height, current operation or surveyed shopfront accuracy."
+  ],
+  "independentGeometryAuditSHA256": "35c9d52837e19f7a4fa1c3c2d3ebaaf697691d45843fc381edbc6cac52f76807"
+}

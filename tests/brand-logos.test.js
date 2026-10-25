@@ -2,7 +2,7 @@ import test, {beforeEach} from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import crypto from 'node:crypto';
-import {configureBrandLogos, getBrandLogo, getFormatLogo, brandLogoMarkup, normalizeBrandLabel} from '../js/brand-logos.js?v=20261025-fp2';
+import {configureBrandLogos, getBrandLogo, getFormatLogo, brandLogoMarkup, normalizeBrandLabel} from '../js/brand-logos.js?v=20261025-fp3';
 import {readJSON} from './helpers.js';
 
 const catalog = readJSON('data/brand-logos.json');

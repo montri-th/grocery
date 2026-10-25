@@ -499,7 +499,30 @@
         "sourceGeometrySHA256": "58fcf128c13f717a34ae27e729cd7717d0336a83b2071b2ab81677b0ce2ed3fb",
         "invalidUnitBboxCandidatesNotAssigned": [
           "04110302"
-        ]
+        ],
+        "selectedCoordinateReview": {
+          "checkedOn": "2026-10-25",
+          "point": [
+            100.6477432,
+            13.6671705
+          ],
+          "method": "Independent GEOS covers against unchanged valid CityMETER district1047 and Locale7430567c-5878-422e-97ba-2dbad5f0d9fe display polygons; same membership as raw official point.",
+          "membershipChanges": 0
+        }
+      },
+      "selectedCoordinate": {
+        "kind": "owner_confirmed_maps_point",
+        "longitude": 100.6477432,
+        "latitude": 13.6671705,
+        "sourceURL": "https://maps.app.goo.gl/JDaMRUZfW2wBfVhZ9",
+        "checkedOn": "2026-10-25",
+        "decision": "owner_requested_coordinate_correction",
+        "pointRole": "owner_confirmed_maps_store_point",
+        "sourcePoint": [
+          100.64690561279112,
+          13.666999737741738
+        ],
+        "reason": "User explicitly requested selecting the exact confirmed Maps store point on the PARC parking building. Keep the official directory point as a raw observation; no centroid/snapping or surveyed accuracy claim."
       }
     },
     {
@@ -639,6 +662,7 @@
     "mahatunVenueLogo": "not_found",
     "sourcePointChanges": 0,
     "sourceRowCountChanges": 0,
-    "foodplaceFamilyCountChanges": 0
+    "foodplaceFamilyCountChanges": 0,
+    "coordinateCorrection": "data/parc-coordinate-correction.json"
   }
 }

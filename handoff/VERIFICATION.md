@@ -2,11 +2,28 @@
 
 Dataset snapshot: 2026-10-22 (what CityMETER production shows). Levels are reported separately: data reconciliation, unit tests, machine contracts, LDS checks, rendered harness, live browser checks and live byte attestation. None of them is a blanket LDS, accessibility or market-completeness certificate.
 
-## Follow-up — Forum, PARC, Yaowarat and Mahatun (25 Oct 2026)
+## PARC selected-coordinate correction — 25 Oct 2026 (prepared)
 
-This section records the prepared follow-up independently of the released Foodplace baseline and the 22 Oct evidence below. The release owner reports the current local suite at **183/183 passed** and actual local PARC/Mahatun views checked at 1280 px and 390 px in light/dark themes. The source-point result and named-host fact were inspected separately. A Pure branch in One Bangkok does not receive the Forum fact. One temporary local fetch failure recovered on reload; this is not a fault-path certification. The current preparation checks are recorded in `data/build-receipt.json → targetedFollowup`. Exact source commit, provider delivery and matching live bytes are bound by the external release receipt; this preparation record does not attest a future deployment.
+Current correction preparation: **187/187 local tests passed**, zero failed/skipped. The actual new coordinate/source fact was checked at 1280 px and 390 px in light/dark themes. Bounded native readback passed 43 written values and 3 DATE cells. Exact commit, provider delivery and live byte attestation remain in the external release receipt.
 
-| Check | Prepared follow-up result |
+The owner explicitly requested selecting the exact Maps store point `[100.6477432, 13.6671705]` for `bigc-official-15073`. `data/parc-coordinate-correction.json` records this decision independently of the unchanged official observation `[100.64690561279112, 13.666999737741738]` and its historical `no_building` result. The optional nine-field `selectedCoordinate` object applies only through the supplemental path; raw item fields and frozen `sourceFacts` stay official. The selected row has a cloned/frozen decision and the UI identifies “พิกัด Maps ที่ผู้ใช้ยืนยัน” with the exact source URL and checked date.
+
+| Check | Prepared correction result |
+|---|---|
+| Point and source priority | Selected native result is `boundary_candidate`, 4.851 m from the edge. The unchanged 10 m guard prevents strict-inside acceptance; `buildingId` stays null. No nearest assignment, snapping or geometry adjustment. |
+| Independent Microsoft comparison | Both complete pinned partitions `132203310` and `132203311` were rescanned at the selected point, 2,681,630 records. One containing footprint gives boundary distance 4.600769 m; native boundary remains the decision. Prior-source-point candidate files were not used as complete coverage for the new point. |
+| Country decisions | 808 inside / 9,330 boundary / 17,474 no-hit / 0 ambiguous / 0 unavailable. Source decisions: native 3,059, verified reference 12, Microsoft 24,541. Only the selected PARC row changes from prior no-hit to boundary. |
+| Bangkok decisions | 255 inside / 2,114 boundary / 2,945 no-hit, 5,314 rows, 2,310 candidate features. One original native component was appended; no source geometry changed. |
+| Invariants | All 27,607 original rows and their point decisions, plus the other four supplemental rows/decisions, remain unchanged. Counts remain 27,612 rows / 17 brands / Big C 1,749 / Foodplace 17. Administrative membership remains district 1047 and Locale `7430567c-5878-422e-97ba-2dbad5f0d9fe`. |
+| Named host and height | References remain 31 venues / 78 features / 46 qualified rows with exact Forum/PARC branch scopes. Selected PARC height remains null / 3 m display-only; owner Ground / 3 storeys and held model 16.75 m / 4 floors remain separate. Operation and source address are unchanged. |
+
+This is the local data/method verification record. Exact commit, provider delivery and live byte verification are bound by the external release receipt. Earlier test totals and screenshots below do not certify this selected-coordinate update.
+
+## Follow-up — Forum, PARC, Yaowarat and Mahatun (25 Oct 2026, historical pre-correction `194c118`)
+
+This section preserves the pre-correction follow-up at `194c118`, independently of the selected-coordinate update above and the earlier Foodplace baseline. The release owner reported **183/183 passed** and actual local PARC/Mahatun views checked at 1280 px and 390 px in light/dark themes. The then-selected official source point and named-host fact were inspected separately. A Pure branch in One Bangkok did not receive the Forum fact. One temporary local fetch failure recovered on reload; this was not a fault-path certification. These historical checks are recorded in `data/build-receipt.json → targetedFollowup`; exact source commit, provider delivery and matching live bytes are bound by that release's external receipt. They do not attest the subsequent PARC point correction.
+
+| Check | Historical pre-correction result |
 |---|---|
 | Count and format invariants | 27,612 rows / 17 brands / Big C 1,749 / Foodplace family 17; five supplements remain five. Thirteen existing-row observations comprise 12 Foodplace rows plus one unchanged Mini. |
 | Yaowarat identity | Official branch 22301 resolves to existing canonical outlet `9f9a188a-6a85-4adc-8900-aaea7b49f310`; map key `9f9a188a`, Big C Mini / `C_STORE`, source point and UUID retained; excluded from Foodplace. |

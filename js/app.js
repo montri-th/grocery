@@ -36,28 +36,28 @@
  * on load. Core data first; the map (MapLibre from a CDN), province geometry,
  * building joins and store details are independent and retryable.
  */
-import {buildModel, filterRows, hasPoint, unitName, districtNoun, unitNoun, perCapita, brandCount, withNoun} from './model.js?v=20261025-fp2';
-import {NO_SELECTION, normalizeSelection, levelOf, parentSelection, areaRows, childrenOf, summarizeChildren, rankChildren, buildAha, levelNouns, areaKey, CHILD_LEVEL} from './hierarchy.js?v=20261025-fp2';
-import {buildScale, classify, formatMetric, METRICS} from './scales.js?v=20261025-fp2';
-import {rampHTML} from './ramp-legend.js?v=20261025-fp2';
-import {renderInsightChart} from './charts.js?v=20261025-fp2';
-import {loadMapLibrary} from './vendors.js?v=20261025-fp2';
-import {installStorePins, LOGO_MIN_ZOOM, MAX_PINS} from './pins.js?v=20261025-fp2';
-import {installStoresLayer, STORE_LAYERS} from './stores-layer.js?v=20261025-fp2';
-import {installAreaLayers, installAreaLabels, FILL_MAX_ZOOM, LABEL_MAX_ZOOM, bboxOfFeature} from './area-layers.js?v=20261025-fp2';
-import {configureBrandLogos, brandLogoMarkup} from './brand-logos.js?v=20261025-fp2';
-import {configureVenueLogos} from './venue-logos.js?v=20261025-fp2';
-import {typeMix, brandMix, buildUnitProfile, buildVenueProfile, buildStoreDetail} from './profile-model.js?v=20261025-fp2';
-import {renderOverview, renderUnit, renderVenue, renderStore, renderFilterChips, link, esc, num} from './panel.js?v=20261025-fp2';
-import {buildMapStyle, basemapPalette, TILEJSON_URL, MASSING_BEFORE} from './map-style.js?v=20261025-fp2';
-import {installMassing, outerRings} from './massing.js?v=20261025-fp2';
-import {presetFor, applyPreset, fitPitched, framePoint} from './camera.js?v=20261025-fp2';
-import {buildBreadcrumb, renderBreadcrumb, breadcrumbText} from './breadcrumb.js?v=20261025-fp2';
-import {fetchJSON, ensureProvinceGeo, provinceGeoNow, loadProvinceDetail} from './geo-store.js?v=20261025-fp2';
-import {createSpatialStore, selectSpatialBuildings, buildingFact, referenceBuildingFact} from './spatial-store.js?v=20261025-fp2';
-import {installSpatialBuildings, BUILDING_LAYERS} from './spatial-layer.js?v=20261025-fp2';
-import {installVenueXray} from './venue-xray.js?v=20261025-fp2';
-import {isVenueLevel, areaVenueBuildings, tagVenueFeatures, buildingKinds, venueHostFeatures, venueTargets, xrayFeatures, venueFramePoints, buildingClickTarget} from './venue-level.js?v=20261025-fp2';
+import {buildModel, filterRows, hasPoint, unitName, districtNoun, unitNoun, perCapita, brandCount, withNoun} from './model.js?v=20261025-fp3';
+import {NO_SELECTION, normalizeSelection, levelOf, parentSelection, areaRows, childrenOf, summarizeChildren, rankChildren, buildAha, levelNouns, areaKey, CHILD_LEVEL} from './hierarchy.js?v=20261025-fp3';
+import {buildScale, classify, formatMetric, METRICS} from './scales.js?v=20261025-fp3';
+import {rampHTML} from './ramp-legend.js?v=20261025-fp3';
+import {renderInsightChart} from './charts.js?v=20261025-fp3';
+import {loadMapLibrary} from './vendors.js?v=20261025-fp3';
+import {installStorePins, LOGO_MIN_ZOOM, MAX_PINS} from './pins.js?v=20261025-fp3';
+import {installStoresLayer, STORE_LAYERS} from './stores-layer.js?v=20261025-fp3';
+import {installAreaLayers, installAreaLabels, FILL_MAX_ZOOM, LABEL_MAX_ZOOM, bboxOfFeature} from './area-layers.js?v=20261025-fp3';
+import {configureBrandLogos, brandLogoMarkup} from './brand-logos.js?v=20261025-fp3';
+import {configureVenueLogos} from './venue-logos.js?v=20261025-fp3';
+import {typeMix, brandMix, buildUnitProfile, buildVenueProfile, buildStoreDetail} from './profile-model.js?v=20261025-fp3';
+import {renderOverview, renderUnit, renderVenue, renderStore, renderFilterChips, link, esc, num} from './panel.js?v=20261025-fp3';
+import {buildMapStyle, basemapPalette, TILEJSON_URL, MASSING_BEFORE} from './map-style.js?v=20261025-fp3';
+import {installMassing, outerRings} from './massing.js?v=20261025-fp3';
+import {presetFor, applyPreset, fitPitched, framePoint} from './camera.js?v=20261025-fp3';
+import {buildBreadcrumb, renderBreadcrumb, breadcrumbText} from './breadcrumb.js?v=20261025-fp3';
+import {fetchJSON, ensureProvinceGeo, provinceGeoNow, loadProvinceDetail} from './geo-store.js?v=20261025-fp3';
+import {createSpatialStore, selectSpatialBuildings, buildingFact, referenceBuildingFact} from './spatial-store.js?v=20261025-fp3';
+import {installSpatialBuildings, BUILDING_LAYERS} from './spatial-layer.js?v=20261025-fp3';
+import {installVenueXray} from './venue-xray.js?v=20261025-fp3';
+import {isVenueLevel, areaVenueBuildings, tagVenueFeatures, buildingKinds, venueHostFeatures, venueTargets, xrayFeatures, venueFramePoints, buildingClickTarget} from './venue-level.js?v=20261025-fp3';
 
 const $ = id => document.getElementById(id);
 const FIELDS = ['search', 'brand', 'type', 'format'];

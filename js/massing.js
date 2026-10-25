@@ -21,8 +21,8 @@
  * Heights are OpenMapTiles render_height / render_min_height (OSM tags where
  * present, otherwise the schema's default). They are context, never a claim.
  */
-import {parseVectorTile, tileToLonLat, lonLatToTileUnits, tilesForBBox, metresPerTileUnit} from './mvt.js?v=20261025-fp2';
-import {clipRingToBox, offsetRing, roundRing, isClockwise, ringsIntersect, cleanRing, signedArea} from './geometry.js?v=20261025-fp2';
+import {parseVectorTile, tileToLonLat, lonLatToTileUnits, tilesForBBox, metresPerTileUnit} from './mvt.js?v=20261025-fp3';
+import {clipRingToBox, offsetRing, roundRing, isClockwise, ringsIntersect, cleanRing, signedArea} from './geometry.js?v=20261025-fp3';
 
 export const CITY_LAYER = 'city-massing';
 export const FOCUS_SOURCE = 'focus-massing';

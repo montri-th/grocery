@@ -66,15 +66,21 @@ test('venue reference buildings require an accepted source crosswalk and retain 
       assert.equal(reference.relation, 'named_host_context');
       assert.equal(reference.status, 'venue_reference');
       assert.deepEqual(reference.buildingIds, [expected.buildingId]);
-      assert.equal(reference.coordinateChanges, 0);
-      assert.equal(reference.pointRelation, 'outside');
       if (venueId === 'GV-a6836f91efc61a13') {
+        assert.equal(reference.coordinateChanges, 0);
+        assert.equal(reference.pointRelation, 'outside');
         assert.ok(reference.identityEvidenceURLs.length >= 2 && reference.identityEvidenceURLs.every(url => new URL(url).hostname === 'www.onebangkok.com'));
       } else {
         assert.deepEqual(reference.identityEvidenceURLs, ['https://maps.app.goo.gl/JDaMRUZfW2wBfVhZ9']);
         assert.equal(reference.ownerEvidence.selectedStoreFloor, 'Ground');
         assert.equal(reference.ownerEvidence.ownerReportedStoreys, 3);
-        assert.equal(reference.separateGoogleObservation.selectedAsStorePoint, false);
+        assert.equal(reference.pointRelation, 'inside_boundary_review');
+        assert.equal(reference.selectedPointStatus, 'boundary_candidate');
+        assert.deepEqual(reference.selectedPoint, [100.6477432, 13.6671705]);
+        assert.equal(reference.priorOfficialPointRelation.relation, 'outside');
+        assert.equal(reference.priorOfficialPointRelation.status, 'no_building');
+        assert.deepEqual(reference.priorOfficialPointRelation.point, [100.64690561279112, 13.666999737741738]);
+        assert.equal(reference.separateGoogleObservation.selectedAsStorePoint, true);
       }
       assert.ok(buildingById.has(reference.buildingIds[0]));
       continue;

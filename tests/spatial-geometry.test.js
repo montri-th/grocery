@@ -70,6 +70,13 @@ test('generated spatial artifacts account for every store and resolve every cand
   const baseline = JSON.parse(readFileSync(new URL('./fixtures/spatial-stores-baseline-74d214a.json', import.meta.url)));
   const canonical = value => Array.isArray(value) ? value.map(canonical) : value && typeof value === 'object'
     ? Object.fromEntries(Object.keys(value).sort().map(key => [key, canonical(value[key])])) : value;
+  // Complete prior decisions from released194c118: only PARC15073 is authorized to change.
+  const protectedSupplements = {
+    'bigc-official-15069': '8c2cf897a0f4077fa66adc9d6974c65aa9755206a8f6815b03e9c3052f6a879b',
+    'bigc-official-15070': '8a94ce9245621c2104c84b6a1b4e4f57633193afc3210d77e65e633476f6318f',
+    'bigc-official-15068': 'b429f6883bcd0377e3dc5e1cdd8843bd14797594ae37bf5b81686652288156d2',
+    'bigc-official-15066': '4f6c6389159298db127a4b6a43a319d0d5e4fab530ace48eb53bba0df0149f15'
+  };
   const referenceBytes = readFileSync(new URL('../data/venue-reference-buildings.json', import.meta.url));
   const reference = JSON.parse(referenceBytes), referenceById = new Map(reference.buildings.features.map(f => [f.id, f]));
   const wanted = new Set(model.rows.map(r => r.key)), seen = new Set(), counts = {};
@@ -111,7 +118,17 @@ test('generated spatial artifacts account for every store and resolve every cand
         for (const field of ['height', 'base', 'heightRole', 'sourceURL']) assert.equal(p[field], original.properties[field]);
         assert.equal(p.geometryRole, 'venue_reference_footprint');
       } else if (p.provider === 'citymeter_native') {
-        assert.equal(p.heightRole, 'citymeter_v4_mixed_source_context');
+        if (feature.id === 'cmv4-70aa2830ff1ea4b186f1a46b94fa') {
+          assert.equal(provinceCode, '10');
+          assert.equal(p.coordinateCorrectionScope, 'bigc-official-15073');
+          assert.equal(p.heightRole, 'unknown_display_fallback');
+          assert.equal(p.sourceHeightM, null); assert.equal(p.measuredHeightM, null);
+          assert.equal(p.height, 3); assert.equal(p.base, 0);
+          assert.equal(p.sourceModelHeightM, 16.75); assert.equal(p.sourceEstimatedFloor, 4);
+          assert.equal(p.ownerObservedStoreys, 3);
+          assert.deepEqual(feature.geometry, referenceById.get('followup:cmv4-70aa2830ff1ea4b186f1a46b94fa').geometry);
+          assert.equal(p.geometrySha256, '2fe21de9f293d9f811dd0a40db3237ff08f57c6c99ef135553828b3d77aa592b');
+        } else assert.equal(p.heightRole, 'citymeter_v4_mixed_source_context');
         assert.equal(p.nativeBuildingId, null);
         assert.equal(p.sourceCoordinateTransform, 'EPSG4326_affine_tile_bounds');
         assert.match(p.sourceSnapshotSha256, /^[0-9a-f]{64}$/);
@@ -130,6 +147,7 @@ test('generated spatial artifacts account for every store and resolve every cand
       }
     }
     for (const [key, row] of Object.entries(data.stores)) {
+      if (protectedSupplements[key]) assert.equal(createHash('sha256').update(JSON.stringify(canonical(row))).digest('hex'), protectedSupplements[key], `${key}: another supplemental point decision cannot change`);
       assert.ok(wanted.has(key) && !seen.has(key)); seen.add(key);
       assert.equal(model.provinces[model.rowByKey.get(key).p].code, provinceCode, `${key}: province must match its recorded admin membership`);
       counts[row.status] = (counts[row.status] || 0) + 1;

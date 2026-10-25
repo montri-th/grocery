@@ -139,9 +139,12 @@ test('PARC parking reference preserves its complete quantized source ring and ho
   assert.equal(ref.sourceVenueId, null, 'an anonymous native component never acquires a provider venue UUID');
   assert.equal(ref.ownerEvidence.ownerReportedStoreys, 3); assert.equal(ref.ownerEvidence.selectedStoreFloor, 'Ground');
   assert.equal(ref.ownerEvidence.imageSHA256, '868226fa696bdd186b59d1cf0d89d402df8918432fe373e819be18e1556ed98f');
-  assert.equal(ref.pointRelation, 'outside'); assert.equal(ref.pointDistanceM, 64.954);
+  assert.equal(ref.pointRelation, 'inside_boundary_review'); assert.equal(ref.pointDistanceM, 4.851);
+  assert.deepEqual(ref.priorOfficialPointRelation.point, [100.64690561279112, 13.666999737741738]);
+  assert.equal(ref.priorOfficialPointRelation.relation, 'outside'); assert.equal(ref.priorOfficialPointRelation.distanceM, 64.954);
+  assert.equal(ref.priorOfficialPointRelation.status, 'no_building');
   assert.deepEqual(ref.separateGoogleObservation.point, [100.6477432, 13.6671705]);
-  assert.equal(ref.separateGoogleObservation.selectedAsStorePoint, false);
+  assert.equal(ref.separateGoogleObservation.selectedAsStorePoint, true);
   assert.equal(ref.separateGoogleObservation.relation, 'inside_boundary_review');
   assert.equal(ref.separateGoogleObservation.edgeClearanceM, 4.851);
   assert.equal(ref.separateGoogleObservation.pointReviewGuardM, 10);
@@ -162,19 +165,28 @@ test('PARC parking reference preserves its complete quantized source ring and ho
   assert.deepEqual(p.sourceLicenses, ['ODbL-1.0', 'CC-BY-4.0']);
 });
 
-test('PARC uses only branch-qualified named context and retains the official outside point and no-building result', () => {
+test('PARC selects only the owner-confirmed Maps point as a boundary candidate and preserves the raw official outside observation', () => {
   const row = model.rowByKey.get(parcKey), before = JSON.stringify({row, data: actual.stores[parcKey], ref: raw.venues[parcVenueId]});
   const ref = raw.venues[parcVenueId], parcVenue = model.venues[row.v];
   assert.equal(parcVenue.id, parcVenueId);
-  assert.deepEqual([row.lon, row.lat], [100.64690561279112, 13.666999737741738]);
-  assert.deepEqual([row.sourceFacts.longitude, row.sourceFacts.latitude], [row.lon, row.lat]);
-  assert.equal(actual.stores[parcKey].status, 'no_building');
+  assert.deepEqual([row.lon, row.lat], [100.6477432, 13.6671705]);
+  assert.deepEqual([row.sourceFacts.longitude, row.sourceFacts.latitude], [100.64690561279112, 13.666999737741738]);
+  assert.deepEqual(row.coordinateSelection.sourcePoint, [row.sourceFacts.longitude, row.sourceFacts.latitude]);
+  assert.equal(row.coordinateSelection.sourceURL, 'https://maps.app.goo.gl/JDaMRUZfW2wBfVhZ9');
+  assert.equal(actual.stores[parcKey].status, 'boundary_candidate');
+  assert.equal(actual.stores[parcKey].decisionSource, 'citymeter_native');
+  assert.equal(actual.stores[parcKey].nativeStatus, 'boundary_candidate');
+  assert.equal(actual.stores[parcKey].microsoftStatus, 'boundary_candidate');
+  assert.equal(actual.stores[parcKey].referenceStatus, 'boundary_candidate');
+  assert.equal(actual.stores[parcKey].boundaryDistanceM, 4.851);
+  assert.deepEqual(actual.stores[parcKey].candidateIds, ['cmv4-70aa2830ff1ea4b186f1a46b94fa']);
   const selected = selectSpatialBuildings(model, [row], () => actual, references);
-  assert.equal(selected.matched, 0); assert.equal(selected.noBuilding, 1); assert.equal(selected.referenceCount, 1);
-  assert.deepEqual(selected.links, [{key: parcKey, status: 'no_building', buildingId: null}]);
+  assert.equal(selected.matched, 0); assert.equal(selected.noBuilding, 0); assert.equal(selected.boundary, 1); assert.equal(selected.referenceCount, 1);
+  assert.equal(selected.pointBuildings.length, 0, 'a boundary candidate never becomes an accepted point-building solid');
+  assert.deepEqual(selected.links, [{key: parcKey, status: 'boundary_candidate', buildingId: null}]);
   assert.deepEqual(ids(selected.collection.features), [parcId]);
   assert.deepEqual(selected.collection.features[0].properties.storeKeys, [parcKey]);
-  assert.equal(buildingFact(selected).state, 'unmatched');
+  assert.equal(buildingFact(selected).state, 'uncertain');
   const fact = referenceBuildingFact(selected);
   assert.equal(fact.detail, 'อาคารจอดรถ · PARC Bangna');
   assert.equal(fact.heightLabel, 'ยังไม่มีความสูงอาคาร');

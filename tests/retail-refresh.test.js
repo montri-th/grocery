@@ -6,7 +6,7 @@ import {readJSON} from './helpers.js';
 import {buildModel, filterRows, brandCount} from '../js/model.js';
 import {buildStoreDetail, describeStatus, describeGeometry, brandMix} from '../js/profile-model.js';
 import {renderStore, renderOverview, renderFilterChips} from '../js/panel.js';
-import {configureBrandLogos} from '../js/brand-logos.js?v=20261025-fp2';
+import {configureBrandLogos} from '../js/brand-logos.js?v=20261025-fp3';
 
 const grocery = readJSON('data/grocery.json'), areas = readJSON('data/areas.json');
 const fixture = readJSON('tests/fixtures/retail-refresh.json');

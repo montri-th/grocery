@@ -8,8 +8,8 @@
  * - a unit's stores are its source members (production overlay membership)
  * - population is the registered population the production uses; missing stays missing
  */
-import {TYPE_ORDER, FLAG_ONLINE, FLAG_NO_ADDRESS, unitName, unitKind, perCapita, brandCount, productionURL, hasPoint} from './model.js?v=20261025-fp2';
-import {buildUnitInsight} from './hierarchy.js?v=20261025-fp2';
+import {TYPE_ORDER, FLAG_ONLINE, FLAG_NO_ADDRESS, unitName, unitKind, perCapita, brandCount, productionURL, hasPoint} from './model.js?v=20261025-fp3';
+import {buildUnitInsight} from './hierarchy.js?v=20261025-fp3';
 
 /** Store-type mix in the fixed series order (types with no store are left out). */
 export function typeMix(model, rows) {
@@ -84,10 +84,31 @@ export function readHostLocationEvidence(value) {
     checkedOn: value.checkedOn, sourceURL, sourceImageSHA256: value.sourceImageSHA256.toLowerCase()}) : null;
 }
 
-/** Thai reading of the coordinate: decoded from the production vector tile, never a surveyed door point. */
+/** The selected point must still match its dated decision and retained raw source point. */
+export function readCoordinateSelection(row) {
+  const value = row?.coordinateSelection, source = row?.sourceFacts;
+  if (!row?.supplemental || source?.layer !== 'official_verified_supplement' ||
+    !value || value.kind !== 'owner_confirmed_maps_point' || value.decision !== 'owner_requested_coordinate_correction' ||
+    value.pointRole !== 'owner_confirmed_maps_store_point' || row.coordinateRole !== value.pointRole ||
+    !Number.isFinite(value.longitude) || value.longitude < 97 || value.longitude > 106 ||
+    !Number.isFinite(value.latitude) || value.latitude < 5 || value.latitude > 21 ||
+    value.longitude !== row.lon || value.latitude !== row.lat || !validEvidenceDate(value.checkedOn) ||
+    !Array.isArray(value.sourcePoint) || value.sourcePoint.length !== 2 ||
+    value.sourcePoint[0] !== source.longitude || value.sourcePoint[1] !== source.latitude ||
+    typeof value.reason !== 'string' || !value.reason.trim()) return null;
+  const sourceURL = publicEvidenceURL(value.sourceURL);
+  return sourceURL ? Object.freeze({...value, sourceURL: value.sourceURL,
+    sourcePoint: Object.freeze([...value.sourcePoint])}) : null;
+}
+
+/** Source-coordinate roles stay separate from surveyed position accuracy. */
 export function describeGeometry(model, row = {}) {
   const source = model.sources[row.s];
   if (!hasPoint(row)) return {level: 'none', label: 'ยังไม่มีพิกัด', note: 'รายการยังอยู่ในตารางและจำนวน'};
+  const selection = readCoordinateSelection(row);
+  if (selection) return {level: 'owner_confirmed_maps', label: 'พิกัด Maps ที่ผู้ใช้ยืนยัน',
+    note: 'ใช้จุด Maps ตามการยืนยันของผู้ใช้ เก็บพิกัดจากแบรนด์เดิมแยกไว้ ไม่ใช่ค่าความแม่นจากการสำรวจ',
+    sourceURL: selection.sourceURL, checkedOn: selection.checkedOn};
   if (row.supplemental) return {level: 'official', label: 'พิกัดจากทำเนียบสาขาของแบรนด์', note: 'เก็บค่าพิกัดที่แหล่งข้อมูลส่งคืน ไม่ใช่พิกัดสำรวจหน้าร้าน'};
   return {level: 'tile', label: 'ตำแหน่งตามที่แบรนด์ประกาศ ถอดจากแผนที่ CityMETER',
     note: `${source?.limitation || ''}${source?.limitation ? ' · ' : ''}ถอดจาก vector tile z10 ตารางประมาณ 10 ม. ไม่ใช่พิกัดสำรวจหน้าร้าน`};

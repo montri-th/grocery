@@ -13,11 +13,11 @@
  * Metric tiles and section headings carry pictograms (Material Symbols Rounded
  * subset, js/navigation.js PICTOGRAM_CONTRACT); the text is the meaning.
  */
-import {safeURL, withNoun} from './model.js?v=20261025-fp2';
-import {brandLogoMarkup, getBrandLogo} from './brand-logos.js?v=20261025-fp2';
-import {venueLogoMarkup, getVenueLogo} from './venue-logos.js?v=20261025-fp2';
-import {formatMetric} from './scales.js?v=20261025-fp2';
-import {readOperationalEvidence, readHostLocationEvidence} from './profile-model.js?v=20261025-fp2';
+import {safeURL, withNoun} from './model.js?v=20261025-fp3';
+import {brandLogoMarkup, getBrandLogo} from './brand-logos.js?v=20261025-fp3';
+import {venueLogoMarkup, getVenueLogo} from './venue-logos.js?v=20261025-fp3';
+import {formatMetric} from './scales.js?v=20261025-fp3';
+import {readOperationalEvidence, readHostLocationEvidence, readCoordinateSelection} from './profile-model.js?v=20261025-fp3';
 
 const NUMBER = new Intl.NumberFormat('th-TH', {maximumFractionDigits: 0});
 const DEC1 = new Intl.NumberFormat('th-TH', {minimumFractionDigits: 1, maximumFractionDigits: 1});
@@ -231,6 +231,7 @@ export function renderStore(d, extra = {}) {
   const logo = getBrandLogo(r.brand);
   const activity = r.supplemental ? readOperationalEvidence(d.operationalEvidence) : null;
   const hostLocation = r.supplemental ? readHostLocationEvidence(d.hostLocationEvidence) : null;
+  const coordinateSelection = readCoordinateSelection(r);
   const coords = Number.isFinite(r.lat) ? `${r.lat.toFixed(5)}, ${r.lon.toFixed(5)}` : 'ยังไม่มีพิกัด';
   const address = extra.detail
     ? (extra.detail.address ? esc(extra.detail.address) : '<span class="hint">แหล่งข้อมูลไม่ระบุที่อยู่</span>')
@@ -256,7 +257,7 @@ export function renderStore(d, extra = {}) {
         ${d.venue ? `<dt>สถานที่</dt><dd class="fact-venue">${venueLogoMarkup(d.venue, {size: 'md'})}<span><button type="button" class="link-button" data-action="select-venue" data-id="${d.venue.index}">${esc(d.venue.name)}</button><br><span class="hint">${esc(d.venue.typeTh)} · ตามชื่อสาขา</span></span></dd>` : ''}
         ${extra.buildingReference ? `<dt>อาคารสถานที่</dt><dd>${buildingFactMarkup(extra.buildingReference)}</dd>` : ''}
         ${extra.building ? `<dt>อาคารตามพิกัด</dt><dd>${buildingFactMarkup(extra.building)}</dd>` : ''}
-        <dt>พิกัด</dt><dd><span class="data-number">${esc(coords)}</span><br><span class="hint" title="${esc(d.geometry.note)}">${esc(d.geometry.label)}${d.coLocated ? ` · ร่วมพิกัดกับอีก ${num(d.coLocated)} สาขา` : ''}</span></dd>
+        <dt>พิกัด</dt><dd><span class="data-number">${esc(coords)}</span><br><span class="hint" title="${esc(d.geometry.note)}">${coordinateSelection ? `${link(coordinateSelection.sourceURL, d.geometry.label)} · ${esc(thaiDate(coordinateSelection.checkedOn))}` : esc(d.geometry.label)}${d.coLocated ? ` · ร่วมพิกัดกับอีก ${num(d.coLocated)} สาขา` : ''}</span></dd>
         <dt>แหล่งข้อมูล</dt><dd>${esc(d.source?.label || '')}${d.source?.date ? `<br><span class="hint">${esc(d.source.date)}</span>` : ''}</dd>
         ${d.formatEvidence ? `<dt>ข้อมูลรูปแบบร้าน</dt><dd>${link(d.formatEvidence.url, d.formatEvidence.name)} · ${esc(thaiDate(d.formatEvidence.checkedOn))}${d.formatEvidence.sourceFormat && d.formatEvidence.sourceFormat !== d.format ? `<br><span class="hint">รูปแบบในข้อมูลเดิม: ${esc(d.formatEvidence.sourceFormat)}</span>` : ''}</dd>` : ''}
         ${activity ? `<dt>กิจกรรมล่าสุด</dt><dd title="ประกาศรับสมัครของนายจ้าง ไม่ใช่การตรวจยืนยันการเปิดหน้าร้าน">${link(activity.url, 'รับสมัครพนักงานสาขานี้')} · ${esc(thaiDate(activity.sourcePublishedOn))}</dd>` : ''}

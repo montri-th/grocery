@@ -25,7 +25,7 @@
  * share (union). The population comparison is shown only when every child has
  * a registered population; otherwise it is absent, never estimated.
  */
-import {perCapita, brandCount, unitName, districtNoun, unitNoun} from './model.js?v=20261025-fp2';
+import {perCapita, brandCount, unitName, districtNoun, unitNoun} from './model.js?v=20261025-fp3';
 
 export const NO_SELECTION = Object.freeze({province: -1, district: -1, unit: -1});
 

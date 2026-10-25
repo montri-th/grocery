@@ -43,15 +43,18 @@ test('PARC owner floor and parking-building fact is dated, qualified and separat
 });
 
 test('owner evidence cannot replace raw floor fields, add a height, move the selected point or inject markup', () => {
+  const maliciousPoint = [baselineRow.lon + 0.001, baselineRow.lat + 0.001];
   const value = {...evidence, sourceURL: `${evidence.sourceURL}?from=a&to=b#"><script>alert(1)</script>`,
-    unitFloor: 'Ground', measuredHeightM: 9, height: 9, longitude: 100.6477432, latitude: 13.6671705,
+    unitFloor: 'Ground', measuredHeightM: 9, height: 9, longitude: maliciousPoint[0], latitude: maliciousPoint[1],
     label: '<img src=x onerror="alert(1)">', operatingStatus: 'open'};
   for (const unitFloor of ['', null, 'directory floor']) {
     const row = {...baselineRow, localDetail: {...baselineRow.localDetail, unitFloor, hostLocationEvidence: value}};
     const detail = buildStoreDetail(baseline, row, baseline.rows), html = renderStore(detail, {detail: row.localDetail});
     assert.equal(row.localDetail.unitFloor, unitFloor);
     assert.equal(detail.row.lon, baselineRow.lon); assert.equal(detail.row.lat, baselineRow.lat);
-    assert.notEqual(detail.row.lon, 100.6477432); assert.notEqual(detail.row.lat, 13.6671705);
+    assert.notEqual(detail.row.lon, maliciousPoint[0]); assert.notEqual(detail.row.lat, maliciousPoint[1]);
+    assert.deepEqual(detail.row.coordinateSelection, baselineRow.coordinateSelection, 'host evidence cannot replace the coordinate decision');
+    assert.deepEqual(detail.row.sourceFacts, baselineRow.sourceFacts, 'raw coordinate observations remain unchanged');
     assert.equal(detail.hostLocationEvidence.measuredHeightM, undefined);
     assert.equal(detail.hostLocationEvidence.unitFloor, undefined);
     assert.equal(detail.hostLocationEvidence.operatingStatus, undefined);
@@ -109,7 +112,12 @@ test('merging owner evidence leaves all row identities, points, source fields, c
   assert.deepEqual({...row, localDetail: null}, {...baselineRow, localDetail: null});
   const {hostLocationEvidence, ...rawDetail} = row.localDetail;
   assert.deepEqual(rawDetail, baselineRow.localDetail); assert.deepEqual(hostLocationEvidence, evidence);
-  assert.equal(row.lon, 100.64690561279112); assert.equal(row.lat, 13.666999737741738);
+  assert.ok(raw.selectedCoordinate, 'the current PARC selected point has its own owner coordinate authority');
+  assert.equal(row.lon, raw.selectedCoordinate.longitude); assert.equal(row.lat, raw.selectedCoordinate.latitude);
+  assert.deepEqual(row.coordinateSelection, baselineRow.coordinateSelection);
+  assert.equal(row.sourceFacts.longitude, raw.longitude); assert.equal(row.sourceFacts.latitude, raw.latitude);
+  assert.equal(row.sourceFacts.coordinateRole, raw.coordinateRole);
+  assert.equal(row.sourceFacts.longitude, 100.64690561279112); assert.equal(row.sourceFacts.latitude, 13.666999737741738);
   assert.equal(row.localDetail.operatingStatus, 'not_revalidated');
   assert.deepEqual(describeStatus(row), describeStatus(baselineRow));
   assert.equal(JSON.stringify({grocery, areas, refresh}), inputBefore);

@@ -154,5 +154,7 @@
     "Retrieval date is not a new source editorial date.",
     "Contact active/inactive and recruitment are not proof of current walk-in operation.",
     "Logo availability, named venue identity and geometric containment remain separate."
-  ]
+  ],
+  "snapshotRole": "Historical host-followup evidence at194c118; raw official-point observations remain valid as raw source facts.",
+  "parcSelectedPointSupersededBy": "data/parc-coordinate-correction.json"
 }

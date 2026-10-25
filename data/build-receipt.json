@@ -405,16 +405,16 @@
     "sha256": "2779d3c1208f920a8e79af418913db1e0b0278ccb29df2e7dde0336f65b3ba51"
    },
    "data/venue-reference-buildings.json": {
-    "bytes": 130331,
-    "sha256": "e62d7b287a451cfd3af000c4e8fdfe26687e6cc8b679e8a092c2d057eb268aa3"
+    "bytes": 131324,
+    "sha256": "cd093425fcbdde33e4fc4614c2256fc95d1aa9530dde51dc3f3985b69a5d891c"
    },
    "data/spatial-joins.json": {
-    "bytes": 25421,
-    "sha256": "d833f4a4c8c005ceabd0234f2985a51edde959cb7e9df4bf95c730677ab07948"
+    "bytes": 26311,
+    "sha256": "bb3d3d02a5f3f75b3452dae6ce1808a20e842e8fe76ea549621fcefdc1dba734"
    },
    "data/building-sources.json": {
-    "bytes": 108343,
-    "sha256": "65f6f9a790bbc3f8591dddabe1380e0e23960784696b243361d98957f4f6dae2"
+    "bytes": 109042,
+    "sha256": "d18ba93def42745f6a3e96c54709f93f1707c631cbec7f9c335eb06ec780fd3b"
    },
    "data/licenses/CDLA-Permissive-2.0.txt": {
     "bytes": 2354,
@@ -599,24 +599,24 @@
   },
   "outputs": {
    "data/retail-refresh.json": {
-    "bytes": 28407,
-    "sha256": "a95efa72637f0cffe073cf55ae23ff8a5a19bd1fb8f7b844e33b7079562c29d6"
+    "bytes": 29567,
+    "sha256": "3bb5a8031a8be5976d5591ac0264ee0de591bdf407f1c05673ca1fbe4ff9be42"
    },
    "data/retail-refresh-evidence.json": {
-    "bytes": 29043,
-    "sha256": "e859a1f8801e8c167728a008dcd667cd4d94149496f6903bc4d7ad9879a7d949"
+    "bytes": 29123,
+    "sha256": "845a56df06cfac3f06abf1fad3db3825209179b1da3dd9c1c562f8e1140b57e5"
    },
    "data/retail-refresh-spatial.json": {
-    "bytes": 15645,
-    "sha256": "8500141f373f171a51e3b5ec79675a5b17b1e2d8e2f510b879322cacd08302f4"
+    "bytes": 22952,
+    "sha256": "b43a2444e1ca382a736a5607360f4880b933576c18edbaa9061caef5e570dabe"
    },
    "data/spatial-joins.json": {
-    "bytes": 25421,
-    "sha256": "d833f4a4c8c005ceabd0234f2985a51edde959cb7e9df4bf95c730677ab07948"
+    "bytes": 26311,
+    "sha256": "bb3d3d02a5f3f75b3452dae6ce1808a20e842e8fe76ea549621fcefdc1dba734"
    },
    "data/building-sources.json": {
-    "bytes": 108343,
-    "sha256": "65f6f9a790bbc3f8591dddabe1380e0e23960784696b243361d98957f4f6dae2"
+    "bytes": 109042,
+    "sha256": "d18ba93def42745f6a3e96c54709f93f1707c631cbec7f9c335eb06ec780fd3b"
    },
    "data/brand-logos.json": {
     "bytes": 14752,
@@ -631,12 +631,20 @@
     "sha256": "548dd9c01f4e2ab4a9890512140b5c33b0c40c964a5c289742fac88f81d6a07a"
    },
    "data/retail-followup-evidence.json": {
-    "bytes": 7947,
-    "sha256": "3de50c1af17ab525022ec538a9d56c438131c6c49c557912411cdcb2284046cc"
+    "bytes": 8154,
+    "sha256": "761fd30ff9a173e548ff3c86f5caffb201672e49bc9717546910eb3cb957bda8"
    },
    "data/venue-reference-buildings.json": {
-    "bytes": 130331,
-    "sha256": "e62d7b287a451cfd3af000c4e8fdfe26687e6cc8b679e8a092c2d057eb268aa3"
+    "bytes": 131324,
+    "sha256": "cd093425fcbdde33e4fc4614c2256fc95d1aa9530dde51dc3f3985b69a5d891c"
+   },
+   "data/parc-coordinate-correction.json": {
+    "bytes": 7323,
+    "sha256": "2bfeca7ba85c77afdc180d87541b3820ed06e100850236c77e44ba89435cde44"
+   },
+   "data/spatial/10.json": {
+    "bytes": 10067128,
+    "sha256": "9d26cd338770bda856556a0d79b979d6ea7efd7df16ccaa990489a260b3944c4"
    }
   },
   "verification": {
@@ -749,24 +757,24 @@
   },
   "outputs": {
    "data/retail-refresh.json": {
-    "bytes": 28407,
-    "sha256": "a95efa72637f0cffe073cf55ae23ff8a5a19bd1fb8f7b844e33b7079562c29d6"
+    "bytes": 29567,
+    "sha256": "3bb5a8031a8be5976d5591ac0264ee0de591bdf407f1c05673ca1fbe4ff9be42"
    },
    "data/retail-followup-evidence.json": {
-    "bytes": 7947,
-    "sha256": "3de50c1af17ab525022ec538a9d56c438131c6c49c557912411cdcb2284046cc"
+    "bytes": 8154,
+    "sha256": "761fd30ff9a173e548ff3c86f5caffb201672e49bc9717546910eb3cb957bda8"
    },
    "data/venue-reference-buildings.json": {
-    "bytes": 130331,
-    "sha256": "e62d7b287a451cfd3af000c4e8fdfe26687e6cc8b679e8a092c2d057eb268aa3"
+    "bytes": 131324,
+    "sha256": "cd093425fcbdde33e4fc4614c2256fc95d1aa9530dde51dc3f3985b69a5d891c"
    },
    "data/spatial-joins.json": {
-    "bytes": 25421,
-    "sha256": "d833f4a4c8c005ceabd0234f2985a51edde959cb7e9df4bf95c730677ab07948"
+    "bytes": 26311,
+    "sha256": "bb3d3d02a5f3f75b3452dae6ce1808a20e842e8fe76ea549621fcefdc1dba734"
    },
    "data/building-sources.json": {
-    "bytes": 108343,
-    "sha256": "65f6f9a790bbc3f8591dddabe1380e0e23960784696b243361d98957f4f6dae2"
+    "bytes": 109042,
+    "sha256": "d18ba93def42745f6a3e96c54709f93f1707c631cbec7f9c335eb06ec780fd3b"
    }
   },
   "verification": {
@@ -805,6 +813,208 @@
     "pointJoinChanges": 0
    },
    "publication": "Use exact external release receipt for provider result and matching live bytes; this preparation record does not attest a future commit."
+  },
+  "snapshotRole": "Historical pre-coordinate-correction phase194c118. Output declarations reflect current files; its183test/readback claims belong to that prior phase."
+ },
+ "coordinateCorrection": {
+  "checkedOn": "2026-10-25",
+  "baselineRevision": "194c118a8920aafda8da452f59bcbed746bf6e4a",
+  "scopeStoreKey": "bigc-official-15073",
+  "selectedPointChanges": 1,
+  "rawSourcePointChanges": 0,
+  "otherPointDecisionChanges": 0,
+  "sourceGeometryChanges": 0,
+  "evidence": "data/parc-coordinate-correction.json",
+  "selectedPoint": [
+   100.6477432,
+   13.6671705
+  ],
+  "rawOfficialPoint": [
+   100.64690561279112,
+   13.666999737741738
+  ],
+  "status": "boundary_candidate",
+  "decisionSource": "citymeter_native",
+  "countryCounts": {
+   "point_inside": 808,
+   "boundary_candidate": 9330,
+   "no_building": 17474,
+   "ambiguous": 0,
+   "unavailable": 0
+  },
+  "countryDecisionSources": {
+   "citymeter_native": 3059,
+   "microsoft": 24541,
+   "verified_reference": 12
+  },
+  "heightPolicyUnchanged": "Unknown selected metre height;3m displayonly; owner3storeys separatelyrecorded.",
+  "priorOutputDeclarations": {
+   "joinRefresh": {
+    "data/grocery.json": {
+     "bytes": 3549036,
+     "sha256": "33c07b062d5446bce73eb3a8c9f42ddc2e58f807d03ea8fbcfed666a549349c7"
+    },
+    "data/areas.json": {
+     "bytes": 802906,
+     "sha256": "b84aed95f6358ee3c953b41eca1d326e06968d73b55c7720436a438756259418"
+    },
+    "data/venue-joins.json": {
+     "bytes": 1231938,
+     "sha256": "2779d3c1208f920a8e79af418913db1e0b0278ccb29df2e7dde0336f65b3ba51"
+    },
+    "data/venue-reference-buildings.json": {
+     "bytes": 130331,
+     "sha256": "e62d7b287a451cfd3af000c4e8fdfe26687e6cc8b679e8a092c2d057eb268aa3"
+    },
+    "data/spatial-joins.json": {
+     "bytes": 25421,
+     "sha256": "d833f4a4c8c005ceabd0234f2985a51edde959cb7e9df4bf95c730677ab07948"
+    },
+    "data/building-sources.json": {
+     "bytes": 108343,
+     "sha256": "65f6f9a790bbc3f8591dddabe1380e0e23960784696b243361d98957f4f6dae2"
+    },
+    "data/licenses/CDLA-Permissive-2.0.txt": {
+     "bytes": 2354,
+     "sha256": "4531a67d443284d93ffed0803df5b10634aff21c3d77e381f2d48af01d875868"
+    }
+   },
+   "retailRefresh": {
+    "data/retail-refresh.json": {
+     "bytes": 28407,
+     "sha256": "a95efa72637f0cffe073cf55ae23ff8a5a19bd1fb8f7b844e33b7079562c29d6"
+    },
+    "data/retail-refresh-evidence.json": {
+     "bytes": 29043,
+     "sha256": "e859a1f8801e8c167728a008dcd667cd4d94149496f6903bc4d7ad9879a7d949"
+    },
+    "data/retail-refresh-spatial.json": {
+     "bytes": 15645,
+     "sha256": "8500141f373f171a51e3b5ec79675a5b17b1e2d8e2f510b879322cacd08302f4"
+    },
+    "data/spatial-joins.json": {
+     "bytes": 25421,
+     "sha256": "d833f4a4c8c005ceabd0234f2985a51edde959cb7e9df4bf95c730677ab07948"
+    },
+    "data/building-sources.json": {
+     "bytes": 108343,
+     "sha256": "65f6f9a790bbc3f8591dddabe1380e0e23960784696b243361d98957f4f6dae2"
+    },
+    "data/brand-logos.json": {
+     "bytes": 14752,
+     "sha256": "03e80527e25b3f6d2cac632eae3084ef1f21cef5faebd3fa3af898ae73551ab6"
+    },
+    "assets/brand-logos.svg": {
+     "bytes": 476221,
+     "sha256": "e42afbcda381dbece81eefe447691d7378cc4ae8a646cef4e3f274a7611cdbc3"
+    },
+    "data/venue-logos.json": {
+     "bytes": 72633,
+     "sha256": "548dd9c01f4e2ab4a9890512140b5c33b0c40c964a5c289742fac88f81d6a07a"
+    },
+    "data/retail-followup-evidence.json": {
+     "bytes": 7947,
+     "sha256": "3de50c1af17ab525022ec538a9d56c438131c6c49c557912411cdcb2284046cc"
+    },
+    "data/venue-reference-buildings.json": {
+     "bytes": 130331,
+     "sha256": "e62d7b287a451cfd3af000c4e8fdfe26687e6cc8b679e8a092c2d057eb268aa3"
+    }
+   },
+   "targetedFollowup": {
+    "data/retail-refresh.json": {
+     "bytes": 28407,
+     "sha256": "a95efa72637f0cffe073cf55ae23ff8a5a19bd1fb8f7b844e33b7079562c29d6"
+    },
+    "data/retail-followup-evidence.json": {
+     "bytes": 7947,
+     "sha256": "3de50c1af17ab525022ec538a9d56c438131c6c49c557912411cdcb2284046cc"
+    },
+    "data/venue-reference-buildings.json": {
+     "bytes": 130331,
+     "sha256": "e62d7b287a451cfd3af000c4e8fdfe26687e6cc8b679e8a092c2d057eb268aa3"
+    },
+    "data/spatial-joins.json": {
+     "bytes": 25421,
+     "sha256": "d833f4a4c8c005ceabd0234f2985a51edde959cb7e9df4bf95c730677ab07948"
+    },
+    "data/building-sources.json": {
+     "bytes": 108343,
+     "sha256": "65f6f9a790bbc3f8591dddabe1380e0e23960784696b243361d98957f4f6dae2"
+    }
+   }
+  },
+  "outputs": {
+   "data/retail-refresh.json": {
+    "bytes": 29567,
+    "sha256": "3bb5a8031a8be5976d5591ac0264ee0de591bdf407f1c05673ca1fbe4ff9be42"
+   },
+   "data/retail-refresh-evidence.json": {
+    "bytes": 29123,
+    "sha256": "845a56df06cfac3f06abf1fad3db3825209179b1da3dd9c1c562f8e1140b57e5"
+   },
+   "data/retail-refresh-spatial.json": {
+    "bytes": 22952,
+    "sha256": "b43a2444e1ca382a736a5607360f4880b933576c18edbaa9061caef5e570dabe"
+   },
+   "data/retail-followup-evidence.json": {
+    "bytes": 8154,
+    "sha256": "761fd30ff9a173e548ff3c86f5caffb201672e49bc9717546910eb3cb957bda8"
+   },
+   "data/parc-coordinate-correction.json": {
+    "bytes": 7323,
+    "sha256": "2bfeca7ba85c77afdc180d87541b3820ed06e100850236c77e44ba89435cde44"
+   },
+   "data/venue-reference-buildings.json": {
+    "bytes": 131324,
+    "sha256": "cd093425fcbdde33e4fc4614c2256fc95d1aa9530dde51dc3f3985b69a5d891c"
+   },
+   "data/spatial-joins.json": {
+    "bytes": 26311,
+    "sha256": "bb3d3d02a5f3f75b3452dae6ce1808a20e842e8fe76ea549621fcefdc1dba734"
+   },
+   "data/building-sources.json": {
+    "bytes": 109042,
+    "sha256": "d18ba93def42745f6a3e96c54709f93f1707c631cbec7f9c335eb06ec780fd3b"
+   },
+   "data/spatial/10.json": {
+    "bytes": 10067128,
+    "sha256": "9d26cd338770bda856556a0d79b979d6ea7efd7df16ccaa990489a260b3944c4"
+   }
+  },
+  "verificationState": "local187testspassed; actual1280/390light_darkcoordinatefactschecked; nativeboundedreadbackpassed; exactcommitprovider/liveattestationrecordedseparately",
+  "verification": {
+   "localTests": {
+    "passed": 187,
+    "failed": 0,
+    "skipped": 0,
+    "logSHA256": "425ca3e934aadc6479c77e050be741df36f6c7facf143cf0105f78035c9753ab"
+   },
+   "sourcePointChanges": 0,
+   "selectedPointChanges": 1,
+   "originalDecisionDictionariesPreserved": 77,
+   "otherSupplementalDecisionsPreserved": 4,
+   "existingBKKGeometryObjectsPreserved": 2309,
+   "renderedViewports": [
+    [
+     1280,
+     900
+    ],
+    [
+     390,
+     844
+    ]
+   ],
+   "renderedThemes": [
+    "light",
+    "dark"
+   ],
+   "nativeWrittenValues": 43,
+   "nativeDates": 3,
+   "nativeSheetTabsChecked": 17,
+   "nativeTablesChecked": 14,
+   "nativeVerificationSHA256": "60b698629b835e0a3afed371be02056ded07c770bd76a678e0db37155001a4f5",
+   "publication": "External exactcommitrelease receipt verifies delivery, notthislocalpreparationrecord."
   }
  }
 }

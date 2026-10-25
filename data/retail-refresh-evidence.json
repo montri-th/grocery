@@ -486,5 +486,6 @@
     "checkedOn": "2026-10-25",
     "evidence": "data/retail-followup-evidence.json",
     "supersedes": "Original Yaowarat held-identification observation; current Mini resolution and scoped host follow-up are recorded separately. Original evidence records remain historical."
-  }
+  },
+  "selectedPARCCoordinateSupersededBy": "data/parc-coordinate-correction.json"
 }
