@@ -31,7 +31,7 @@ test('the venue level is a venue panel or a store whose branch name names a venu
   assert.equal(isVenueLevel({mode: 'unit'}, paragon), false, 'an area panel is never the venue level');
   // The crumbs of a store in a venue end at the venue; a store is never a crumb.
   const sel = normalizeSelection(model, {unit: store.u[0]});
-  assert.deepEqual(buildBreadcrumb(model, sel, paragon).map(c => c.level), ['country', 'province', 'district', 'unit', 'venue']);
+  assert.deepEqual(buildBreadcrumb(model, sel, paragon).map(c => c.level), ['country', 'province', 'unit', 'site']);
 });
 
 test('an area level draws only the accepted reference buildings of the venues its rows name', () => {
@@ -144,7 +144,7 @@ test('camera contract: two-point (eye) by default at venue level, model with ?ca
 test('?cam=model restores the model view; the default URL keeps the two-point view and stays clean', () => {
   const restore = search => {
     const state = {filters: {search: '', brand: '', type: ''}, sel: {...NO_SELECTION}, panel: {mode: 'overview', id: ''}};
-    const context = vm.createContext({state, location: {search}, URLSearchParams, M: () => model, NO_SELECTION, normalizeSelection, filterRows, hasPoint,
+    const context = vm.createContext({state, location: {search}, nav: {read: () => new URLSearchParams(search)}, URLSearchParams, M: () => model, NO_SELECTION, normalizeSelection, filterRows, hasPoint,
       FIELDS: ['search', 'brand', 'type'], rowByKey, $: () => ({})});
     vm.runInContext([slice('function restoreFromURL()', '/* ---------- theme ---------- */'), slice('function storeSelection(', 'function computeFocus()'), 'restoreFromURL();'].join('\n'), context);
     return state;

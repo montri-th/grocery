@@ -3,7 +3,7 @@
   "schemaVersion": "1.1.0",
   "documentType": "implementation-plan",
   "productId": "citymeter-grocery",
-  "productVersion": "0.2.0",
+  "productVersion": "0.3.0",
   "updatedOn": "2026-10-22",
   "brief": "product-brief.json",
   "statement": "product-statement.json",
@@ -59,7 +59,7 @@
         "role": "orchestration: selection {province, district, unit}, filters, row scopes (filtered/scopeRows/rows), focus modes, Aha, panel modes + back stack, URL state (+ cam), legend (41-sample ramp), chart tray, table, map lifecycle (stores → buildings as data → massing → venue x-ray → areas), camera calls, venue level (displayedBuildings, currentVenueHosts, updateVenueScene, frameVenue, onBuildingSelect, toggleTwoPoint, syncEyeToggle)"
       },
       {
-        "path": "js/launch.js",
+        "path": "js/shell/launch.js",
         "role": "classic boot script: file bridge to the public URL, loading/slow/error overlay, citymeter:ready / citymeter:load-error"
       },
       {

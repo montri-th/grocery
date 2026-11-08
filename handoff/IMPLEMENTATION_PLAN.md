@@ -21,7 +21,7 @@ Static HTML/CSS และ JavaScript ES modules ไม่มี build step ไ�
 | ไฟล์ | หน้าที่ | ข้อต่อที่ต้องรักษา |
 |---|---|---|
 | `index.html` | โครงหน้าจอ: header + toolbar, map panel (legend + สวิตช์ตัวชี้วัด, การ์ด Aha มือถือ, status), ถาดกราฟ, ตาราง, แผงอ่านข้อมูล (breadcrumb บนสุด), help dialog, launch overlay | DOM IDs ที่ `app.js`/`navigation.js` ใช้; `?v=` บน entry files; ไม่มี CSV/caveat UI |
-| `js/launch.js` | classic boot script, file bridge, loading/slow/error fallback | events `citymeter:ready`, `citymeter:load-error`; public origin `https://montri-th.github.io/grocery/` |
+| `js/shell/launch.js` | classic boot script, file bridge, loading/slow/error fallback | events `citymeter:ready`, `citymeter:load-error`; public origin `https://montri-th.github.io/grocery/` |
 | `js/app.js` | state, selection `{province, district, unit}`, ขอบเขตข้อมูลสามชั้น + focus mode, panel modes + back stack, URL state (+ `cam`), legend, map lifecycle, ติดตั้งชั้น spatial (stores → อาคารที่วาด → massing → x-ray → areas), กล้อง, ระดับสถานที่ (`displayedBuildings`, `updateVenueScene`, `frameVenue`, `toggleTwoPoint`) | `update()` เป็นจุดเดียวที่คำนวณ selection, Aha, focus และ rows; ลำดับติดตั้งคือลำดับ click และลำดับ depth (ห้ามสลับโดยไม่ทดสอบ) |
 | `js/model.js` | `buildModel(grocery, areas)`: แถว, แบรนด์, ประเภท, พื้นที่, ดัชนี lookup, `filterRows`, `perCapita`, `productionURL`, คำนาม (`unitName`, `districtNoun`, `unitNoun`, `withNoun`) | ไม่แก้แถวต้นทาง; สาขากับแบรนด์ไม่ซ้ำแยกกัน; key 8 หลักไม่ชน |
 | `js/hierarchy.js` | ลำดับชั้น, `areaRows`, `childrenOf`, `summarizeChildren`, `rankChildren`, `buildAha`, `buildUnitInsight`, `levelNouns`, `areaKey` | สมาชิกตาม production; union ใน Aha; ประชากรไม่ครบ = ไม่เทียบ |

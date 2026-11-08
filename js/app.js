@@ -31,9 +31,10 @@
  * SCENE.eye) and the venue's buildings are drawn by the x-ray (venue-xray.js) so
  * they stay visible and clickable. Evidence rules: js/venue-level.js.
  *
- * URL state: search, brand, type, format, province, district, unit, areas, metric, view,
- * store, place, view3d, cam (cam=model turns the two-point view off) — restored
- * on load. Core data first; the map (MapLibre from a CDN), province geometry,
+ * URL state (own names, inside): search, brand, type, format, province, district, unit, areas, metric, view,
+ * store, place, view3d, cam (cam=model turns the two-point view off) — written in the shared grammar
+ * d · at · e · m · f.* · focus · view · v3d · cam by citymeter-shell (js/shell/url.js), one browser history entry
+ * per level (the back button goes up a level), restored on load. Core data first; the map (MapLibre from a CDN), province geometry,
  * building joins and store details are independent and retryable.
  */
 import {buildModel, filterRows, hasPoint, unitName, districtNoun, unitNoun, perCapita, brandCount, withNoun} from './model.js?v=20261025-fp3';
@@ -52,7 +53,9 @@ import {renderOverview, renderUnit, renderVenue, renderStore, renderFilterChips,
 import {buildMapStyle, basemapPalette, TILEJSON_URL, MASSING_BEFORE} from './map-style.js?v=20261025-fp3';
 import {installMassing, outerRings} from './massing.js?v=20261025-fp3';
 import {presetFor, applyPreset, fitPitched, framePoint} from './camera.js?v=20261025-fp3';
-import {buildBreadcrumb, renderBreadcrumb, breadcrumbText} from './breadcrumb.js?v=20261025-fp3';
+import {buildBreadcrumb, renderBreadcrumb, breadcrumbText} from './breadcrumb.js?v=20261109-r1';
+import {createCodec, createNavigator} from './shell/url.js';
+import {pageTitle} from './shell/title.js';
 import {fetchJSON, ensureProvinceGeo, provinceGeoNow, loadProvinceDetail} from './geo-store.js?v=20261025-fp3';
 import {createSpatialStore, selectSpatialBuildings, buildingFact, referenceBuildingFact} from './spatial-store.js?v=20261025-fp3';
 import {installSpatialBuildings, BUILDING_LAYERS} from './spatial-layer.js?v=20261025-fp3';
@@ -132,12 +135,32 @@ const venueLevel = () => isVenueLevel(state.panel, currentVenue());
 const cameraPreset = () => presetFor({view3d: state.view3d, mode: state.panel.mode === 'overview' ? 'overview' : 'detail', twoPoint: state.twoPoint && venueLevel() && !sheetOpen()});
 
 /* ---------- URL ---------- */
+/* ---------- address (citymeter-shell, js/shell/url.js) ---------- */
+// The page keeps its own parameter names inside (saveURL / restoreFromURL); the shell writes them in the shared
+// grammar d · at · e · m · f.* · focus · view · v3d · cam, and opening an area, a store or a venue adds one browser
+// history entry, so the back button goes up a level. `at` is the deepest level only: a province (CBI), a district
+// (CBI/D/2001), a local unit (CBI/M/03200701) or a Bangkok locale (BKK/L/<uuid>); the parents come back from the
+// model. Old links (?province=&district=&unit=, ?store=, ?place=, ?metric= …) still open and are rewritten. The `e`
+// kinds are provisional until the dataset registry declares them: `store` and `venue` (this dataset's venue ids, GV-).
+const nav = createNavigator(createCodec({
+  dataset: 'grocery', levels: ['P', 'D', 'M', 'L'], place: {province: 'province', D: 'district', M: 'unit', L: 'unit'},
+  items: {store: 'store', place: 'venue'}, filters: FIELDS,
+  rename: {metric: 'm', areas: 'focus', view: 'view', view3d: 'v3d', cam: 'cam'},
+  provinceOf: (code, kind) => {
+    const m = state.model;
+    if (!m) return '';
+    if (kind === 'D') { const d = m.districtByCode.get(code); return d ? m.provinces[d.p].abbr : ''; }
+    if (kind === 'M' || kind === 'L') { const u = m.unitByKey.get(code); return u && u.kind === kind ? m.provinces[u.p].abbr : ''; }
+    return '';
+  },
+}), {onPop: restoreFromHistory});
 function saveURL() {
   const p = new URLSearchParams(), f = state.filters, m = M();
   for (const k of FIELDS) if (f[k]) p.set(k, f[k]);
-  if (state.sel.province >= 0) p.set('province', m.provinces[state.sel.province].abbr);
-  if (state.sel.district >= 0) p.set('district', m.districts[state.sel.district].code);
+  // Only the deepest level goes in the address (`at` is one production path); restoreFromURL rebuilds the parents.
   if (state.sel.unit >= 0) p.set('unit', m.units[state.sel.unit].key);
+  else if (state.sel.district >= 0) p.set('district', m.districts[state.sel.district].code);
+  else if (state.sel.province >= 0) p.set('province', m.provinces[state.sel.province].abbr);
   if (state.focusKeys.length) p.set('areas', state.focusKeys.join(','));
   else if (!state.autoFocus) p.set('areas', 'all');
   if (state.metric !== 'count') p.set('metric', state.metric);
@@ -146,11 +169,11 @@ function saveURL() {
   if (state.panel.mode === 'venue') p.set('place', m.venues[state.panel.id]?.id || '');
   if (!state.view3d) p.set('view3d', '0');
   if (!state.twoPoint) p.set('cam', 'model');
-  history.replaceState(null, '', location.pathname + (p.size ? '?' + p : ''));
+  nav.commit(p);
 }
 
 function restoreFromURL() {
-  const p = new URLSearchParams(location.search), m = M();
+  const p = nav.read(), m = M();
   for (const k of FIELDS) if (p.has(k)) state.filters[k] = p.get(k) || '';
   if (state.filters.brand && !m.brandById.has(state.filters.brand)) state.filters.brand = '';
   if (state.filters.type && !m.typeById.has(state.filters.type)) state.filters.type = '';
@@ -305,8 +328,10 @@ function currentCrumbs() { return buildBreadcrumb(M(), state.sel, currentVenue()
 function renderCrumbs() {
   const crumbs = currentCrumbs();
   $('crumbs').innerHTML = renderBreadcrumb(crumbs);
-  const title = state.panel.mode === 'store' ? `${rowByKey(state.panel.id)?.brand || ''} ${rowByKey(state.panel.id)?.name || ''} · ` : '';
-  document.title = `${title}${breadcrumbText(crumbs)} · Grocery · CityMETER`;
+  // Tab title: what the view shows, then the product, ≤ 60 characters (LDS FAVICON-01, js/shell/title.js).
+  const r = state.panel.mode === 'store' ? rowByKey(state.panel.id) : null;
+  const place = crumbs[crumbs.length - 1].label;
+  document.title = pageTitle(r ? `${r.brand || ''} ${r.name || ''}`.trim() || place : `สาขา ${place}`);
   return crumbs;
 }
 
@@ -446,6 +471,8 @@ function pushHistory() { state.history.push({panel: {...state.panel}, sel: {...s
 
 function goBack() {
   cancelPendingSelectionFit();
+  // Every level change is a browser history entry (citymeter-shell): go up the way the browser's button does.
+  if (nav.canGoBack()) { nav.back(); return; }
   const previous = state.history.pop();
   if (!previous) { selectArea(parentSelection(state.sel), {push: false}); return; }
   state.panel = previous.panel; state.sel = previous.sel; state.focusKeys = previous.focusKeys; state.autoFocus = previous.autoFocus;
@@ -563,9 +590,9 @@ function onPanelAction(event) {
     case 'clear-filter': clearFilter(id); break;
     case 'crumb-country': selectArea({...NO_SELECTION}); break;
     case 'crumb-province': { const p = M().provinceByAbbr.get(id); if (p) selectArea({province: p.index}); break; }
-    case 'crumb-district': { const d = M().districtByCode.get(id); if (d) selectArea({district: d.index}); break; }
+    case 'crumb-area': { const d = M().districtByCode.get(id); if (d) selectArea({district: d.index}); break; }
     case 'crumb-unit': { const u = M().unitByKey.get(id); if (u) selectArea({unit: u.index}); break; }
-    case 'crumb-venue': { const v = M().venues.find(x => x.id === id); if (v) selectVenue(v.index); break; }
+    case 'crumb-site': { const v = M().venues.find(x => x.id === id); if (v) selectVenue(v.index); break; }
     case 'crumb-expand': { const ol = target.closest('.crumbs'); ol.classList.add('is-expanded'); target.setAttribute('aria-expanded', 'true'); ol.querySelector('.crumb:not(.crumb-more)')?.focus({preventScroll: true}); break; }
     default: break;
   }
@@ -1060,6 +1087,18 @@ function closeMobilePanel() {
 function validProvinceFrames(value) {
   if (value?.type !== 'FeatureCollection' || !Array.isArray(value.features)) return false;
   return value.features.every(f => f?.type === 'Feature' && (f.geometry?.type === 'Polygon' || f.geometry?.type === 'MultiPolygon') && M().provinceByCode.has(f.id || f.properties?.code));
+}
+
+/** Browser back / forward (citymeter-shell): show the level the restored address names. */
+function restoreFromHistory() {
+  cancelPendingSelectionFit();
+  for (const k of FIELDS) state.filters[k] = '';
+  Object.assign(state, {sel: {...NO_SELECTION}, metric: 'count', view: 'ranking', focusKeys: [], autoFocus: true, panel: {mode: 'overview', id: ''}, history: []});
+  restoreFromURL();
+  state.popup?.remove(); state.popup = null;
+  $('toggle-3d').setAttribute('aria-pressed', String(state.view3d));
+  update({fit: true});
+  if (state.panel.mode === 'store' || state.panel.mode === 'venue') armSelectionFit();
 }
 
 function wireEvents() {
