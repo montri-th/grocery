@@ -18,7 +18,7 @@ function productionFunction(start, end) {
 function restore(search, model = realModel()) {
   const state = {filters: {search: '', brand: '', type: '', format: ''}, sel: {...NO_SELECTION}, panel: {mode: 'overview', id: ''}, view: 'ranking'};
   const inputs = new Map(['search', 'brand', 'type', 'format'].map(id => [id, {}]));
-  const context = vm.createContext({state, location: {search}, URLSearchParams, M: () => model,
+  const context = vm.createContext({state, location: {search}, nav: {read: () => new URLSearchParams(search)}, URLSearchParams, M: () => model,
     NO_SELECTION, normalizeSelection, filterRows, hasPoint, FIELDS: ['search', 'brand', 'type', 'format'],
     rowByKey: key => model.rowByKey.get(key), $: id => inputs.get(id)});
   vm.runInContext([
@@ -38,7 +38,7 @@ test('a direct Megabangna URL restores its source administrative path and local 
     assert.equal(model.provinces[state.sel.province].code, '11');
     assert.equal(model.districts[state.sel.district].code, '1103');
     assert.equal(model.units[state.sel.unit].key, '04110302');
-    assert.deepEqual(buildBreadcrumb(model, state.sel, venue).map(c => c.level), ['country', 'province', 'district', 'unit', 'venue']);
+    assert.deepEqual(buildBreadcrumb(model, state.sel, venue).map(c => c.level), ['country', 'province', 'unit', 'site']);
     const scope = areaRows(model.rows, state.sel);
     assert.ok(scope.length > 0 && scope.length < model.rows.length, 'comparison starts in the member area, not the country');
   }
@@ -63,7 +63,7 @@ test('format-family URL roundtrips within BIG_C without creating or selecting a 
   assert.equal(filterRows(model.rows, state.filters).length, 17); assert.equal(model.brands.length, 17);
   let saved = '';
   const context = vm.createContext({state, M: () => model, URLSearchParams, FIELDS: ['search', 'brand', 'type', 'format'],
-    location: {pathname: '/'}, history: {replaceState(a, b, url) { saved = url; }}});
+    location: {pathname: '/'}, nav: {commit(p) { saved = `/?${p}`; }}});
   vm.runInContext(productionFunction('function saveURL()', 'function restoreFromURL()') + '\nsaveURL();', context);
   const query = new URL(saved, 'https://example.org').searchParams;
   assert.equal(query.get('format'), 'BIG_C_FOODPLACE'); assert.equal(query.get('brand'), 'BIG_C');
