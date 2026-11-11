@@ -53,7 +53,7 @@ import {renderOverview, renderUnit, renderVenue, renderStore, renderFilterChips,
 import {buildMapStyle, basemapPalette, TILEJSON_URL, MASSING_BEFORE} from './map-style.js?v=20261025-fp3';
 import {installMassing, outerRings} from './massing.js?v=20261025-fp3';
 import {presetFor, applyPreset, fitPitched, framePoint} from './camera.js?v=20261025-fp3';
-import {buildBreadcrumb, renderBreadcrumb, breadcrumbText} from './breadcrumb.js?v=20261111-r1';
+import {buildBreadcrumb, renderBreadcrumb, breadcrumbText} from './breadcrumb.js?v=20261112-r1';
 import {createCodec, createNavigator} from './shell/url.js';
 import {mapBudget, budgetPixelRatio, reloadOnContextLoss} from './shell/maplibre-guard.js';
 import {pageTitle} from './shell/title.js';
@@ -909,12 +909,53 @@ function installSpatialLayers() {
   } else deferredSelectionFit.run(spatialSelectionKey());
 }
 
+/**
+ * The map's attribution (OpenStreetMap, OpenMapTiles, CityMETER) must stay readable (owner 2026-11-12 00:36, the look
+ * on a phone; the other demos have kept the attribution clear this way before). On a phone:
+ * - the live heights of the attribution and of the key are --attrib-height and --legend-height on .map-panel;
+ * - where the key would stand over the attribution — open on load until the map is first moved, or folded to its
+ *   button on a narrow screen — the key and the finding stand above it (.is-key-lifted);
+ * - where the strip of map between the toolbar and the tray cannot hold the finding, the key and the attribution
+ *   together (the chart open), the finding gives way (.is-crowded): the panel states it too.
+ * Measured once a frame, outside the observer's own callback: hiding the finding changes a size it observes.
+ */
+function trackAttribution(map) {
+  const panel = map.getContainer().closest('.map-panel');
+  if (!panel || typeof ResizeObserver !== 'function') return null;
+  const attribution = map.getContainer().querySelector('.maplibregl-ctrl-attrib');
+  const legend = $('map-legend'), aha = $('map-aha'), tray = $('insights'), toolbar = panel.querySelector('.map-toolbar');
+  let ahaHeight = 0, frame = 0;
+  const set = () => {
+    frame = 0;
+    const phone = mobilePortrait();
+    const a = attribution?.getClientRects().length ? attribution.getBoundingClientRect() : null;
+    const k = legend?.getClientRects().length ? legend.getBoundingClientRect() : null;
+    const attribHeight = a ? Math.ceil(a.height) : 0, legendHeight = k ? Math.ceil(k.height) : 0;
+    panel.style.setProperty('--attrib-height', `${attribHeight}px`);
+    panel.style.setProperty('--legend-height', `${legendHeight}px`);
+    const lifted = phone && Boolean(a && k) && k.right > a.left - 4;        // side by side they need no lift
+    panel.classList.toggle('is-key-lifted', lifted);
+    if (!aha || !tray || !toolbar) return;
+    if (aha.offsetHeight) ahaHeight = aha.offsetHeight;                      // kept while the finding is out of the way
+    const room = tray.getBoundingClientRect().top - toolbar.getBoundingClientRect().bottom;
+    const need = 8 + ahaHeight + 8 + legendHeight + (lifted ? attribHeight + 14 : 8);
+    panel.classList.toggle('is-crowded', phone && ahaHeight > 0 && need > room);
+  };
+  const schedule = () => { if (!frame) frame = requestAnimationFrame(set); };
+  const observer = new ResizeObserver(schedule);
+  for (const element of [attribution, legend, aha, tray, toolbar]) if (element) observer.observe(element);
+  window.addEventListener('resize', schedule);
+  set();
+  return observer;
+}
+
 function initMap() {
   if (!window.maplibregl) throw new Error('Map library is unavailable');
   try {
     state.mapTheme = theme();
     state.map = new maplibregl.Map({container: 'map', pixelRatio: budgetPixelRatio(mapBudget()), maxTileCacheZoomLevels: mapBudget().cacheZoomLevels, bounds: THAILAND, fitBoundsOptions: {padding: 24}, pitch: 0, maxPitch: 85, attributionControl: {compact: true}, style: buildMapStyle(state.mapTheme)});
     state.map.addControl(new maplibregl.NavigationControl({showCompass: true, visualizePitch: true}), 'top-right');
+    state.attribObserver = trackAttribution(state.map);
     state.labels = installAreaLabels(state.map, $('map'), {onSelect: (lvl, index) => selectAreaByLevel(lvl, index, {fromMap: true}), reservedBottom: bottomSpace});
     state.pins = installStorePins(state.map, $('map'), {
       reservedBottom: bottomSpace,
