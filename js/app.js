@@ -53,7 +53,7 @@ import {renderOverview, renderUnit, renderVenue, renderStore, renderFilterChips,
 import {buildMapStyle, basemapPalette, TILEJSON_URL, MASSING_BEFORE} from './map-style.js?v=20261025-fp3';
 import {installMassing, outerRings} from './massing.js?v=20261025-fp3';
 import {presetFor, applyPreset, fitPitched, framePoint} from './camera.js?v=20261025-fp3';
-import {buildBreadcrumb, renderBreadcrumb, breadcrumbText} from './breadcrumb.js?v=20261109-r1';
+import {buildBreadcrumb, renderBreadcrumb, breadcrumbText} from './breadcrumb.js?v=20261111-r1';
 import {createCodec, createNavigator} from './shell/url.js';
 import {pageTitle} from './shell/title.js';
 import {fetchJSON, ensureProvinceGeo, provinceGeoNow, loadProvinceDetail} from './geo-store.js?v=20261025-fp3';
@@ -930,7 +930,7 @@ function initMap() {
     state.map.on('dragstart', cancelPendingSelectionFit);
     state.map.on('error', e => console.warn('Map resource', e.error?.message || e));
     // The same TileJSON MapLibre reads gives the tile template for the focus massing decoder.
-    fetch(TILEJSON_URL).then(r => r.json()).then(j => { state.tileTemplate = j.tiles?.[0] || ''; if (state.loaded) updateSpatialLayers(); }).catch(e => console.warn('TileJSON', e));
+    fetch(TILEJSON_URL).then(r => r.json()).then(j => { state.tileTemplate = j.tiles?.[0] || ''; if (state.loaded) updateSpatialLayers(); }).catch(e => { partial('basemap'); console.warn('TileJSON', e); });
   } catch (e) {
     state.loaded = false; state.initialCameraDone = false;
     for (const cleanup of [() => state.pins?.dispose(), () => state.labels?.dispose(), () => state.stores?.dispose(), () => state.xray?.dispose(), () => state.joinedBuildings?.dispose(), () => state.areas?.dispose(), () => state.massing?.dispose(), () => state.map?.remove()]) { try { cleanup(); } catch (err) { console.warn('Map cleanup', err); } }
@@ -1153,11 +1153,30 @@ function wireEvents() {
   matchMedia('(max-width: 760px) and (orientation: portrait)').addEventListener?.('change', () => { if (!mobilePortrait()) $('panel').classList.remove('is-open'); renderPanel(); });
 }
 
+/**
+ * A part of the data that did not load is said on the page (citymeter-shell 0.6.0, js/shell/launch.js
+ * `citymeter:partial`): what is missing and what that does to the result on screen, with a reload that keeps the
+ * address. The words live here, by file: [Thai name, Thai effect, English name, English effect].
+ */
+const PARTIAL = {
+  'data/geo/provinces.json': ['กรอบจังหวัด', 'แผนที่ไม่แสดงขอบจังหวัด', 'Province outlines', 'The map shows no province outlines'],
+  'basemap': ['แผนที่ฐาน', 'ถนน แหล่งน้ำ และอาคารพื้นหลังอาจไม่แสดง ข้อมูลในแผงและตารางยังใช้ได้', 'Basemap', 'Roads, water and background buildings may be missing; the panel and the table still work'],
+  'data/brand-logos.json': ['โลโก้แบรนด์', 'แสดงชื่อแทนโลโก้', 'Brand logos', 'Names are shown instead of logos'],
+  'data/venue-logos.json': ['โลโก้สถานที่', 'แสดงชื่อแทนโลโก้', 'Venue logos', 'Names are shown instead of logos'],
+};
+function partial(key) {
+  const words = PARTIAL[key];
+  if (!words || typeof window === 'undefined') return;
+  window.dispatchEvent(new CustomEvent('citymeter:partial', {detail: {id: key, label: words[0], effect: words[1], labelEn: words[2], effectEn: words[3]}}));
+}
+
 async function init() {
   try {
     const resources = ['data/grocery.json', 'data/areas.json', 'data/geo/provinces.json', 'data/brand-logos.json', 'data/venue-logos.json', 'data/retail-refresh.json'];
     const results = await Promise.allSettled(resources.map(r => fetchJSON(r)));
     for (const i of [0, 1, 5]) if (results[i].status === 'rejected') throw results[i].reason;
+    // A file that did not load is said on the page (citymeter-shell 0.6.0).
+    resources.forEach((r, i) => { if (results[i].status === 'rejected') partial(r); });
     state.model = buildModel(results[0].value, results[1].value, results[5].value);
     if (results[2].status === 'fulfilled' && validProvinceFrames(results[2].value)) state.provinceGeo = results[2].value;
     else { state.provinceGeo = {type: 'FeatureCollection', features: []}; console.warn('Province frames unavailable', results[2].reason || 'invalid'); }
