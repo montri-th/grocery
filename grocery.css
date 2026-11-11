@@ -83,9 +83,9 @@
 /* ---------- store pins: type colours (data-type) ---------- */
 .store-pin { --pin-fill: var(--type-c-store); }
 
-/* Mobile portrait: the legend carries the metric switch, so the compact Aha card sits above both rows. */
+/* Mobile portrait: the legend carries the metric switch; the compact Aha card sits above both rows by the key's live
+   height (--legend-height, styles.css). */
 @media (max-width: 760px) and (orientation: portrait) {
-  .map-aha { bottom: calc(var(--bottom-panel-height) + 104px); }
   .map-legend .legend-block#legend-areas { gap: 4px 8px; }
   .metric-switch.compact { margin-top: 2px; }
 }

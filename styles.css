@@ -451,6 +451,14 @@ td small { display: block; color: var(--text-metadata); font-size: 12px; margin-
   .map-aha h2 { font-size: 14px; line-height: 1.4; font-family: var(--font-body); font-weight: 600; }
   .map-aha p { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
   .map-aha .map-aha-crumb { font-size: 11px; color: var(--text-metadata); margin: 0 0 2px; }
+  /* The key and the finding keep clear of each other by the key's live height, and of the map's attribution where the
+     key would stand over it: open on load until the map is first moved, or folded on a narrow screen (.is-key-lifted,
+     --legend-height and --attrib-height: trackAttribution in js/app.js; the attribution's own margin is 10 px). */
+  .map-aha { bottom: calc(var(--bottom-panel-height) + var(--legend-height, 98px) + 16px); }
+  .map-panel.is-key-lifted .map-legend { bottom: calc(var(--bottom-panel-height) + var(--attrib-height, 40px) + 14px); }
+  .map-panel.is-key-lifted .map-aha { bottom: calc(var(--bottom-panel-height) + var(--attrib-height, 40px) + var(--legend-height, 98px) + 22px); }
+  /* A strip of map too short for the finding, the key and the attribution together (the chart open): the finding gives way. */
+  .map-panel.is-crowded .map-aha { display: none; }
   .crumbs-nav { margin-bottom: 4px; }
   .crumbs.is-collapsible:not(.is-expanded) .is-collapsible { display: none; }
   .crumbs.is-collapsible:not(.is-expanded) .crumb-ellipsis { display: inline-flex; }
