@@ -53,10 +53,13 @@ import {renderOverview, renderUnit, renderVenue, renderStore, renderFilterChips,
 import {buildMapStyle, basemapPalette, TILEJSON_URL, MASSING_BEFORE} from './map-style.js?v=20261025-fp3';
 import {installMassing, outerRings} from './massing.js?v=20261025-fp3';
 import {presetFor, applyPreset, fitPitched, framePoint} from './camera.js?v=20261025-fp3';
-import {buildBreadcrumb, renderBreadcrumb, breadcrumbText} from './breadcrumb.js?v=20261112-r1';
+import {buildBreadcrumb, renderBreadcrumb, breadcrumbText} from './breadcrumb.js?v=20261112-r9';
 import {createCodec, createNavigator} from './shell/url.js';
 import {mapBudget, budgetPixelRatio, reloadOnContextLoss} from './shell/maplibre-guard.js';
 import {pageTitle} from './shell/title.js';
+import {createIndex} from './shell/fuzzy.js';
+import {installSearch} from './shell/search.js';
+import {SEARCH_KINDS, SEARCH_HEADS, SEARCH_HINT, searchEntries, searchNote} from './find.js?v=20261112-r9';
 import {fetchJSON, ensureProvinceGeo, provinceGeoNow, loadProvinceDetail} from './geo-store.js?v=20261025-fp3';
 import {createSpatialStore, selectSpatialBuildings, buildingFact, referenceBuildingFact} from './spatial-store.js?v=20261025-fp3';
 import {installSpatialBuildings, BUILDING_LAYERS} from './spatial-layer.js?v=20261025-fp3';
@@ -86,6 +89,7 @@ const state = {
   pins: null, stores: null, areas: null, labels: null, massing: null, joinedBuildings: null, xray: null, popup: null,
   storeDetail: null,
   spatial: {key: '', loading: false, summary: null},
+  finder: null,
 };
 const spatialData = createSpatialStore();
 let spatialRequest = 0;
@@ -302,6 +306,7 @@ function update({fit = false} = {}) {
   drawChart();
   renderTable();
   saveURL();
+  state.finder?.sync();
   ensureGeometry();
   announce(`${breadcrumbText(currentCrumbs())}: ${num(state.scopeRows.length)} สาขา`);
 }
@@ -1145,6 +1150,59 @@ function restoreFromHistory() {
   if (state.panel.mode === 'store' || state.panel.mode === 'venue') armSelectionFit();
 }
 
+/**
+ * The search box (0.5.0; owner 2026-11-12 12:05, VERBATIM: “ศึกษาแนวคิดเรื่อง Fuzzy search แล้ว implement กับ demo web
+ * ให้ได้ user benefit สูงสุดตาม user intent ในขณะนั้น และตาม product statement”). A name typed is listed with what it is
+ * and where (js/shell/search.js, names from js/find.js) and opens the level that asks the product statement's
+ * question again: a province, a เขต/อำเภอ, an อปท. or a ย่าน its stores against its people; a brand, a store type or a
+ * store format the same reading for that part of the market; a place that hosts stores, and a store, their pages.
+ * The map and the panel no longer change while the reader is still typing.
+ */
+/** How many stores a set of filter values keeps in the province being read ('' is the whole country). */
+function keptBy(v) {
+  const rows = filterRows(M().rows, v), p = v.province ? M().provinceByAbbr.get(v.province) : null;
+  return p ? rows.filter(r => r.p === p.index).length : rows.length;
+}
+const findValues = () => ({...state.filters, search: $('search').value.trim(), province: province()?.abbr || ''});
+function openFound(entry) {
+  const m = M();
+  // The list has lifted the words (the text was a name): the filter state follows the box.
+  state.filters.search = $('search').value.trim();
+  // A filter chosen by name is shown for the whole province being read: the เขต/อำเภอ or อปท. is left and the filters
+  // that would leave it no store are lifted first (js/shell/search.js#makeWay).
+  const way = (field, id) => state.finder.makeWay(field, id);
+  // A store or a place chosen by name always opens: the filters it does not pass are lifted first, and the rows are
+  // worked out again when they (or the words) changed.
+  const clear = rows => { state.finder.makeWayFor(v => filterRows(rows, v).length); if (JSON.stringify(state.filters) !== state.filterKey) update(); };
+  if (entry.kind === 'province') selectArea({province: m.provinceByAbbr.get(entry.id).index});
+  else if (entry.kind === 'district') selectArea({district: m.districtByCode.get(entry.id).index});
+  else if (entry.kind === 'locale' || entry.kind === 'unit') selectArea({unit: entry.unit.index});
+  else if (entry.kind === 'brand' || entry.kind === 'type' || entry.kind === 'format') { way(entry.kind, entry.id); setFilter(entry.kind, entry.id); }
+  else if (entry.kind === 'venue') { clear(m.rows.filter(r => r.v === entry.id)); selectVenue(entry.id); }
+  else if (entry.kind === 'store') { clear([entry.row]); selectStore(entry.id); }
+}
+function installFinder() {
+  try {
+    state.finder = installSearch({
+      input: $('search'),
+      index: createIndex({kinds: SEARCH_KINDS, heads: SEARCH_HEADS}),
+      entries: () => searchEntries(M()),
+      note: entry => searchNote(entry, M()),
+      // What the reader is looking at comes first among equal names.
+      scope: () => ({province: province()?.abbr || ''}),
+      rows: text => keptBy({...findValues(), search: text}),
+      unit: 'สาขา',
+      hint: SEARCH_HINT,
+      pick: openFound,
+      // A filter or words chosen from the list: the เขต/อำเภอ or อปท. being looked at is left for its province; the
+      // filters that may be lifted for it are these — never the province (a province without it is a reading of it).
+      filters: {fields: ['brand', 'type', 'format'], values: findValues, count: keptBy,
+        leave: () => { if (state.sel.district >= 0) selectArea({province: state.sel.province}); },
+        lift: f => { state.filters[f] = ''; $(f).value = ''; }},
+    });
+  } catch (e) { state.finder = null; console.warn('Search list unavailable', e); }
+}
+
 function wireEvents() {
   for (const type of ['mousedown', 'touchstart', 'wheel']) $('map').addEventListener(type, cancelPendingSelectionFit, {capture: true, passive: true});
   window.addEventListener('pagehide', e => { if (!e.persisted) { spatialRequest++; spatialData.dispose(); } });
@@ -1155,7 +1213,8 @@ function wireEvents() {
       state.filters[f] = $(f).value.trim ? $(f).value.trim() : $(f).value;
       if (state.panel.mode === 'store' || state.panel.mode === 'venue') { state.panel = areaPanel(); state.history = []; }
       update({fit: false});
-    }, f === 'search' ? 200 : 0);
+      // With the list, the words arrive whole (Enter or the list's last row); without it the box filters as it is typed in.
+    }, f === 'search' && !state.finder ? 200 : 0);
   });
   $('province').addEventListener('change', () => { const p = M().provinceByAbbr.get($('province').value); selectArea(p ? {province: p.index} : {...NO_SELECTION}); });
   $('district').addEventListener('change', () => { const d = M().districtByCode.get($('district').value); selectArea(d ? {district: d.index} : {province: state.sel.province}); });
@@ -1241,6 +1300,7 @@ async function init() {
     try { $('theme').value = localStorage.getItem('citymeter-grocery-theme') || 'auto'; } catch {}
     applyTheme();
     wireEvents();
+    installFinder();
     update();
     if (state.panel.mode === 'store' || state.panel.mode === 'venue') armSelectionFit();
     if (state.panel.mode !== 'overview') openMobilePanel();
@@ -1253,6 +1313,6 @@ async function init() {
 }
 
 // Developer hook for live tuning in a browser console (not an API; may change without notice).
-window.__citymeter = {state, get map() { return state.map; }, get xray() { return state.xray; }, update, fitCurrent, frameVenue, toggleTwoPoint, updateSpatialLayers, applyPreset: (name, opts) => state.map && applyPreset(state.map, name, opts), fitPitched: (b, opts) => state.map && fitPitched(state.map, b, opts), cameraPadding, buildMapStyle, selectArea, selectStore, selectVenue};
+window.__citymeter = {state, get map() { return state.map; }, get xray() { return state.xray; }, get finder() { return state.finder; }, update, fitCurrent, frameVenue, toggleTwoPoint, updateSpatialLayers, applyPreset: (name, opts) => state.map && applyPreset(state.map, name, opts), fitPitched: (b, opts) => state.map && fitPitched(state.map, b, opts), cameraPadding, buildMapStyle, selectArea, selectStore, selectVenue};
 
 init();
